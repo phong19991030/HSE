@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:amq="http://activemq.apache.org/schema/core"
+	default-autowire="byName"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/jms 
+       http://www.springframework.org/schema/jms/spring-jms.xsd
+       http://activemq.apache.org/schema/core 
+       http://activemq.apache.org/schema/core/activemq-core.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<context:property-placeholder
+		location="classpath:queueInfo.properties" />
+		
+	<!-- Embedded ActiveMQ Broker -->
+    <amq:broker id="broker" useJmx="false" persistent="true">
+    
+    	<amq:networkConnectors>
+        	<amq:networkConnector name="linkToBrokerServer1" uri="static:(${broker.url})" 
+        	userName="${broker.userName}" password="${broker.password}">
+	        	<amq:staticallyIncludedDestinations>
+	            	<amq:queue physicalName="${broker.destinationQueue}"/>
+	        	</amq:staticallyIncludedDestinations>
+      		</amq:networkConnector>
+        </amq:networkConnectors>
+        
+        <amq:persistenceAdapter>
+        	<amq:kahaDB directory="/home/ubuntu/activemq-data" journalMaxFileLength="32mb"></amq:kahaDB>
+        </amq:persistenceAdapter>
+    
+        <amq:transportConnectors>
+            <amq:transportConnector uri="${broker.local.url}" />
+        </amq:transportConnectors>
+        
+    </amq:broker>
+
+</beans>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common.systemalarm">
+	
+	
+	<select id="getSensorError" parameterType="map" resultType="HashMap">
+		SELECT E.CHECK_ID
+		     , F.FARM_ID
+		     , F.FARM_NM
+		     , G.GROUP_ID
+		     , G.GROUP_NM
+		     , T.GERATOR_ID
+		     , T.GERATOR_NM  
+		     , DATE_FORMAT(CONVERT_TZ(E.OCCUR_START, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d') AS DATE
+		     , DATE_FORMAT(CONVERT_TZ(E.OCCUR_START, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%T') AS START
+		     , DATE_FORMAT(CONVERT_TZ(E.OCCUR_END, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%T') AS END
+		     , E.CHECK_TIME
+		     , E.SENSOR_NM
+		     , E.SENSOR_ID
+		     , E.ERR_POINT_CNT
+		     , E.MAX_VALUE
+		     , E.MIN_VALUE
+		     , E.ERR_VALUE
+		     , E.ERR_STATE
+		     , E.UNIT
+		     , E.KEYWORD
+		     , M.STATE
+		FROM WT_GERATOR_SENSOR_ERR E
+		LEFT JOIN TSST_SYSTEM_ALARM_STATE M
+		    ON M.MESSAGE_ID = E.CHECK_ID
+		    AND M.USER_UID = #{USER_UID}
+		LEFT JOIN WT_GERATOR T
+		    ON T.GERATOR_ID = E.GERATOR_ID
+		LEFT JOIN WT_GROUP G
+		    ON G.GROUP_ID = T.GROUP_ID
+		LEFT JOIN WT_FARM F
+		    ON F.FARM_ID = G.FARM_ID    
+		WHERE (
+		    E.OCCUR_START &gt;= #{FROM}
+		    AND E.OCCUR_START &lt;= #{TO}
+		)
+		AND (
+		    M.STATE IS NULL 
+		    OR M.STATE = 'read'
+		)
+		AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID)
+		ORDER BY E.OCCUR_START DESC
+	</select>
+	
+	<select id="getScadaAlarm" parameterType="map" resultType="HashMap">
+		SELECT E.EVENT_ID
+		     , E.WT_ALARM_ID
+		     , E.STATUS
+		     , DATE_FORMAT(CONVERT_TZ(E.INS_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T') AS DATETIME
+		     , E.GERATOR_ID
+		     , T.GERATOR_NM
+		     , CONCAT(AG.ALARM_TP, AG.MANUFAR, AG.CAPACITY, A.ALARM_SUB_CD) AS ALARM_CODE
+		     , A.ALARM_TXT
+		     , A.SUGGEST
+		     , A.DESCRPT
+		     , M.STATE
+		FROM WT_EVNT_MGMT E
+		LEFT JOIN TSST_SYSTEM_ALARM_STATE M
+		    ON M.MESSAGE_ID = E.EVENT_ID
+		    AND M.USER_UID = #{USER_UID}
+		LEFT JOIN WT_GERATOR T
+		    ON T.GERATOR_ID = E.GERATOR_ID
+		LEFT JOIN WT_ALARM_CD A
+		    ON A.WT_ALARM_ID = E.WT_ALARM_ID
+		LEFT JOIN WT_ALARM_GR_CD AG
+		    ON AG.WT_ALARM_GR_ID = A.WT_ALARM_GR_ID
+		WHERE (
+		    E.INS_DT &gt;= #{FROM}
+		    AND E.INS_DT &lt;= #{TO}
+		)
+		AND (
+		    M.STATE IS NULL
+		    OR M.STATE = 'read'
+		)
+		AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID)
+		ORDER BY E.INS_DT DESC
+	</select>
+	
+	<select id="getNotice" parameterType="map" resultType="HashMap">
+		SELECT N.NOTICE_ID
+		     , N.NOTICE_TIT
+		     , N.NOTICE_CONT
+		     , U.USER_ID
+		     , I.USER_NM
+		     , DATE_FORMAT(CONVERT_TZ(N.INS_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T') AS DATETIME
+		     , M.STATE
+		FROM WT_NOTICE N
+		LEFT JOIN TSST_SYSTEM_ALARM_STATE M
+		    ON M.MESSAGE_ID = N.NOTICE_ID
+		    AND M.USER_UID = #{USER_UID}
+		LEFT JOIN TSST_USER U
+		    ON U.USER_UID = N.INS_ID
+		LEFT JOIN TSST_USER_INFO I
+		    ON I.USER_ID = U.USER_ID
+		WHERE (
+		    N.INS_DT &gt;= #{FROM}
+		    AND N.INS_DT &lt;= #{TO}
+		)
+		AND (
+		    M.STATE IS NULL
+		    OR M.STATE = 'read'
+		)
+		ORDER BY N.INS_DT DESC
+	</select>
+	
+	<insert id="insertAllAlarmHistory" parameterType="map">
+			INSERT INTO TSST_SYSTEM_ALARM_STATE(MESSAGE_ID, USER_UID, INS_DT, STATE)
+			VALUES
+		<foreach collection="ALARM_LIST" item="item" separator=", " open="" close="">
+			(#{item.MESSAGE_ID}, #{USER_UID}, now(), #{STATE})	
+		</foreach>
+	</insert>
+	
+	
+	<update id="updateAlarmHistory"  parameterType="map">
+		UPDATE 	TSST_SYSTEM_ALARM_STATE
+		SET    	STATE = #{STATE}
+        WHERE 	MESSAGE_ID = #{MESSAGE_ID}
+        AND USER_UID = #{USER_UID}
+	</update>
+	
+	
+	<update id="updateAllAlarmHistory"  parameterType="map">
+		UPDATE TSST_SYSTEM_ALARM_STATE
+			SET STATE = #{STATE}
+		WHERE 
+			USER_UID IN (#{USER_UID})
+		AND 
+			MESSAGE_ID IN 
+		<foreach collection="ALARM_LIST" item="item" separator=", " open="(" close=")">
+			#{item.MESSAGE_ID}	
+		</foreach>
+	</update>
+	
+</mapper>

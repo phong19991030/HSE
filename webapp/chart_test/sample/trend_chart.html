@@ -1,0 +1,82 @@
+<script src="../js/moment.min.js"></script>
+<script src="../js/moment-timezone.min.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js_custom/util.js"></script>
+
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/export-data.js"></script> 
+
+
+<div id="container" style="width: 100%; height: 700px;"></div>
+<button id="hide">hide</button>
+<div id="show_btn_zone">
+</div>
+
+
+<script>
+    
+    var series_config = [
+        {
+            name: 'test1',
+            max: 10,
+            min: 5,
+            decimal: 2,
+        },
+        {
+            name: 'test2', 
+            max: 15,
+            min: 10,
+            decimal: 2,
+        }
+    ];
+    
+    $(document).ready(function() {
+        var arr = createDateArray('2020-05-01', '2020-05-25', 'Asia/Seoul', 'day', 1);
+    
+        var series = createInitData.trend_chart(arr, series_config);
+
+        var options = createChartOption('trend_chart');
+
+        options.series = series;
+
+
+        //chart = $('#container').highcharts('StockChart', options); 
+        //chart = $('#container').highcharts('chart', options); 
+        chart = Highcharts.chart('container', options);
+        //chart = Highcharts.stockChart('container', options);
+        
+        
+        drawChartAfter();    
+        
+        $('#hide').click(hide);
+    });
+    
+    function hide() {
+        
+        if(click_series) {
+            
+            chart.get(click_series).update({marker: {lineWidth: 0,lineColor: '#ffffff'}});
+            chart.get(click_series).hide();    
+            $('#show_btn_zone').append('<button id="'+click_series+'">show '+ click_series+'</button>');
+            
+            $('#'+click_series).click(function(){
+                var id = $(this).attr('id');
+                chart.get(id).show();
+                $(this).remove();                
+            });
+            
+            click_series = null;
+        } else {
+            alert('Select Series');
+        }
+        
+    }
+    
+</script>
+
+
+
+
+
+</html>

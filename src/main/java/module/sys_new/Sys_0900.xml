@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sys_new.sys0900">
+
+	<select id="getGroupCodeList" parameterType="map" resultType="HashMap">
+		SELECT SUB.*
+		FROM (
+		    SELECT GC.WT_ALARM_GR_ID
+		         , CONCAT(GC.ALARM_TP, GC.MANUFAR, GC.CAPACITY) AS ALARM_GROUP_CODE
+		         , GC.ALARM_NM
+		         , GC.DESCRPT
+		         , U.USER_UID
+		         , U.USER_ID
+		         , DATE_FORMAT(CONVERT_TZ(GC.INS_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS INS_DATETIME
+		         , DATE_FORMAT(CONVERT_TZ(GC.UPT_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS UPT_DATETIME
+		         , IFNULL(AC.ALARM_CNT, 0) AS ALARM_CNT
+		         , M.MODEL_ID
+		         , M.MODEL_NM
+		         , MC.COMPANY_ID AS MANUFACTURER_ID
+		         , MC.COMPANY_NM AS MANUFACTURER_NM
+		         , ROW_NUMBER() OVER (ORDER BY GC.INS_DT DESC) AS RN
+		    FROM WT_ALARM_GR_CD GC
+		    LEFT JOIN TSST_USER U
+		        ON U.USER_UID = GC.INS_USER
+		    LEFT JOIN (
+		        SELECT WT_ALARM_GR_ID
+		             , COUNT(*) AS ALARM_CNT
+		        FROM WT_ALARM_CD
+		        GROUP BY WT_ALARM_GR_ID
+		    ) AC
+		        ON AC.WT_ALARM_GR_ID = GC.WT_ALARM_GR_ID
+		    LEFT JOIN WT_GERATOR_MODEL M
+		        ON M.MODEL_ID = GC.MODEL_ID
+		    LEFT JOIN WT_COMPANY MC
+		        ON MC.COMPANY_ID = M.MANUFACTURER_ID
+		    <where>
+		    	<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+		    		AND (
+				        CONCAT(GC.ALARM_TP, GC.MANUFAR, GC.CAPACITY) LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+				        OR GC.ALARM_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+				        OR M.MODEL_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+				        OR MC.COMPANY_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+				    )
+		    	</if>
+		    	<if test="SEARCH_GROUP_CODE != null and SEARCH_GROUP_CODE != '' ">
+			    	AND CONCAT(GC.ALARM_TP, GC.MANUFAR, GC.CAPACITY) LIKE CONCAT('%', #{SEARCH_GROUP_CODE}, '%') 
+ 			    </if> 
+ 			    <if test="SEARCH_ALARM_NM != null and SEARCH_ALARM_NM != '' "> 
+ 		    		AND GC.ALARM_NM LIKE CONCAT('%',#{SEARCH_ALARM_NM},'%')
+ 		    	</if> 
+		    </where>
+		) SUB
+		WHERE SUB.RN BETWEEN (#{PAGE}-1) * #{PAGE_SIZE}+1 and (#{PAGE} * #{PAGE_SIZE})
+		ORDER BY SUB.RN ASC
+	</select>
+	
+	<select id="getGroupCodeCnt" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM WT_ALARM_GR_CD GC
+		LEFT JOIN TSST_USER U
+		    ON U.USER_UID = GC.INS_USER
+		LEFT JOIN (
+		    SELECT WT_ALARM_GR_ID
+		         , COUNT(*) AS ALARM_CNT
+		    FROM WT_ALARM_CD
+		    GROUP BY WT_ALARM_GR_ID
+		) AC
+		    ON AC.WT_ALARM_GR_ID = GC.WT_ALARM_GR_ID
+		LEFT JOIN WT_GERATOR_MODEL M
+		    ON M.MODEL_ID = GC.MODEL_ID
+		LEFT JOIN WT_COMPANY MC
+		    ON MC.COMPANY_ID = M.MANUFACTURER_ID
+		<where>
+	    	<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+	    		AND (
+			        CONCAT(GC.ALARM_TP, GC.MANUFAR, GC.CAPACITY) LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+			        OR GC.ALARM_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+			        OR M.MODEL_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+			        OR MC.COMPANY_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+			    )
+	    	</if>
+	    </where>
+	</select>
+	
+	
+	<!-- POPUP -->
+	<!-- <select id="duplicateCheckRoleID" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM TSST_ROLE_MGT
+		WHERE ROLE_ID = #{ROLE_ID}
+		수정 일 경우, USER_UID를 같이 던져 이이전 ID는 중복체크 제외
+		<if test="PREV_ROLE_ID != null and PREV_ROLE_ID != '' ">
+			AND ROLE_ID != #{PREV_ROLE_ID}
+		</if>
+	</select> -->
+	
+	<select id="getTurbineModelList" parameterType="map" resultType="HashMap">
+		SELECT M.MODEL_ID
+		     , M.MODEL_NM
+		     , M.POWER
+		     , M.ROTOR_D
+		     , M.TOWER_H
+		
+		     , MF.FLE_PATH      AS MODEL_FLE_PATH
+		     , MF.NEW_FLE_NM    AS MODEL_NEW_FLE_NM
+		
+		     , M.MANUFACTURER_ID
+		     , C.COMPANY_NM     AS MANUFACTURER_NM
+		     , CF.FLE_PATH      AS MANUFACTURER_FLE_PATH
+		     , CF.NEW_FLE_NM    AS MANUFACTURER_NEW_FLE_NM
+		
+			 , IF(LENGTH(MC.MANUFACTURER_CODE) > 1, CAST(MC.MANUFACTURER_CODE AS CHAR), CONCAT('0', MC.MANUFACTURER_CODE)) AS MANUFACTURER_CODE
+		     , IF(LENGTH(M.MODEL_CODE) > 1, CAST(M.MODEL_CODE AS CHAR), CONCAT('0', M.MODEL_CODE)) AS MODEL_CODE
+		     , CONCAT(IF(TRUNCATE(M.POWER, 0) > 0, TRUNCATE(M.POWER, 0), ''), IF(M.POWER % 1 > 0, CONCAT('0', SUBSTRING_INDEX(M.POWER, '.', -1)), '')) AS CAPACITY_CODE
+		FROM WT_GERATOR_MODEL M
+		LEFT JOIN TCCO_FILE MF
+		    ON MF.ATCH_FLE_SEQ = M.IMG
+		LEFT JOIN WT_COMPANY C
+		    ON C.COMPANY_ID = M.MANUFACTURER_ID
+		LEFT JOIN TCCO_FILE CF
+		    ON CF.ATCH_FLE_SEQ = C.LOGO
+		LEFT JOIN WT_MANUFACTURER_CODE MC
+    		ON MC.COMPANY_ID = C.COMPANY_ID
+		<where>
+	    	<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+	    		C.COMPANY_NM LIKE CONCAT('%',#{SEARCH_ALL},'%')
+		    	OR M.MODEL_NM LIKE CONCAT('%',#{SEARCH_ALL},'%')
+	    	</if>
+	    </where>
+		ORDER BY C.COMPANY_NM ASC
+	</select>
+	
+	<select id="duplicateCheckAlarmSubCode" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM WT_ALARM_CD
+		WHERE ALARM_SUB_CD = #{ALARM_SUB_CD}
+		AND WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+		<if test="WT_ALARM_ID != null and WT_ALARM_ID != '' ">
+			AND WT_ALARM_ID != #{WT_ALARM_ID}
+		</if>
+	</select>
+	<!-- //POPUP -->
+	
+	<!-- 등록 & 수정 -->
+	<insert id="insertAlarmGroupCode" parameterType="map">
+		BEGIN NOT ATOMIC
+		DECLARE result VARCHAR(20);
+		CALL proc_gen_id('ALARM_CD_SEQ', @result);
+		
+		<selectKey keyProperty="WT_ALARM_GR_ID" resultType="String" order="AFTER">
+			SELECT @result;
+		</selectKey>
+		
+		INSERT INTO WT_ALARM_GR_CD
+		(
+		    WT_ALARM_GR_ID,
+		    ALARM_TP,
+		    MANUFAR,
+		    CAPACITY,
+		    ALARM_NM,
+		    DESCRPT,
+		    INS_DT,
+		    INS_USER,
+		    MODEL_ID
+		)
+		VALUES
+		(
+		    @result,
+		    #{MODEL_CODE},
+		    #{MANUFACTURER_CODE},
+		    #{CAPACITY_CODE},
+		    #{ALARM_NM},
+		    #{DESCRPT},
+		    CURRENT_TIMESTAMP(),
+		    #{session.USER_UID},
+		    #{MODEL_ID}
+		);
+		END;
+	</insert>
+	
+	<update id="updateAlarmGroupCode" parameterType="map">
+		UPDATE WT_ALARM_GR_CD AG
+		SET AG.MODEL_ID = #{MODEL_ID}
+		  , AG.ALARM_TP = #{MODEL_CODE}
+		  , AG.MANUFAR = #{MANUFACTURER_CODE}
+		  , AG.CAPACITY = #{CAPACITY_CODE}
+		  , AG.ALARM_NM = #{ALARM_NM}
+		  , AG.DESCRPT = #{DESCRPT}
+		  , AG.UPT_DT = CURRENT_TIMESTAMP()
+		WHERE AG.WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+	</update>
+	
+	<delete id="deleteAlarmGroupCode" parameterType="map">
+		DELETE
+		FROM WT_ALARM_GR_CD
+		WHERE WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+	</delete>
+	
+	
+	<insert id="insertAlarmCode" parameterType="map">
+		BEGIN NOT ATOMIC
+		DECLARE result VARCHAR(20);
+		CALL proc_gen_id('ALARM_SUB_SEQ', @result);
+
+		<selectKey keyProperty="WT_ALARM_ID" resultType="String" order="AFTER">
+    		SELECT @result;
+    	</selectKey>
+
+		INSERT INTO WT_ALARM_CD
+		(
+		    WT_ALARM_ID,
+		    WT_ALARM_GR_ID,
+		    ALARM_SUB_CD,
+		    ALARM_TXT,
+		    SUGGEST,
+		    DESCRPT,
+		    INS_DT
+		)
+		VALUES
+		(
+		    @result,
+		    #{WT_ALARM_GR_ID},
+		    #{ALARM_SUB_CD},
+		    #{ALARM_TXT},
+		    #{ALARM_DESCRPT},
+		    #{ALARM_SUGGEST},
+		    #{INS_DT_UTC}
+		);
+		
+		
+		<if test="ALARM_ACTION_LIST != null and ALARM_ACTION_LIST.size != 0">
+			INSERT INTO WT_ALARM_ACTION2
+			(WT_ALARM_ID, NUM, ACTION_NM)
+			VALUES
+			<foreach collection="ALARM_ACTION_LIST" index="index" item="ACTION" separator=",">
+				(@result, #{index}+1, #{ACTION.ACTION_NM})
+			</foreach>
+			;
+		</if>
+		
+		<if test="ALARM_PART_LIST != null and ALARM_PART_LIST.size != 0">
+			INSERT INTO WT_ALARM_PART
+			(WT_ALARM_ID, NUM, PART_NM)
+			VALUES
+			<foreach collection="ALARM_PART_LIST" index="index" item="PART" separator=",">
+				(@result, #{index}+1, #{PART.PART_NM})
+			</foreach>
+			;
+		</if>
+		
+		<if test="ALARM_TOOL_LIST != null and ALARM_TOOL_LIST.size != 0">
+			INSERT INTO WT_ALARM_TOOL2
+			(WT_ALARM_ID, NUM, TOOL_NM)
+			VALUES
+			<foreach collection="ALARM_TOOL_LIST" index="index" item="TOOL" separator=",">
+				(@result, #{index}+1, #{TOOL.TOOL_NM})
+			</foreach>
+			;
+		</if>
+		
+		<if test="ALARM_PPE_LIST != null and ALARM_PPE_LIST.size != 0">
+			INSERT INTO WT_ALARM_PPE2
+			(WT_ALARM_ID, NUM, PPE_NM)
+			VALUES
+			<foreach collection="ALARM_PPE_LIST" index="index" item="PPE" separator=",">
+				(@result, #{index}+1, #{PPE.PPE_NM})
+			</foreach>
+			;
+		</if>
+		
+		END;
+	</insert>
+	
+	<update id="updateAlarmCode" parameterType="map">
+		BEGIN NOT ATOMIC
+		
+		DELETE
+	    FROM WT_ALARM_ACTION2
+	    WHERE WT_ALARM_ID = #{WT_ALARM_ID};
+	
+	    DELETE
+	    FROM WT_ALARM_PART
+	    WHERE WT_ALARM_ID = #{WT_ALARM_ID};
+	
+	    DELETE
+	    FROM WT_ALARM_TOOL2
+	    WHERE WT_ALARM_ID = #{WT_ALARM_ID};
+	
+	    DELETE
+	    FROM WT_ALARM_PPE2
+	    WHERE WT_ALARM_ID = #{WT_ALARM_ID};
+	
+	    UPDATE WT_ALARM_CD AC
+	    SET AC.ALARM_SUB_CD = #{ALARM_SUB_CD}
+	      , AC.ALARM_TXT = #{ALARM_TXT}
+	      , AC.SUGGEST = #{ALARM_SUGGEST}
+	      , AC.DESCRPT = #{ALARM_DESCRPT}
+	     WHERE AC.WT_ALARM_ID = #{WT_ALARM_ID};
+
+		<if test="ALARM_ACTION_LIST != null and ALARM_ACTION_LIST.size != 0">
+			INSERT INTO WT_ALARM_ACTION2
+			(WT_ALARM_ID, NUM, ACTION_NM)
+			VALUES
+			<foreach collection="ALARM_ACTION_LIST" index="index" item="ACTION" separator=",">
+				(#{WT_ALARM_ID}, #{index}+1, #{ACTION.ACTION_NM})
+			</foreach>
+			;
+		</if>
+		
+		<if test="ALARM_PART_LIST != null and ALARM_PART_LIST.size != 0">
+			INSERT INTO WT_ALARM_PART
+			(WT_ALARM_ID, NUM, PART_NM)
+			VALUES
+			<foreach collection="ALARM_PART_LIST" index="index" item="PART" separator=",">
+				(#{WT_ALARM_ID}, #{index}+1, #{PART.PART_NM})
+			</foreach>
+			;
+		</if>
+		
+		<if test="ALARM_TOOL_LIST != null and ALARM_TOOL_LIST.size != 0">
+			INSERT INTO WT_ALARM_TOOL2
+			(WT_ALARM_ID, NUM, TOOL_NM)
+			VALUES
+			<foreach collection="ALARM_TOOL_LIST" index="index" item="TOOL" separator=",">
+				(#{WT_ALARM_ID}, #{index}+1, #{TOOL.TOOL_NM})
+			</foreach>
+			;
+		</if>
+		
+		<if test="ALARM_PPE_LIST != null and ALARM_PPE_LIST.size != 0">
+			INSERT INTO WT_ALARM_PPE2
+			(WT_ALARM_ID, NUM, PPE_NM)
+			VALUES
+			<foreach collection="ALARM_PPE_LIST" index="index" item="PPE" separator=",">
+				(#{WT_ALARM_ID}, #{index}+1, #{PPE.PPE_NM})
+			</foreach>
+			;
+		</if>
+
+		END;
+	</update>
+	
+	<delete id="deleteAlarmCode" parameterType="map">
+		DELETE
+		FROM WT_ALARM_CD
+		WHERE WT_ALARM_ID = #{WT_ALARM_ID}
+	</delete>
+	<!-- //등록 & 수정 -->
+	
+	<!-- 상세 -->
+	<select id="getAlarmGroupCodeInfo" parameterType="map" resultType="HashMap">
+		SELECT AG.WT_ALARM_GR_ID
+		     , AG.ALARM_NM
+		     , AG.DESCRPT
+		     , DATE_FORMAT(CONVERT_TZ(AG.INS_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS INS_DT
+		     , M.MODEL_ID
+		     , M.MODEL_NM
+		     , C.COMPANY_ID AS MANUFACTURER_ID
+		     , C.COMPANY_NM AS MANUFACTURER_NM
+		     , IF(LENGTH(M.MODEL_CODE) &gt; 1, CAST(M.MODEL_CODE AS CHAR), CONCAT('0', M.MODEL_CODE)) AS MODEL_CODE
+		     , IF(LENGTH(MC.MANUFACTURER_CODE) &gt; 1, CAST(MC.MANUFACTURER_CODE AS CHAR), CONCAT('0', MC.MANUFACTURER_CODE)) AS MANUFACTURER_CODE
+		     , CONCAT(IF(TRUNCATE(M.POWER, 0) &gt; 0, TRUNCATE(M.POWER, 0), ''), IF(M.POWER % 1 &gt; 0, CONCAT('0', SUBSTRING_INDEX(M.POWER, '.', -1)), '')) AS CAPACITY_CODE
+		FROM WT_ALARM_GR_CD AG
+		LEFT JOIN WT_GERATOR_MODEL M
+		    ON M.MODEL_ID = AG.MODEL_ID
+		LEFT JOIN WT_COMPANY C
+		    ON C.COMPANY_ID = M.MANUFACTURER_ID
+		LEFT JOIN WT_MANUFACTURER_CODE MC
+		    ON MC.COMPANY_ID = C.COMPANY_ID
+		WHERE WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+	</select>
+	
+	<select id="getAlarmList" parameterType="map" resultType="HashMap">
+		SELECT SUB.*
+		FROM (
+		    SELECT AC.WT_ALARM_ID
+		         , AC.WT_ALARM_GR_ID
+		         , AC.ALARM_SUB_CD
+		         , AC.ALARM_TXT
+		         , AC.SUGGEST AS ALARM_SUGGEST
+		         , AC.DESCRPT AS ALARM_DESCRPT
+		         , DATE_FORMAT(CONVERT_TZ(AC.INS_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS INS_DT
+		
+		         , ACTION.ACTION_NM_LIST
+		         , ACTION.ACTION_NUM_LIST
+		         , PART.PART_NM_LIST
+		         , PART.PART_NUM_LIST
+		         , TOOL.TOOL_NM_LIST
+		         , TOOL.TOOL_NUM_LIST
+		         , PPE.PPE_NM_LIST
+		         , PPE.PPE_NUM_LIST
+		         , ROW_NUMBER() OVER (ORDER BY AC.INS_DT DESC) AS RN
+		    FROM WT_ALARM_CD AC
+		    LEFT JOIN (
+		        SELECT WT_ALARM_ID
+		             , GROUP_CONCAT(ACTION_NM ORDER BY NUM ASC SEPARATOR ' | ') AS ACTION_NM_LIST
+		             , GROUP_CONCAT(NUM ORDER BY NUM ASC SEPARATOR ' | ') AS ACTION_NUM_LIST
+		        FROM WT_ALARM_ACTION2
+		        GROUP BY WT_ALARM_ID
+		    ) ACTION
+		        ON ACTION.WT_ALARM_ID = AC.WT_ALARM_ID
+		    LEFT JOIN (
+		        SELECT WT_ALARM_ID
+		             , GROUP_CONCAT(PART_NM ORDER BY NUM ASC SEPARATOR ' | ') AS PART_NM_LIST
+		             , GROUP_CONCAT(NUM ORDER BY NUM ASC SEPARATOR ' | ') AS PART_NUM_LIST
+		        FROM WT_ALARM_PART
+		        GROUP BY WT_ALARM_ID
+		    ) PART
+		        ON PART.WT_ALARM_ID = AC.WT_ALARM_ID
+		    LEFT JOIN (
+		        SELECT WT_ALARM_ID
+		             , GROUP_CONCAT(TOOL_NM ORDER BY NUM ASC SEPARATOR ' | ') AS TOOL_NM_LIST
+		             , GROUP_CONCAT(NUM ORDER BY NUM ASC SEPARATOR ' | ') AS TOOL_NUM_LIST
+		        FROM WT_ALARM_TOOL2
+		        GROUP BY WT_ALARM_ID
+		    ) TOOL
+		        ON TOOL.WT_ALARM_ID = AC.WT_ALARM_ID
+		    LEFT JOIN (
+		        SELECT WT_ALARM_ID
+		             , GROUP_CONCAT(PPE_NM ORDER BY NUM ASC SEPARATOR ' | ') AS PPE_NM_LIST
+		             , GROUP_CONCAT(NUM ORDER BY NUM ASC SEPARATOR ' | ') AS PPE_NUM_LIST
+		        FROM WT_ALARM_PPE2
+		        GROUP BY WT_ALARM_ID
+		    ) PPE
+		        ON PPE.WT_ALARM_ID = AC.WT_ALARM_ID
+		    WHERE AC.WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+		    <if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+    		    AND (
+			        AC.ALARM_SUB_CD LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+			        OR AC.ALARM_TXT LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+			    )
+	    	</if>
+		    <if test="SEARCH_ALARM_SUB_CD != null and SEARCH_ALARM_SUB_CD != '' ">
+	    		AND AC.ALARM_SUB_CD LIKE CONCAT('%', #{SEARCH_ALARM_SUB_CD}, '%')
+	    	</if>
+	    	<if test="SEARCH_ALARM_TXT != null and SEARCH_ALARM_TXT != '' ">
+	    		AND AC.ALARM_TXT LIKE CONCAT('%', #{SEARCH_ALARM_TXT}, '%')
+	    	</if>
+		) SUB
+		WHERE SUB.RN BETWEEN (#{PAGE}-1) * #{PAGE_SIZE}+1 and (#{PAGE} * #{PAGE_SIZE})
+		ORDER BY SUB.RN ASC
+	</select>
+	
+	
+	<select id="getAlarmListCnt" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM WT_ALARM_CD AC
+		WHERE AC.WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+		<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+   		    AND (
+		        AC.ALARM_SUB_CD LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+		        OR AC.ALARM_TXT LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+		    )
+    	</if>
+	    <if test="SEARCH_ALARM_SUB_CD != null and SEARCH_ALARM_SUB_CD != '' ">
+    		AND AC.ALARM_SUB_CD LIKE CONCAT('%', #{SEARCH_ALARM_SUB_CD}, '%')
+    	</if>
+    	<if test="SEARCH_ALARM_TXT != null and SEARCH_ALARM_TXT != '' ">
+    		AND AC.ALARM_TXT LIKE CONCAT('%', #{SEARCH_ALARM_TXT}, '%')
+    	</if>
+	</select>
+	<!-- // 상세 -->
+	
+</mapper>

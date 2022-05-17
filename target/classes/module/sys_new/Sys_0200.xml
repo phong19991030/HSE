@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sys_new.sys0200">
+	
+	<!-- 리스트 -->
+	<select id="getTurbineList" parameterType="map" resultType="HashMap">
+		SELECT SUB.*
+		FROM (
+			SELECT T.GERATOR_ID
+				 , F.FARM_NM
+		         , G.GROUP_NM
+		         , T.GERATOR_NM
+		         , T.POWER
+		         , M.MODEL_NM
+		         , MC.COMPANY_NM AS MANUFACTURER_NM
+		         , DATE_FORMAT(CONVERT_TZ(T.INS_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS INS_DATETIME
+		         , ROW_NUMBER() OVER (ORDER BY T.INS_DT DESC) AS RN
+		    FROM WT_GERATOR T
+		    <!-- 단지, 그룹 -->
+		    LEFT JOIN WT_GROUP G
+		        ON G.GROUP_ID = T.GROUP_ID
+		    LEFT JOIN WT_FARM F
+		        ON F.FARM_ID = G.FARM_ID
+		
+		    <!-- 제조사, 모델 -->
+		    LEFT JOIN WT_GERATOR_MODEL M
+		        ON M.MODEL_ID = T.MODEL_ID
+		    LEFT JOIN WT_COMPANY MC
+		        ON MC.COMPANY_ID = M.MANUFACTURER_ID
+		    
+		     <where>
+		     	<if test="FARM_ID != null and FARM_ID != '' ">
+		     		F.FARM_ID = #{FARM_ID}
+		     	</if>
+		    	<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+	    		    AND (
+				        F.FARM_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+				        OR T.GERATOR_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+				        OR MC.COMPANY_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+				    )
+		    	</if>
+		    	<if test="SEARCH_FARM_NM != null and SEARCH_FARM_NM != '' ">
+		    		AND F.FARM_NM LIKE CONCAT('%', #{SEARCH_FARM_NM},'%')
+		    	</if>
+		    	<if test="SEARCH_TURBINE_NM != null and SEARCH_TURBINE_NM != '' ">
+		    		AND T.GERATOR_NM LIKE CONCAT('%', #{SEARCH_TURBINE_NM},'%')
+		    	</if>
+		    	 <if test="SEARCH_MANUFACTURER_ID != null and SEARCH_MANUFACTURER_ID != '' ">
+			    	AND MC.COMPANY_ID = #{SEARCH_MANUFACTURER_ID}
+			    </if>
+		    </where>
+		) SUB
+		WHERE SUB.RN BETWEEN (#{PAGE}-1) * #{PAGE_SIZE}+1 and (#{PAGE} * #{PAGE_SIZE})
+		ORDER BY SUB.RN ASC
+	</select>
+	
+	<select id="getTurbineCnt" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM WT_GERATOR T
+		<!-- 단지, 그룹 -->
+		LEFT JOIN WT_GROUP G
+		    ON G.GROUP_ID = T.GROUP_ID
+		LEFT JOIN WT_FARM F
+		    ON F.FARM_ID = G.FARM_ID
+		
+		<!-- 제조사, 모델 -->
+		LEFT JOIN WT_GERATOR_MODEL M
+		    ON M.MODEL_ID = T.MODEL_ID
+		LEFT JOIN WT_COMPANY MC
+		    ON MC.COMPANY_ID = M.MANUFACTURER_ID
+		<where>
+			<if test="FARM_ID != null and FARM_ID != '' ">
+	     		F.FARM_ID = #{FARM_ID}
+	     	</if>
+	    	<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+    		    AND (
+			        F.FARM_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+			        OR T.GERATOR_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+			        OR MC.COMPANY_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+			    )
+	    	</if>
+	    	<if test="SEARCH_FARM_NM != null and SEARCH_FARM_NM != '' ">
+	    		AND F.FARM_NM LIKE CONCAT('%', #{SEARCH_FARM_NM},'%')
+	    	</if>
+	    	<if test="SEARCH_TURBINE_NM != null and SEARCH_TURBINE_NM != '' ">
+	    		AND T.GERATOR_NM LIKE CONCAT('%', #{SEARCH_TURBINE_NM},'%')
+	    	</if>
+	    	 <if test="SEARCH_MANUFACTURER_ID != null and SEARCH_MANUFACTURER_ID != '' ">
+		    	AND MC.COMPANY_ID = #{SEARCH_MANUFACTURER_ID}
+		    </if>
+	    </where>
+	</select>
+	
+	<select id="getManuFacturerList" parameterType="map" resultType="HashMap">
+		SELECT COMPANY_ID
+		     , COMPANY_NM
+		FROM WT_COMPANY
+		WHERE CLS = 2
+	</select>
+	<!-- //리스트 -->
+	
+	
+	<!-- 팝업 -->
+	<select id="getFarmList" parameterType="map" resultType="HashMap">
+		SELECT F.FARM_ID
+		     , F.FARM_NM
+		     , F.LATITUDE
+		     , F.LONGTUD
+		     , F.RADIUS
+		     , G.GROUP_ID_LIST
+		     , G.GROUP_NM_LIST
+		FROM WT_FARM F
+		LEFT JOIN (
+		    SELECT G.FARM_ID
+		         , GROUP_CONCAT(G.GROUP_ID SEPARATOR ' | ') AS GROUP_ID_LIST
+		         , GROUP_CONCAT(G.GROUP_NM SEPARATOR ' | ') AS GROUP_NM_LIST
+		    FROM WT_GROUP G
+		    GROUP BY G.FARM_ID
+		) G
+		    ON G.FARM_ID = F.FARM_ID
+		WHERE CHECK_PERMISSION_FARM(#{session.USER_UID}, F.FARM_ID)
+	</select>
+	
+	<select id="getCompanyList" parameterType="map" resultType="HashMap">
+		SELECT C.COMPANY_ID
+		     , C.COMPANY_NM
+		     , C.CLS
+		     , C.LOGO
+		     , IFNULL(TF.FLE_PATH, '') AS FLE_PATH
+		     , IFNULL(TF.FLE_NM, '') AS FLE_PATH
+		     , IFNULL(TF.NEW_FLE_NM, '') AS NEW_FLE_NM
+		     , IFNULL(TF.FLE_KEY, '') AS FLE_KEY
+		FROM WT_COMPANY C
+		LEFT JOIN TCCO_FILE TF
+		    ON TF.ATCH_FLE_SEQ = C.LOGO
+		<where>
+			<if test="CLASS != null and CLASS != '' ">
+				C.CLS = #{CLASS}
+			</if>
+			<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+				AND (
+				    C.COMPANY_NM LIKE CONCAT('%',#{SEARCH_ALL},'%')
+				)
+			</if>
+		</where>
+	</select>
+	
+	<select id="getTurbineModelList" parameterType="map" resultType="HashMap">
+		SELECT M.MODEL_ID
+		     , M.MODEL_NM
+		     
+		     <!-- , M.POWER
+		     , M.ROTOR_D
+		     , M.TOWER_H -->
+			
+			 , IFNULL(M.POWER, 0) AS POWER
+		     , IFNULL(M.ROTOR_D, 0) AS ROTOR_D
+		     , IFNULL(M.TOWER_H, 0) AS TOWER_H
+		
+		     , MF.FLE_PATH      AS MODEL_FLE_PATH
+		     , MF.NEW_FLE_NM    AS MODEL_NEW_FLE_NM
+		
+		     , M.MANUFACTURER_ID
+		     , C.COMPANY_NM     AS MANUFACTURER_NM
+		     , CF.FLE_PATH      AS MANUFACTURER_FLE_PATH
+		     , CF.NEW_FLE_NM    AS MANUFACTURER_NEW_FLE_NM
+		
+		FROM WT_GERATOR_MODEL M
+		LEFT JOIN TCCO_FILE MF
+		    ON MF.ATCH_FLE_SEQ = M.IMG
+		LEFT JOIN WT_COMPANY C
+		    ON C.COMPANY_ID = M.MANUFACTURER_ID
+		LEFT JOIN TCCO_FILE CF
+		    ON CF.ATCH_FLE_SEQ = C.LOGO
+		<where>
+			<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+				C.COMPANY_NM LIKE CONCAT('%',#{SEARCH_ALL},'%')
+				OR M.MODEL_NM LIKE CONCAT('%',#{SEARCH_ALL},'%')
+			</if>
+		</where>
+		ORDER BY C.COMPANY_NM ASC
+	</select>
+	
+	<select id="duplicateCheckTurbineID" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM WT_GERATOR
+		WHERE GERATOR_ID = #{GERATOR_ID}
+	</select>
+	<!-- //팝업 -->
+	
+	<!-- 등록 & 수정 -->
+	<insert id="insertTurbine" parameterType="map">
+		INSERT INTO WT_GERATOR
+		(
+		    GERATOR_ID,
+		    GROUP_ID,
+		    POWER,
+		    INS_DT,
+		    GERATOR_NM,
+		    LONGTUD,
+		    LATITUDE,
+		    DESCRPT,
+		    ROTOR_D,
+		    MANUFACTURER_ID,
+		    OPERATOR_ID,
+		    MODEL_ID,
+		    OBJECT_ID
+		)
+		VALUES
+		(
+		    #{GERATOR_ID},
+		    #{GROUP_ID},
+		    #{POWER},
+		    CURRENT_TIMESTAMP(),
+		    #{GERATOR_NM},
+		    #{LONGTUD},
+		    #{LATITUDE},
+		    #{DESCRPT},
+		    #{ROTOR_D},
+		    #{MANUFACTURER_ID},
+		    #{OPERATOR_ID},
+		    #{MODEL_ID},
+		    #{OBJECT_ID}
+		)
+	</insert>
+	
+	<update id="updateTurbine" parameterType="map">
+		UPDATE WT_GERATOR
+		SET GROUP_ID = #{GROUP_ID}
+		  , POWER = #{POWER}
+		  , GERATOR_NM = #{GERATOR_NM}
+		  , LONGTUD = #{LONGTUD}
+		  , LATITUDE = #{LATITUDE}
+		  , DESCRPT = #{DESCRPT}
+		  , ROTOR_D = #{ROTOR_D}
+		  , MANUFACTURER_ID = #{MANUFACTURER_ID}
+		  , OPERATOR_ID = #{OPERATOR_ID}
+		  , MODEL_ID = #{MODEL_ID}
+		  , OBJECT_ID = #{OBJECT_ID}
+		WHERE GERATOR_ID = #{GERATOR_ID}
+	</update>
+	
+	<delete id="deleteTurbine" parameterType="map">
+		DELETE
+		FROM WT_GERATOR
+		WHERE GERATOR_ID = #{GERATOR_ID}
+	</delete>
+	<!-- //등록 & 수정 -->
+	
+	<!-- 상세 -->
+	<select id="getTurbineInfo" parameterType="map" resultType="HashMap">
+		SELECT T.GERATOR_ID
+		     , G.GROUP_ID
+		     , G.GROUP_NM
+		     , F.FARM_ID
+		     , F.FARM_NM
+		     , T.GERATOR_NM
+		     , T.LONGTUD
+		     , T.LATITUDE
+		     , T.DESCRPT
+		     , T.OBJECT_ID
+		     , OP.COMPANY_ID AS OPERATOR_ID
+		     , OP.COMPANY_NM AS OPERATOR_NM
+		     , M.MODEL_ID
+		     , M.MODEL_NM
+		     , MN.COMPANY_ID AS MANUFACTURER_ID
+		     , MN.COMPANY_NM AS MANUFACTURER_NM
+		     , M.POWER
+		     , M.ROTOR_D
+		     , M.TOWER_H
+		     
+		     , F.LATITUDE AS FARM_LATITUDE
+		     , F.LONGTUD AS FARM_LONGTUD
+		     , F.RADIUS AS FARM_RADIUS
+		     
+		FROM WT_GERATOR T
+		
+		LEFT JOIN WT_GROUP G
+		    ON G.GROUP_ID = T.GROUP_ID
+		LEFT JOIN WT_FARM F
+		    ON F.FARM_ID = G.FARM_ID
+		<!-- OPERATOR --> 
+		LEFT JOIN WT_COMPANY OP
+		    ON OP.COMPANY_ID = T.OPERATOR_ID
+		<!-- MODEL -->
+		LEFT JOIN WT_GERATOR_MODEL M
+		    ON M.MODEL_ID = T.MODEL_ID
+		LEFT JOIN WT_COMPANY MN
+		    ON MN.COMPANY_ID = M.MANUFACTURER_ID
+		WHERE T.GERATOR_ID = #{GERATOR_ID}
+	</select>
+	<!-- // 상세 -->
+</mapper>

@@ -1,0 +1,795 @@
+@charset "utf-8";
+
+/******** 2016 Sub ********/
+
+.icon-M_MIS_01:before{content:"\f0e8";}
+.icon-M_MIS_02:before{content:"\f0e0";}
+.icon-M_MIS_03:before{content:"\f187";}
+.icon-M_MIS_04:before{content:"\f024";}
+.icon-M_MIS_05:before{content:"\f09d";}
+.icon-M_MIS_06:before{content:"\f01c";}
+.icon-M_MIS_07:before{content:"\f0f7";}
+.icon-M_MIS_08:before{content:"\f0b1";}
+.icon-M_MIS_09:before{content:"\f07c";}
+.icon-M_MIS_10:before{content:"\f0e0";}
+.icon-M_MIS_11:before{content:"\f15c";}
+.icon-M_MIS_12:before{content:"\f1e8";}
+.icon-M_MIS_13:before{content:"\f0f1";}
+.icon-M_MIS_14:before{content:"\f0e8";}
+.icon-M_MIS_15:before{content:"\f0fb";}
+.icon-M_MIS_16:before{content:"\f100";}
+.icon-M_MIS_17:before{content:"\f10b";}
+.icon-M_MIS_18:before{content:"\f15c";}
+.icon-M_MIS_19:before{content:"\f1e8";}
+.icon-M_MIS_20:before{content:"\f0f1";}
+.icon-M_MIS_21:before{content:"\f115";}
+.icon-M_MIS_22:before{content:"\f117";}
+.icon-M_MIS_23:before{content:"\f11d";}
+.icon-M_MIS_24:before{content:"\f120";}
+
+h4.sub_tit {
+/* 	margin-bottom: 30px; */
+/* 	padding-left: 12px; */
+	color: #4c4c4c!important;
+	letter-spacing:0!important;
+	font-size: 40px!important;
+	font-weight: 300!important;
+	box-sizing: border-box!important;
+}
+
+.windTurbineList2{
+	margin-left:-10px;
+}
+
+#content h4.tit1{
+	margin-bottom: 30px;
+	color: #4c4c4c;
+	font-size: 20px;
+	font-weight: 300;
+	box-sizing: border-box;
+/* 	text-transform:uppercase; */
+}
+
+#content h4.sub_tit:before{
+	content:" ";
+	display:inline-block;
+    width: 7px;
+    height: 30px;
+    margin-right: 10px;
+    background: #22b6c5;
+}
+
+.tab_con_wrap {
+	padding: 36px 96px 96px 96px;
+	background: #fff;
+/* 	border: 1px solid #ddd; */
+	margin-bottom: 100px;
+}
+
+.F_tit{
+	font-size: 50px!important;
+	font-weight: 600;
+}
+
+.st_in{
+	position:absolute;
+	top:530px;
+	right:110px;
+}
+.st_in div {
+	padding:8px 18px 8px 12px;
+	border:1px solid #e7e8e9;
+	border-radius:30px;
+	font-size:16px; 
+	font-weight:600;
+	color:#ddd;
+	margin-left:20px;
+	line-height: 30px;
+	box-sizing: border-box;
+    
+}
+
+.st_in div img {
+	opacity: 0.5; filter: alpha(opacity=50);
+}
+
+.st_active {
+	border:1px solid #c6c7ca!important;
+	color:#4c4c4c!important;
+	box-shadow: 0px 3px 5px #d6d7d9;
+}
+
+.st_active img {
+	opacity: 1.0!important; filter: alpha(opacity=100)!important;
+}
+
+.st_in div a img {
+	margin-right:20px;
+	float:left;
+}
+
+.f_i_tit:after{
+	content:"";
+	clear:both;
+	display:block;
+}
+
+#windFarmInfo{
+	position:relative;
+}
+
+#windFarmInfo .wea_po{
+	float:right;
+}
+
+#windFarmInfo .fr{
+/* 	margin-right:30px; */
+}
+
+#f_line{
+	display: block;
+    float: left;
+    width: 1px;
+    height: 74px;
+    background: #d6d7d9;
+}
+
+#windFarmInfo .wea_tit {
+	font-size:46px;
+	color:#3a3952;
+	font-weight:300;
+	line-height: 40px;
+}
+
+#windFarmInfo .wea_sub {
+	font-size:16px;
+	color:#3a3952;
+	font-weight:300;
+	line-height: 25px;
+}
+
+#windFarmInfo .wea span:first-child{
+	color:#5c82fa; 
+}
+
+#windFarmInfo .wea span:last-child{
+	color:#f04747; 
+}
+
+#windFarmInfo .wea_taste {
+	font-size:18px;
+	color:#3a3952;
+	font-weight:300;
+}
+
+#windFarmInfo .fr div {
+	margin-right:20px;
+}
+
+#windFarmInfo .fr .wea_tit img:last-child{
+	margin-top:10px;
+	width: 36px!important;
+}
+
+.nav-tabs.nav-justified>li{
+	display:inline-block;
+	
+}
+.count_item {
+    color: #37cbda!important;
+    font-weight: 600;
+}
+/* CMS_0100 : Current status of Wind Farm */
+
+#windFarmInfo {
+	margin-bottom: 40px;
+    padding: 50px 25px;
+    width: calc(100% - 20px);
+    height: 175px;
+    background: #f7f7f7;
+    /* border-radius: 90px; */
+    box-sizing: border-box;
+}
+#windFarmInfo > div { float: left; }
+#windTurbineList {}
+#windTurbineList > li {
+	display: inline-block;
+	margin: 0 30px 30px 0;
+	padding: 25px 30px;
+	width: calc(33.3% - 25px);
+	height: 120px;
+	border: 1px solid #d6d7d9;
+	border-radius: 65px;
+	vertical-align: middle;
+	box-sizing: border-box;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+#windTurbineList > li:hover{
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+#windTurbineList > li:hover .wt_number{background:#37cbda; transition:0.5s;}
+#windTurbineList > li:nth-child(3n) { margin-right: 0; }
+#windTurbineList > li > div {  }
+#windTurbineList > li > div > div { float: left; }
+#windTurbineList li .wt_number {
+	margin-right: 20px;
+	width: 45px;
+	height: 45px;
+	line-height: 45px;
+	font-size: 22px;
+	color: #fff;
+	text-align: center;
+	font-weight: 600;
+	border-radius: 30px;
+	background-color: #b9bdc6;
+	vertical-align: middle;
+}
+#windTurbineList li .wt_name {  }
+#windTurbineList li .wt_name ul li:last-child {max-width:200px; font-size:30px; line-height: 30px; font-weight:900; color: #333; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+#windTurbineList li .wt_power {
+	width: 100px;
+    line-height: 60px;
+    font-size: 22px;
+    color: #4C4C4C;
+    text-align: center;
+    font-weight: 600;
+}
+
+#windTurbineList li .wt_power #wt_st{
+	font-weight: 400;
+	font-size:12px;
+}
+#windTurbineList li .wt_status {
+	margin-left: 10px;
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+	font-size: 0px;
+	color: #d6d7d9;
+	text-align: center;
+	font-weight: 600;
+	border-radius: 30px;
+	box-sizing: border-box;
+	background:url('../../images/cms/status_01.png') 0 0 no-repeat;
+}
+#windTurbineList li .wt_status.error {
+	color: #fff;
+	border: none;
+	background: #f04747;
+	background:url('../../images/cms/status_02.png') 0 0 no-repeat;
+}
+#windTurbineList li .wt_status.inspection {
+	color: #fff;
+	border: none;
+	background: #747f8d;
+	background:url('../../images/cms/status_03.png') 0 0 no-repeat;
+}
+
+/* CMS_0100 : Turbine list*/
+
+#toggle_issue {
+	position: absolute;
+	top: -30px;
+	right: 0;
+	display: inline-block;
+	padding: 8px 15px;
+	font-size: 16px; 
+	font-weight: 300;
+	color: #777;
+	border: 1px solid #e7e8e9;
+	border-radius: 30px;
+	line-height: 30px;
+	box-sizing: border-box;
+}
+.m_a {margin-top:11px;}
+
+/* CMS_0102 : notice */
+
+#content #cont .content_grap h3{
+	font-size: 50px;
+	font-weight:300;
+	color:#333;
+/* 	margin-bottom: 40px; */
+}
+
+.lang_text{
+	border-radius:50px;
+	font-weight:300;
+}
+
+.first_part_code{
+	font-weight:300;
+}
+ 
+.second_part_code{
+	font-weight:300;
+}
+
+/*weather*/
+.stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 96px;
+  margin-left: -300px;
+  margin-top: -30px;
+}
+
+svg {
+/*   width: 1200px; */
+/*   height: 600px; */
+  margin: 0;
+  fill: #4c4c4c;
+}
+
+/* Thunder Bolt Animation */
+.thunder-cloud .bolt {
+  animation: flash 2s infinite;
+}
+
+@keyframes flash {
+  0% {
+    transform: translateY(-25px) translateX(25px) scaleY(0.95);
+    opacity: 0;
+  }
+  5%, 25% {
+    opacity: 1;
+  }
+  15%, 20% {
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(8px) translateX(-10px);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(8px) translateX(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-25px) translateX(25px) scaleY(0.95);
+    opacity: 0;
+  }
+}
+
+/* Raindrops Animation */
+.rain-cloud .raindrop-one,
+.rain-cloud .raindrop-two,
+.rain-cloud .raindrop-three {
+  opacity: 0;
+  animation-timing-function: cubic-bezier(1, 0, 1, 1);
+}
+
+.rain-cloud .raindrop-one {
+  animation: falling-drop-one 2s infinite;
+}
+
+.rain-cloud .raindrop-two {
+  animation: falling-drop-two 1.90s infinite;
+  animation-delay: 0.8s;
+}
+
+.rain-cloud .raindrop-three {
+  animation: falling-drop-three 1.80s infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes falling-drop-one {
+  0% {
+    transform: translateY(-35px);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(-15px);
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-35px);
+    opacity: 0;
+  }
+}
+
+@keyframes falling-drop-two {
+  0% {
+    transform: translateY(-105px);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(-85px);
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(5px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-105px);
+    opacity: 0;
+  }
+}
+
+@keyframes falling-drop-three {
+  0% {
+    transform: translateY(-105px);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(-85px);
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(35px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-105px);
+    opacity: 0;
+  }
+}
+
+/* Snowflake Animations */
+.snow-cloud .snowflake-one,
+.snow-cloud .snowflake-two,
+.snow-cloud .snowflake-three {
+  opacity: 0;
+  transform-origin: center center;
+  animation-timing-function: ease-in;
+}
+
+.snow-cloud .snowflake-one {
+  animation: falling-snow-one 4s infinite;
+}
+
+.snow-cloud .snowflake-two {
+  animation: falling-snow-two 3.8s infinite;
+  animation-delay: 2.5s;
+}
+
+.snow-cloud .snowflake-three {
+  animation: falling-snow-three 3.9s infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes falling-snow-one {
+  0% {
+    transform: translateY(-65px) rotate(0);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(-10px) translateX(30px) rotate(-30deg);
+    opacity: 1;
+  }
+  40% {
+    transform: translateY(45px) translateX(-30px) rotate(30deg);
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(100px) translateX(30px) rotate(-30deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-65px);
+    opacity: 0;
+  }
+}
+
+@keyframes falling-snow-two {
+  0% {
+    transform: translateY(-75px) rotate(0);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(-45px) translateX(40px) rotate(-30deg);
+    opacity: 1;
+  }
+  40% {
+    transform: translateY(5px) translateX(-40px) rotate(30deg);
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(30px) translateX(20px) rotate(-30deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-75px);
+    opacity: 0;
+  }
+}
+
+@keyframes falling-snow-three {
+  0% {
+    transform: translateY(-85px) rotate(0);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(-10px) translateX(-30px) rotate(30deg);
+    opacity: 1;
+  }
+  40% {
+    transform: translateY(25px) translateX(30px) rotate(-30deg);
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(60px) translateX(-30px) rotate(30deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-85px);
+    opacity: 0;
+  }
+}
+
+/* Sunny Cloud Animations */
+.sun-cloud .sun-half {
+  animation: sun-grow 4s infinite cubic-bezier(0.2, 0.85, 0.4, 1.5);
+  transform-origin: bottom center;
+}
+
+.sun-cloud .ray-one {
+  animation: ray-show-one 4s infinite linear;
+  transform-origin: center right;
+}
+.sun-cloud .ray-two {
+  animation: ray-show-two 4s infinite linear;
+  transform-origin: bottom right;
+}
+.sun-cloud .ray-three {
+  animation: ray-show-three 4s infinite linear;
+  transform-origin: bottom center;
+}
+.sun-cloud .ray-four {
+  animation: ray-show-four 4s infinite linear;
+  transform-origin: bottom left;
+}
+.sun-cloud .ray-five {
+  animation: ray-show-five 4s infinite linear;
+  transform-origin: center left;
+}
+
+@keyframes sun-grow {
+  0%, 90%, 100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  15%, 80% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ray-show-one {
+  0%, 15%, 80%, 100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  20%, 70% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ray-show-two {
+  0%, 20%, 80%, 100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  25%, 70% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ray-show-three {
+  0%, 25%, 80%, 100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  30%, 70% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ray-show-four {
+  0%, 30%, 80%, 100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  35%, 70% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ray-show-five {
+  0%, 35%, 80%, 100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  40%, 70% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ray-show-six {
+  0%, 40%, 80%, 100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  45%, 70% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ray-show-seven {
+  0%, 45%, 80%, 100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50%, 70% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ray-show-eight {
+  0%, 50%, 80%, 100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  55%, 70% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Sunshine Animation */
+/* If only using this animation be sure to grab the sun-grow and ray-show-x keyframes set above */
+.sun-half{fill:#f07f47;}
+.cloud{fill:#d6d6d6;}
+.sun-cloud .ray{fill:#f07f47;}
+
+.windy-cloud .wind-one,
+.windy-cloud .wind-two,
+.windy-cloud .wind-three {
+	fill:#5395f8;
+}
+
+.sunshine .sun-full {
+  animation: sun-grow 4s infinite cubic-bezier(0.2, 0.85, 0.4, 1.5);
+  transform-origin: center center;
+}
+
+.sunshine .sun-ray-one {
+  animation: ray-show-one 4s infinite ease-in;
+  transform-origin: center right;
+}
+
+.sunshine .sun-ray-two {
+  animation: ray-show-two 4s infinite ease-in;
+  transform-origin: bottom right;
+}
+
+.sunshine .sun-ray-three {
+  animation: ray-show-three 4s infinite ease-in;
+  transform-origin: bottom center;
+}
+
+.sunshine .sun-ray-four {
+  animation: ray-show-four 4s infinite ease-in;
+  transform-origin: bottom left;
+}
+
+.sunshine .sun-ray-five {
+  animation: ray-show-five 4s infinite ease-in;
+  transform-origin: center left;
+}
+
+.sunshine .sun-ray-six {
+  animation: ray-show-six 4s infinite ease-in;
+  transform-origin: top left;
+}
+
+.sunshine .sun-ray-seven {
+  animation: ray-show-seven 4s infinite ease-in;
+  transform-origin: top center;
+}
+
+.sunshine .sun-ray-eight {
+  animation: ray-show-eight 4s infinite ease-in;
+  transform-origin: top right;
+}
+
+/* Windy Cloud Animation */
+.windy-cloud .cloud-wrap {
+  animation: bob 2s infinite cubic-bezier(0,0,.5,1.5);
+}
+.windy-cloud .cloud {
+  animation: cloud-push 4s infinite;
+  transform-origin: left center;
+}
+.windy-cloud .wind-one {
+  animation: wind-slide-one 4s infinite;
+}
+.windy-cloud .wind-two {
+  animation: wind-slide-two 4s infinite;
+}
+.windy-cloud .wind-three {
+  animation: wind-slide-three 4s infinite;
+}
+
+@keyframes bob {
+  0%, 100% {
+    transform: translateY(10px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes cloud-push {
+  0%, 80%, 100% {
+    transform: translateX(-120px) scale(1.2);
+  }
+  10%, 60% {
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes wind-slide-one {
+  0%, 70%, 100% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  10%, 60% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes wind-slide-two {
+  0%, 70%, 100% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  10%, 60% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes wind-slide-three {
+  0%, 70%, 100% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  10%, 60% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}

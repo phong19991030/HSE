@@ -1,0 +1,898 @@
+#dialog_wschat .select-room {
+	background-color: #ccf3ff;
+	border-color: #ccf3ff;
+	color: #007dbc;
+}
+
+#dialog_wschat .ibtn {
+	cursor: pointer;
+}
+
+#dialog_wschat .label-frm {
+	font-weight: 600;
+	font-size: 15px;
+	color: #597a96;
+	display: block;
+}
+
+#dialog_wschat .img-td-list {
+	height: 20px;
+	border-radius: 50%;
+}
+
+#dialog_wschat span.bag {
+	background: #C7EDFC;
+	border-radius: 0.9em;
+	-moz-border-radius: 0.9em;
+	-webkit-border-radius: 0.9em;
+	color: black;
+	display: inline-block;
+	line-height: 2.3em;
+	margin-right: 5px;
+	text-align: center;
+}
+
+#dialog_wschat span.flag-notify {
+	background: red;
+	border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	color: white;
+	display: inline-block;
+	line-height: 0.5em;
+	margin-right: 5px;
+	text-align: center;
+}
+
+#dialog_wschat .fa-stack[data-count]:after {
+	position: absolute;
+	content: attr(data-count);
+	padding: .6em;
+	border-radius: 999px;
+	line-height: .75em;
+	color: white;
+	background: #007eff;
+	text-align: center;
+	min-width: 2.5em;
+	font-size: 80%;
+	font-weight: bold;
+	float: right;
+}
+
+#dialog_wschat span.bag-clear-all {
+	background: yellow;
+	border-radius: 0.9em;
+	-moz-border-radius: 0.9em;
+	-webkit-border-radius: 0.9em;
+	color: black;
+	display: inline-block;
+	line-height: 2.3em;
+	margin-right: 5px;
+	text-align: center;
+}
+
+#dialog_wschat .temp-1 {
+	display: inline-block;
+}
+
+#dialog_wschat .text-line {
+	background-color: #f0f4f7;
+	color: black;
+	outline: none;
+	outline-style: none;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: solid #eeeeee 1px;
+	padding: 3px 10px;
+}
+
+#dialog_wschat .btn-ng {
+	border: 0;
+	cursor: pointer;
+}
+
+#roombox {
+	width: calc(100% - 5px);
+	margin: 2px;
+	background: #fff;
+	border-radius: 6px;
+	overflow: hidden;
+	position: relative;
+	height: calc(100% - 40px);
+	transform: translate(0, -4px);
+}
+
+#roomslist {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#rooms {
+	/* width:290px; */
+	height: calc(100% - 40px);
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+#dialog_wschat .room {
+	height: 80px;
+	border-bottom: 1px solid #e7ebee;
+	position: relative;
+}
+
+#dialog_wschat .room:hover {
+	background: #f1f4f6;
+	cursor: pointer;
+}
+
+#dialog_wschat .room img {
+	width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 15px;
+    float: left;
+}
+
+#dialog_wschat .floatingImg {
+	width: 40px;
+	border-radius: 50%;
+	position: absolute;
+	top: 0;
+	left: 12px;
+	border: 3px solid #fff;
+}
+
+#dialog_wschat .room p {
+	padding: 8px 0 0 0;
+	float: left;
+	/* 	width:200px; */
+}
+
+#dialog_wschat .room p strong {
+	font-size: 12px;
+	color: #868383;
+	display: contents;
+}
+
+#dialog_wschat .room p strong[title] {
+	font-weight: bold;
+	font-size: 13px;
+	color: black;
+	display: block;
+}
+
+#dialog_wschat .room p span {
+	font-size: 13px;
+	font-weight: 400;
+	color: #aab8c2;
+	display: block;
+}
+
+#dialog_wschat .room .status {
+	background: #26c281;
+	border-radius: 50%;
+	width: 9px;
+	height: 9px;
+	position: absolute;
+	top: 31px;
+	right: 17px;
+}
+
+#dialog_wschat .room .status.away {
+	background: #ffce54;
+}
+
+#dialog_wschat .room .status.inactive {
+	background: #eaeef0;
+}
+
+#dialog_wschat .red1 {
+	color: red;
+}
+
+#dialog_wschat .green1 {
+	color: green;
+}
+
+#dialog_wschat .searchroom {
+    padding: 8px 5px 8px 15px;
+	width: 100%;
+	border-bottom: 1px solid #e1e1e1;
+}
+
+.searchroom>img {
+	vertical-align: -6px;
+	width: 25px;
+}
+
+.searchfieldroom {
+    margin: 0 0 5px 8px;
+    border: none;
+    font-size: 14px !important;
+    width: calc(100% - 80px) !important;
+    position: relative;
+    display: inline-block !important;
+    border-radius: 5px;
+        height: 30px;
+}
+
+.searchfieldroom:focus {
+	outline: 0;
+}
+
+#dialog_wschat .allpeople {
+	padding: 8px 18px;
+	border-bottom: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+}
+
+#dialog_wschat .allpeople p {
+	color: #000;
+	font-size: 15px;
+}
+
+#dialog_wschat .invt-left {
+	    padding: 10px 18px;
+    position: relative;
+    height: calc(100% - 65px);
+}
+
+#rooms::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#rooms::-webkit-scrollbar {
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+#rooms::-webkit-scrollbar-thumb {
+	border-radius: 6px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+	/* background-color: #555; */
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(122
+		, 153, 217)), color-stop(0.72, rgb(73, 125, 189)),
+		color-stop(0.86, rgb(28, 58, 148)));
+}
+
+#dialog_wschat table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#dialog_wschat td, #dialog_wschat th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+#dialog_wschat tr:nth-child(even) {
+	/*  background-color: #dddddd; */
+	
+}
+
+#dialog_wschat .contact-added {
+	border: 1px solid #dddddd;
+	display: block;
+	height: 80px; /* Just for the demo          */
+	overflow-y: auto; /* Trigger vertical scroll    */
+	overflow-x: hidden;
+	border-radius: 0.9em;
+	-moz-border-radius: 0.9em;
+	-webkit-border-radius: 0.9em;
+	background-color: transparent;
+}
+
+#dialog_wschat div.scroll {
+	display: block;
+	height: 290px; /* Just for the demo          */
+	overflow-y: auto; /* Trigger vertical scroll    */
+	overflow-x: hidden;
+	background: white;
+}
+
+#dialog_wschat .btn-frm {
+	background-color: #4CAF50;
+	border: none;
+	color: white;
+	padding: 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	margin: 4px 2px;
+	cursor: pointer;
+	padding: 6px 18px;
+	border-radius: 8px;
+}
+
+#dialog_wschat .button2 {
+	padding: 12px 28px;
+}
+
+#dialog_wschat .btn {
+	display: inline-block;
+	padding: 1px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 2.0;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	background: #353a56;
+}
+
+#dialog_wschat .btn-primary {
+	color: #fff;
+	background-color: #337ab7;
+	border-color: #2e6da4;
+}
+
+#dialog_wschat .btn-success {
+	color: #fff;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+}
+
+#dialog_wschat .btn-success:hover {
+	color: #fff;
+	background-color: #449d44;
+	border-color: #398439;
+}
+
+#dialog_wschat .btn-primary:hover {
+	color: #fff;
+	background-color: #286090;
+	border-color: #204d74;
+}
+
+#dialog_wschat .btn-warning {
+	color: #fff;
+	background-color: #f0ad4e;
+	border-color: #eea236;
+}
+
+#dialog_wschat .btn-warning:hover {
+	color: #fff;
+	background-color: #ec971f;
+	border-color: #d58512;
+}
+
+#dialog_wschat .btn-danger:hover {
+	color: #fff;
+	background-color: #c9302c;
+	border-color: #ac2925;
+}
+
+#dialog_wschat .btn-danger {
+	color: #fff;
+	background-color: #d9534f;
+	border-color: #d43f3a;
+}
+
+#dialog_wschat .btn_change_profile {
+	background: #646464;
+	border-radius: 5px;
+	width: 288px;
+	height: 62px;
+	font-size: 23px;
+	margin: 21px 36px 3px 36px;
+	width: 288px;
+}
+
+#dialog_wschat .btn_log_out {
+	background: #a3a3a3;
+	border-radius: 5px;
+	width: 288px;
+	height: 64px;
+	font-size: 23px;
+	margin: 3px 36px 3px 36px;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Sniglet|Raleway:900)
+	;
+
+#dialog_wschat h1 {
+	font-weight: normal;
+	font-size: 4em;
+	font-family: 'Raleway', sans-serif;
+	margin: 0 auto;
+	margin-top: 30px;
+	width: 500px;
+	color: #F90;
+	text-align: center;
+}
+
+/* Animation webkit */
+@
+-webkit-keyframes myfirst { 0% {
+	margin-left: -235px
+}
+
+90%
+{
+margin-left
+:
+ 
+100%;
+}
+100%
+{
+margin-left
+:
+ 
+100%;
+}
+}
+
+/* Animation */
+@
+keyframes myfirst { 0% {
+	margin-left: -235px
+}
+
+70%
+{
+margin-left
+:
+ 
+100%;
+}
+100%
+{
+margin-left
+:
+ 
+100%;
+}
+}
+#dialog_wschat .fish {
+	background-image:
+		url('http://www.geertjanhendriks.nl/codepen/form/fish.png');
+	width: 235px;
+	height: 104px;
+	margin-left: -235px;
+	position: absolute;
+	animation: myfirst 24s;
+	-webkit-animation: myfirst 24s;
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	-webkit-animation-timing-function: linear;
+}
+
+#fish {
+	top: 120px;
+}
+
+#fish2 {
+	top: 260px;
+	animation-delay: 12s;
+	-webkit-animation-delay: 12s;
+}
+
+#dialog_wschat .wave {
+	height: 120px;
+	background: url('http://www.geertjanhendriks.nl/codepen/form/golf.png')
+		repeat-x bottom;
+}
+
+#form {
+	height: 100%;
+/* 	background-color: #98d4f3; */
+	overflow: hidden;
+	position: relative;
+}
+
+#dialog_wschat .form01 {
+	background-color: #98d4f3;
+	overflow: hidden;
+	position: relative;
+}
+
+#dialog_wschat form {
+	margin: 0 auto;
+	width: 500px;
+	padding-top: 40px;
+	color: white;
+	position: relative;
+}
+
+#dialog_wschat label, #dialog_wschat  input, #dialog_wschat  textarea {
+	display: block;
+}
+
+#dialog_wschat input, #dialog_wschat textarea {
+	width: 500px;
+	border: none;
+	/* 	border-radius: 20px;
+	outline: none;
+	padding: 10px; */
+	font-family: 'Sniglet', cursive;
+	font-size: 1em;
+	/* 	color: #676767; */
+	transition: border 0.5s;
+	-webkit-transition: border 0.5s;
+	-moz-transition: border 0.5s;
+	-o-transition: border 0.5s;
+	/* 	border: solid 3px #98d4f3;	 */
+	border-radius: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	/* 	box-sizing:border-box; */
+}
+
+#dialog_wschat input:focus, #dialog_wschat  textarea:focus {
+	border: solid 3px #77bde0;
+}
+
+/* input[type="submit"]{ 
+	background-color: #F90;
+	color: white;
+	height: 50px;
+	cursor: pointer;
+	margin-top: 30px;
+	font-size: 1.29em;
+	font-family: 'Sniglet', cursive;
+	-webkit-transition: background-color 0.5s;
+	-moz-transition: background-color 0.5s;
+	-o-transition: background-color 0.5s;
+	transition: background-color 0.5s;
+}
+input[type="submit"]:hover{
+	background-color: #e58f0e;
+	
+} */
+#dialog_wschat label {
+	font-size: 1.5em;
+	margin-top: 20px;
+	padding-left: 20px;
+}
+
+#dialog_wschat .formgroup, #dialog_wschat .formgroup-active, #dialog_wschat .formgroup-error
+	{
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-size: 10.5%;
+	transition: background-image 0.7s;
+	-webkit-transition: background-image 0.7s;
+	-moz-transition: background-image 0.7s;
+	-o-transition: background-image 0.7s;
+	width: 566px;
+	padding-top: 2px;
+}
+
+#dialog_wschat .formgroup {
+	background-image:
+		url('http://www.geertjanhendriks.nl/codepen/form/pixel.gif');
+}
+
+#dialog_wschat .formgroup-active {
+	background-image:
+		url('http://www.geertjanhendriks.nl/codepen/form/octo.png');
+}
+
+#dialog_wschat .formgroup-error {
+	background-image:
+		url('http://www.geertjanhendriks.nl/codepen/form/octo-error.png');
+	color: red;
+}
+
+#profile2 {
+	width: 20%;
+	border: 2px solid #e6e6e6;
+	background: #fff;
+	background-color: white;
+	right: 0;
+	top: 60px;
+	overflow: hidden;
+	display: block;
+	overflow-y: auto;
+	display: block;
+	height: calc(100% - 60px) !important;
+	position: absolute;
+}
+
+#dialog_wschat .r-header1 {
+	background-color: #202845;
+	color: #fff;
+	text-align: center;
+	padding: 15px 0;
+	font-size: 15px;
+}
+
+#dialog_wschat .r-header1 {
+	
+}
+
+#dialog_wschat .r-header2 ul {
+	overflow: hidden;
+	width: 100%;
+	text-align: center;
+	padding: 23px 3px 10px;
+}
+
+#dialog_wschat .r-header2 ul li {
+	cursor: pointer;
+	width: 30%;
+	text-align: center; /*  border-right:1px solid#d7d7d7; */
+	display: table-cell;
+	width: 1%;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 38px;
+}
+
+#dialog_wschat .r-header2 ul li:after {
+	position: absolute;
+	top: 2px;
+	right: -17px;
+	display: block;
+	width: 1px;
+	height: 11px;
+	background: #d9d9d9;
+}
+/* .r-header2 ul li:last-child{border:none;} */
+#dialog_wschat .r-header2 ul li span {
+	
+}
+
+#dialog_wschat .r-header2 .filebox {
+	background: url(../images/stnd/file.png) no-repeat;
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+	padding-top: 31px;
+}
+
+#dialog_wschat .r-header2 .filebox.active {
+	background: url(../images/stnd/file_active.png) no-repeat;
+	color: #0a88ff;
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+	padding-top: 31px;
+}
+
+#dialog_wschat .r-header2 .filebox:after {
+	background: #d9d9d9;
+	width: 1px;
+}
+
+#dialog_wschat .r-header2 .filebox:hover {
+	background: url(../images/stnd/file_active.png) no-repeat;
+	width: 30px;
+	height: 30px;
+	color: #0a88ff;
+}
+
+#dialog_wschat .r-header2 .picturebox {
+	background: url(../images/stnd/picture.png) no-repeat;
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+	padding-top: 31px;
+}
+
+#dialog_wschat .r-header2 .picturebox.active {
+	background: url(../images/stnd/picture_active.png) no-repeat;
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+	padding-top: 31px;
+	color: #0a88ff;
+}
+
+#dialog_wschat .r-header2 .picturebox:hover {
+	background: url(../images/stnd/picture_active.png) no-repeat;
+	width: 30px;
+	height: 30px;
+	color: #0a88ff;
+}
+
+#dialog_wschat .r-header2 .voicebox {
+	background: url(../images/stnd/voice.png) no-repeat;
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+	padding-top: 31px;
+}
+
+#dialog_wschat .r-header2 .voicebox.active {
+	background: url(../images/stnd/voice_active.png) no-repeat;
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+	padding-top: 31px;
+	color: #0a88ff;
+}
+
+#dialog_wschat .r-header2 .voicebox:hover {
+	background: url(../images/stnd/voice_active.png) no-repeat;
+	width: 30px;
+	height: 30px;
+	color: #0a88ff;
+}
+
+#dialog_wschat .r-header2 .tit {
+	margin: 6px 0;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+#dialog_wschat ul.memberlist {
+	padding: 0px 18px;
+}
+
+#dialog_wschat .member {
+	display: inline-block;
+	overflow-x: hidden;
+	line-height: 18px;
+	vertical-align: 7px;
+	width: 60%;
+	margin-left: 12px;
+}
+
+#dialog_wschat p.name {
+	font-size: 12px;
+	font-weight: bold;
+	color: #597a96;
+}
+
+#dialog_wschat p.name span {
+	font-size: 10px;
+}
+
+#dialog_wschat p.team {
+	font-size: 11px;
+	color: #464646;
+	padding: 3px 0;
+	font-style: italic;
+}
+
+#dialog_wschat .member .name font {
+	font-size: 15px;
+}
+
+#dialog_wschat .member .name span {
+	margin-left: 3px;
+	font-size: 13px;
+}
+
+#dialog_wschat .member .team font {
+	font-style: initial;
+	font-size: 15px;
+}
+
+#dialog_wschat .r-listmember ul li {
+	padding: 8px 0px;
+	/* 	display: grid; */
+	/* 	padding-bottom: 20px; */
+}
+
+#dialog_wschat .r-bottombtn {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	cursor: pointer;
+}
+
+#dialog_wschat .r-out {
+	font-size: 22px;
+	text-align: center;
+	border-top: 1px solid #e1e1e1;
+	border-bottom: 1px solid #e1e1e1;
+	padding: 15px 0;
+	margin-bottom: -1px;
+}
+
+#dialog_wschat .r-out img {
+	width: 23px;
+	vertical-align: -3px;
+	margin-right: 14px;
+}
+
+#dialog_wschat .r-addmember {
+	font-size: 22px;
+	text-align: center;
+	border-top: 1px solid #e1e1e1;
+	border-bottom: 1px solid #e1e1e1;
+	padding: 15px 0;
+}
+
+#dialog_wschat .r-addmember img {
+	width: 18px;
+	vertical-align: -1px;
+	margin-right: 10px;
+}
+
+#dialog_wschat .li-div {
+	    margin: 10px;
+    height: 50px;
+    position: relative;
+}
+
+#dialog_wschat a.name_search {
+	/* position: absolute; */
+	margin-top: 5px;
+	margin-left: 11px;
+	display: inline;
+	height: 12px;
+}
+
+#dialog_wschat td.td-h-img {
+	width: 33%;
+}
+
+#dialog_wschat .light_status_on_2 {
+	background: #1aff00;
+	width: 10px;
+	height: 10px;
+	box-shadow: 0px 0px 3px 2px #1aff00;
+}
+
+#dialog_wschat .light_status_off_2 {
+	background: #b5b5b5;
+	width: 12px;
+	height: 12px;
+}
+
+#dialog_wschat .light_status_2 {
+	/* position: absolute; */
+	display: inline;
+	border-radius: 50%;
+	margin-top: 5px;
+	float: right;
+	margin-: 5px;
+}
+
+#dialog_wschat  ul[ul_left] {
+    display: block;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: white;
+}
+
+#dialog_wschat div.invt-right {
+	display: block;
+	height: 380px; /* Just for the demo          */
+	overflow-y: auto; /* Trigger vertical scroll    */
+	overflow-x: hidden;
+	background: white;
+}
+
+.wschat_icon {
+	background: url(../../images/chat_msg.png) 0 0 repeat;
+	background-size: 50px 50px;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+	/* 	    border: 1px solid #c1c1c1; */
+}
+
+.mail {
+	background: url(../../images/mail.png) 0 0 repeat;
+	background-size: 50px 50px;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+	/* 	    	    border: 1px solid #c1c1c1; */
+}
+
+#order_by_search{
+	margin-left: 12px;
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gen.system">
+	
+	<insert id="gen_TSST_CONFIG_INFO" > 
+		CREATE TABLE TSST_CONFIG_INFO
+		(
+		  SYS_CONFIG_KEY_NM  VARCHAR2(100 BYTE),
+		  SYS_CONFIG_VALUE   VARCHAR2(1000 BYTE),
+		  SYS_CONFIG_DESC    VARCHAR2(1000 BYTE)        DEFAULT NULL,
+		  SYS_CONFIG_KEY     VARCHAR2(100 BYTE)
+		)
+		LOGGING 
+		NOCOMPRESS 
+		NOCACHE
+		NOPARALLEL
+		MONITORING
+		
+	</insert>
+	
+	<insert id="gen_TSST_USER_LOGIN_INFO" > 
+		CREATE TABLE TSST_USER_LOGIN_INFO
+		(
+		  USER_ID           VARCHAR2(20 BYTE),
+		  LOGIN_FAIL_CNT    NUMBER,
+		  USER_LOCKED       VARCHAR2(1 BYTE)            DEFAULT 'N',
+		  USER_LOCKED_TIME  DATE
+		)
+		LOGGING 
+		NOCOMPRESS 
+		NOCACHE
+		NOPARALLEL
+		MONITORING
+	</insert>
+</mapper>

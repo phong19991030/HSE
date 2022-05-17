@@ -1,0 +1,1560 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+  
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+    version="2.0">
+	 <description>Custom Tab a2m  component !!</description>
+	 <display-name>JSTL core</display-name>
+	 <tlib-version>1.1</tlib-version>
+	 <short-name>mis</short-name>
+	
+	<!-- *** 변형필요? 공통코드를 comboBox로 이용할 때 필요-->
+	<!-- combo tag  -->
+	<tag>
+		<name>combo</name>
+		<tag-class>applications.taglib.tag.ComboTag</tag-class>
+		<body-content>empty</body-content>
+		<info>ComboBox</info>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		
+		<attribute>
+			<name>type</name><!-- 구분코드 -->
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					 정해진 값으로 표기 : ex)cls : [label]{value}, 	<br>
+					 1. fixed: 고정된 코드 결과값을 반환, cls타입에 따라 지정됨  <br>
+					 2. array: jstl, el 로 데이터삽입 
+					 3. load : dao를 통해 직접 데이터 가져오기  							<br>
+					 --4. linked:						<br>
+				]]>
+			</description>
+		</attribute>
+		
+		<attribute>
+			<name>cls</name><!-- 구분코드 -->
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 fixed 일 경우만 적용 
+					 - 정해진 값으로 표기 : ex)cls : [label]{value}, <br>
+					 1. YN: [예,아니오]{Y:N}, 							<br>
+					 2. YN_ENG: [Y,N]{Y:N}, 							<br>
+					 3. SEX:[남자,여자]{M,F}, 							<br>
+					 4. YEAR:[현재연도-5 ~ 현재연도+2]{}, 					<br>
+					 5. MONTH:[1~12]{1~12}, 							<br>
+					 6. DAY:[1~31]{1~31}, 								<br>
+					 7. TIME:[1,..,24]{1~24}, 							<br>
+					 8. SEND_STAT_CD:[생성, 전송]{01, 02}					<br>
+					 9. USE_YN : [사용, 미사용]{Y:N}						<br>
+					 10. ENABLE : [가능, 불가능]{Y:N}					
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>params</name><!--파라미터 -->
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 파라미터 값 : ex) params = "name=value" or params="name1=value1&name2=value2&..."	<br>
+					- 파라미터 값 : ex) params = "name=value1,value2, ...."
+				]]>
+			</description>		
+		</attribute>	
+		<attribute>
+			<name>dataArray</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 array 일 경우만 적용 
+				데이터 구조가 List<Map> 일 경우만 가능 
+				ex) dataArray ="${list}"		
+				]]>
+			</description>
+		</attribute>	
+		<attribute>
+			<name>dataCodeField</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 array,load 일 경우만 적용 
+				select박스내 option value가 될 필드명 
+				ex)
+				[{DATA:100,LABEL:사용},{DATA:100,LABEL:사용}] 데이터구조 시 
+				dataCodeField = "DATA"
+				]]>
+			</description>
+		</attribute>	
+		<attribute>
+			<name>dataLabelField</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 array,load 일 경우만 적용 
+				select박스에 표시될 필드명 
+				ex)
+				[{DATA:100,LABEL:사용},{DATA:100,LABEL:사용}] 데이터구조 시 
+				dataLabelField = "LABEL"
+					
+				]]>
+			</description>
+		</attribute>	
+		<attribute>
+			<name>daoName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 load 일 경우만 적용 
+				xml 의 namespace.id 값 
+				
+				ex) namespace = common.code.Code
+				 id= commCode
+				 
+				 daoName = "common.code.Code.commCode"
+					
+				]]>
+			</description>
+		</attribute>	
+		<attribute>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 기본 선택값											<br>
+					ex) cls 가 YN 일 경우 Y또는 N을 기본 선택값으로 지정			<br>
+					ex) cls = "YN"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>script</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 선택 변경시 실행될 함수명 		<br>
+					ex) script = "function명()"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>css</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					스타일 조건 
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>cssClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					클래스명 
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+				<description>
+				<![CDATA[
+					- 콤보박스 비활성화 여부 				<br>
+					true(비활성화), false(활성화)		<br>
+					ex) disabled = "true"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>defaultText</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 콤보박스 선택되기 전의 label 사용자 임의 변경 가능  	<br>
+					ex) ::선택::(기본) -> 전체						<br>
+					ex) defaultText = "전체"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>defaultValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 콤보박스 선택되기 전의 label의 value값을 사용자 임의 변경 가능 	<br>
+					- defaultValue  안쓰면 [전체] 옵션 생성 안됨
+					- defaultValue = "" 등 값이 선언될때  [전체] 표시됨
+					ex) [::선택::]{""} -> [전체]{all}							<br>
+					ex) defaultValue = "" 
+					
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>linked</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					연결된 콤보박스
+				]]>
+			</description>			
+		</attribute>
+		<attribute>
+			<name>oneline</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+				<description>
+				<![CDATA[
+					- printout in one line 				<br>
+					true(one line), false(multiple line)		<br>
+					ex) oneline = "true"
+				]]>
+			</description>
+		</attribute>
+	</tag>
+	
+	
+	<!-- *** 변형필요? 공통코드를 radio로 이용할 때 필요-->
+	<!-- 	사용확정 -->
+	<!-- radio tag -->
+	<tag>
+		<name>radio</name>
+		<tag-class>applications.taglib.tag.RadioTag</tag-class>
+		<body-content>empty</body-content>
+		<info>Radio - MIS용 공통코드 radio로 변형필요</info>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>type</name><!-- 구분코드 -->
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					 정해진 값으로 표기 : ex)cls : [label]{value}, 	<br>
+					 1. fixed: 고정된 코드 결과값을 반환, cls타입에 따라 지정됨  <br>
+					 2. array: jstl, el 로 데이터삽입 
+					 3. load : dao를 통해 직접 데이터 가져오기  							<br>
+					 --4. linked:						<br>
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>cls</name><!-- 구분코드 -->
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 정해진 값으로 표기 : ex)cls : [label]{value}, 			<br>
+					 1. YN: [예,아니오]{Y:N}, 							<br>
+					 2. YN_ENG: [Y,N]{Y:N}, 							<br>
+					 3. USE_YN: [사용,사용안함]{Y:N}, 						<br>
+					 4. SEX:[남자,여자]{M,F}								<br>
+					 
+					 99. ETC(custom): [dataArray중 labelColum컬럼명 ]{dataArray중 valueColumn컬럼명 }
+					 	* valueColumn,labelColum 은 String 
+					 	* dataArray : List<Map>
+					 ex) dataArray = ${param.codeList} ,labelColum= 'code_name' , valueColumn = 'code'
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>params</name><!--파라미터 -->
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 파라미터 값 : ex) params = "name=value" or params="name1=value1&name2=value2&..."	<br>
+					- 파라미터 값 : ex) params = "name=value1,value2, ...."
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>dataArray</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 array 일 경우만 적용 
+				데이터 구조가 List<Map> 일 경우만 가능 
+				ex) dataArray ="${list}"		
+				]]>
+			</description>
+		</attribute>	
+		<attribute>
+			<name>dataCodeField</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 array,load 일 경우만 적용 
+				ex)
+				[{DATA:100,LABEL:사용},{DATA:100,LABEL:사용}] 데이터구조 시 
+				dataCodeField = "DATA"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>dataLabelField</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 array,load 일 경우만 적용 
+				ex)
+				[{DATA:100,LABEL:사용},{DATA:100,LABEL:사용}] 데이터구조 시 
+				dataLabelField = "LABEL"
+				]]>
+			</description>
+		</attribute>	
+			<attribute>
+			<name>daoName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 load 일 경우만 적용 
+				xml 의 namespace.id 값 
+				
+				ex) namespace = common.code.Code
+				 id= commCode
+				 
+				 daoName = "common.code.Code.commCode"
+					
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 기본 선택값										<br>
+					ex) Y또는 N을 기본 선택값으로 지정
+					ex) cls 가 YN 일 경우 Y또는 N을 기본 선택값으로 지정			<br>
+					ex) cls = "YN"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>script</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 선택 변경시 실행될 함수명 		<br>
+					ex) script = "function명()"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>wrapperCss</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					Wrapper style
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>wrapperClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					Wrapper 클래스명 
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>css</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>cssClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					클래스명 
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>defaultText</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- Radio 선택되기 전의 label 사용자 임의 변경 가능  <br>
+					ex) 전체(기본) -> All							  <br>
+					ex) defaultText = "All"
+				]]>
+			</description>	
+		</attribute>
+		<attribute>
+			<name>defaultValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- Radio 선택되기 전의 label의 value값을 사용자 임의 변경 가능 	<br>
+					- defaultValue  안쓰면 [전체] 옵션 생성 안됨
+					- defaultValue = "" 등 값이 선언될때  [전체] 표시됨
+					ex) [전체]{""} -> [All]{all}							    <br>
+					ex) defaultValue = "all"
+				]]>
+			</description>	
+		</attribute>
+	</tag>
+	
+	<!-- 사용안함 -->
+	<!-- checkbox-fix tag -->
+	<!-- <tag>
+		<name>checkbox-fix</name>
+		<tag-class>applications.taglib.tag.FixedCheckBoxTag</tag-class>
+		<body-content>empty</body-content>
+		<info>Fixed Checkbox</info>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>class</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>		
+		<attribute>
+			<name>cls</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 정해진 값으로 표기 : ex)cls : [label]{value}, 			<br>
+					 1. YN: [예,아니오]{Y:N}, 							<br>
+					 2. YN_ENG: [Y,N]{Y:N}, 							<br>
+					 3. SEX:[남자,여자]{M,F}
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 기본 선택값											<br>
+					ex) cls 가 YN 일 경우 Y또는 N을 기본 선택값으로 지정			<br>
+					ex) cls = "YN"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>script</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 선택 변경시 실행될 함수명 		<br>
+					ex) script = "function명()"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>css</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				- Style
+			</description>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 체크박스 비활성화 여부 				<br>
+					true(비활성화), false(활성화)		<br>
+					ex) disabled = "true"
+				]]>
+			</description>		
+		</attribute>
+	</tag> -->
+	
+	<!-- *** 변형필요? 공통코드를 checkBox로 이용할 때 필요-->
+	<!-- checkbox tag -->
+	<tag>
+		<name>checkbox</name>
+		<tag-class>applications.taglib.tag.CheckBoxTag</tag-class>
+		<body-content>empty</body-content>
+		<info>Checkbox - MIS용 공통코드 checkbox 변형필요</info>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>type</name><!-- 구분코드 -->
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					 정해진 값으로 표기 : ex)cls : [label]{value}, 	<br>
+					 1. fixed: 고정된 코드 결과값을 반환, cls타입에 따라 지정됨  <br>
+					 2. array: jstl, el 로 데이터삽입 
+					 3. load : dao를 통해 직접 데이터 가져오기  							<br>
+					 --4. linked:						<br>
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>cls</name><!-- 구분코드 -->
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 정해진 값으로 표기 : ex)cls : [label]{value}, 			<br>
+					 1. YN: [예,아니오]{Y:N}, 							<br>
+					 2. YN_ENG: [Y,N]{Y:N}, 							<br>
+					 3. USE_YN: [사용,사용안함]{Y:N}, 						<br>
+					 4. SEX:[남자,여자]{M,F}								<br>
+					 
+					 99. ETC(custom): [dataArray중 labelColum컬럼명 ]{dataArray중 valueColumn컬럼명 }
+					 	* valueColumn,labelColum 은 String 
+					 	* dataArray : List<Map>
+					 ex) dataArray = ${param.codeList} ,labelColum= 'code_name' , valueColumn = 'code'
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>params</name><!--파라미터 -->
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 파라미터 값 : ex) params = "name=value" or params="name1=value1&name2=value2&..."	<br>
+					- 파라미터 값 : ex) params = "name=value1,value2, ...."
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>dataArray</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 array 일 경우만 적용 
+				데이터 구조가 List<Map> 일 경우만 가능 
+				ex) dataArray ="${list}"		
+				]]>
+			</description>
+		</attribute>	
+		<attribute>
+			<name>dataCodeField</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 array,load 일 경우만 적용 
+				ex)
+				[{DATA:100,LABEL:사용},{DATA:100,LABEL:사용}] 데이터구조 시 
+				dataCodeField = "DATA"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>dataLabelField</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 array,load 일 경우만 적용 
+				ex)
+				[{DATA:100,LABEL:사용},{DATA:100,LABEL:사용}] 데이터구조 시 
+				dataLabelField = "LABEL"
+				]]>
+			</description>
+		</attribute>	
+			<attribute>
+			<name>daoName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 load 일 경우만 적용 
+				xml 의 namespace.id 값 
+				
+				ex) namespace = common.code.Code
+				 id= commCode
+				 
+				 daoName = "common.code.Code.commCode"
+					
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 기본 선택값										<br>
+					ex) Y또는 N을 기본 선택값으로 지정
+					ex) cls 가 YN 일 경우 Y또는 N을 기본 선택값으로 지정			<br>
+					ex) cls = "YN"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>script</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 선택 변경시 실행될 함수명 		<br>
+					ex) script = "function명()"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>wrapperCss</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					Wrapper style
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>wrapperClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					Wrapper 클래스명 
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>css</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>cssClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					클래스명 
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>defaultText</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- Radio 선택되기 전의 label 사용자 임의 변경 가능  <br>
+					ex) 전체(기본) -> All							  <br>
+					ex) defaultText = "All"
+				]]>
+			</description>	
+		</attribute>
+		<attribute>
+			<name>defaultValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- Radio 선택되기 전의 label의 value값을 사용자 임의 변경 가능 	<br>
+					- defaultValue  안쓰면 [전체] 옵션 생성 안됨
+					- defaultValue = "" 등 값이 선언될때  [전체] 표시됨
+					ex) [전체]{""} -> [All]{all}							    <br>
+					ex) defaultValue = "all"
+				]]>
+			</description>	
+		</attribute>
+	</tag>
+	
+	<!-- 사용확정 -->
+	<!-- navigation tag -->
+	<tag>
+		<name>navi</name>
+		<tag-class>applications.taglib.tag.NavigationTag</tag-class>
+		<body-content>empty</body-content>
+		<info>navigation bar</info>
+		<attribute>
+			<name>menuMap</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>helpIcon</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- 사용확정 -->
+	<!-- 
+		button tag
+		
+		******
+		- type : reset, update, delete 등의 종류 추가
+		- style : 어떤 기능인지 구분이 잘 되지 않음
+		- 수정이 많이 필요 
+	-->
+	<tag>
+		<name>button</name>
+		<tag-class>applications.taglib.tag.ButtonTag</tag-class>
+		<body-content>empty</body-content>
+		<info>button</info>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>class</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>		
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				??
+			</description>
+		</attribute>
+		<attribute>
+			<name>label</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 버튼 label 						<br>
+					ex) 조회, 수정, 삭제 등				<br>
+					ex) label = "조회"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>type</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 버튼의 기능 type 				<br>
+					ex) button(default), submit		<br>
+					ex) type = "button"
+				]]>
+			</description>
+		</attribute>		
+		<attribute>
+			<name>kind</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 버튼 Style의 종류 					<br>
+					WS(white-small)						<br>
+					WM(white-medium:default)			<br>
+					WL(white-large)						<br>
+					BS(black-small)						<br>
+					BM(blank-medium)					<br>
+					BL(black-large)
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>script</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 선택 변경시 실행될 함수명 		<br>
+					ex) script = "function명()"
+				]]>
+			</description>		
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 버튼 비활성화 여부 				<br>
+					true(비활성화), false(활성화)		<br>
+					ex) disabled = "true"
+				]]>
+			</description>		
+		</attribute>
+		<attribute>
+			<name>positiveRoles</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 권한있는ROLES(세션Roles확인)										 <br>
+					R_0001,R_0100..권한있는ROLES(세션Roles확인): disabled=false (활성화) <br>
+					ex) positiveRoles="R_0001"
+				]]>
+			</description>				
+		</attribute>
+		<attribute>
+			<name>negativeRoles</name><!-- R_0001,R_0100..권한없는ROLES(세션Roles확인): disabled=true -->
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 권한있는ROLES(세션Roles확인)										  	<br>
+					R_0001,R_0100..권한없는ROLES(세션Roles확인): disabled=true (비활성화) 	<br>
+					ex) negativeRoles="R_0001"
+				]]>
+			</description>
+		</attribute>
+	</tag>
+	
+	<!-- 사용확정 -->
+	<!-- tab tag -->
+	<tag>
+		<name>tab</name>
+		<tag-class>applications.taglib.tag.TabTag</tag-class>
+		<body-content>JSP</body-content>
+		<info>tab</info>
+		<attribute>
+			<name>class</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>tabNames</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 해당  Tab 이름 			<br>
+					ex) tabNames="탭1"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>tabUrls</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 해당  Tab의 Url 			<br>
+					ex) tabUrls="/ri/ri0201.do"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>selectedIndex</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 해당  Tab의 index 			<br>
+					ex) selectedIndex="1"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>tabScript</name><!-- 'false'(default) -->
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 해당  Tab의 클릭 시 실행될 함수명
+				]]>
+			</description>
+		</attribute>
+	</tag>
+	
+	<!-- 사용여부 결정필요 -->
+	<!-- box tag -->
+	<tag>
+		<name>box</name>
+		<tag-class>applications.taglib.tag.BoxTag</tag-class>
+		<body-content>JSP</body-content>
+		<info>round box</info>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>className</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>roundbox(default)</description>
+		</attribute>
+		<attribute>
+			<name>width</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>100px(default)</description>
+		</attribute>
+		<attribute>
+			<name>height</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>100px(default)</description>
+		</attribute>
+	</tag>
+	
+	<!-- 사용X -->
+	<!-- combo Arry tag
+	<tag>
+		<name>comboArry</name>
+		<tag-class>applications.taglib.tag.ComboArryTag</tag-class>
+		<body-content>empty</body-content>
+		<info>make comboBox</info>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>cls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>구분코드</description>
+		</attribute>
+		<attribute>
+			<name>params</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>파라미터</description>
+		</attribute>		
+		<attribute>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>script</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>css</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>defaultText</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>defaultValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>linked</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>연결된 콤보박스</description>
+		</attribute>
+		<attribute>
+			<name>conflicted</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>복수의 부모콤보가 서로 상반된(하나가 선택되면 다른 하나는 무시) : true|false(default)</description>
+		</attribute>
+		<attribute>
+			<name>autoComplete</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>자동검색input을 사용할경우: true|false(default)</description>
+		</attribute>
+		<attribute>
+			<name>autoSession</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>자동세션업데이트: true|false(true)</description>
+		</attribute>
+	</tag>
+	-->
+	
+	<!-- 알림 및 정보표시를 위해 사용해야 할 것 같음 -->
+	<!-- information div tag -->
+	<tag>
+		<name>info</name>
+		<tag-class>applications.taglib.tag.InfoTag</tag-class>
+		<body-content>empty</body-content>
+		<info>information div</info>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>class</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>		
+		<attribute>
+			<name>cls</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				info의 종류 구분
+			</description>
+		</attribute>
+	</tag>
+	
+	<!-- 사용확정 -->	 
+	<!-- searchbox LayoutTag  -->
+	<tag> 
+		<name>searchbox</name>
+		<tag-class>applications.taglib.tag.SearchBoxLayoutTag</tag-class>
+		<body-content>JSP</body-content>
+		<info> </info>
+<!-- 		<display-name>information div</display-name> -->
+		<attribute>
+			<name>class</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>formId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+					id for searchForm
+			</description>
+		</attribute>
+		<attribute>
+			<name>initenable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				초기 자동실행여부 
+			</description>
+		</attribute>
+		<attribute>
+			<name>pagingable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				paging for grid or not
+			</description>
+		</attribute>
+		<attribute>
+			<name>script</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				실행 타겟 function 명 
+				ex ) drawgrid
+			</description>
+		</attribute>
+		<attribute>
+			<name>buttons</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				실행 타겟 function 명 
+				ex ) drawgrid
+			</description>
+		</attribute>
+	</tag>
+	
+	<!-- 사용확정  -->
+	<!-- choiceInputForm LayoutTag  -->	
+	<tag> 
+		<name>choiceInputForm</name>
+		<tag-class>applications.taglib.tag.ChoiceInputPopupTag</tag-class>
+		<body-content>empty</body-content>
+		<info>팝업용 input</info>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				id
+			</description>
+		</attribute>
+		<attribute>
+			<name>url</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				불러올 페이지 주소
+				사용 안할 경우 cls 에 따라 기본 설정				
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>classes</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				add class to dialog
+			</description>
+		</attribute>
+		<attribute>
+			<name>type</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				popup종류 
+				 - popup : 일반적인 팝업형식
+				 - dialog : 내부에서 동작하는 팝업형식 
+			</description>
+		</attribute>
+		<attribute>
+			<name>textFieldName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				변수저장시 이름  
+			</description>
+		</attribute>		
+		<attribute>
+			<name>codeFieldName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				변수저장시 이름  
+			</description>
+		</attribute>
+		<attribute>
+			<name>textFieldSize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				textField input size(px) 기본 : 150
+			</description>
+		</attribute>
+		<attribute>
+			<name>codeFieldSize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				codeField input size(px) 기본 : 50
+			</description>
+		</attribute>
+		<attribute>
+			<name>codeTargetName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				코드타겟명			
+				]]>
+			</description>
+		</attribute>
+		<attribute>  
+			<name>textTargetName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				텍스트 타겟명				
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>defaultValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				기본데이터 값
+			</description>
+		</attribute>
+		<attribute>
+			<name>cls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				생성코드명, 공통 팝업일경우 사용할 코드<br>
+				코드명은 enumuration CommonPopupUrl.Groups 에 기재  
+				ex > 부서팝업 : depart
+				     인사팝업 : member
+				     ... 
+		     	]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>callback</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				선택이후 실행될 함수명 
+			</description>
+		</attribute>
+	 	<attribute>
+			<name>eventType</name>
+			<required>false</required> 
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				이벤트 종류
+			</description>
+		</attribute>
+		<attribute>
+			<name>funcname</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				이벤트시 실행할 함수 
+			</description>
+		</attribute>
+		<attribute>
+			<name>codeView</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				코드숨김 Defulat : false 
+			</description>
+		</attribute>
+		<attribute>
+			<name>searchLabel</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				검색필드 라벨값등 
+				자동등록
+			</description>
+		</attribute>
+		<attribute>
+			<name>codeDefaultValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				기본값 설정 
+			</description>
+		</attribute>
+		<attribute>
+			<name>textDefaultValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				기본값 설정 
+			</description>
+		</attribute>
+		<attribute>
+			<name>width</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				팝업 가로 길이
+			</description>
+		</attribute>
+		<attribute>
+			<name>height</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				팝업 세로 길이
+			</description>
+		</attribute>
+		<attribute>
+			<name>textTargetReadonly</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				textField Readonly 설정
+			</description>
+		</attribute>
+		<attribute>
+			<name>inactivate</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				버튼 선택불가 동작 안함
+			</description>
+		</attribute>
+		<attribute>
+			<name>params</name><!--파라미터 -->
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 파라미터 값 : {key : value, .....}				
+				]]>
+			</description>		
+		</attribute>			
+		<attribute>
+			<name>codeValidate</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- codeField validate 
+					ex) codeValidate = "required, ..."
+				]]>
+			</description>		
+		</attribute>			
+		<attribute>
+			<name>textValidate</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- textField validate 
+					ex) textValidate = "required, ..."
+				]]>
+			</description>		
+		</attribute>	
+		<attribute>
+			<name>fields</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- fields
+					targets 가 없으면 무효
+					ex) fields = "[REQUIRED, ...]"
+				]]>
+			</description>		
+		</attribute>	
+		
+		<attribute>
+			<name>targets</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- targets
+					fields 가 없으면 무효
+					ex) targets = "[MAIN.REQUIRED, ...]"
+				]]>
+			</description>		
+		</attribute>
+		
+		<attribute>
+			<name>targetsGen</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- targets 생성여부 
+					targets 가 없으면 무효
+					ex) targets = "[MAIN.REQUIRED, ...]"
+				]]>
+			</description>		
+		</attribute>		
+		<attribute>
+			<name>targetsView</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- targets 보임여부 
+					targets 가 없거나 Gen이 없거나 false 이면 무효 
+					ex) targets = "[MAIN.REQUIRED, ...]"
+				]]>
+			</description>		
+		</attribute>	
+	</tag>
+	
+	<!-- *** 변형필요? 날짜(년도, 년월)를 버튼으로 클릭하여 이용할 때 필요-->
+	<!-- dateStepper tag  -->
+	<tag>
+		<name>dateStepper</name>
+		<tag-class>applications.taglib.tag.DateStepperTag</tag-class>
+		<body-content>empty</body-content>
+		<info>DateStepper</info>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>		
+		<attribute>
+			<name>cls</name><!-- 구분코드 -->
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+				type 값이 fixed 일 경우만 적용 
+					 - 정해진 값으로 표기 : ex)cls : [label]{value}, <br>
+					 1. YY: [년도]{}, 							<br>
+					 2. YM: [년월]{}, 											
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>params</name><!--파라미터 -->
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 파라미터 값 : ex) params = "name=value"				
+				]]>
+			</description>		
+		</attribute>		
+		<attribute>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 기본 선택값											<br>
+					ex) selected 가 YN 일 경우 Y또는 N을 기본 선택값으로 지정			<br>
+					ex) selected = "YN"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>script</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					- 선택 변경시 실행될 함수명 		<br>
+					ex) script = "function명()"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>css</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					스타일 조건 
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>cssClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					클래스명 
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>readonly</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+				<description>
+				<![CDATA[
+					- input box readonly 여부 				<br>
+					true(readonly), false()		<br>
+					ex) readonly = "true"
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>inactivate</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				버튼 선택불가 동작 안함
+			</description>
+		</attribute>
+	</tag>
+	
+	
+	<!-- ***파일첨부 버튼을만들떄 필요-->
+	<!-- filemanager tag  -->
+	<tag>
+		<name>filemanager</name>
+		<tag-class>applications.taglib.tag.FileManagerTag</tag-class>
+		<body-content>empty</body-content>
+		<info>file Manager </info>
+		<attribute>
+			<name>id</name><!--파라미터 -->
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					-필드명을 기본으로 함 	
+				]]>
+			</description>		
+		</attribute>		
+		<attribute>
+			<name>fileKey</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					반드시 사용해야하는 키값.
+					fileKey 값이 있을경우에는 입력된 키로 파일을 첨부하고 
+					없을 경우 임시의 키를 자동으로 생성 
+					
+				]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>hold</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				<![CDATA[
+					true 로 설정하면 수정 안됨 
+					
+				]]>
+			</description>
+		</attribute>
+	</tag>
+	
+	
+	
+</taglib>

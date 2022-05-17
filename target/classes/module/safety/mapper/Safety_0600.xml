@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="safety.safety_0600">
+
+	<select id="search" parameterType="map" resultType="HashMap">
+		SELECT SUB.*
+		FROM (
+			SELECT HSMO.*
+			, hem_cso.EMP_NAME AS CSO_NAME
+			, hem_field_agent.EMP_NAME AS FIELD_AGENT_NAME
+			, hem_safety_mng.EMP_NAME AS SAFETY_MANAGER_NAME
+			, hem_material_mng.EMP_NAME AS MATERIAL_MANAGER_NAME
+			, hem_site_mng.EMP_NAME AS SITE_MANAGER_NAME
+			<!-- , HE.EMP_NAME AS INVESTOR_NAME -->
+			, HPM.PROJECT_NAME
+			, ROW_NUMBER() OVER (ORDER BY HSMO.INS_DATE DESC ) AS RN
+			FROM HSE_SAFE_MGT_ORG HSMO
+			<!-- LEFT JOIN HSE_EMP_MGT HE ON HE.EMP_NO = HSMO.INVESTOR -->
+			LEFT JOIN HSE_PROJECT_MGT HPM ON HSMO.PROJECT_ID = HPM.PROJECT_ID
+			LEFT JOIN HSE_EMP_MGT hem_cso ON hem_cso.EMP_NO = HSMO.CSO
+			LEFT JOIN HSE_EMP_MGT hem_field_agent ON hem_field_agent.EMP_NO = HSMO.FIELD_AGENT
+			LEFT JOIN HSE_EMP_MGT hem_safety_mng ON hem_safety_mng.EMP_NO = HSMO.SAFETY_MANAGER
+			LEFT JOIN HSE_EMP_MGT hem_material_mng ON hem_material_mng.EMP_NO = HSMO.MATERIAL_MANAGER
+			LEFT JOIN HSE_EMP_MGT hem_site_mng ON hem_site_mng.EMP_NO = HSMO.SITE_MANAGER
+			<where>
+				<if test="all != null and all != '' ">
+					<trim prefix="AND"> 
+						(
+							LOWER(HSMO.INVESTOR) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+							LOWER(HPM.PROJECT_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+							LOWER(hem_cso.EMP_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+							LOWER(hem_safety_mng.EMP_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+							LOWER(hem_material_mng.EMP_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+							LOWER(hem_site_mng.EMP_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+							LOWER(hem_field_agent.EMP_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR 
+							LOWER(HSMO.DOC_NO) LIKE LOWER(CONCAT('%', #{all}, '%')) 
+							
+						)
+					</trim>
+				</if>
+				<if test="SEARCH_INVESTOR != null and SEARCH_INVESTOR != '' ">
+				 	<trim prefix="AND">
+						LOWER(HSMO.INVESTOR) LIKE LOWER(CONCAT('%', #{SEARCH_INVESTOR}, '%'))
+					</trim>
+				</if>
+				<if test="SEARCH_PROJECT_NAME != null and SEARCH_PROJECT_NAME != '' ">
+					<trim prefix="AND">
+						LOWER(HPM.PROJECT_NAME) LIKE LOWER(CONCAT('%', #{SEARCH_PROJECT_NAME}, '%'))
+					</trim>
+				</if>
+			</where>
+			) SUB
+		WHERE SUB.RN BETWEEN (#{PAGE}-1) * #{PAGE_SIZE}+1 and (#{PAGE} * #{PAGE_SIZE})
+		ORDER BY SUB.RN ASC
+	</select>
+
+	<select id="count" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM HSE_SAFE_MGT_ORG HSMO
+		<!-- LEFT JOIN HSE_EMP_MGT HE ON HE.EMP_NO = HSMO.INVESTOR -->
+		LEFT JOIN HSE_PROJECT_MGT HPM ON HSMO.PROJECT_ID = HPM.PROJECT_ID
+			LEFT JOIN HSE_EMP_MGT hem_cso ON hem_cso.EMP_NO = HSMO.CSO
+			LEFT JOIN HSE_EMP_MGT hem_field_agent ON hem_field_agent.EMP_NO = HSMO.FIELD_AGENT
+			LEFT JOIN HSE_EMP_MGT hem_safety_mng ON hem_safety_mng.EMP_NO = HSMO.SAFETY_MANAGER
+			LEFT JOIN HSE_EMP_MGT hem_material_mng ON hem_material_mng.EMP_NO = HSMO.MATERIAL_MANAGER
+			LEFT JOIN HSE_EMP_MGT hem_site_mng ON hem_site_mng.EMP_NO = HSMO.SITE_MANAGER
+		<where>
+			<if test="all != null and all != '' ">
+					<trim prefix="AND"> 
+						(
+							LOWER(HSMO.INVESTOR) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+							LOWER(HPM.PROJECT_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+							LOWER(hem_cso.EMP_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+							LOWER(hem_safety_mng.EMP_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+							LOWER(hem_material_mng.EMP_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+							LOWER(hem_site_mng.EMP_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+							LOWER(hem_field_agent.EMP_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR 
+							LOWER(HSMO.DOC_NO) LIKE LOWER(CONCAT('%', #{all}, '%')) 
+						)
+					</trim>
+			</if>
+			<if test="SEARCH_INVESTOR != null and SEARCH_INVESTOR != '' ">
+			 	<trim prefix="AND">
+					LOWER(HSMO.INVESTOR) LIKE LOWER(CONCAT('%', #{SEARCH_INVESTOR}, '%'))
+				</trim>
+			</if>
+			<if test="SEARCH_PROJECT_NAME != null and SEARCH_PROJECT_NAME != '' ">
+				<trim prefix="AND">
+					LOWER(HPM.PROJECT_NAME) LIKE LOWER(CONCAT('%', #{SEARCH_PROJECT_NAME}, '%'))
+				</trim>
+			</if>
+		</where>
+	</select>
+
+	<select id="get" parameterType="map" resultType="HashMap">
+		SELECT HSMO.*
+			, hem_cso.EMP_NAME AS CSO_NAME
+			, hem_field_agent.EMP_NAME AS FIELD_AGENT_NAME
+			, hem_safety_mng.EMP_NAME AS SAFETY_MANAGER_NAME
+			, hem_material_mng.EMP_NAME AS MATERIAL_MANAGER_NAME
+			, hem_site_mng.EMP_NAME AS SITE_MANAGER_NAME
+			, HPM.PROJECT_NAME
+			<!-- , HE.EMP_NAME AS INVESTOR_NAME -->
+		FROM HSE_SAFE_MGT_ORG HSMO
+		LEFT JOIN HSE_PROJECT_MGT HPM ON HSMO.PROJECT_ID = HPM.PROJECT_ID
+		<!-- LEFT JOIN HSE_EMP_MGT HE ON HE.EMP_NO = HSMO.INVESTOR -->
+		LEFT JOIN HSE_EMP_MGT hem_cso ON hem_cso.EMP_NO = HSMO.CSO
+		LEFT JOIN HSE_EMP_MGT hem_field_agent ON hem_field_agent.EMP_NO = HSMO.FIELD_AGENT
+		LEFT JOIN HSE_EMP_MGT hem_safety_mng ON hem_safety_mng.EMP_NO = HSMO.SAFETY_MANAGER
+		LEFT JOIN HSE_EMP_MGT hem_material_mng ON hem_material_mng.EMP_NO = HSMO.MATERIAL_MANAGER
+		LEFT JOIN HSE_EMP_MGT hem_site_mng ON hem_site_mng.EMP_NO = HSMO.SITE_MANAGER
+		WHERE HSMO.SAFE_MGT_ORG_ID = #{SAFE_MGT_ORG_ID}
+	</select>
+	
+	<insert id="insert" parameterType="map" useGeneratedKeys="true" keyProperty="SAFE_MGT_ORG_ID">
+		INSERT INTO HSE_SAFE_MGT_ORG
+		(
+			PROJECT_ID,
+			DOC_NO,
+			INVESTOR,
+			CSO,
+			FIELD_AGENT,
+			SAFETY_MANAGER,
+			MATERIAL_MANAGER,
+			SITE_MANAGER,
+			
+			CSO_JOB,
+			FIELD_AGENT_JOB,
+			SAFETY_MANAGER_JOB,
+			MATERIAL_MANAGER_JOB,
+			SITE_MANAGER_JOB,
+
+			INS_DATE,
+			INS_USER
+		)
+		VALUES
+		(
+		    #{PROJECT_ID},
+		    #{DOC_NO},
+		    #{INVESTOR},
+		    #{CSO},
+		    #{FIELD_AGENT},
+		    #{SAFETY_MANAGER},
+		    #{MATERIAL_MANAGER},
+		    #{SITE_MANAGER},
+		    
+		    #{CSO_JOB},
+		    #{FIELD_AGENT_JOB},
+		    #{SAFETY_MANAGER_JOB},
+		    #{MATERIAL_MANAGER_JOB},
+		    #{SITE_MANAGER_JOB},
+		    
+		    CURRENT_TIMESTAMP(),
+		    #{session.USER_UID}
+		)
+	</insert>
+
+	<update id="update" parameterType="map">
+		UPDATE HSE_SAFE_MGT_ORG HSMO
+		SET 
+			HSMO.SAFE_MGT_ORG_ID = #{SAFE_MGT_ORG_ID}
+			, HSMO.PROJECT_ID = #{PROJECT_ID}
+			, HSMO.DOC_NO = #{DOC_NO}
+			, HSMO.BUYER = #{BUYER}
+			
+			, HSMO.CSO = #{CSO}
+			, HSMO.FIELD_AGENT = #{FIELD_AGENT}
+			, HSMO.SAFETY_MANAGER = #{SAFETY_MANAGER}
+			, HSMO.MATERIAL_MANAGER = #{MATERIAL_MANAGER}
+			, HSMO.SITE_MANAGER = #{SITE_MANAGER}
+			
+			, HSMO.CSO_JOB = #{CSO_JOB}
+			, HSMO.FIELD_AGENT_JOB = #{FIELD_AGENT_JOB}
+			, HSMO.SAFETY_MANAGER_JOB = #{SAFETY_MANAGER_JOB}
+			, HSMO.MATERIAL_MANAGER_JOB = #{MATERIAL_MANAGER_JOB}
+			, HSMO.SITE_MANAGER_JOB = #{SITE_MANAGER_JOB}
+			
+
+			, HSMO.UPD_DATE = CURRENT_TIMESTAMP()
+			, HSMO.UPD_USER = #{session.USER_UID}
+		WHERE HSMO.SAFE_MGT_ORG_ID = #{SAFE_MGT_ORG_ID}
+	</update>
+
+	<delete id="delete" parameterType="map">
+		DELETE FROM HSE_SAFE_MGT_ORG
+		WHERE SAFE_MGT_ORG_ID = #{SAFE_MGT_ORG_ID}
+	</delete>
+
+</mapper>

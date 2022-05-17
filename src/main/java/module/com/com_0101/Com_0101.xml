@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.com_0101">
+
+	
+	<select id="getUserList" parameterType="map" resultType="HashMap">
+		SELECT SUB.*
+		FROM (
+		    SELECT U.USER_UID
+		         , U.USER_ID
+		         , UI.USER_NM
+		      <!--    , C.COMPANY_NAME -->
+		         , DATE_FORMAT(CONVERT_TZ(U.INS_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS INS_DATETIME
+		         , DATE_FORMAT(CONVERT_TZ(R.LOGIN_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS RECENT_LOGIN_DATETIME
+		         , ROW_NUMBER() OVER (ORDER BY U.INS_DT DESC) AS RN
+		    FROM TSST_USER U
+		    LEFT JOIN TSST_USER_INFO UI
+        	ON UI.USER_UID = U.USER_UID
+        	LEFT JOIN HSE_COMPANY_MGT C
+        	ON U.COMP = C.COMPANY_ID
+        	LEFT JOIN TSST_USER_LOGIN_RECENT R
+        	ON R.USER_UID = U.USER_UID
+		    <where>
+		    	<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+		    		AND (
+					    U.USER_ID LIKE CONCAT('%',#{SEARCH_ALL},'%')
+					    OR UI.USER_NM LIKE CONCAT('%',#{SEARCH_ALL},'%')
+					    OR C.COMPANY_NAME LIKE CONCAT('%',#{SEARCH_ALL},'%')
+					)
+		    	</if>
+		    	<if test="SEARCH_USER_ID != null and SEARCH_USER_ID != '' ">
+			    	AND U.USER_ID LIKE CONCAT('%',#{SEARCH_USER_ID},'%')
+			    </if>
+			    <if test="SEARCH_USER_NM != null and SEARCH_USER_NM != '' ">
+		    		AND UI.USER_NM LIKE CONCAT('%',#{SEARCH_USER_NM},'%')
+		    	</if>
+		    	<if test="SEARCH_COMP_NM != null and SEARCH_COMP_NM != '' ">
+		    		AND C.COMPANY_NAME LIKE CONCAT('%',#{SEARCH_COMP_NM},'%')
+		    	</if>
+		    	
+		    	<if test="COMPANY_ID != null and COMPANY_ID != '' ">
+		    		AND C.COMPANY_ID = #{COMPANY_ID}
+		    	</if>
+		    </where>
+		) SUB
+		WHERE SUB.RN BETWEEN (#{PAGE}-1) * #{PAGE_SIZE}+1 and (#{PAGE} * #{PAGE_SIZE})
+		ORDER BY SUB.RN ASC
+	</select>
+	
+	<select id="getUserCnt" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM TSST_USER U
+		LEFT JOIN TSST_USER_INFO UI
+        ON UI.USER_UID = U.USER_UID
+        LEFT JOIN HSE_COMPANY_MGT C
+        	ON U.COMP = C.COMPANY_ID
+        LEFT JOIN TSST_USER_LOGIN_RECENT R
+        ON R.USER_UID = U.USER_UID
+		<where>
+	    	<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+	    		AND (
+				    U.USER_ID LIKE CONCAT('%',#{SEARCH_ALL},'%')
+				    OR UI.USER_NM LIKE CONCAT('%',#{SEARCH_ALL},'%')
+				    OR C.COMPANY_NAME LIKE CONCAT('%',#{SEARCH_ALL},'%')
+				)
+	    	</if>
+	    	<if test="SEARCH_USER_ID != null and SEARCH_USER_ID != '' ">
+		    	AND U.USER_ID LIKE CONCAT('%',#{SEARCH_USER_ID},'%')
+		    </if>
+		    <if test="SEARCH_USER_NM != null and SEARCH_USER_NM != '' ">
+	    		AND UI.USER_NM LIKE CONCAT('%',#{SEARCH_USER_NM},'%')
+	    	</if>
+	    	<if test="SEARCH_COMP_NM != null and SEARCH_COMP_NM != '' ">
+	    		AND C.COMPANY_NAME LIKE CONCAT('%',#{SEARCH_COMP_NM},'%')
+	    	</if>
+	    	<if test="COMPANY_ID != null and COMPANY_ID != '' ">
+	    		AND C.COMPANY_ID = #{COMPANY_ID}
+	    	</if>
+	    </where>
+	</select>
+	
+	<!-- POPUP -->
+	<select id="getCompanyList" parameterType="map" resultType="HashMap">
+		SELECT C.COMPANY_ID
+		     , C.COMPANY_NAME
+		     <!-- , C.CLS
+		     , C.LOGO -->
+		     , IFNULL(TF.FLE_PATH, '') AS FLE_PATH
+        	 , IFNULL(TF.FLE_NM, '') AS FLE_PATH
+        	 , IFNULL(TF.NEW_FLE_NM, '') AS NEW_FLE_NM
+		     <!-- , IFNULL(TF.FLE_KEY, '') AS FLE_KEY -->
+		FROM HSE_COMPANY_MGT C
+		LEFT JOIN TCCO_FILE TF
+		    ON TF.ATCH_FLE_SEQ = C.COMPANY_NAME
+		<where>
+			<if test="CLASS != null and CLASS != '' ">
+				C.CLS = #{CLASS}
+			</if>
+			<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+				AND (
+				    C.COMPANY_NAME LIKE CONCAT('%',#{SEARCH_ALL},'%')
+				)
+			</if>
+		</where>
+	</select>
+	
+	<select id="getMenuAccessList" parameterType="map" resultType="HashMap">
+		SELECT ROLE_ID
+		     , ROLE_NM
+		     , RMK
+		FROM TSST_ROLE_MGT
+		WHERE USE_YN = 'Y'
+		<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+			AND ROLE_NM LIKE CONCAT('%', #{SEARCH_ALL},'%')
+		</if>
+	</select>
+	
+	<!-- <select id="getTurbinePermissionList" parameterType="map" resultType="HashMap">
+		SELECT T.GERATOR_ID
+		     , F.FARM_NM
+		     , G.GROUP_NM
+		     , T.GERATOR_NM
+		FROM WT_GERATOR T
+		LEFT JOIN WT_GROUP G
+		    ON G.GROUP_ID = T.GROUP_ID
+		LEFT JOIN WT_FARM F
+		    ON F.FARM_ID = G.FARM_ID
+		<where>
+			<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+			    AND (
+			        F.FARM_NM LIKE CONCAT('%', #{SEARCH_ALL},'%')
+			        OR G.GROUP_NM LIKE CONCAT('%', #{SEARCH_ALL},'%')
+			        OR T.GERATOR_NM LIKE CONCAT('%', #{SEARCH_ALL},'%')
+			    )
+			</if>
+		</where>	
+	</select> -->
+	
+	<select id="duplicateCheckUserID" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM TSST_USER
+		WHERE USER_ID = #{USER_ID}
+		<!-- 수정 일 경우, USER_UID를 같이 던져 이전 ID는 중복체크 제외  -->
+		<if test="USER_UID != null and USER_UID != '' ">
+			AND USER_UID != #{USER_UID}
+		</if>
+	</select>
+	<!-- //POPUP -->
+	
+	<!-- 등록, 수정, 삭제 -->
+	<insert id="insertUser" parameterType="map">
+		BEGIN NOT ATOMIC
+		DECLARE result VARCHAR(50);
+		CALL proc_gen_id('USER_SEQ', @result);
+		
+		<selectKey keyProperty="USER_UID" resultType="String" order="AFTER">
+		    SELECT @result;
+		</selectKey>
+		
+		INSERT INTO TSST_USER
+		(
+		    USER_UID,
+		    USER_ID,
+		    PWD,
+		    SALT,
+		    <!-- COMP, -->
+		    INS_ID,
+		    INS_DT,
+		    IS_FIRST_LOGIN
+		)
+		VALUES
+		(
+		  	@result,
+		  	#{USER_ID},
+		  	#{PASSWORD},
+		  	#{SALT},
+		  	<!-- #{COMPANY_ID}, -->
+		  	#{session.USER_ID},
+		  	CURRENT_TIMESTAMP(),
+		  	0
+		);
+		
+		INSERT INTO TSST_USER_INFO
+		(
+		    USER_UID,
+		    USER_NM,
+		    <!-- COMPANY_ID, -->
+		    INS_ID,
+		    INS_DT
+		)
+		VALUES
+		(
+		    @result,
+		    #{USER_NM},
+		    <!-- #{COMPANY_ID}, -->
+		    #{session.USER_ID},
+		    CURRENT_TIMESTAMP()
+		);
+		END;
+	</insert>
+	
+	<insert id="insertUserMenuAccess" parameterType="map">
+		INSERT INTO TSST_USER_ROLE
+		(
+		    ROLE_ID,
+		    USER_ID
+		)
+		VALUES 
+		(
+		    #{ROLE_ID},
+		    #{USER_UID}
+		)
+	</insert>
+	
+<!-- 	<insert id="insertUserTurbinePermission" parameterType="map">
+		INSERT INTO WT_AUTHORITY
+		(
+		    USER_UID,
+		    GERATOR_ID
+		)
+		VALUES
+		(
+		    #{USER_UID},
+		    #{GERATOR_ID}
+		)
+	</insert> -->
+	
+	<update id="updateUser" parameterType="map">
+		UPDATE TSST_USER U, TSST_USER_INFO UI
+		SET U.USER_ID = #{USER_ID}
+		  , U.PWD = #{PASSWORD}
+		  , U.SALT = #{SALT}
+		  , U.COMP = #{COMPANY_ID}
+		  , U.UPT_ID = #{session.USER_ID}
+		  , U.UPT_DT = CURRENT_TIMESTAMP()
+		  , U.IS_FIRST_LOGIN = 1
+		  , UI.USER_NM = #{USER_NM}
+		  <!-- , UI.COMPANY_ID = #{COMPANY_ID} -->
+		  , UI.UPT_ID = #{session.USER_ID}
+		  , UI.UPT_DT = CURRENT_TIMESTAMP()
+		WHERE U.USER_UID = #{USER_UID}
+		AND UI.USER_UID = U.USER_UID
+	</update>
+	
+	<delete id="deleteUserMenuAccess" parameterType="map">
+		DELETE
+		FROM TSST_USER_ROLE
+		WHERE USER_ID = #{USER_UID}
+	</delete>
+	
+<!-- 	<delete id="deleteUserTurbinePermission" parameterType="map">
+		DELETE
+		FROM WT_AUTHORITY
+		WHERE USER_UID = #{USER_UID}
+	</delete> -->
+	
+	<delete id="deleteUser" parameterType="map">
+		BEGIN NOT ATOMIC
+
+        DELETE
+        FROM TSST_USER_INFO
+        WHERE USER_UID = #{USER_UID};
+
+        DELETE
+        FROM TSST_USER
+        WHERE USER_UID = #{USER_UID};
+        END;
+	</delete>
+	
+	<!-- //등록, 수정, 삭제 -->
+	
+	<!-- 상세 페이지 -->
+	<select id="getUserInfo" parameterType="map" resultType="HashMap">
+		SELECT U.USER_UID
+		     , U.USER_ID
+		     , U.PWD
+		     , DATE_FORMAT(CONVERT_TZ(U.INS_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS INS_DATETIME
+		     , DATE_FORMAT(CONVERT_TZ(U.UPT_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS UPT_DATETIME
+		     
+		     , U.INS_ID
+		     , U.UPT_ID
+		     , UI.USER_NM
+		  <!--    , C.COMPANY_ID
+		     , C.COMPANY_NAME
+		     , C.COMPANY_ADDRESS -->
+		     , ROLE.ROLE_ID_LIST
+		     , ROLE.ROLE_NM_LIST
+		     , ROLE.ROLE_RMK_LIST
+		     
+		     , E.EMP_NO
+		     , E.EMP_NAME
+		FROM TSST_USER U
+		LEFT JOIN TSST_USER_INFO UI
+		    ON UI.USER_UID = U.USER_UID
+		<!-- LEFT JOIN HSE_COMPANY_MGT C
+            ON C.COMPANY_ID = U.COMP -->
+		LEFT JOIN (
+		    SELECT R.USER_ID AS USER_UID
+		         , GROUP_CONCAT(R.ROLE_ID SEPARATOR ' | ') AS ROLE_ID_LIST
+		         , GROUP_CONCAT(RM.ROLE_NM SEPARATOR ' | ') AS ROLE_NM_LIST
+		         , GROUP_CONCAT(RM.RMK SEPARATOR ' | ') AS ROLE_RMK_LIST
+		    FROM TSST_USER_ROLE R
+		    LEFT JOIN TSST_ROLE_MGT RM
+		        ON RM.ROLE_ID = R.ROLE_ID
+		    WHERE R.USER_ID = #{USER_UID}
+		    GROUP BY R.USER_ID
+		) ROLE ON ROLE.USER_UID = U.USER_UID
+		LEFT JOIN HSE_EMP_MGT E ON E.USER_UID = U.USER_UID
+		WHERE U.USER_UID = #{USER_UID}
+	</select>
+	
+	
+	<!-- // 상세 페이지 -->
+	
+	<select id="getEmpMgtList" parameterType="map" resultType="HashMap">
+	SELECT HEM.*
+		, (
+	        SELECT CD.COMM_NM
+	        FROM COMM_CD CD
+	        WHERE HEM.DUTY_CD = CD.COMM_CD
+	      ) as DUTY_NAME
+    FROM HSE_EMP_MGT HEM
+        
+	</select>
+	
+	<select id="getEmpListWithParam" parameterType="map" resultType="HashMap">
+		SELECT 
+			HEM.*
+			, ROW_NUMBER() OVER (ORDER BY HEM.INS_DATE DESC) AS RN
+			, C.COMPANY_NAME
+			, (
+		        SELECT CD.COMM_NM
+		        FROM COMM_CD CD
+		        WHERE HEM.DUTY_CD = CD.COMM_CD
+		      ) as DUTY_NAME
+	    FROM HSE_EMP_MGT HEM
+	 	LEFT JOIN HSE_COMPANY_MGT C ON C.COMPANY_ID = HEM.COMPANY_ID
+	    
+	    <where>
+	    	1 = 1
+		    <if test="SEARCH_EMP_NAME != null and SEARCH_EMP_NAME != '' ">
+	    		AND HEM.EMP_NAME LIKE CONCAT('%',#{SEARCH_EMP_NAME},'%')
+	    	</if>
+	    	<if test="COMPANY_ID != null and COMPANY_ID != '' ">
+	    		AND C.COMPANY_ID = #{COMPANY_ID}
+	    	</if>
+	    </where>
+	</select>
+	<select id="getEmpInfoWithStrUid" parameterType="map" resultType="HashMap">
+		SELECT 
+			HEM.*
+			, ROW_NUMBER() OVER (ORDER BY HEM.INS_DATE DESC) AS RN
+			, C.COMPANY_NAME
+			, (
+		        SELECT CD.COMM_NM
+		        FROM COMM_CD CD
+		        WHERE HEM.DUTY_CD = CD.COMM_CD
+		      ) as DUTY_NAME
+	    FROM HSE_EMP_MGT HEM
+	    LEFT JOIN HSE_COMPANY_MGT C ON C.COMPANY_ID = HEM.COMPANY_ID
+	    
+	    <where>
+	    	HEM.EMP_NO IN 
+			<foreach item="item" index="index" collection="lstUId"
+            	open="(" separator="," close=")">
+	        	#{item}
+	    	</foreach>
+	    </where>
+	</select>
+	
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.com_0001">
+	<select id="getPaymentList" parameterType="map" resultType="HashMap">
+		SELECT 
+			ROW_NUMBER() OVER (ORDER BY pam.INS_DT DESC) AS RN,
+			pam.MENU_ID,
+			pam.REFERENCE_ID,
+			pam.REFERENCE_KEY,
+			pam.STATUS,
+			pam.INS_ID,
+			pam.UPT_ID,
+			DATE_FORMAT(pam.INS_DT, '%Y.%m.%d') as INS_DT,
+			DATE_FORMAT(pam.INS_DT, '%T') as INS_TIME,
+			DATE_FORMAT(pam.UPT_DT, '%Y.%m.%d') as UPT_DT,
+			DATE_FORMAT(pam.UPT_DT, '%T') as UPT_TIME,
+			tmm.MENU_NM,
+			tmm.LINK_PATH,
+			tmm1.MENU_NM as UP_MENU_NM,
+			
+			hem1.EMP_NAME as INS_EMP_NM,
+			cc1.COMM_NM as INS_DUTY_NM,
+
+			hem2.EMP_NAME as UPT_EMP_NM,
+			cc2.COMM_NM as UPT_DUTY_NM
+			
+		FROM HSE_PAYMENT_APR_MGT pam
+		LEFT JOIN TSST_MENU_MGT tmm ON tmm.MENU_ID = pam.MENU_ID
+		LEFT JOIN TSST_MENU_MGT tmm1 ON tmm1.MENU_ID = tmm.UP_MENU_ID
+		
+		LEFT JOIN HSE_EMP_MGT hem1 ON hem1.USER_UID = pam.INS_ID
+		LEFT JOIN COMM_CD cc1 ON cc1.COMM_CD = hem1.DUTY_CD
+		
+		LEFT JOIN HSE_EMP_MGT hem2 ON hem2.USER_UID = pam.UPT_ID
+		LEFT JOIN COMM_CD cc2 ON cc2.COMM_CD = hem2.DUTY_CD
+		
+	</select>
+	
+	<select id="getMenuPaymentLst" parameterType="map" resultType="HashMap">
+		SELECT 
+			tmm.MENU_ID,
+		    tmm.MENU_NM,
+		    
+		    tmm1.MENU_ID as UP_MENU_ID,
+		    tmm1.MENU_NM as UP_MENU_NM,
+		    tmm1.ORD_NO as UP_ORD_NO,
+		    
+		    (SELECT 
+				COUNT(*) 
+			 FROM TSST_MENU_MGT
+		     WHERE UP_MENU_ID = tmm1.MENU_ID) AS RP_CNT,
+		    
+		    (SELECT
+				COUNT(*) as CNT_ALL_NEW
+			 FROM HSE_PAYMENT_APR_MGT
+		     WHERE STATUS = 'PAYMENT_STATUS-1'
+		     AND MENU_ID = tmm.MENU_ID
+			) as CNT_ALL_NEW,
+		    
+		    (SELECT
+				COUNT(*) as CNT_TODAY_NEW
+			 FROM HSE_PAYMENT_APR_MGT
+		     WHERE STATUS = 'PAYMENT_STATUS-1'
+		     AND MENU_ID = tmm.MENU_ID
+			 AND DATE_FORMAT(INS_DT, '%Y-%m-%d') = CURDATE()
+			) as CNT_TODAY_NEW,
+		    
+		    (SELECT
+				COUNT(*) as CNT_ALL_REVIEW
+			 FROM HSE_PAYMENT_APR_MGT
+		     WHERE STATUS = 'PAYMENT_STATUS-2'
+		     AND MENU_ID = tmm.MENU_ID
+			) as CNT_ALL_REVIEW,
+		    
+		    (SELECT
+				COUNT(*) as CNT_TODAY_REVIEW
+			 FROM HSE_PAYMENT_APR_MGT
+		     WHERE STATUS = 'PAYMENT_STATUS-2'
+		     AND MENU_ID = tmm.MENU_ID
+			 AND DATE_FORMAT(INS_DT, '%Y-%m-%d') = CURDATE()
+			) as CNT_TODAY_REVIEW,
+		    
+		    (SELECT
+				COUNT(*) as CNT_ALL_APPROVED
+			 FROM HSE_PAYMENT_APR_MGT
+		     WHERE STATUS = 'PAYMENT_STATUS-2'
+		     AND MENU_ID = tmm.MENU_ID
+			) as CNT_ALL_APPROVED,
+		    (SELECT
+				COUNT(*) as CNT_TODAY_APPROVED
+			 FROM HSE_PAYMENT_APR_MGT
+		     WHERE STATUS = 'PAYMENT_STATUS-2'
+		     AND MENU_ID = tmm.MENU_ID
+			 AND DATE_FORMAT(INS_DT, '%Y-%m-%d') = CURDATE()
+			) as CNT_TODAY_APPROVED
+		
+		FROM TSST_MENU_MGT tmm
+		LEFT JOIN TSST_MENU_MGT tmm1 ON tmm1.MENU_ID = tmm.UP_MENU_ID
+		
+		WHERE tmm.LEV = 3
+		AND tmm.UP_MENU_ID != 'M_HSE_01'
+		ORDER BY UP_ORD_NO, tmm.UP_MENU_ID, tmm.ORD_NO
+	</select>
+	
+	
+	<select id="getPaymentCnt" parameterType="map" resultType="HashMap">
+		SELECT 
+		COUNT(*) as CNT,
+		
+		(SELECT 
+			COUNT(*)
+			FROM HSE_PAYMENT_APR_MGT 
+			WHERE STATUS = 'PAYMENT_STATUS-1'
+			AND DATE_FORMAT(INS_DT, '%Y-%m-%d') = CURDATE()) as CNT1,
+		(SELECT 
+			COUNT(*) as CNT2
+			FROM HSE_PAYMENT_APR_MGT 
+			WHERE STATUS = 'PAYMENT_STATUS-2'
+			AND DATE_FORMAT(INS_DT, '%Y-%m-%d') = CURDATE()) as CNT2,
+		(SELECT 
+			COUNT(*) as CNT3
+			FROM HSE_PAYMENT_APR_MGT 
+			WHERE STATUS = 'PAYMENT_STATUS-3'
+			AND DATE_FORMAT(INS_DT, '%Y-%m-%d') = CURDATE()) as CNT3
+		
+		FROM HSE_PAYMENT_APR_MGT 
+	</select>
+
+	<insert id="insertPaymentStatus" parameterType="map" useGeneratedKeys="true" keyProperty="PAYMENT_APR_ID">
+		INSERT INTO HSE_PAYMENT_APR_MGT
+		(
+		    MENU_ID,
+		    REFERENCE_ID,
+		    REFERENCE_KEY,
+		    STATUS,
+		    
+		    INS_DT,
+		    INS_ID
+		)
+		VALUES 
+		(
+		    #{MENU_ID},
+		    #{REFERENCE_ID},
+		    #{REFERENCE_KEY},
+		    #{STATUS},
+		    
+		    CURRENT_TIMESTAMP(),
+		    #{REGI_EMP_NO}
+		)
+	</insert>
+	
+	<delete id="deletePaymentStatus" parameterType="map">
+		DELETE
+		FROM HSE_PAYMENT_APR_MGT
+		WHERE MENU_ID = #{MENU_ID}
+		AND REFERENCE_ID = #{REFERENCE_ID}
+	</delete>
+	
+</mapper>

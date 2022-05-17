@@ -1,0 +1,559 @@
+<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=UTF-8" />
+    <style type="text/css">
+    	* {
+        	font-family: NanumBarunGothic;
+        	font-size: 13px;
+        	margin:0px;
+        	padding:0px;
+        }
+        
+        table {
+        	border-collapse: collapse;
+		    border-spacing: 0;
+		    border: 1px solid black;
+		    /* border-top-color: black;
+		    border-top-width: 1px;
+		    border-top-style: solid;
+		    border-left-color: black;
+		    border-left-width: 1px;
+		    border-left-style: solid; */
+        }
+        
+        table tr td {
+        	border-collapse: collapse;
+	        border-spacing: 0;
+	        border-right-color: black;
+	        border-right-width: 1px;
+	        border-right-style: solid;
+	        border-bottom-color: black;
+	        border-bottom-width: 1px;
+	        border-bottom-style: solid;
+	        padding: 10px;
+        }
+        
+        .table-no-border {
+        	border: none !important;
+        }
+        
+        .table-no-border tr td {
+        	border: none !important;
+        }
+        
+        .bg-gray {
+        	background: #dbdbdb;
+        }
+        
+        .spaced {
+        	display: block;
+        	width: 100%;
+        	height: 20px;
+        }
+        
+        .last-td {
+        	border-right-width: 0 !important;
+        }
+        
+        .last-tr-td {
+        	border-bottom-width: 0 !important;
+        }
+        
+        .indent {
+        	padding: 0 20px !important;
+        }
+        
+        .toc {
+        	font-weight: 700;
+        }
+        
+        ul, ol, li, dl, dt, dd{margin:0px 0px 0px 0px;padding:0px 0px 0px 0px;list-style:none;}
+        
+    </style>
+</head>
+
+<body>
+	<!-- 메인 페이지 -->
+    <div>
+        <div style="text-align: center; padding: 350px 0 200px 0;">
+        	<h1>#{TITLE}</h1>
+        </div>
+        <div>
+        	<table style="width: 100%;">
+			<tbody>
+					<tr>
+						<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">풍력 발전기</td>
+						<td style="width: 80%;">#{POSITION}</td>
+					</tr>
+					<tr>
+						<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">운영사</td>
+						<td style="width: 80%;">#{OPERATOR}</td>
+					</tr>
+					<tr>
+						<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">유지보수사</td>
+						<td style="width: 80%;">#{ISP}</td>
+					</tr>
+					<tr>
+						<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">작업 일자</td>
+						<td style="width: 80%;">#{DATETIME}</td>
+					</tr>
+					<tr>
+						<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">작업자</td>
+						<td style="width: 80%;">#{WORKERS}</td>
+					</tr>
+					<tr>
+						<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">작성자</td>
+						<td style="width: 80%;">#{REGISTRATOR}</td>
+					</tr>
+				</tbody>
+			</table>
+        </div>
+    </div>
+    <div style="page-break-before:always">&nbsp;</div>
+    <!-- 메인 페이지 -->
+    
+    <!-- 목차 -->
+    <div>
+    	<div style="font-size: 26px; font-weight: bold;">목차</div>
+        <div class="spaced"></div>
+		#{TABLE_OF_CONTENTS}
+	</div>
+	<div style="page-break-before:always">&nbsp;</div>
+	<!-- 목차 -->
+	
+	<!-- 발전기 스펙 --> 
+	<div class="toc">1. 풍력발전기 제원</div>
+    <div class="spaced"></div>
+    <div>
+    	<table style="width: 100%;">
+			<tbody>
+				<tr>
+					<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">발전기 모델명</td>
+					<td style="width: 80%;text-align:center;">#{TURBINE_MODEL}</td>
+				</tr>
+				<tr>
+					<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">Rotor 직경</td>
+					<td style="width: 80%;text-align:center;">#{TURBINE_ROTOR_D}</td>
+				</tr>
+				<tr>
+					<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">타워 높이</td>
+					<td style="width: 80%;text-align:center;">#{TURBINE_TOWER_H}</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+    <!-- 발전기 스펙 -->
+    
+    <!-- 블레이드 스펙 -->
+    <div class="spaced"></div>
+    <div class="toc">2. 블레이드 제원</div>
+    <div class="spaced"></div>
+    <div>
+    	<table style="width: 100%;">
+			<tbody>
+				<tr>
+					<td class="bg-gray" style="width: 25%;text-align:center;font-weight:700;"></td>
+					<td class="bg-gray" style="width: 25%;text-align:center;font-weight:700;">BLADE1</td>
+					<td class="bg-gray" style="width: 25%;text-align:center;font-weight:700;">BLADE2</td>
+					<td class="bg-gray" style="width: 25%;text-align:center;font-weight:700;">BLADE3</td>
+				</tr>                                 
+				<tr>                                  
+					<td class="bg-gray" style="width: 25%;text-align:center;font-weight:700;">Serial Number</td>
+					<td style="width: 25%;text-align:center;">#{BLADE1_SERIAL_NUM}</td>
+					<td style="width: 25%;text-align:center;">#{BLADE2_SERIAL_NUM}</td>
+					<td style="width: 25%;text-align:center;">#{BLADE3_SERIAL_NUM}</td>
+				</tr>                                
+				<tr>                                 
+					<td class="bg-gray" style="width: 25%;text-align:center;font-weight:700;">Blade 종류</td>
+					<td style="width: 25%;text-align:center;">#{BLADE1_TYPE}</td>
+					<td style="width: 25%;text-align:center;">#{BLADE2_TYPE}</td>
+					<td style="width: 25%;text-align:center;">#{BLADE3_TYPE}</td>
+				</tr>                                 
+				<tr>                                  
+					<td class="bg-gray" style="width: 25%;text-align:center;font-weight:700;">Blade 길이</td>
+					<td style="width: 25%;text-align:center;">#{BLADE1_LENGTH}</td>
+					<td style="width: 25%;text-align:center;">#{BLADE2_LENGTH}</td>
+					<td style="width: 25%;text-align:center;">#{BLADE3_LENGTH}</td>
+				</tr>                                
+				<tr>                                 
+					<td class="bg-gray" style="width: 25%;text-align:center;font-weight:700;">Blade 색</td>
+					<td style="width: 25%;text-align:center;f">#{BLADE1_COLOR}</td>
+					<td style="width: 25%;text-align:center;f">#{BLADE2_COLOR}</td>
+					<td style="width: 25%;text-align:center;f">#{BLADE3_COLOR}</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+    <!-- 블레이드 스펙 -->
+    
+    <!-- 드론 스펙 -->
+    <div class="spaced"></div>
+    <!-- <div class="toc indent">1.1 드론 제원</div> -->
+    <div class="toc">3. 드론 제원</div>
+    <div class="spaced"></div>
+    <div>
+    	<table style="width: 100%;">
+			<tbody>
+				<tr>
+					<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">모델 / 타입</td>
+					<td style="width: 80%;text-align:center;">#{DRONE_TYPE}</td>
+				</tr>
+				<tr>
+					<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">비행 시간</td>
+					<td style="width: 80%;text-align:center;">#{DRONE_FLIGHT_TIME}</td>
+				</tr>
+				<tr>
+					<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">비행 범위</td>
+					<td style="width: 80%;text-align:center;">#{DRONE_FLIGHT_RNG}</td>
+				</tr>
+				<tr>
+					<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">최대 동작 고도</td>
+					<td style="width: 80%;text-align:center;">#{DRONE_FLIGHT_ALT}</td>
+				</tr>
+				<tr>
+					<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">최대 동작 풍속</td>
+					<td style="width: 80%;text-align:center;">#{DRONE_FLIGHT_WIND_SPD}</td>
+				</tr>
+				<tr>
+					<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">최대 비행 속도</td>
+					<td style="width: 80%;text-align:center;">#{DRONE_FLIGHT_SPD}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+    <!-- 드론 스펙 -->
+    
+    <!-- 기상 --> 
+    <div class="spaced"></div>
+    <div class="toc">4. 기상</div>
+    <div class="spaced"></div>
+    <div>
+    	<table style="width: 100%;">
+			<tbody>
+				<tr>
+					<td class="bg-gray" style="width: 40%;text-align:center;font-weight:700;">시간</td>
+					<td class="bg-gray" style="width: 15%;text-align:center;font-weight:700;">날씨</td>
+					<td class="bg-gray" style="width: 15%;text-align:center;font-weight:700;">기온</td>
+					<td class="bg-gray" style="width: 15%;text-align:center;font-weight:700;">풍속</td>
+					<td class="bg-gray" style="width: 15%;text-align:center;font-weight:700;">습도</td>
+				</tr>
+				#{FLIGHT_LIST}
+<!-- 				<tr> -->
+<!-- 					<td style="width: 20%;text-align:center;">2020-01-01T00:00:00</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">맑음</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">18°C</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">18m/s</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">20%</td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td style="width: 20%;text-align:center;">2020-01-01T00:00:00</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">맑음</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">18°C</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">18m/s</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">20%</td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td style="width: 20%;text-align:center;">2020-01-01T00:00:00</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">맑음</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">18°C</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">18m/s</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">20%</td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td style="width: 20%;text-align:center;">2020-01-01T00:00:00</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">맑음</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">18°C</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">18m/s</td> -->
+<!-- 					<td style="width: 20%;text-align:center;">20%</td> -->
+<!-- 				</tr> -->
+			</tbody>
+		</table>
+    </div>
+    <div style="page-break-before:always">&nbsp;</div>
+    <!-- 기상 -->
+    
+    <!-- 블레이드 부위별 명칭 --> 
+    <div>
+    	<div class="spaced"></div>
+        <div class="toc">5. 블레이드 부위별 명칭</div>
+        <div class="spaced"></div>
+        <div class="spaced"></div>
+        <div><img src="images/blade-desc.jpg"/></div>
+        <div style="text-align: center;"><span>&lt;블레이드 부위 별 명칭&gt;</span></div>
+        <div style="display: block; width: 100%; height: 100px;"></div>
+        <div>
+        	<table class="table-blade-desc" style="width:100%;">
+        		<tbody>
+        			<tr>
+        				<td class="bg-gray" style="width: 30%;text-align:center;font-weight:700;">Leading edge (LE)</td>
+        				<td class="last-td" style="width: 70%;">The leading edge of the blades, i.e. the ‘nose’ that is heading into the wind during operation</td>
+        			</tr>
+        			<tr>
+        				<td class="bg-gray" style="width: 30%;text-align:center;font-weight:700;">Suction side(SuS)</td>
+        				<td class="last-td" style="width: 70%;">It is the side of the blade which faces the tower during turbine operation. This is also known as Leeward</td>
+        			</tr>
+        			<tr>
+        				<td class="bg-gray" style="width: 30%;text-align:center;font-weight:700;">Trailing edge (TE)</td>
+        				<td class="last-td" style="width: 70%;">The trailing edge of the blades is the thin edge where the airflow leaves the blade during operation</td>
+        			</tr>
+        			<tr>
+        				<td class="bg-gray" style="width: 30%;text-align:center;font-weight:700;">Pressure side (PrS)</td>
+        				<td class="last-td" style="width: 70%;">This side is facing the wind and is also known as Windward</td>
+        			</tr>
+        			<tr>
+        				<td class="bg-gray" style="width: 30%;text-align:center;font-weight:700;">Prepreg (PP)</td>
+        				<td class="last-td" style="width: 70%;">Pre-preg is short for ‘Pre-impregnated’. It is a combined material made of fibers and resin</td>
+        			</tr>
+        			<tr>
+        				<td class="bg-gray last-tr-td" style="width: 30%;text-align:center;font-weight:700;">Root (R)</td>
+        				<td class="last-td last-tr-td" style="width: 70%;">Radial position in meter, R0 correlates with the radial position of the flange</td>
+        			</tr>
+        		</tbody>
+        	</table>
+        </div>
+    </div>
+    <div style="page-break-before:always">&nbsp;</div>
+    <!-- 블레이드 부위별 명칭 -->
+    
+    <!-- 손상 종류 및 카테고리 --> 
+    <div>
+    	<div class="toc">6. 손상 종류 및 카테고리</div>
+        <div class="spaced"></div>
+        <div>
+        	<table style="width: 100%;">
+        		<tbody>
+        			<tr>
+        				<td style="width: 20px; height: 100px; background: green;"></td>
+        				<td class="last-td">
+        					<p>단순 표면 오염. (Category 1)</p>
+							<p>풍력발전기 출력에 영향이 없으므로 수리를 요하지 않음.</p>
+        				</td>
+        			</tr>
+        			<tr>
+        				<td style="background: #90EE90; height: 100px;"></td>
+        				<td class="last-td">
+        					<p>경미한 손상. (Category 2)</p>
+							<p>지속적인 풍력발전기 가동으로 인해 손상이 심화될 수 있으므로 추후 수리 및 연 1회 블 레이드 점검을 권고함</p>
+        				</td>
+        			</tr>
+        			<tr>
+        				<td style="background: yellow; height: 100px;"></td>
+        				<td class="last-td">
+        					<p>심각하지 않은 손상. (Category 3)</p>
+        					<p>풍력발전기 가동은 가능하나 출력에 영향을 미칠 수 있으므로 빠른 시일 내에 정비 계획 을 세우고 6개월 이내에 수리 및 3개월마다 블레이드 점검을 권고함.</p>
+        				</td>
+        			</tr>
+        			<tr>
+        				<td style="background: orange; height: 100px;"></td>
+        				<td class="last-td">
+        					<p>심각한 손상. (Category 4)</p>
+        					<p>블레이드 고유 에어포일의 변형으로 풍력발전기 출력에 심각한 영향을 미칠 수 있고, 더 나아가 가동 중 안전사고로 이어질 수 있기 때문에 3개월 이내에 수리 및 매월 블레이드 점검을 권고함.</p>
+        				</td>
+        			</tr>
+        			<tr>
+        				<td class="last-tr-td" style="background: red; height: 100px;"></td>
+        				<td class="last-td last-tr-td">
+        					<p>매우 심각한 손상. (Category 5)</p>
+        					<p>즉시 풍력발전기의 가동을 중지하고 가능한 빠른 시일 내에 수리를 권고함</p>
+        				</td>
+        			</tr>
+        		</tbody>
+        	</table>
+        </div>
+        <div style="padding-top: 50px;">
+        	<table style="width: 100%;">
+        		<tbody>
+        			<tr>
+        				<td class="last-td" colspan="2" style="background: #dbdbdb; text-align: center;">Defect type</td>
+        			</tr>
+        			<tr>
+        				<td class="last-tr-td" style="width:50%;">
+        					<div><p>1. Coat fault (Chipped coat, Irregularity)</p></div>
+        					<div><p>2. Cracks (Fracture)</p></div>
+        					<div><p>3. Erosion</p></div>
+        					<div><p>4. Lightning stroke <br/>(Receptor, Lightning system)</p></div>
+        					<div><p>5. Contamination</p></div>
+        					<div><p>6. Bad bonding</p></div>
+        				</td>
+        				<td class="last-td last-tr-td" style="width:50%;">
+        					<div><p>7. Core material damages</p></div>
+        					<div><p>8. Protection tape damages</p></div>
+        					<div><p>9. Noise</p></div>
+        					<div><p>10. Drain hole damages</p></div>
+        					<div><p>11. Upgrade kit damages <br/>(Copper cap, Vortex generator, Dino tail, etc)</p></div>
+        				</td>
+        			</tr>
+        		</tbody>
+        	</table>
+        </div>
+        <div style="padding: 30px 0;"><b>※ 손상 종류 및 카테고리의 기준은 블레이드 제조사의 기준을 따름</b></div>
+    </div>
+    
+    <!-- 손상 종류 및 카테고리 -->
+    
+    <!-- 손상 내역 -->
+<!--     <div>#{BLADE1_DAMAGE_LIST}</div> -->
+<!--     <div style="page-break-before:always">&nbsp;</div> -->
+<!--     <div>#{BLADE1_DAMAGE_ATTS}</div> -->
+<!--     <div style="page-break-before:always">&nbsp;</div> -->
+    
+<!--     <div>#{BLADE2_DAMAGE_LIST}</div> -->
+<!--     <div style="page-break-before:always">&nbsp;</div> -->
+<!--     <div>#{BLADE2_DAMAGE_ATTS}</div> -->
+<!--     <div style="page-break-before:always">&nbsp;</div> -->
+    
+<!--     <div>#{BLADE3_DAMAGE_LIST}</div> -->
+<!--     <div style="page-break-before:always">&nbsp;</div> -->
+<!--     <div>#{BLADE3_DAMAGE_ATTS}</div> -->
+<!--     <div style="page-break-before:always">&nbsp;</div> -->
+    
+    <div>
+    	<div class="toc">7. 손상 정보</div>
+        <div class="spaced"></div>
+        
+        <!-- 블레이드1 손상 내역 -->
+        #{BLADE1_DAMAGE}
+        
+        <!-- 블레이드2 손상 내역 -->
+        #{BLADE2_DAMAGE}
+        
+        <!-- 블레이드3 손상 내역 -->
+        #{BLADE3_DAMAGE}
+        
+        <!-- TYPE1 -->
+<!--         <table style="width:100%;"> -->
+<!--         	<tr> -->
+<!--         		<td rowspan="10" style="width:45%;">이미지</td> -->
+<!--         		<td style="width:5%;"></td> -->
+<!--         		<td style="width:15%;"></td> -->
+<!--         		<td style="width:15%;"></td> -->
+<!--         		<td style="width:20%;"></td>	 -->
+<!--         	</tr> -->
+<!--         	<tr> -->
+<!--         		<td colspan="4" class="bg-gray" style="font-weight:700;"> -->
+<!--         			- Blade Num: 1<br/> -->
+<!--         			- Blade Serial Num: #Blade1<br/> -->
+<!--         			- Blade Length: 44 m<br/> -->
+<!--         		</td> -->
+<!--         	</tr> -->
+<!--         	<tr> -->
+<!--         		<td class="bg-gray" style="text-align:center;font-weight:700;">No</td> -->
+<!--         		<td colspan="2" class="bg-gray" style="text-align:center;font-weight:700;">파손 정도 및 범위</td> -->
+<!--         		<td class="bg-gray" style="text-align:center;font-weight:700;">운전 및 정비 방안</td>	 -->
+<!--         	</tr> -->
+<!--         	row -->
+<!--         	<tr> -->
+<!--         		<td rowspan="2" style="text-align:center;font-weight:700;background-color:#ED762F;">1</td> -->
+<!--         		<td colspan="2" style="text-align:center;">TE, 표면 페인트 오염</td> -->
+<!--         		<td rowspan="2" style="text-align:center;">성능에는 영향이 없지만 추후 해당 블레이드 수리시에 같이 수리할 것을 권고 드립니다.</td>	 -->
+<!--         	</tr> -->
+<!--         	<tr> -->
+<!--         		<td> -->
+<!--         			R : 14m, <br/> -->
+<!--         			LE : 13m, -->
+<!--         		</td> -->
+<!--         		<td> -->
+<!--         			H : 4m, <br/> -->
+<!--         			V : 4m -->
+<!--         		</td> -->
+<!--         	</tr> -->
+<!--         	row -->
+<!--         </table> -->
+        
+<!--         <div class="spaced"></div> -->
+        
+        <!-- TYPE2 -->
+<!--         <table style="width:100%;"> -->
+<!--         	<tr> -->
+<!--         		<td rowspan="20" style="width:45%;">이미지</td> -->
+<!--         		<td style="width:5%;"></td> -->
+<!--         		<td style="width:26%;"></td> -->
+<!--         		<td style="width:12%;"></td> -->
+<!--         		<td style="width:12%;"></td>	 -->
+<!--         	</tr> -->
+<!--         	<tr> -->
+<!--         		<td colspan="4" class="bg-gray" style="font-weight:700;"> -->
+<!--         			- Blade Num: 1<br/> -->
+<!--         			- Blade Serial Num: #Blade1<br/> -->
+<!--         			- Blade Length: 44 m<br/> -->
+<!--         		</td> -->
+<!--         	</tr> -->
+<!--         	<tr> -->
+<!--         		<td class="bg-gray" style="text-align:center;font-weight:700;">No</td> -->
+<!--         		<td class="bg-gray" style="text-align:center;font-weight:700;">파손 부위 및 정도</td> -->
+<!--         		<td colspan="2" class="bg-gray" style="text-align:center;font-weight:700;">파손 범위</td>	 -->
+<!--         	</tr> -->
+<!--         	row sample -->
+<!--         	<tr> -->
+<!--         		<td rowspan="2" style="text-align:center;font-weight:700;background-color:#ED762F;">1</td> -->
+<!--         		<td style="text-align:center;">TE, 표면 페인트 오염</td> -->
+<!--         		<td> -->
+<!--         			R : 14m<br/> -->
+<!--         			LE : 13m -->
+<!--         		</td> -->
+<!--         		<td> -->
+<!--         			H : 4m<br/> -->
+<!--         			V : 4m -->
+<!--         		</td>		 -->
+<!--         	</tr> -->
+<!--         	<tr> -->
+<!--         		<td colspan="3" style="text-align:center;">성능에는 영향이 없지만 추후 해당 블레이드 수리시에 같이 수리할 것을 권고 드립니다.</td> -->
+<!--         	</tr> -->
+<!--         	row sample -->
+<!--         </table> -->
+        
+<!--         <div class="spaced"></div> -->
+        
+        <!-- TYPE3 -->
+<!--         <table style="width:100%;"> -->
+<!--         	<tr> -->
+<!--         		<td rowspan="100" style="width:45%;">이미지</td> -->
+<!--         		<td style="width:5%;"></td> -->
+<!--         		<td style="width:26%;"></td> -->
+<!--         		<td style="width:12%;"></td> -->
+<!--         		<td style="width:12%;"></td>	 -->
+<!--         	</tr> -->
+<!--         	<tr> -->
+<!--         		<td colspan="4" class="bg-gray" style="font-weight:700;"> -->
+<!--         			- Blade Num: 1<br/> -->
+<!--         			- Blade Serial Num: #Blade1<br/> -->
+<!--         			- Blade Length: 44 m<br/> -->
+<!--         		</td> -->
+<!--         	</tr> -->
+<!--         	<tr> -->
+<!--         		<td class="bg-gray" style="text-align:center;font-weight:700;">No</td> -->
+<!--         		<td class="bg-gray" style="text-align:center;font-weight:700;">파손 부위 및 정도</td> -->
+<!--         		<td colspan="2" class="bg-gray" style="text-align:center;font-weight:700;">파손 범위</td>	 -->
+<!--         	</tr> -->
+<!--         	row sample -->
+<!--         	<tr> -->
+<!--         		<td rowspan="3" style="text-align:center;font-weight:700;background-color:#ED762F;">1</td> -->
+<!--         		<td style="text-align:center;">TE, 표면 페인트 오염</td> -->
+<!--         		<td> -->
+<!--         			R : 14m<br/> -->
+<!--         			LE : 13m -->
+<!--         		</td> -->
+<!--         		<td> -->
+<!--         			H : 4m<br/> -->
+<!--         			V : 4m -->
+<!--         		</td>		 -->
+<!--         	</tr> -->
+<!--         	<tr> -->
+<!--         		<td colspan="3" class="bg-gray" style="text-align:center;font-weight:700;">운전 및 정비 방안</td> -->
+<!--         	</tr> -->
+<!--         	<tr> -->
+<!--         		<td colspan="3" style="text-align:center;">성능에는 영향이 없지만 추후 해당 블레이드 수리시에 같이 수리할 것을 권고 드립니다.</td> -->
+<!--         	</tr> -->
+<!--         	row sample -->
+<!--         </table> -->
+    </div>
+    <!-- 손상 내역 -->
+    
+    
+    
+    
+    
+</body>
+
+</html>

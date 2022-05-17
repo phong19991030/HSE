@@ -1,0 +1,1479 @@
+{
+	"3": {
+		"title": "Emergency Rescue Equipment",
+		"children": [{
+			"no": "3.1",
+			"title": "Rescue equipment",
+			"children": [{
+				"no": "1",
+				"desc": "나셀 내부에 비치 여부",
+				"checkboxTitle01": "유",
+				"checkboxValue01": false,
+				"checkboxTitle02": "무",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "Rescue equipment box Sealing (동봉상태)여부",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "3.2",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"4": {
+		"title": "Tower",
+		"children": [{
+			"no": "4.1",
+			"title": "Flange",
+			"children": [{
+				"no": "1",
+				"desc": "상태 및 변형 여부 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "4.2",
+			"title": "볼트",
+			"children": [{
+				"no": "1",
+				"desc": "오염 및 결함 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "4.3",
+			"title": "용접상태",
+			"children": [{
+				"no": "1",
+				"desc": "결함 및 Crack 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "4.4",
+			"title": "타워 Material 결함",
+			"children": [{
+				"no": "1",
+				"desc": "부식 및 도장 손상 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "4.5",
+			"title": "출입구",
+			"children": [{
+				"no": "1",
+				"desc": "출입문 핸들, 힌지, 공기 필터, 잠금장치 상태",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "4.6",
+			"title": "사다리 및 Fall protection",
+			"children": [{
+				"no": "1",
+				"desc": "사디리 연결 상태 및 연결 부분 균일 또는 손상 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "4.7",
+			"title": "타워 내외부 표면",
+			"children": [{
+				"no": "1",
+				"desc": "부식 및 도장 손상 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "4.8",
+			"title": "Emergency lights",
+			"children": [{
+				"no": "1",
+				"desc": "타워 내부등 및 비상등 정상 점등 여부 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "4.9",
+			"title": "전원 케이블, 접지 케이블 외",
+			"children": [{
+				"no": "1",
+				"desc": "케이블 꼬임 상태, 외부 표면 상태 및 접지 케이블 연결 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "4.10",
+			"title": "타워 기초부",
+			"children": [{
+				"no": "1",
+				"desc": "기초부와 연결 부분의 손상검사 (균열, 변형)",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "부식 및 도장 손상 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "3",
+				"desc": "접지선 상태 확인 (부식 및 연결 상태)",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "4.11",
+			"title": "Jacket",
+			"children": [{
+				"no": "1",
+				"desc": "상태, 오염 및 변형 여부 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "4.12",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"5": {
+		"title": "Yaw system",
+		"children": [{
+			"no": "5.1",
+			"title": "Yaw gear",
+			"children": [{
+				"no": "1",
+				"desc": "누유 상태 및 씰 손상 여부 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "청결 상태",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "3",
+				"desc": "부식 및 도장 손상 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "5.2",
+			"title": "Yaw teeth",
+			"children": [{
+				"no": "1",
+				"desc": "마모 및 손상 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "5.3",
+			"title": "Yaw ring",
+			"children": [{
+				"no": "1",
+				"desc": "마모 및 손상 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "부식 및 도장 손상 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "5.4",
+			"title": "Yaw system",
+			"children": [{
+				"no": "1",
+				"desc": "Yaw gear 작동 중 이상 소음 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "5.5",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"6": {
+		"title": "Main shaft",
+		"children": [{
+			"no": "6.1",
+			"title": "Front and rear bearing",
+			"children": [{
+				"no": "1",
+				"desc": "그리스 누유 여부, 회전 시 소음 발생 여부 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "6.2",
+			"title": "Housing",
+			"children": [{
+				"no": "1",
+				"desc": "균열 및 변형 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "부식 및 도장 손상 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "6.3",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"7": {
+		"title": "Hydr. system",
+		"children": [{
+			"no": "7.1",
+			"title": "Front and rear bearing",
+			"children": [{
+				"no": "1",
+				"desc": "유압장치의 누유상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "유압 배관 및 호스 손상 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "7.2",
+			"title": "Oil level",
+			"children": [{
+				"no": "1",
+				"desc": "Level 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "7.3",
+			"title": "Bracket",
+			"children": [{
+				"no": "1",
+				"desc": "부식, 균열 및 변형 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "7.4",
+			"title": "유압브레이크",
+			"children": [{
+				"no": "1",
+				"desc": "브레이크 디스크의 손상 여부 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "브레이크 패드 및 디스크의 청결 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "3",
+				"desc": "유압 브레이크 오일 누유상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "7.5",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"8": {
+		"title": "Coupling",
+		"children": [{
+			"no": "8.1",
+			"title": "",
+			"children": [{
+				"no": "1",
+				"title": "Coupling",
+				"children": [{
+					"no": "1",
+					"desc": "균열 및 변형 상태 확인",
+					"checkboxTitle01": "정상",
+					"checkboxValue01": false,
+					"checkboxTitle02": "비정상",
+					"checkboxValue02": false,
+					"comment": ""
+				},
+				{
+					"no": "2",
+					"desc": "부식 및 도장 상태 확인",
+					"checkboxTitle01": "정상",
+					"checkboxValue01": false,
+					"checkboxTitle02": "비정상",
+					"checkboxValue02": false,
+					"comment": ""
+				}]
+			},
+			{
+				"no": "2",
+				"title": "Composite disc",
+				"children": [{
+					"no": "1",
+					"desc": "균열 및 변형 상태 확인",
+					"checkboxTitle01": "정상",
+					"checkboxValue01": false,
+					"checkboxTitle02": "비정상",
+					"checkboxValue02": false,
+					"comment": ""
+				}]
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "8.2",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"9": {
+		"title": "Generator",
+		"children": [{
+			"no": "9.1",
+			"title": "Cooling system",
+			"children": [{
+				"no": "1",
+				"desc": "Inlet / outlet 연결 상태 및 누수상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "9.2",
+			"title": "Grease",
+			"children": [{
+				"no": "1",
+				"desc": "수위확인 및 공급상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "Grease pump 고정상태 호스 연결상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "9.3",
+			"title": "Foundation",
+			"children": [{
+				"no": "1",
+				"desc": "균열 및 변형 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "9.4",
+			"title": "Inlet filter 및 Cooling fan",
+			"children": [{
+				"no": "1",
+				"desc": "작동 여부 및 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "9.5",
+			"title": "Bearing",
+			"children": [{
+				"no": "1",
+				"desc": "ND 및 NDE 온도 trend 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "ND, NDE grease drain chamber 막힘 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "9.6",
+			"title": "Phase 온도",
+			"children": [{
+				"no": "1",
+				"desc": "Phase 1, 2, 3 온도 trend 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "9.7",
+			"title": "Encoder",
+			"children": [{
+				"no": "1",
+				"desc": "Encoder 축 고정상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "Connector cable 고정상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "9.8",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"10": {
+		"title": "Transformer",
+		"children": [{
+			"no": "10.1",
+			"title": "Winding",
+			"children": [{
+				"no": "1",
+				"desc": "배열, 균열 및 변형 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "10.2",
+			"title": "HV, LV cables",
+			"children": [{
+				"no": "1",
+				"desc": "배열, 변형 및 외부 상태",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "Bolting 및 마크",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "10.3",
+			"title": "Earth cable",
+			"children": [{
+				"no": "1",
+				"desc": "배열, 변형 및 외부 상태",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "Bolting 및 마크",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "10.4",
+			"title": "Support blocks",
+			"children": [{
+				"no": "1",
+				"desc": "균열 및 변형 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "10.5",
+			"title": "TR surface",
+			"children": [{
+				"no": "1",
+				"desc": "표면 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "변형 및 균열 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "10.6",
+			"title": "Transformer room",
+			"children": [{
+				"no": "1",
+				"desc": "Air filter 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "내부 Frame 균열 및 변형 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "3",
+				"desc": "내부 Cooler 작동 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "10.7",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"11": {
+		"title": "Hub",
+		"children": [{
+			"no": "11.1",
+			"title": "허브캐스팅",
+			"children": [{
+				"no": "1",
+				"desc": "균열 및 변형 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "11.2",
+			"title": "Nose cone",
+			"children": [{
+				"no": "1",
+				"desc": "균열 및 변형 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "11.3",
+			"title": "Controller brackets",
+			"children": [{
+				"no": "1",
+				"desc": "Cabinet 간 연결 지지대 체결 상태, 균열 및 변형 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "11.4",
+			"title": "Pitch bearing",
+			"children": [{
+				"no": "1",
+				"desc": "이상 소음 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "Grease 누유 여부 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "3",
+				"desc": "Sealing 손상여부 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "11.5",
+			"title": "Pitch drive",
+			"children": [{
+				"no": "1",
+				"desc": "내부 윤활유 누유 여부 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "Gear teeth 손상 여부 확인 (Blade gearteeth와 접촉면)",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "11.6",
+			"title": "Controller",
+			"children": [{
+				"no": "1",
+				"desc": "Controller 내부 및 내부 파트 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "11.7",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"12": {
+		"title": "Blade",
+		"children": [{
+			"no": "12.1",
+			"title": "Blade pressure side",
+			"children": [{
+				"no": "1",
+				"desc": "페인트 오염 및 박리 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "균열 및 변형 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "12.2",
+			"title": "Blade suction side",
+			"children": [{
+				"no": "1",
+				"desc": "페인트 오염 및 박리 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "균열 및 변형 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "12.3",
+			"title": "Trailing edge",
+			"children": [{
+				"no": "1",
+				"desc": "균열 및 변형 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "마모 및 부식 상태",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "12.4",
+			"title": "",
+			"children": [{
+				"no": "1",
+				"title": "Leading edge",
+				"children": [{
+					"no": "1",
+					"desc": "균열 및 변형 상태 확인",
+					"checkboxTitle01": "정상",
+					"checkboxValue01": false,
+					"checkboxTitle02": "비정상",
+					"checkboxValue02": false,
+					"comment": ""
+				},
+				{
+					"no": "2",
+					"desc": "마모 및 부식 상태",
+					"checkboxTitle01": "정상",
+					"checkboxValue01": false,
+					"checkboxTitle02": "비정상",
+					"checkboxValue02": false,
+					"comment": ""
+				}]
+			},
+			{
+				"no": "2",
+				"title": "Tip",
+				"children": [{
+					"no": "1",
+					"desc": "균열 및 파손 상태",
+					"checkboxTitle01": "정상",
+					"checkboxValue01": false,
+					"checkboxTitle02": "비정상",
+					"checkboxValue02": false,
+					"comment": ""
+				},
+				{
+					"no": "2",
+					"desc": "Copper cap 상태",
+					"checkboxTitle01": "정상",
+					"checkboxValue01": false,
+					"checkboxTitle02": "비정상",
+					"checkboxValue02": false,
+					"comment": ""
+				}]
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "12.5",
+			"title": "Root",
+			"children": [{
+				"no": "1",
+				"desc": "균열 및 변형 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "마모 및 부식 상태",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "12.6",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"13": {
+		"title": "Nacelle",
+		"children": [{
+			"no": "13.1",
+			"title": "Skylight",
+			"children": [{
+				"no": "1",
+				"desc": "균열 및 파손 상태",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "13.2",
+			"title": "Anchor bolts",
+			"children": [{
+				"no": "1",
+				"desc": "파손 및 균열 상태",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "13.3",
+			"title": "Nacelle cover",
+			"children": [{
+				"no": "1",
+				"desc": "Bolts, fiberglass, hinge 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "13.4",
+			"title": "Service crane",
+			"children": [{
+				"no": "1",
+				"desc": "작동 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "13.5",
+			"title": "Emergency light",
+			"children": [{
+				"no": "1",
+				"desc": "작동 여부 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "12.6",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"14": {
+		"title": "Gearbox",
+		"children": [{
+			"no": "14.1",
+			"title": "Electrical pump",
+			"children": [{
+				"no": "1",
+				"desc": "작동 및 소음 여부 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "Hose 체결 상태 및 누유 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "14.2",
+			"title": "Oil tank",
+			"children": [{
+				"no": "1",
+				"desc": "볼트 체결 및 마크 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "누유 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "3",
+				"desc": "오일레벨",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "14.3",
+			"title": "Filters",
+			"children": [{
+				"no": "1",
+				"desc": "Air breather 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "Gear oil filter 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "14.4",
+			"title": "기어박스 외부",
+			"children": [{
+				"no": "1",
+				"desc": "누유 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "가동 시 이상소음 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "3",
+				"desc": "윤활 배관 누유 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "4",
+				"desc": "볼트 체결 및 마크 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "14.5",
+			"title": "Slip ring",
+			"children": [{
+				"no": "1",
+				"desc": "내부 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "볼트 체결 및 마크 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "14.6",
+			"title": "Torque arm",
+			"children": [{
+				"no": "1",
+				"desc": "균열 및 외부 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			},
+			{
+				"no": "2",
+				"desc": "볼트 체결 및 마크 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "14.7",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"15": {
+		"title": "Switch gear",
+		"children": [{
+			"no": "15.1",
+			"title": "SWG",
+			"children": [{
+				"no": "1",
+				"desc": "외관 상태, 변형 및 균열 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "15.2",
+			"title": "SF6 pressure",
+			"children": [{
+				"no": "1",
+				"desc": "게이지 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "15.3",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"16": {
+		"title": "Service lift",
+		"children": [{
+			"no": "16.1",
+			"title": "Service lift",
+			"children": [{
+				"no": "1",
+				"desc": "Wire 변형 및 오염 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "16.2",
+			"title": "Hoist",
+			"children": [{
+				"no": "1",
+				"desc": "변형 및 작동 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "16.3",
+			"title": "Lift cage",
+			"children": [{
+				"no": "1",
+				"desc": "내외부 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "16.4",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	},
+	"17": {
+		"title": "Automatic Fire Extinguisher",
+		"children": [{
+			"no": "17.1",
+			"title": "Gas",
+			"children": [{
+				"no": "1",
+				"desc": "가스실린더 가스량 상태",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "17.2",
+			"title": "Tube",
+			"children": [{
+				"no": "1",
+				"desc": "Tube 변형 및 이상 유무 상태 확인",
+				"checkboxTitle01": "정상",
+				"checkboxValue01": false,
+				"checkboxTitle02": "비정상",
+				"checkboxValue02": false,
+				"comment": ""
+			}],
+			"isOther": false,
+			"comment": ""
+		},
+		{
+			"no": "17.3",
+			"title": "기타사항",
+			"isOther": true,
+			"comment": ""
+		}]
+	}
+}

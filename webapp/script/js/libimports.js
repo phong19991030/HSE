@@ -1,0 +1,1 @@
+$('head').append('<script src="'+CTX+'/script/js/hrm.js"><\/script>');

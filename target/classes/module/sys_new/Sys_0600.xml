@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sys_new.sys0600">
+
+	<select id="getMenuAccessList" parameterType="map" resultType="HashMap">
+		SELECT SUB.*
+		FROM (
+		    SELECT R.ROLE_ID
+		         , R.ROLE_NM
+		         , R.USE_YN
+		         , R.RMK
+		         , R.INS_ID
+		         , U.USER_UID
+		         , U.USER_ID
+		         , DATE_FORMAT(CONVERT_TZ(R.INS_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS INS_DATETIME
+		         , DATE_FORMAT(CONVERT_TZ(R.UPT_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS UPT_DATETIME
+		         , ROW_NUMBER() OVER (ORDER BY R.INS_DT DESC) AS RN
+		    FROM TSST_ROLE_MGT R
+		    LEFT JOIN TSST_USER U
+		        ON U.USER_UID = R.INS_ID
+		    <where>
+		    	<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+		    		AND (
+				        <!-- R.ROLE_ID LIKE CONCAT('%', #{SEARCH_ALL}, '%') -->
+				        LOWER(R.ROLE_ID) LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+        				OR UPPER(R.ROLE_ID) LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+				        OR R.ROLE_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+				    )
+		    	</if>
+		    	<if test="SEARCH_ROLE_ID != null and SEARCH_ROLE_ID != '' ">
+		    		<!-- AND R.ROLE_ID LIKE CONCAT('%',#{SEARCH_ROLE_ID},'%') -->
+			    	AND (
+			    		LOWER(R.ROLE_ID) LIKE CONCAT('%', #{SEARCH_ROLE_ID}, '%')
+        				OR UPPER(R.ROLE_ID) LIKE CONCAT('%', #{SEARCH_ROLE_ID}, '%')
+			    	)
+			    </if>
+			    <if test="SEARCH_ROLE_NM != null and SEARCH_ROLE_NM != '' ">
+		    		AND R.ROLE_NM LIKE CONCAT('%',#{SEARCH_ROLE_NM},'%')
+		    	</if>
+		    </where>
+		) SUB
+		WHERE SUB.RN BETWEEN (#{PAGE}-1) * #{PAGE_SIZE}+1 and (#{PAGE} * #{PAGE_SIZE})
+		ORDER BY SUB.RN ASC
+	</select>
+	
+	<select id="getMenuAccessCnt" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM TSST_ROLE_MGT R
+		<where>
+	    	<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+	    		AND (
+			        <!-- R.ROLE_ID LIKE CONCAT('%', #{SEARCH_ALL}, '%') -->
+			        LOWER(R.ROLE_ID) LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+        			OR UPPER(R.ROLE_ID) LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+			        OR R.ROLE_NM LIKE CONCAT('%', #{SEARCH_ALL}, '%')
+			    )
+	    	</if>
+	    	<if test="SEARCH_ROLE_ID != null and SEARCH_ROLE_ID != '' ">
+		    	<!-- AND R.ROLE_ID LIKE CONCAT('%',#{SEARCH_ROLE_ID},'%') -->
+		    	AND (
+		    		LOWER(R.ROLE_ID) LIKE CONCAT('%', #{SEARCH_ROLE_ID}, '%')
+       				OR UPPER(R.ROLE_ID) LIKE CONCAT('%', #{SEARCH_ROLE_ID}, '%')
+		    	)
+		    </if>
+		    <if test="SEARCH_ROLE_NM != null and SEARCH_ROLE_NM != '' ">
+	    		AND R.ROLE_NM LIKE CONCAT('%',#{SEARCH_ROLE_NM},'%')
+	    	</if>
+	    </where>
+	</select>
+	
+	
+	<!-- POPUP -->
+	<select id="duplicateCheckRoleID" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM TSST_ROLE_MGT
+		WHERE ROLE_ID = #{ROLE_ID}
+		<!-- 수정 일 경우, USER_UID를 같이 던져 이이전 ID는 중복체크 제외 -->
+		<if test="PREV_ROLE_ID != null and PREV_ROLE_ID != '' ">
+			AND ROLE_ID != #{PREV_ROLE_ID}
+		</if>
+	</select>
+	<!-- //POPUP -->
+	
+	<!-- 등록 & 수정 -->
+	<insert id="insertMenuAccess" parameterType="map">
+		INSERT INTO TSST_ROLE_MGT
+		(
+		    ROLE_ID,
+		    ROLE_NM,
+		    RMK,
+		    USE_YN,
+		    INS_ID,
+		    INS_DT
+		)
+		VALUES
+		(
+		    #{ROLE_ID},
+		    #{ROLE_NM},
+		    #{RMK},
+		    'Y',
+		    #{session.USER_UID},
+		    CURRENT_TIMESTAMP()
+		)
+	</insert>
+	
+	<insert id="insertMenuAccessGrant" parameterType="map">
+		INSERT INTO TSST_ROLE_PGM
+		(
+		    MENU_ID,
+		    ROLE_ID,
+		    READ_YN,
+		    WRT_YN,
+		    EXC_DN_YN
+		)
+		VALUES
+		(
+		    #{MENU_ID},
+		    #{ROLE_ID},
+		    #{READ_YN},
+		    #{WRT_YN},
+		    #{EXC_DN_YN}
+		)
+	</insert>
+	
+	<update id="updateMenuAccess" parameterType="map">
+		<!-- UPDATE TSST_ROLE_MGT RM, TSST_ROLE_PGM RP
+		SET RM.ROLE_ID = #{ROLE_ID}
+		  , RM.ROLE_NM = #{ROLE_NM}
+		  , RM.RMK = #{RMK}
+		  , RM.UPT_ID = #{session.USER_UID}
+		  , RM.UPT_DT = CURRENT_TIMESTAMP()
+		  , RP.ROLE_ID = #{ROLE_ID}
+		WHERE RM.ROLE_ID = #{ROLE_ID}
+		AND RP.ROLE_ID = RM.ROLE_ID -->
+		UPDATE TSST_ROLE_MGT
+		SET ROLE_NM = #{ROLE_NM}
+		  , RMK = #{RMK}
+		  , UPT_ID = #{session.USER_UID}
+		  , UPT_DT = CURRENT_TIMESTAMP()
+		WHERE ROLE_ID = #{ROLE_ID}
+	</update>
+	
+	<delete id="deleteMenuAccess" parameterType="map">
+		DELETE
+		FROM TSST_ROLE_MGT
+		WHERE ROLE_ID = #{ROLE_ID}
+	</delete>
+	
+	<delete id="deleteMenuAccessGrant" parameterType="map">
+		DELETE
+		FROM TSST_ROLE_PGM
+		WHERE ROLE_ID = #{ROLE_ID}
+	</delete>
+	<!-- //등록 & 수정 -->
+	
+	<!-- 상세 -->
+	<select id="getMenuAccessInfo" parameterType="map" resultType="HashMap">
+		SELECT RM.ROLE_ID
+		     , RM.ROLE_NM
+		     , RM.USE_YN
+		     , RM.RMK
+		     , RM.INS_ID
+		     , U.USER_ID
+		     , DATE_FORMAT(CONVERT_TZ(RM.INS_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS INS_DT
+		     , DATE_FORMAT(CONVERT_TZ(RM.UPT_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') AS UPT_DT
+		FROM TSST_ROLE_MGT RM
+		LEFT JOIN TSST_USER U
+		    ON U.USER_UID = RM.INS_ID
+		WHERE RM.ROLE_ID = #{ROLE_ID}
+	</select>
+	
+	<select id="getMenuAccessGrant" parameterType="map" resultType="HashMap">
+		SELECT P.MENU_NM AS MENU_NM_KOR
+	         , P.MENU_NM_ENG AS MENU_NM_ENG
+	         , SUBSTR(P.MENU_ID, 1, 8) AS PARTY1
+	         , SUBSTR(P.MENU_ID, 1, 11) AS PARTY2
+	         , SUBSTR(P.MENU_ID, 1, 14) AS PARTY3
+	         , P.LEV
+	         , P.ORD_NO
+	         , P.MENU_ID
+	         , P.UP_MENU_ID
+	         , P.LINK_PATH
+	         <if test="ROLE_ID != null and ROLE_ID != '' ">
+	         , IFNULL(R.ROLE_ID, #{ROLE_ID}) AS ROLE_ID
+	         , R.MNG_YN
+	         , R.READ_YN
+	         , R.WRT_YN
+	         , R.EXC_DN_YN
+	         , R.MOD_YN
+	         , R.DEL_YN
+	         , R.PNT_YN
+	         </if>
+	    FROM TSST_MENU_MGT P
+	    <if test="ROLE_ID != null and ROLE_ID != '' ">
+	    LEFT JOIN (
+	        SELECT *
+	        FROM TSST_ROLE_PGM
+	        WHERE ROLE_ID = #{ROLE_ID}
+	    ) R
+	        ON R.MENU_ID = P.MENU_ID
+	    </if>
+	    WHERE P.LEV &gt; 1
+	    ORDER BY PARTY1, PARTY2, PARTY3 ASC
+	</select>
+	<!-- // 상세 -->
+	
+</mapper>

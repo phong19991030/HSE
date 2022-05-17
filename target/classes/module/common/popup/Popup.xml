@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common.popup">	
+	<select id="searchStruct" parameterType="map" resultType="HashMap">
+		SELECT	STRU_ID AS DATA,
+				TO_CHAR(STRU_DT,'YYYY-MM-DD') AS LABEL
+		FROM	TCDS_STRU_MGT
+		WHERE	STRU_DT <![CDATA[<=]]> (SELECT MAX(STRU_DT) FROM TCDS_STRU_MGT WHERE CRT_YN='Y')
+		ORDER BY STRU_DT DESC
+	</select>
+	
+	<!--
+		ID	: getDepartPopup
+		설명	: 부서 팝업
+		수정 : 2015.06.15 
+				1. 최상위 0레벨 추가 DEPT_CD:'0000', DEPT_NM:재단명
+				2. 쿼리 수정
+		작성자 : 
+	-->
+	<select id="getDepartPopup" parameterType="map" resultType="HashMap">
+		<!-- WITH DEPT AS
+			(SELECT	DEPT_CD, UP_DEPT_CD, DECODE(OLD_DEPT_NM,'',FNHR_DEPT_NM(DEPT_CD), OLD_DEPT_NM) DEPT_NM,
+					LEV, ORD_NO
+			FROM	TCDS_DEPT_STRU DS
+			LEFT JOIN TCDS_STRU_MGT S ON DS.STRU_ID = S.STRU_ID
+			WHERE	STRUCT_DT = #{STRUCT_DT})
+		    SELECT  A.DEPT_CD, FNHR_DEPT_NM(A.DEPT_CD, #{STRUCT_DT}) DEPT_NM,
+		            FNHR_DEPT_NM(A.DEPT_CD, #{STRUCT_DT}) DEPT_NM_TREE,
+		            A.UP_DEPT_CD, A.LEV, A.ORD_NO
+			FROM
+					(SELECT	DEPT_CD, UP_DEPT_CD, LEV, ORD_NO
+					FROM	DEPT
+		            START WITH DEPT_NM LIKE '%' || #{DEPT_NM, jdbcType=VARCHAR} || '%'
+		            CONNECT BY PRIOR UP_DEPT_CD = DEPT_CD
+		            UNION
+					SELECT	DEPT_CD, UP_DEPT_CD, LEV, ORD_NO
+					FROM	DEPT
+		            START WITH DEPT_NM LIKE '%' || #{DEPT_NM, jdbcType=VARCHAR} || '%'
+		            CONNECT BY PRIOR DEPT_CD = UP_DEPT_CD) A
+		CONNECT BY PRIOR DEPT_CD = UP_DEPT_CD
+		START WITH LEV = 0
+		 -->
+		 WITH DEPT AS
+			(SELECT	DEPT_CD, UP_COMM_DEPT_CD, DECODE(PREV_DEPT_NM,'', FNDS_DEPT_NM(DEPT_CD, #{STRU_ID}), PREV_DEPT_NM) DEPT_NM,
+					LEV, ORD_NO
+			FROM	TCDS_DEPT_STRU DS
+            LEFT JOIN TCDS_STRU_MGT S ON DS.STRU_ID = S.STRU_ID
+			WHERE	S.STRU_ID = #{STRU_ID})
+		    SELECT  A.DEPT_CD, FNDS_DEPT_NM(A.DEPT_CD, #{STRU_ID}) DEPT_NM,
+		            FNDS_DEPT_NM(A.DEPT_CD, #{STRU_ID}) DEPT_NM_TREE,
+		            A.UP_COMM_DEPT_CD, A.LEV, A.ORD_NO
+			FROM
+					(SELECT	DEPT_CD, UP_COMM_DEPT_CD, LEV, ORD_NO
+					FROM	DEPT
+		            START WITH DEPT_NM LIKE '%' || #{DEPT_NM, jdbcType=VARCHAR} || '%'
+		            CONNECT BY PRIOR UP_COMM_DEPT_CD = DEPT_CD
+		            UNION
+					SELECT	DEPT_CD, UP_COMM_DEPT_CD, LEV, ORD_NO
+					FROM	DEPT
+		            START WITH DEPT_NM LIKE '%' || #{DEPT_NM, jdbcType=VARCHAR} || '%'
+		            CONNECT BY PRIOR DEPT_CD = UP_COMM_DEPT_CD) A
+		CONNECT BY PRIOR DEPT_CD = UP_COMM_DEPT_CD
+		START WITH LEV = 0
+	</select>
+	
+	<!--
+		ID	: getDepartPopupOnes
+		parameterType	: map
+		resultType	: HashMap
+		수정일자 :2014. 12. 29.
+		수정내용 : 부서검색시 팝업을 열지않고 검색을 먼저한후 1개의 부서일 경우 세팅처리
+	-->
+	<select id="getDepartPopupOnes" parameterType="map" resultType="HashMap">
+		SELECT	DEPT_CD, FNHR_DEPT_NM(DEPT_CD) DEPT_NM
+		FROM	TNHR_DEPT_ORGC
+		WHERE	STRUCT_DT = (SELECT MAX(STRUCT_DT) FROM TNHR_STRU WHERE CUR_YN = 'Y')
+			AND FNHR_DEPT_NM(DEPT_CD) LIKE '%'||#{DEPT_NM}||'%'	
+	</select>
+	
+	<!--
+		ID	: getEmpDeptPopup
+		설명	: 사원검색 팝업 - 조직도 데이터
+		작성자 : 
+	-->
+	<select id="getEmpDeptPopup" parameterType="map" resultType="HashMap">
+		WITH DEPT AS 
+			(SELECT	DEPT_CD, UP_DEPT_CD, DECODE(OLD_DEPT_NM, '', FNHR_DEPT_NM (DEPT_CD), OLD_DEPT_NM) DEPT_NM,
+					LEV, ORD_NO
+			FROM	TNHR_DEPT_ORGC
+		    WHERE	STRUCT_DT = (SELECT MAX(STRUCT_DT) FROM TNHR_STRU WHERE CUR_YN = 'Y'))
+			SELECT	A.DEPT_CD, DEPT_NM, DEPT_NM AS DEPT_NM_TREE, A.UP_DEPT_CD, A.LEV, A.ORD_NO
+			FROM
+					(SELECT DEPT_CD, UP_DEPT_CD, DEPT_NM, LEV, ORD_NO
+					FROM	DEPT
+					START WITH DEPT_NM LIKE '%' || #{DEPT_NM, jdbcType=VARCHAR} || '%'
+					CONNECT BY PRIOR UP_DEPT_CD = DEPT_CD
+					UNION
+					SELECT	DEPT_CD, UP_DEPT_CD, DEPT_NM, LEV, ORD_NO
+					FROM	DEPT
+					START WITH DEPT_NM LIKE '%' || #{DEPT_NM, jdbcType=VARCHAR} || '%'
+					CONNECT BY PRIOR DEPT_CD = UP_DEPT_CD) A
+			CONNECT BY PRIOR DEPT_CD = UP_DEPT_CD
+			START WITH LEV = 0
+	</select>
+	
+	<!--
+		ID	: getEmpPopup
+		설명	: 사원검색 팝업 - 인사 데이터
+		작성자 : 
+	-->
+	<select id="getEmpPopup" parameterType="map" resultType="HashMap">
+		SELECT	DEPT_CD, DEPT_NM, UP_DEPT_CD, UP_DEPT_NM, EMP_NO, EMP_NM, JOB_GRD_CD, FNCO_COMM_NM(JOB_GRD_CD) AS JOB_GRD_NM,
+				JOB_PSIT_CD, FNCO_COMM_NM(JOB_PSIT_CD) AS JOB_PSIT_NM, COMM_NM, JOB_GRD_NUM, DUTY_DGR, EMP_CLS,
+				FNCO_COMM_NM(EMP_CLS) AS EMP_CLS_NM, HOLD_CLS, FNCO_COMM_NM(HOLD_CLS) AS HOLD_CLS_NM, ENT_DT, SEX, RES_NO,
+				EMAIL, BUSI_PLC_NM, EMP_ENG_NM, HM_TEL_NO, EMER_TEL_NO, CELL_PON_NO, POST_NO, ADDR, ADDR_DTL, CUR_KOR_ADDR,
+				ENG_ADDR, PAY_BNK_CD, ETC_BNK_CD, ETC2_BNK_CD, FNAC_BANK_NM(PAY_BNK_CD) as PAY_BNK_NM,
+				FNAC_BANK_NM(ETC_BNK_CD) as ETC_BNK_NM, FNAC_BANK_NM(ETC2_BNK_CD) as ETC2_BNK_NM, PKG_SECR.GET_ACC_NO(PAY_ACC_NO_SEQ) PAY_ACC_NO,
+				PKG_SECR.GET_ACC_NO(ETC_ACC_NO_SEQ) ETC_ACC_NO, PKG_SECR.GET_ACC_NO(ETC2_ACC_NO_SEQ) ETC2_ACC_NO,
+				CAR_NO, BIRTH, ORD_NO1, ORD_NO2
+		FROM
+				(SELECT	A.DEPT_CD, A.DEPT_NM, A.UP_DEPT_CD, FNHR_DEPT_NM(A.UP_DEPT_CD) AS UP_DEPT_NM, A.EMP_NO, A.EMP_NM,
+						A.JOB_GRD_CD, A.JOB_PSIT_CD, D.COMM_NM, A.JOB_GRD_NUM, A.DUTY_DGR, A.EMP_CLS, A.HOLD_CLS, A.ENT_DT,
+						A.SEX, PKG_SECR.GET_RES_NO(A.RES_NO) RES_NO, A.EMAIL,
+						(SELECT CORP_NM FROM TNAC_CORP WHERE CORP_CD = '01') AS BUSI_PLC_NM, A.EMP_ENG_NM, A.HM_TEL_NO,
+						A.EMER_TEL_NO, A.CELL_PON_NO, A.POST_NO, A.ADDR, A.ADDR_DTL, A.ADDR || ' ' || A.ADDR_DTL AS CUR_KOR_ADDR,
+						A.ENG_ADDR, A.PAY_BNK_CD, A.ETC_BNK_CD, A.ETC2_BNK_CD, A.PAY_ACC_NO_SEQ, A.ETC_ACC_NO_SEQ, 
+						A.ETC2_ACC_NO_SEQ, A.CAR_NO, A.BIRTH,
+						(SELECT ORD_NO FROM TNHR_DEPT_ORGC WHERE STRUCT_DT = (SELECT MAX(STRUCT_DT) FROM TNHR_DEPT_ORGC) AND DEPT_CD = A.DEPT_CD) AS ORD_NO1,
+						D.ORD_NO AS ORD_NO2
+				FROM	VNHR_EMP_MST A
+					LEFT OUTER JOIN TCCO_STD D  ON D.COMM_CD = A.JOB_GRD_CD)
+		WHERE	1 = 1
+		<!-- 팝업뛰울 때 기본값 -->
+		<if test="DEFAULT_PARAM_NM != null and DEFAULT_PARAM_NM != ''">
+			AND UPPER(EMP_NM)  = UPPER(#{DEFAULT_PARAM_NM})
+		</if>	
+		<!-- 부서코드 -->
+		<if test="DEPT_CD != null and DEPT_CD != ''">
+		    AND (DEPT_CD = #{DEPT_CD} OR UP_DEPT_CD = #{DEPT_CD})
+		</if>
+		<!-- 부서명 -->
+		<if test="DEPT_NM != null and DEPT_NM != ''">
+			AND UPPER(DEPT_NM) LIKE '%' || UPPER(#{DEPT_NM}) || '%'
+		</if>
+		<!-- 사원번호 -->
+		<if test="EMP_NO != null and EMP_NO != ''">
+			AND EMP_NO LIKE #{EMP_NO} || '%'
+		</if>
+		<!-- 성명 -->
+		<if test="EMP_NM != null and EMP_NM != ''">
+			AND UPPER(EMP_NM)  LIKE '%' || UPPER(#{EMP_NM}) || '%'
+		</if>	
+		<!-- 재직여부 -->
+		<if test="HOLD_CLS != null and HOLD_CLS != ''">
+			AND HOLD_CLS = #{HOLD_CLS}
+		</if>
+		<!-- 고용형태 -->
+		<if test="EMP_CLS != null and EMP_CLS != ''">
+			AND EMP_CLS = #{EMP_CLS}
+		</if>
+		<choose>
+			<when test="not empty(POPUP_TPYE)"> <!-- 감사대상자팝업일때 -->
+				ORDER BY HOLD_CLS, EMP_NM, DEPT_CD
+			</when>
+			<otherwise>
+				ORDER BY JOB_PSIT_CD, JOB_GRD_CD, ORD_NO2, EMP_NO
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	
+		
+	<!--
+		ID	: getEmpPopup
+		설명	: 사원검색 팝업 - 인사 데이터
+		작성자 : 
+	-->
+	<select id="getUserPopup" parameterType="map" resultType="HashMap">
+		SELECT 
+			USER_ID, USER_NM, 
+			   DEPT_CD, EMAIL, USE_FRM_DT, 
+			   USE_TO_DT, INS_ID, INS_DT, 
+			   UPT_ID, UPT_DT, EMP_NO
+			FROM TSST_USER
+		<where>
+			<!-- 팝업뛰울 때 기본값 -->
+			<if test="not empty(USER_ID)">
+				AND UPPER(USER_ID)  = UPPER(#{USER_ID})
+			</if>	
+			<!-- 부서명 -->
+			<if test="not empty(USER_NM)">
+				AND UPPER(USER_NM) LIKE '%' || UPPER(#{USER_NM}) || '%'
+			</if>
+		</where>
+	</select>
+
+
+	
+	
+	
+	
+	<!--
+		ID	: getNtnPopup
+		설명	: 국가코드조회
+		작성자 : 
+	-->
+	<select id="getNtnPopup" parameterType="map" resultType="HashMap">
+		SELECT	NTN_CD, NTN_NM, NTN_NM_ENG
+		FROM	TCCO_NTN_MGT
+		WHERE	1 = 1
+		<if test="not empty(NTN_NM)">
+			AND NTN_NM LIKE '%'||#{NTN_NM}||'%'
+		</if>
+		ORDER BY NTN_NM
+	</select>
+	
+	
+	<!--
+		ID	: getPostNew 새도로명주소검색
+		parameterType	: map
+		resultType	: HashMap
+		수정일자 :2014. 12. 11.
+		수정내용 : 
+	-->	
+ 	<select id="getPostNew" parameterType="map" resultType="HashMap">	
+ 		SELECT  
+			SEQ
+		     ,POST_NO
+		     ,POST_NO1
+		     ,POST_NO2
+		     ,POST_NO_DSP
+		     ,SIDO
+		     ,GUGUN
+		     ,BUB_DONG_NM
+		     ,RI
+		     ,BLDG_NM
+		     ,LOT_NUM
+		     ,ROAD_NM
+		     ,ADDR_OLD
+		     ,ADDR_NEW
+		     ,ADDR_DSP
+		     ,ADDR_RTN
+		     ,ADDR_EN
+		     ,ADDR_FULL_DSP
+		FROM 
+			VNCO_POST_ADDR      
+		WHERE 
+				SIDO = #{SIDO}
+ 		<if test="not empty(GUGUN)"> <!-- 시군구 -->
+			AND GUGUN = #{GUGUN}
+		</if>
+ 		<if test="not empty(ROAD_NM)"> <!-- 도로명 -->
+ 			AND (ROAD_NM LIKE '%' || #{ROAD_NM} ||'%' OR BUB_DONG_NM LIKE '%' || #{ROAD_NM} ||'%'OR EMDONG_NM LIKE '%'
+             || #{ROAD_NM} ||'%' OR RI LIKE '%' || #{ROAD_NM} || '%')
+ 		</if>
+ 		<if test="not empty(BLDG_NUM)"> <!-- 건물번호 -->
+ 			AND (BLDG_NUM = #{BLDG_NUM} OR LOT_NUM = #{BLDG_NUM})
+ 		</if>
+ 		<if test="not empty(BLDG_SUB_NUM)"> <!-- 건물번호 SUB -->
+ 			AND (BLDG_SUB_NUM = #{BLDG_SUB_NUM} OR LOT_SUB_NUM = #{BLDG_SUB_NUM})
+ 		</if>
+ 		<if test="not empty(KEY_WORDS)"> <!-- 통합검색 -->
+ 			<!-- AND GUGUN || ROAD_NM || BUB_DONG_NM || RI || BLDG_NUM || '-'|| BLDG_SUB_NUM || LOT_NUM || '-' || LOT_SUB_NUM || BLDG_NM LIKE  ('%' ||#{KEY_WORDS} || '%')  
+            AND ADDR_DSP LIKE  ('%' ||#{KEY_WORDS} || '%')  -->
+			AND (
+				GUGUN || ROAD_NM || BUB_DONG_NM || RI || BLDG_NUM || '-'|| BLDG_SUB_NUM || LOT_NUM || '-' || LOT_SUB_NUM || BLDG_NM LIKE  ('%' ||#{KEY_WORDS} || '%')  
+            	OR ADDR_DSP LIKE  ('%' ||#{KEY_WORDS} || '%')
+            )   
+ 		</if>
+      	ORDER BY ADDR_NEW
+		
+		
+		
+		<!-- 
+ 		SELECT	
+ 			SEQ, 
+ 			POST_NO, 
+ 			SUBSTR(POST_NO, 1, 3) AS POST_NO1, 
+ 			SUBSTR(POST_NO, 4, 3) AS POST_NO2,
+			SUBSTR(POST_NO, 1, 3) || DECODE(POST_NO, NULL, '', '-') || SUBSTR(POST_NO, 4, 3) AS POST_NO_DSP,
+			SIDO, 
+			GUGUN, 
+			DONG, 
+			RI, 
+			BLDG_NM, 
+			BLDG_DTL_NM, 
+			LOT_NUM,
+			TRIM(SIDO || ' ' || GUGUN|| ' ' || DONG || ' ' || RI || ' ' || BLDG_NM || ' ' || DECODE(LOT_SUB_NUM, '0', LOT_NUM, LOT_NUM || '-' || LOT_SUB_NUM) || ' ' || BLDG_DTL_NM) AS ADDR_OLD,
+			TRIM(SIDO || ' ' || GUGUN|| ' ' || ROAD_NM || ' ' || BLDG_NUM || ' (' || HANG_DONG_NM || ') ' ) AS ADDR_NEW,
+			TRIM('' || SIDO || ' ' || GUGUN || ' ' || ROAD_NM || ' ' || DECODE(BLDG_SUB_NUM, '0', BLDG_NUM, BLDG_NUM || '-' || BLDG_SUB_NUM) || ' (' || HANG_DONG_NM || ') ' ) ||'&lt;br&gt;' || TRIM('' || SIDO || ' ' || GUGUN|| ' ' || DONG || ' ' || RI || ' ' || ' ' || DECODE(LOT_SUB_NUM, '0', LOT_NUM, LOT_NUM || '-' || LOT_SUB_NUM) || ' ' || BLDG_NM || ' ' || BLDG_DTL_NM) AS ADDR_DSP,
+			TRIM(SIDO || ' ' || GUGUN || ' ' || ROAD_NM || ' ' || BLDG_NUM) AS ADDR_RTN
+		FROM	
+			VNCO_POST_ADDR   		
+		WHERE	
+				SIDO = #{SIDO}
+		<if test="not empty(DONG)">
+			AND (DONG LIKE #{DONG}||'%' OR RI LIKE #{DONG}||'%')			
+		</if>
+		<if test="not empty(LOT_NUM)">
+			AND LOT_NUM LIKE #{LOT_NUM}||'%'
+		</if>
+		<if test="not empty(ROAD_NM)">
+			AND ROAD_NM LIKE REPLACE(#{ROAD_NM},' ','')||'%'
+		</if>
+		<if test="not empty(BLDG_NUM)">
+			AND BLDG_NUM LIKE #{BLDG_NUM}||'%'
+		</if>
+		 -->
+	</select>
+	
+	<!--
+		ID	: getListGwLine
+		설명	: 결재라인
+		작성자 : 
+	-->
+	<select id="getListGwLine" parameterType="map" resultType="HashMap">
+		SELECT	APPRID, ID, ORGID, ATYPE, POSNAME, NAME, TO_CHAR(ARIVDATE, 'YYYY-MM-DD HH24:MI:SS') ARIVDATE,
+				TO_CHAR(SDATE, 'YYYY-MM-DD HH24:MI:SS') SDATE, TYPE, SEQ, COMP, STATUS
+		FROM	DD_MIS_PARTICIPANT@DDPORTAL
+		WHERE	APPRID = (SELECT DECODE(APPROVALTYPE, '3', ORGAPPRID, APPRID)
+				          FROM APPROVAL@DDPORTAL
+				          WHERE APPRID = #{APPRID})
+		ORDER BY APPRID, ID, SEQ
+	</select>
+	<!-- TNDM_RCPT section -->
+	<select id="getReceiverPopup" parameterType="map" resultType="HashMap">
+		SELECT
+		    RCV_RCPT_MNG_NO,
+		    DOC_MNG_NO,
+		    DOC_RCV_ADDR,
+		    DOC_RCV_TYPE,
+		    DOC_RCPT_NM,
+		    DOC_RCV_ORD
+		FROM
+		    TNDM_RCPT   
+		<where>
+			<if test="DOC_RCPT_NM != null and DOC_RCPT_NM != ''">
+			AND DOC_RCPT_NM  LIKE '%' || #{DOC_RCPT_NM} || '%'
+			</if>
+		</where>
+		
+
+
+	</select>
+	<select id="getUser_Derpartment" parameterType="map" resultType="HashMap">
+		SELECT 
+		B.USER_UID AS USER_UID,  
+		
+		<choose>
+         	<when test="LANG_CODE != null and LANG_CODE.equals('ko')">
+            	C.NAME_KR as NAME,
+         	</when>
+       		<otherwise>
+       			C.NAME_EN as NAME,
+       		</otherwise>
+        </choose>
+        C.EMP_NO,
+		A.DEPT_CD AS DEPT_CD
+		FROM TCDS_EMP_DEPT A
+		INNER JOIN TSST_USER B ON A.EMP_NO = B.EMP_NO
+		INNER JOIN TCDS_EMP_MST C ON C.EMP_NO = A.EMP_NO
+		WHERE A.DEPT_CD = (
+							SELECT DEPT_CD
+							FROM TCDS_DEPT_STRU TDS
+							INNER JOIN  TCDS_STRU_MGT TSM ON TDS.STRU_ID = TSM.STRU_ID
+							WHERE DEPT_RCV_USER_UID = #{USER_UID}
+							AND TSM.CRT_YN = 'Y'
+						)
+			<choose>
+           		<when test="LANG_CODE != null and LANG_CODE.equals('en')">
+		           <if test="NAME != null and NAME != ''">
+						AND C.NAME_EN  LIKE '%' || #{NAME} || '%'
+					</if>
+           		</when>
+           		<otherwise>
+           			<if test="NAME != null and NAME != ''">
+						AND C.NAME_KR  LIKE '%' || #{NAME} || '%'
+					</if>
+           		</otherwise>
+           	</choose>
+						
+						
+		
+	</select>
+		<select id="getUserAisgn" parameterType="map" resultType="HashMap">
+		SELECT DISTINCT
+		B.USER_UID AS USER_UID,  
+		C.EMP_NO,
+		C.PST_DUTY,
+		C.GRADE,
+		A.DEPT_CD AS DEPT_CD,
+		PSD.SANC_USER_YN,
+		PSD.PST_NM AS PST_NM,
+		TC.DEPT_NM AS DEPT_NM,
+		<choose>
+         	<when test="LANG_CODE != null and LANG_CODE.equals('ko')">
+            	C.NAME_KR as NAME
+         	</when>
+       		<otherwise>
+       			C.NAME_EN as NAME
+       		</otherwise>
+        </choose>
+			FROM   TCDS_DEPT_STRU TC
+			INNER JOIN TCDS_STRU_MGT STR ON TC.STRU_ID = STR.STRU_ID AND CRT_YN = 'Y'
+			INNER JOIN TCDS_EMP_DEPT A ON  A.DEPT_CD = TC.DEPT_CD
+			INNER JOIN TSST_USER B ON A.EMP_NO = B.EMP_NO
+			INNER JOIN TCDS_EMP_MST C ON C.EMP_NO = A.EMP_NO
+			INNER JOIN TCDS_PST_CD PSD ON PSD.PST_CD = C.PST_DUTY
+			WHERE PSD.SANC_USER_YN = 'Y' 
+			AND B.USER_UID NOT IN (
+                        SELECT USER_UID
+                        FROM TSST_USER_ABS
+                        WHERE ABS_FRM_DT &lt;= trunc(sysdate)
+                        AND trunc(sysdate) &lt;= ABS_TO_DT
+                        AND USE_YN = 'Y'
+            )
+				<if test="GRADE != null and GRADE != ''">
+					 AND C.GRADE >= #{GRADE}
+				</if>
+			CONNECT BY PRIOR TC.UP_COMM_DEPT_CD = TC.DEPT_CD
+			START  WITH TC.DEPT_CD =(                          
+                            SELECT DS.DEPT_CD 
+                            FROM TSST_USER U
+                            INNER JOIN TCDS_EMP_MST E ON U.EMP_NO = E.EMP_NO
+                            INNER JOIN TCDS_EMP_DEPT ED ON E.EMP_NO = ED.EMP_NO
+                            INNER JOIN TCDS_DEPT_STRU DS ON ED.DEPT_CD = DS.DEPT_CD
+                            INNER JOIN TCDS_STRU_MGT STR ON DS.STRU_ID = STR.STRU_ID AND CRT_YN = 'Y'
+                            WHERE U.USER_UID=#{USER_UID})
+
+			<choose>
+           		<when test="LANG_CODE != null and LANG_CODE.equals('en')">
+		           <if test="NAME != null and NAME != ''">
+						AND C.NAME_EN  LIKE '%' || #{NAME} || '%'
+					</if>
+           		</when>
+           		<otherwise>
+           			<if test="NAME != null and NAME != ''">
+						AND C.NAME_KR  LIKE '%' || #{NAME} || '%'
+					</if>
+           		</otherwise>
+           </choose>
+	</select>
+	<select id="getUserAisgns" parameterType="map" resultType="HashMap">
+		SELECT DISTINCT
+		B.USER_UID AS USER_UID,  
+		C.EMP_NO,
+		C.PST_DUTY,
+		C.GRADE,
+		A.DEPT_CD AS DEPT_CD,
+		PSD.SANC_USER_YN,
+		PSD.PST_NM AS PST_NM,
+		TC.DEPT_NM AS DEPT_NM,
+		<choose>
+         	<when test="LANG_CODE != null and LANG_CODE.equals('ko')">
+            	C.NAME_KR as NAME
+         	</when>
+       		<otherwise>
+       			C.NAME_EN as NAME
+       		</otherwise>
+        </choose>
+			FROM   TCDS_DEPT_STRU TC
+			INNER JOIN TCDS_STRU_MGT STR ON TC.STRU_ID = STR.STRU_ID AND CRT_YN = 'Y'
+			INNER JOIN TCDS_EMP_DEPT A ON  A.DEPT_CD = TC.DEPT_CD
+			INNER JOIN TSST_USER B ON A.EMP_NO = B.EMP_NO
+			INNER JOIN TCDS_EMP_MST C ON C.EMP_NO = A.EMP_NO
+			INNER JOIN TCDS_PST_CD PSD ON PSD.PST_CD = C.PST_DUTY
+			WHERE PSD.SANC_USER_YN = 'Y' 
+			AND B.USER_UID NOT IN (
+                        SELECT USER_UID
+                        FROM TSST_USER_ABS
+                        WHERE ABS_FRM_DT &lt;= trunc(sysdate)
+                        AND trunc(sysdate) &lt;= ABS_TO_DT
+                        AND USE_YN = 'Y'
+            )
+				<if test="GRADE != null and GRADE != ''">
+					 AND C.GRADE >= #{GRADE}
+				</if>
+					 AND TC.DEPT_CD =(                          
+		                            SELECT DS.DEPT_CD 
+		                            FROM TSST_USER U
+		                            INNER JOIN TCDS_EMP_MST E ON U.EMP_NO = E.EMP_NO
+		                            INNER JOIN TCDS_EMP_DEPT ED ON E.EMP_NO = ED.EMP_NO
+		                            INNER JOIN TCDS_DEPT_STRU DS ON ED.DEPT_CD = DS.DEPT_CD
+		                            INNER JOIN TCDS_STRU_MGT STR ON DS.STRU_ID = STR.STRU_ID AND CRT_YN = 'Y'
+		                            WHERE U.USER_UID=#{USER_UID}
+                            )
+			
+			<choose>
+           		<when test="LANG_CODE != null and LANG_CODE.equals('en')">
+		           <if test="NAME != null and NAME != ''">
+						AND C.NAME_EN  LIKE '%' || #{NAME} || '%'
+					</if>
+           		</when>
+           		<otherwise>
+           			<if test="NAME != null and NAME != ''">
+						AND C.NAME_KR  LIKE '%' || #{NAME} || '%'
+					</if>
+           		</otherwise>
+           </choose>
+	</select>
+	
+	<select id="getAllBusinessUnit" parameterType="map" resultType="HashMap">
+		WITH TEMP (
+		    DCMN_CLS_MNG_NO,
+		    PROC_DEPT_CD,
+		    HND_SCT_NM,
+		    LC_CD,
+		    MC_CD,
+		    SC_CD,
+		    UNIT_DUTIY_CD,
+		    PRSRV_PRD,
+		    PRSRV_TYPE,
+		    PRSRV_PLC,
+		    IS_STCK_REC_THNG_YN,
+		    STCK_REC_THNG_TRF_DT,
+		    TEMP_YN,
+		    FUNC_CLS_TYPE,
+		    DESCRIPTION,
+		    TREE_NAME,
+		    CODE,
+		    PARENT_CODE,
+		    LEV
+		) AS (
+		    SELECT
+		        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+		        (
+		            SELECT
+		                <choose>
+			         		<when test="LANG_CODE != null and LANG_CODE.equals('en')">           			
+			           			TCCO_BU.COMM_ENG_NM 	
+			         		</when>
+			         		<otherwise>
+			         			TCCO_BU.COMM_NM
+			         		</otherwise>
+			         	</choose>
+		            FROM
+		                TCCO_BU
+		            WHERE
+		                TCCO_BU.COMM_CD = TRIM(A.UNIT_DUTY_CD)
+		        ),
+		        A.UNIT_DUTY_CD,
+		        NULL,
+		        1
+		    FROM
+		        TNDM_DCMN_CLS_MGT A
+		    UNION ALL
+		    SELECT
+		        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+		        (
+		            SELECT
+		                <choose>
+			         		<when test="LANG_CODE != null and LANG_CODE.equals('en')">           			
+			           			TCCO_BU.COMM_ENG_NM 	
+			         		</when>
+			         		<otherwise>
+			         			TCCO_BU.COMM_NM
+			         		</otherwise>
+			         	</choose>
+		            FROM
+		                TCCO_BU
+		            WHERE
+		                TCCO_BU.COMM_CD = TRIM(A.PROC_DEPT_CD)
+		        ),
+		        A.PROC_DEPT_CD,
+		        A.UNIT_DUTY_CD,
+		        2
+		    FROM
+		        TNDM_DCMN_CLS_MGT A
+		    UNION ALL
+		    SELECT
+		        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+		        (
+		            SELECT
+		                <choose>
+			         		<when test="LANG_CODE != null and LANG_CODE.equals('en')">           			
+			           			TCCO_BU.COMM_ENG_NM 	
+			         		</when>
+			         		<otherwise>
+			         			TCCO_BU.COMM_NM
+			         		</otherwise>
+			         	</choose>
+		            FROM
+		                TCCO_BU
+		            WHERE
+		                TCCO_BU.COMM_CD = TRIM(A.LC_CD)
+		        ),
+		        A.LC_CD,
+		        A.PROC_DEPT_CD,
+		        3
+		    FROM
+		        TNDM_DCMN_CLS_MGT A
+		    UNION ALL
+		    SELECT
+		        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+		        (
+		            SELECT
+		                <choose>
+			         		<when test="LANG_CODE != null and LANG_CODE.equals('en')">           			
+			           			TCCO_BU.COMM_ENG_NM 	
+			         		</when>
+			         		<otherwise>
+			         			TCCO_BU.COMM_NM
+			         		</otherwise>
+			         	</choose>
+		            FROM
+		                TCCO_BU
+		            WHERE
+		                TCCO_BU.COMM_CD = TRIM(A.MC_CD)
+		        ),
+		        A.MC_CD,
+		        A.LC_CD,
+		        4
+		    FROM
+		        TNDM_DCMN_CLS_MGT A
+		    UNION ALL
+		    SELECT
+		        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+		        (
+		            SELECT
+		                <choose>
+			         		<when test="LANG_CODE != null and LANG_CODE.equals('en')">           			
+			           			TCCO_BU.COMM_ENG_NM 	
+			         		</when>
+			         		<otherwise>
+			         			TCCO_BU.COMM_NM
+			         		</otherwise>
+			         	</choose>
+		            FROM
+		                TCCO_BU
+		            WHERE
+		                TCCO_BU.COMM_CD = TRIM(A.SC_CD)
+		        ),
+		        A.SC_CD,
+		        A.MC_CD,
+		        5
+		    FROM
+		        TNDM_DCMN_CLS_MGT A
+		    UNION ALL
+		    SELECT
+		        A.DCMN_CLS_MNG_NO,
+		        A.PROC_DEPT_CD,
+		        A.HND_SCT_NM,
+		        A.LC_CD,
+		        A.MC_CD,
+		        A.SC_CD,
+		        A.UNIT_DUTY_CD,
+		        TO_CHAR(A.PRSRV_PRD,'YYYY-MM-DD'),
+		        A.PRSRV_TYPE,
+		        A.PRSRV_PLC,
+		        A.IS_STCK_REC_THNG_YN,
+		        TO_CHAR(A.STCK_REC_THNG_TRF_DT,'YYYY-MM-DD'),
+		        A.TEMP_YN,
+		        A.FUNC_CLS_TYPE,
+		        A.DESCRIPTION,
+		        A.HND_SCT_NM,
+		        'TEMP',
+		        A.SC_CD,
+		        6
+		    FROM
+		        TNDM_DCMN_CLS_MGT A
+		)
+		SELECT DISTINCT
+		    TRIM(DCMN_CLS_MNG_NO) AS DCMN_CLS_MNG_NO,
+		    TRIM(PROC_DEPT_CD) AS PROC_DEPT_CD,
+		    TRIM(HND_SCT_NM) AS HND_SCT_NM,
+		    TRIM(LC_CD) AS LC_CD,
+		    TRIM(MC_CD) AS MC_CD,
+		    TRIM(SC_CD) AS SC_CD,
+		    TRIM(UNIT_DUTIY_CD) AS UNIT_DUTY_CD,
+		    TRIM(PRSRV_PRD) AS PRSRV_PRD,
+		    TRIM(PRSRV_TYPE) AS PRSRV_TYPE,
+		    TRIM(PRSRV_PLC) AS PRSRV_PLC,
+		    TRIM(IS_STCK_REC_THNG_YN) AS IS_STCK_REC_THNG_YN,
+		    TRIM(STCK_REC_THNG_TRF_DT) AS STCK_REC_THNG_TRF_DT,
+		    TRIM(TEMP_YN) AS TEMP_YN,
+		    TRIM(FUNC_CLS_TYPE) AS FUNC_CLS_TYPE,
+		    TRIM(DESCRIPTION) AS DESCRIPTION,
+		    TRIM(TREE_NAME) AS TREE_NAME,
+		    TRIM(CODE) AS CODE,
+		    TRIM(PARENT_CODE) AS PARENT_CODE,
+		    TO_CHAR(LEV) AS LEV
+		FROM
+		    TEMP
+		ORDER BY
+		    CODE
+	</select>
+	
+	<select id="getGroupPopup" parameterType="map" resultType="HashMap">
+	SELECT GROUP_ID, GROUP_NM, FARM_NM 
+	FROM WT_GROUP A LEFT JOIN WT_FARM B ON A.FARM_ID = B.FARM_ID
+		<where>
+
+		           <if test="GROUP_NM != null and GROUP_NM != ''">
+						AND GROUP_NM  LIKE CONCAT('%' , #{GROUP_NM} , '%')
+					</if>	
+					<if test="FARM_NM != null and FARM_NM != ''">
+						AND FARM_NM  LIKE CONCAT('%' , #{FARM_NM} , '%')
+					</if>		
+		
+		</where> 
+	</select>
+	
+	<select id="getGeneratorPopup" parameterType="map" resultType="HashMap">
+	SELECT GERATOR_ID, GERATOR_NM, GROUP_NM, FARM_NM
+	FROM WT_GERATOR A LEFT JOIN  WT_GROUP B ON A.GROUP_ID = B.GROUP_ID
+	LEFT JOIN WT_FARM C ON B.FARM_ID = C.FARM_ID
+	<where>
+		           <if test="GERATOR_NM != null and GERATOR_NM != ''">
+						AND GERATOR_NM  LIKE CONCAT('%' , #{GERATOR_NM} , '%')
+					</if>	
+		           <if test="GROUP_NM != null and GROUP_NM != ''">
+						AND GROUP_NM  LIKE CONCAT('%' , #{GROUP_NM} , '%')
+					</if>	
+					<if test="FARM_NM != null and FARM_NM != ''">
+						AND FARM_NM  LIKE CONCAT('%' , #{FARM_NM} , '%')
+					</if>		
+		
+		</where> 
+	</select>
+	
+	
+	<!-- selectHuman -->
+	<select id="popup_selectHuman" parameterType="map" resultType="hashmap">
+		SELECT
+			*,
+			CONCAT(EPRT_LAST_NAME, ' ', EPRT_FIRST_NAME) AS EDU_EPRT_NAME
+		FROM
+			WT_EDU_EXPRT
+		<where>
+			<if test="!empty(EDU_EPRT_NAME)">
+
+				LOWER(CONCAT(EPRT_LAST_NAME, ' ', EPRT_FIRST_NAME)) LIKE CONCAT('%', LOWER(#{EDU_EPRT_NAME}), '%')
+			</if>
+		</where>
+	</select>
+	
+</mapper>

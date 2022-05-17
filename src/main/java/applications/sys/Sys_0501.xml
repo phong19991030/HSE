@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 사용자관리 -->
+<mapper namespace="sys.sys0501">	
+
+	<!-- 
+		ID	: getUserList
+		기능 : 사용자내역 조회
+	-->
+	
+	
+	
+	
+	<select id="getCompanyList" parameterType="map" resultType="HashMap">
+		SELECT 
+			COMPANY_ID,
+			CLS,
+			COMPANY_NM,
+			COMPANY_ADR,
+			C.DESCRPT,
+			C.LOGO,
+			NEW_FLE_NM,
+			FLE_NM,
+			C.INS_USER,
+			U2.USER_ID,
+			UI.USER_NM,
+			C.INS_DT,
+       COUNT(U.USER_UID) MEMBERS
+		FROM WT_COMPANY C
+		LEFT JOIN TCCO_FILE F ON F.ATCH_FLE_SEQ = C.LOGO
+		LEFT JOIN TSST_USER U ON U.COMP = C.COMPANY_ID
+		LEFT JOIN TSST_USER U2 ON U2.USER_UID = C.INS_USER
+		LEFT JOIN TSST_USER_INFO UI ON UI.USER_ID = U2.USER_ID
+		
+				
+		<where>
+			<if test="SE_COMP_NM != null and SE_COMP_NM != ''">
+				<trim prefix="AND">
+					 COMPANY_NM LIKE concat('%',#{SE_COMP_NM},'%')
+				</trim>
+			</if>
+			
+			 <if test="SE_COMP_ADR != null and SE_COMP_ADR != ''">
+				 <trim prefix="AND">
+				 	 COMPANY_ADR LIKE concat('%',#{SE_COMP_ADR},'%')
+				 	 
+				 </trim>
+			</if> 
+			 <if test="CLS != null and CLS != ''">
+				 <trim prefix="AND">
+				 	 CLS = #{CLS}
+				 	 
+				 </trim>
+			</if> 
+			 <if test="COMPANY_NM != null and COMPANY_NM != ''">
+				 <trim prefix="AND">
+				 	 COMPANY_NM LIKE concat('%',#{COMPANY_NM},'%')
+				 	 
+				 </trim>
+			</if> 
+			 <if test="FARM_ID != null and FARM_ID != ''">
+				 <trim prefix="AND">
+				 	 COMPANY_ID IN (select COMPANY_ID from WT_FARM_COMPANY where FARM_ID = #{FARM_ID})
+				 	 
+				 </trim>
+			</if> 
+			 <if test="all != null and all != ''">
+				 <trim prefix="AND">
+				 	( COMPANY_NM LIKE concat('%',#{all},'%') OR  CLS LIKE concat('%',#{all},'%') )
+				 	 
+				 </trim>
+			</if> 
+		</where> 
+		GROUP BY COMPANY_ID,
+			CLS,
+			COMPANY_NM,
+			COMPANY_ADR,
+			C.DESCRPT,
+			C.LOGO,
+			NEW_FLE_NM,
+			FLE_NM,
+			C.INS_USER,
+			U2.USER_ID,
+			UI.USER_NM,
+			C.INS_DT
+		ORDER BY C.INS_DT DESC, CLS, COMPANY_NM
+	</select>
+	<select id="getCompanyById"  parameterType="map" resultType="HashMap">
+		SELECT * FROM WT_COMPANY WHERE COMPANY_ID = #{COMPANY_ID}
+	</select>
+	
+	<select id="checkInuse"  parameterType="map" resultType="Integer">
+		SELECT SUM(COUNT) FROM 
+		(SELECT COUNT(*) COUNT FROM WT_FARM_COMPANY WHERE COMPANY_ID = #{COMPANY_ID} 
+		UNION ALL 
+		SELECT COUNT(*) COUNT FROM WT_GERATOR WHERE MANUFACTURER_ID = #{COMPANY_ID} OR OPERATOR_ID = #{COMPANY_ID}
+		UNION ALL
+		SELECT COUNT(*) COUNT FROM  TSST_USER WHERE COMP = #{COMPANY_ID}
+		) A
+	</select>
+	
+	
+	<select  id="checkDoubleName" parameterType="map" resultType="HashMap">
+	SELECT * FROM (SELECT * FROM WT_COMPANY 
+	<where>
+	<if test="COMPANY_NM_OLD != null and COMPANY_NM_OLD != '' ">
+				COMPANY_NM != #{COMPANY_NM_OLD}
+			</if>
+			</where>  
+			) A 
+			
+			WHERE A.COMPANY_NM = #{COMPANY_NM};
+	
+	</select>
+	
+	<insert id="insertCompany" parameterType="map">
+		BEGIN NOT ATOMIC
+		DECLARE result VARCHAR(20);
+		CALL proc_gen_id('COMPANY_SEQ', @result); 
+		
+		INSERT INTO WT_COMPANY(
+			COMPANY_ID,
+			COMPANY_NM,
+			COMPANY_ADR,
+			LOGO,
+			CLS,
+			DESCRPT,
+			INS_USER,
+			INS_DT
+		)
+		VALUES(
+			@result,
+			#{COMPANY_NM},
+			#{COMPANY_ADR},
+			#{LOGO},
+			#{CLS},
+			#{DESCRPT},
+			#{USER_UID},
+			NOW()
+		);
+		END;
+	</insert>
+	
+	<insert id="updateCompany" parameterType="map">
+		UPDATE WT_COMPANY SET 
+			COMPANY_NM = #{COMPANY_NM},
+			COMPANY_ADR = #{COMPANY_ADR},
+			CLS = #{CLS},
+			
+			<if test="!empty(LOGO)">LOGO			=	#{LOGO, 	jdbcType=VARCHAR},</if>
+			DESCRPT = #{DESCRPT}
+		WHERE COMPANY_ID = #{COMPANY_ID}
+		
+	</insert>
+	
+	<delete id="deleteComp" parameterType="map">
+		DELETE	FROM	WT_COMPANY
+		 WHERE	COMPANY_ID	=	#{COMPANY_ID}
+	</delete>
+	
+	<select id="chkCompId" parameterType="map" resultType="string">
+		SELECT	TRIM (CONVERT(COUNT(*),CHAR)) AS CNT
+		  FROM	WT_COMPANY
+		 WHERE	COMPANY_ID	=	#{COMPANY_ID}
+	</select>
+	
+</mapper>

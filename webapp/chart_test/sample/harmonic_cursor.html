@@ -1,0 +1,84 @@
+<script src="../js/moment.min.js"></script>
+<script src="../js/moment-timezone.min.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js_custom/util-tiime.js"></script>
+
+
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<div id="container" style="height: 400px"></div>
+
+
+<script>
+    $(function() {
+
+      var line,
+        label,
+        clickX,
+        clickY;
+
+      var start = function(e) {
+
+        $(document).bind({
+          'mousemove.line': step,
+          'mouseup.line': stop
+        });
+
+        clickX = e.pageX - line.translateX;
+        //clickY = e.pageY - line.translateY; //uncomment if plotline should be also moved vertically
+      }
+      var step = function(e) {
+        line.translate(e.pageX - clickX, e.pageY - clickY);
+        if (label)
+          label.translate(e.pageX - clickX, e.pageY - clickY);
+      }
+
+      var stop = function() {
+        $(document).unbind('.line');
+      }
+
+      $('#container').highcharts({
+        xAxis: {
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+
+          plotLines: [
+            {
+              color: '#FF0000',
+              width: 2,
+              value: 0,
+              label: {
+                text: 'this is label'
+              }
+            },
+            {
+              color: '#000000',
+              width: 2,
+              value: 1,
+              label: {
+                text: 'this is label'
+              }
+            },
+
+          ]
+        },
+
+        series: [{
+          data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+        }]
+      }, function(chart) {
+        label = chart.xAxis[0].plotLinesAndBands[0].label;
+        line = chart.xAxis[0].plotLinesAndBands[0].svgElem.attr({
+    //        stroke: 'yellow'
+          })
+          .css({
+            'cursor': 'pointer'        
+          })
+          .translate(0, 0)
+          .on('mousedown', start);
+
+
+      });
+
+    });
+
+
+</script>

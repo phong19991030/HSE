@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!-- common lib js -->
+<script type="text/javascript" src="../../js/lib/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../../js/lib/date-search-setting.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery-timepicker.js"></script>
+<!-- common js -->
+<script type="text/javascript" src="../../js/common/layout.js"></script>
+<script type="text/javascript" src="../../js/common/common.js"></script>
+<script type="text/javascript" src="../../js/common/layerPopup.js"></script>
+<!-- sub js -->
+<script type="text/javascript" src="../../js/common/sub.js"></script>
+
+<head>
+  <meta charset="UTF-8">
+  <title>HSE 운영지원시스템</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1,width=device-width" />
+  <meta name="copyright" content="Copyright 2022 © AtwoM. ALL Rights Reserved HSE 운영지원시스템" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../../img/common/favicon-32x32.png" />
+  <!-- common css -->
+  <link rel="stylesheet" type="text/css" href="../../css/common/common.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/ui.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/reset.css" />
+  <!-- common lib css -->
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui.theme.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui-timepicker.css" />
+  <!-- sub css -->
+  <link rel="stylesheet" type="text/css" href="../../css/common/sub.css" />
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- Accessibility -->
+    <a href="#nav" class="skip-to sr-only">메뉴 바로가기</a>
+    <a href="#content" class="skip-to sr-only">본문 바로가기</a>
+
+    <header>
+      <div class="header-wrap">
+        <a href="#" class="logo">
+          <span class="sr-only">상단로고</span>
+        </a>
+        <nav id="nav">
+          <ul class="gnb">
+            <li class="depth1 active">
+              <a href="javascript:void(0);"><i class="las la-archive"></i><span>일반관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>보고서작성 이력관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>유저 정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>사업장정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>터빈 정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>보건안전환경 경영방침</span></a></li>
+                  <li><a href="javascript:void(0);"><span>보건안전환경 법규관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-briefcase-medical"></i><span>보건관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>직원 정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>직원 건강 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-hard-hat"></i><span>안전관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>작업 공구 및 장비 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>개인 보호 장비</span></a></li>
+                  <li><a href="javascript:void(0);"><span>작업 전 안전 교육</span></a></li>
+                  <li><a href="javascript:void(0);"><span>사고 조사 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>비상 대응 계획 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>법정의무교육 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>안전관리 조직도</span></a></li>
+                  <li><a href="javascript:void(0);"><span>안전점검 및 순찰 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-wrench"></i><span>작업관리</span>
+              </a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>작업 허가 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>위험성평가 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>위험성평가 DB 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-globe-americas"></i><span>환경관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>소방 화재 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>폐기물 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>유해물질 운영 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>해상환경 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>기타환경 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- header-user-area -->
+        <div class="header-user-area">
+          <span class="user-info">
+            <strong class="name">홍길동</strong>
+            <span class="position">과장</span>
+          </span>
+
+          <button class="logout-btn">LOGOUT</button>
+          <ul class="header-side">
+            <!-- D : alarm-toggle click -> "open" class is added to parents li. -->
+            <li>
+              <button class="alarm-toggle">
+                <i class="las la-bell"></i>
+                <span class="new-num">1</span>
+              </button>
+              <!-- alarm-panel -->
+              <div class="alarm-panel">
+                <a href="javascript:void(0);" class="go-btn">
+                  <i class="las la-paste"></i>
+                  <span>내 결재 이력 보기</span>
+                </a>
+                <!-- my-approval -->
+                <section class="my-approval">
+                  <div class="tit-area">
+                    <span class="tit">내 결재</span>
+                    <div class="approval-state">
+                      <span class="state proceed">
+                        <em class="txt">진행</em>
+                        <strong class="num">3</strong>
+                      </span>
+                      <span class="state return">
+                        <em class="txt">반려</em>
+                        <strong class="num">1</strong>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                  <div class="approval-history-wrap">
+                    <ul>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 완료</strong>
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.21</em>
+                            <em class="time">16:42</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="proceed">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 진행</strong>
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.21</em>
+                            <em class="time">13:03</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="return">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 반려</strong>
+                            <span class="history-lst">
+                              <em>안전관리</em>
+                              <em>작업공구 및 장비관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.20</em>
+                            <em class="time">17:54</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="proceed">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 진행</strong>
+                            <span class="history-lst">
+                              <em>안전관리</em>
+                              <em>작업공구 및 장비관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.20</em>
+                            <em class="time">15:36</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="proceed">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 진행</strong>
+                            <span class="history-lst">
+                              <em>작업관리</em>
+                              <em>작업 허가관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.19</em>
+                            <em class="time">11:04</em>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                    <!-- no-txt (There is no notification.)-->
+                    <div class="no-txt">
+                      <p>알림 내용이 없습니다.</p>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                </section>
+
+                <!-- ========================= -->
+                <!-- wait-approval -->
+                <section class="wait-approval">
+                  <div class="tit-area">
+                    <span class="tit">결재 대기</span>
+                    <div class="approval-state">
+                      <span class="state wait">
+                        <em class="txt">대기</em>
+                        <strong class="num">10</strong>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                  <div class="approval-history-wrap">
+                    <ul>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">16:42</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">이길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">13:03</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">나길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>작업관리</em>
+                              <em>작업공구 및 장비 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.20</em>
+                              <em class="time">17:54</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">채길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.20</em>
+                              <em class="time">14:06</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">나길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>작업관리</em>
+                              <em>작업공구 및 장비 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.19</em>
+                              <em class="time">09:23</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">박길동</em>
+                              <em class="position">주임</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">16:42</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">이길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">16:42</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">이길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                    <!-- no-txt (There is no notification.)-->
+                    <div class="no-txt">
+                      <p>알림 내용이 없습니다.</p>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                </section>
+              </div>
+              <!-- //alarm-panel -->
+            </li>
+          </ul>
+        </div>
+        <!-- //header-user-area -->
+      </div>
+      <div class="lnb-bg"></div>
+    </header>
+
+    <main id="content" class="health-page">
+      <div class="container">
+        <section class="hdSection">
+          <!-- tit-wrap -->
+          <div class="tit-wrap">
+            <div class="tit-left">
+              <h1 class="heading1">직원 정보 관리 수정</h1>
+            </div>
+          </div>
+          <!-- //tit-wrap -->
+        </section>
+        <section class="contSection">
+          <div class="content clearfix">
+
+            <!-- left area -->
+            <div class="left-area">
+
+              <!-- approval-view -->
+              <article class="approval-view">
+                <div class="flexWrap">
+                  <h2 class="heading4">결재라인</h2>
+                  <button class="btn2 refresh-btn">
+                    <span class="name">결재라인 재지정</span>
+                  </button>
+                </div>
+
+                <ul class="approval-view--line">
+                  <!-- D : li class="approval" -> "결재 승인" style is applied. -->
+                  <li class="approval">
+                    <p class="state">결재승인</p>
+                    <div class="box">
+                      <div class="info-wrap">
+                        <span class="info">
+                          <em class="team">윈디텍(주)</em>
+                          <em class="name">장길동</em>
+                          <em class="position">과장</em>
+                        </span>
+                        <!-- D : Badge style by approval status.
+                          1. approval-badge1 기안
+                          2. approval-badge2 검토
+                          3. approval-badge3 결재
+                        -->
+                        <small class="approval-badge1">기안</small>
+                      </div>
+                      <!-- D : li class="approval" -> "approval-date" The markup should be added. -->
+                      <p class="approval-date">
+                        <em>2021.06.01</em>
+                        <em>09:16</em>
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <p class="state">결재대기</p>
+                    <div class="box">
+                      <div class="info-wrap">
+                        <span class="info">
+                          <em class="team">윈디텍(주)</em>
+                          <em class="name">곽길동</em>
+                          <em class="position">팀장</em>
+                        </span>
+                        <!-- D : Badge style by approval status.
+                          1. approval-badge1 기안
+                          2. approval-badge2 검토
+                          3. approval-badge3 결재
+                        -->
+                        <small class="approval-badge2">검토</small>
+                      </div>
+                      <!-- D : li class="approval" -> "approval-date" The markup should be added. -->
+                      <!-- <p class="approval-date">
+                        <em>2021.06.01</em>
+                        <em>09:16</em>
+                      </p> -->
+                    </div>
+                  </li>
+                  <li>
+                    <p class="state">결재대기</p>
+                    <div class="box">
+                      <div class="info-wrap">
+                        <span class="info">
+                          <em class="team">운영사 A</em>
+                          <em class="name">채길동</em>
+                          <em class="position">부장</em>
+                        </span>
+                        <!-- D : Badge style by approval status.
+                          1. approval-badge1 기안
+                          2. approval-badge2 검토
+                          3. approval-badge3 결재
+                        -->
+                        <small class="approval-badge3">결재</small>
+                      </div>
+                      <!-- D : li class="approval" -> "approval-date" The markup should be added. -->
+                      <!-- <p class="approval-date">
+                        <em>2021.06.01</em>
+                        <em>09:16</em>
+                      </p> -->
+                    </div>
+                  </li>
+                </ul>
+              </article>
+
+              <article class="registration-form">
+                <h2 class="heading4">직원 정보 관리 수정</h2>
+
+                <div class="base-table">
+                  <table>
+                    <caption></caption>
+                    <colgroup>
+                      <col style="width: 11%;">
+                      <col style="width: 39%;">
+                      <col style="width: 11%;">
+                      <col style="width: 39%;">
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <th scope="row">성명</th>
+                        <td>
+                          <div class="register-write">
+                            <div class="input-group">
+                              <input type="text" title="성명" placeholder="성명" value="장길동">
+                            </div>
+                          </div>
+                        </td>
+                        <th scope="row">직급</th>
+                        <td>
+                          <div class="register-write">
+                            <div class="input-group">
+                              <input type="text" title="직급" placeholder="직급" value="과장">
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">담당 분야</th>
+                        <td>
+                          <div class="register-write w100p">
+                            <div class="input-group">
+                              <input type="text" title="담당 분야" placeholder="담당 분야를 입력해주세요" value="블레이드 케어">
+                            </div>
+                          </div>
+                        </td>
+                        <th scope="row">근무 경력</th>
+                        <td>
+                          <div class="select-group">
+                            <select title="근무 경력">
+                              <option selected>6</option>
+                              <option>option</option>
+                              <option>option</option>
+                            </select>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">주요 경력</th>
+                        <td colspan="3">
+                          <div class="register-write w100p">
+                            <div class="input-group">
+                              <textarea title="주요 경력" placeholder="주요 경력을 입력해주세요">
+국내 A단지 Vestas 3MW x 3기 블레이드 보호테이프 시공
+국내 B단지 Siemens 3MW x 10기 블레이드 점검
+국내 C단지 Doosan 5MW x 5기 기어박스 오일 교체
+국내 D단지 Unison 2MW x 7기 정밀진단
+                              </textarea>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">주요 자격</th>
+                        <td colspan="3">
+                          <div class="register-write w100p">
+                            <div class="input-group">
+                              <textarea title="주요 자격" placeholder="주요 자격을 입력해주세요">
+Vestas Blade Repair Cert S등급
+Siemens Blade Repair Cert S등급
+                              </textarea>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">안전교육 이수</th>
+                        <td colspan="3">
+                          <div class="register-write w100p">
+                            <div class="input-group">
+                              <input type="text" title="안전교육 이수" placeholder="안전교육을 입력해주세요" value="GWO 교육">
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">안전교육 이수일자</th>
+                        <td>
+                          <div class="calendar-picker">
+                            <div class="input-group">
+                              <label class="sr-only">날짜설정</label>
+                              <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly
+                                value="2020-02-10">
+                              <button class="calendar-picker-btn"></button>
+                            </div>
+                          </div>
+                        </td>
+                        <th scope="row">안전교육 갱신일자</th>
+                        <td>
+                          <div class="calendar-picker">
+                            <div class="input-group">
+                              <label class="sr-only">날짜설정</label>
+                              <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly
+                                value="2023-02-10">
+                              <button class="calendar-picker-btn"></button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">개인보호장비<br />지급 여부</th>
+                        <td colspan="3">
+                          <div class="select-group">
+                            <select title="개인보호장비 지급여부">
+                              <option selected>지급 완료</option>
+                              <option>option</option>
+                              <option>option</option>
+                            </select>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </article>
+            </div>
+            <!-- // left area -->
+            <!-- right area -->
+            <div class="right-area">
+              <div class="right-btn-type">
+                <button class="btn-style1">
+                  <i class="las la-save"></i><span class="name">저장</span>
+                </button>
+                <button class="btn-style3">
+                  <i class="las la-reply"></i><span class="name">취소</span>
+                </button>
+              </div>
+            </div>
+            <!-- // right area -->
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        * {
+        	font-family: NanumBarunGothic;
+        	font-size: 13px;
+        	margin:0px;
+        	padding:0px;
+        }
+        
+        table {
+        	border-collapse: collapse;
+		    border-spacing: 0;
+		    border: 1px solid black;
+		    /* border-top-color: black;
+		    border-top-width: 1px;
+		    border-top-style: solid;
+		    border-left-color: black;
+		    border-left-width: 1px;
+		    border-left-style: solid; */
+        }
+        
+        table tr td {
+        	border-collapse: collapse;
+	        border-spacing: 0;
+	        border-right-color: black;
+	        border-right-width: 1px;
+	        border-right-style: solid;
+	        border-bottom-color: black;
+	        border-bottom-width: 1px;
+	        border-bottom-style: solid;
+	        padding: 10px;
+        }
+        
+        .table-no-border {
+        	border: none !important;
+        }
+        
+        .table-no-border tr td {
+        	border: none !important;
+        }
+        
+        .bg-gray {
+        	background: #dbdbdb;
+        }
+        
+        .spaced {
+        	display: block;
+        	width: 100%;
+        	height: 20px;
+        }
+        
+        .last-td {
+        	border-right-width: 0 !important;
+        }
+        
+        .last-tr-td {
+        	border-bottom-width: 0 !important;
+        }
+        
+        .indent {
+        	padding: 0 20px !important;
+        }
+        
+        .toc {
+        	font-weight: 700;
+        }
+        
+        ul, ol, li, dl, dt, dd{margin:0px 0px 0px 0px;padding:0px 0px 0px 0px;list-style:none;}
+    </style>
+</head>
+
+<body>
+	<!-- 메인 페이지 -->
+    <div>
+        <div style="text-align: center; padding: 350px 0 200px 0;">
+        	<h1>#{TITLE}</h1>
+        </div>
+        <div>
+        	<table style="width: 100%;">
+			<tbody>
+					<tr>
+						<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">풍력 발전기</td>
+						<td style="width: 80%;">#{POSITION}</td>
+					</tr>
+					<tr>
+						<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">운영사</td>
+						<td style="width: 80%;">#{OPERATOR}</td>
+					</tr>
+<!-- 					<tr> -->
+<!-- 						<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">유지보수사</td> -->
+<!-- 						<td style="width: 80%;">#{ISP}</td> -->
+<!-- 					</tr> -->
+					<tr>
+						<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">작업 일자</td>
+						<td style="width: 80%;">#{DATETIME}</td>
+					</tr>
+<!-- 					<tr> -->
+<!-- 						<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">작업자</td> -->
+<!-- 						<td style="width: 80%;">#{WORKERS}</td> -->
+<!-- 					</tr> -->
+					<tr>
+						<td class="bg-gray" style="width: 20%;text-align:center;font-weight:700;">작성자</td>
+						<td style="width: 80%;">#{REGISTRATOR}</td>
+					</tr>
+				</tbody>
+			</table>
+        </div>
+    </div>
+    <div style="page-break-before:always">&nbsp;</div>
+    <!-- 메인 페이지 -->
+	
+	<!-- 목차 -->
+    <div>
+    	<div style="font-size: 26px; font-weight: bold;">목차</div>
+        <div class="spaced"></div>
+		#{TABLE_OF_CONTENTS}
+	</div>
+	<div style="page-break-before:always">&nbsp;</div>
+	<!-- 목차 -->
+	
+	<!-- 스케줄 -->
+	<div class="spaced"></div>
+    <div class="toc">1. Part</div>
+    <div class="spaced"></div>
+    
+<!--     <table> -->
+<!--     	<tbody> -->
+<!--     		<tr> -->
+<!--     			<td class="bg-gray" style="width:30px;text-align:center;font-weight:700;">No.</td> -->
+<!--     			<td class="bg-gray" style="width:45px;text-align:center;font-weight:700;">Code</td> -->
+<!--     			<td class="bg-gray" style="width:130px;text-align:center;font-weight:700;">Category</td> -->
+<!--     			<td class="bg-gray" style="width:130px;text-align:center;font-weight:700;">Name</td> -->
+<!--     			<td class="bg-gray" style="width:50px;text-align:center;font-weight:700;">Cost</td> -->
+<!--     			<td class="bg-gray" style="width:150px;text-align:center;font-weight:700;">Preparation time</td> -->
+<!--     		</tr> -->
+<!--     		<tr> -->
+<!--     			<td rowspan="2">1</td> -->
+<!--     			<td rowspan="2">007</td> -->
+<!--     			<td rowspan="2">Main cable - HV cable</td> -->
+<!--     			<td rowspan="2">HV cable_20201209</td> -->
+<!--     			<td rowspan="2">$ 150.0</td> -->
+<!--     			<td>2020-01-01 00:00:00</td> -->
+<!--     		</tr> -->
+<!--     		<tr> -->
+<!--     			<td>2020-01-01 00:00:00</td> -->
+<!--     		</tr> -->
+    		
+<!--     		<tr> -->
+<!--     			<td colspan="6" style="text-align:center;">No Parts</td> -->
+<!--     		</tr> -->
+<!--     	</tbody> -->
+<!--     </table> -->
+    
+    
+	<div>#{PART_LIST}</div>
+	
+	<div class="spaced"></div>
+    <div class="toc">2. Tool</div>
+    <div class="spaced"></div>
+	<div>#{TOOL_LIST}</div>
+	
+	<div class="spaced"></div>
+    <div class="toc">3. Personal Protection Equipment</div>
+    <div class="spaced"></div>
+	<div>#{PPE_LIST}</div>
+	
+	
+	<div style="page-break-before:always">&nbsp;</div>
+	
+	
+	<div class="spaced"></div>
+    <div class="toc">4. Work</div>
+    <div class="spaced"></div>
+	<div>#{WORK_LIST}</div>
+	
+	<table>
+    	<tbody>
+    		<tr>
+    			<td class="bg-gray" style="width:30px;text-align:center;font-weight:700;">No.</td>
+    			<td class="bg-gray" style="width:80px;text-align:center;font-weight:700;">Name</td>
+    			<td class="bg-gray" style="width:140px;text-align:center;font-weight:700;">Detail</td>
+    			<td class="bg-gray" style="width:80px;text-align:center;font-weight:700;">Cost</td>
+    			<td class="bg-gray" style="width:70px;text-align:center;font-weight:700;">Worker</td>
+    			<td class="bg-gray" style="width:170px;text-align:center;font-weight:700;">Working Time</td>
+    		</tr>
+    		<tr>
+    			<td rowspan="2">1</td>
+    			<td rowspan="2">Work1</td>
+    			<td rowspan="2">
+    				1. 작업내역1<br/>
+    				2. 작업내역2<br/>
+    				3. 작업내역3<br/>
+    			</td>
+    			<td rowspan="2">₩ 40,000</td>
+    			<td rowspan="2">
+    				이성훈<br/>
+    				오명현<br/>
+    				<br/>
+    			</td>
+    			<td>2020-01-01 00:00:00</td>
+    		</tr>
+    		<tr>
+    			<td>2020-01-01 00:00:00</td>
+    		</tr>
+    		<tr>
+    			<td colspan="6" style="text-align:center;">No Work</td>
+    		</tr>
+    	</tbody>
+    </table>
+	
+	<div style="page-break-before:always">&nbsp;</div>
+	
+	<div class="spaced"></div>
+    <div class="toc">5. Schedule</div>
+    <div class="spaced"></div>
+	<div>#{SCHEDULE}</div>
+    <!-- 스케줄 -->
+</body>
+
+</html>

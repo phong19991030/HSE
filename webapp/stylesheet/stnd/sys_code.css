@@ -1,0 +1,108 @@
+@charset "utf-8";
+.btn_span_minus{
+	padding: 3px 7px;
+	margin: 0 3px;
+	cursor: pointer;
+	border: 1px solid #c1c1c1;
+	border-radius: 2px;
+}
+.btn_span{
+	padding: 3px 6px;
+	margin: 0 3px;
+	cursor: pointer;
+	border: 1px solid #c1c1c1;
+	border-radius: 2px;
+}
+.sendLoading {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		background: #000;
+		top: 0;
+		left: 0;
+		z-index: 99999;
+		cursor: not-allowed;
+		opacity: 0.4;
+		display: none;
+}
+.sendLoading .contentLoading img {
+		width: 100%;
+		height: 100%;
+} 
+.notDownload{
+cursor: not-allowed;
+}
+.btn-img{
+	margin-bottom: -7px;
+    cursor: pointer;
+    border: 1px solid #c1c1c1;
+    border-radius: 2px;
+    width: 22px;
+}
+.divText{
+    float: left;
+    width: 95%;
+    overflow-y:scroll;
+    height:160px;
+    background: white;
+}
+.divTextAction{
+    float: left;
+    width: 95%;
+    background: border-box;
+}
+div#PARTS.divText input[type=text]{
+	width: 76%;
+}
+div#TOOL.divText input[type=text]{
+	width: 76%;
+}
+div#PPE.divText input[type=text]{
+	width: 76%;
+}
+.group_area .group_tb input{
+	width: 73%;
+}
+
+.plusCss{
+	margin-left: 96%;
+    margin-top: 70px;
+
+}
+.write_tbl td input[type=number] {
+    width: 40px;
+}
+
+
+
+span.btn_span {
+	padding: 3px 6px;
+	margin: 0 10px;
+	cursor: pointer;
+	border: 1px solid #c1c1c1;
+	border-radius: 2px;
+}
+ span.remove{
+	padding: 3px 9px;
+	margin: 0 10px;
+	cursor: pointer;
+	border: 1px solid #c1c1c1;
+	border-radius: 2px;
+}
+span.btn_span:hover{
+	background: silver;
+	color: white;
+}
+.write_tbl textarea {
+    height: 120px;
+    margin-right: 0;
+}
+.system-detail-wrap .registration-form-lst .registration-write.btn-input-wrap .input-group.overlap {
+    margin-top: 0;
+}
+
+
+
+input:disabled{
+	background: #f6f6f6;
+}

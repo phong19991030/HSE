@@ -1,0 +1,236 @@
+/*  *{    font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕;} */
+ 
+ #main_txt{font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NGB;min-height:300px;word-break:break-all;height: 100%;overflow-x:hidden;}
+ /* main */
+/* .main_wrap {background:url(../../images/inno/main/mainbg.gif) no-repeat #fff !important;width:100%;min-width: 1350px;overflow-y:auto;clear:both;}  */
+/* .leftWrap, .middlewrap, .bottomwrap {float:left;display:inline-block;width:100%;} */
+.main_wrap h4 {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NGB;/*color:#234c94;*/color:#222;font-size:20px;background:none;padding:20px 10px 10px 25px;}
+
+.main_leftWrap{float:left;width:450px;
+border-right:1px solid #dfe1e8;}
+.main_rightWrap{ 
+    overflow: hidden;
+}
+
+ 
+.leftTop{height:260px;
+	background:url(../../images/inno/main/infobg.png) right 40px no-repeat #f7f7f7;
+/* 	border-right:1px solid #dfe1e8; */
+	border-bottom:1px solid #dfe1e8;
+}
+
+.tit01 {background:url(../../images/inno/main/icotit01.gif) 30px 23px no-repeat !important; padding:20px 10px 10px 55px !important;}
+.tit02 {background:url(../../images/inno/main/icotit02.gif) 30px 21px no-repeat !important; padding:20px 10px 10px 55px !important;}
+.tit03 {background:url(../../images/inno/main/icotit03.gif) 30px 21px no-repeat !important; padding:20px 10px 10px 55px !important;}
+.tit04 {background:url(../../images/inno/main/icotit04.gif) 30px 23px no-repeat !important; padding:20px 10px 10px 58px !important;}
+.tit05 {background:url(../../images/inno/main/icotit05.gif) 30px 20px no-repeat !important; padding:20px 10px 10px 55px !important;}
+.tit06 {background:url(../../images/inno/main/icotit06.gif) 30px 22px no-repeat !important; padding:20px 10px 10px 55px !important;}
+.tit07 {background:url(../../images/inno/main/icotit07.gif) 30px 20px no-repeat !important; padding:20px 10px 10px 55px !important;}
+.tit08 {background:url(../../images/inno/main/icotit08.gif) 30px 23px no-repeat !important; padding:20px 10px 10px 60px !important;}
+
+.leftBody{ }
+.education_wrap {height:300px;border-bottom:1px solid #dfe1e8;}
+.time_other_wrap {height:320px;background:#f7f7f7; }
+
+.rightTop{border-bottom:1px solid #dfe1e8; }
+.rightMid{border-bottom:1px solid #dfe1e8;}
+.rightBot{ }
+
+
+.topleft{width:460px; height:260px;  display: inline-block;border-bottom:1px solid #dfe1e8;float: left;background:#FFF}
+.topright {display:inline-block;width:460px;height:260px; background:#f7f7f7;
+border-bottom:1px solid #dfe1e8;border-left:1px solid #dfe1e8; float: left;}
+.chart_wrap {float:left;display:inline-block;padding:20px 10px 10px 30px;
+position:absolute;
+	}
+.box_wrap {
+
+    padding: 0px 2px;
+    margin-left: 250px;
+    margin-right: 10px;
+/*     width: 300px; */
+    height: 165px;
+    display: inline-block;
+    float: right;
+    padding: 0px 2px;
+}
+	
+	
+.box_wrap .box_num {background:#f7f7f7;border:1px solid #dfe1e8;border-radius:4px;margin:0 0 10px 0px;padding:4px 0px;}
+.box_wrap .num1 {color:#f2a501;font-weight:bold;letter-spacing:-0.3px;}
+.box_wrap .num2 {color:#7da81d;font-weight:bold;letter-spacing:-0.3px;}
+.box_wrap .num3 {color:#3e76cd;font-weight:bold;letter-spacing:-0.3px;}
+.box_wrap .num4 {color:#000;font-weight:bold;letter-spacing:-0.3px;}
+.box_wrap .tt {letter-spacing:0.8px;}
+.box_wrap ul li strong {width:70px !important;display:inline-block !important; }
+/* .box_wrap ul {margin-left:-30px;} */
+
+#chart3 img {width:200px;}
+
+#chart1 {padding:0 30px;display:inline-block;width:400px;height:220px;}
+#chart2 {padding:0 30px;display:inline-block;width:400px;height:220px;}
+#chart1 img, #chart2 img {width:400px ;}
+.vacation_list_wrap {overflow-y:scroll;width:auto;height:180px;background:#fff;padding:0px;margin:0 30px;}
+.vacation_list_wrap .gray {background:#fafafa;}
+
+.midleft {display:inline-block;width:460px;height:300px;background: #f7f7f7;border-right:1px solid #dfe1e8;}
+.midright {display:inline-block;width:460px;height:300px;background: #fff; }
+.botleft {display:inline-block;width:460px;height:320px;border-right:1px solid #dfe1e8; background:#fff;}
+.botright {display:inline-block;width:460px;height:320px;margin-left:-4px;background: #f7f7f7; } 
+
+/* .midleft {display:inline-block;width:460px;height:300px;background:url(../../images/inno/main/accountbg3.png) 290px bottom no-repeat #f7f7f7;border-right:1px solid #dfe1e8;} */
+/* .midright {display:inline-block;width:460px;height:300px;background:url(../../images/inno/main/peoplebg3.png) 290px bottom no-repeat #fff; } */
+/* .botleft {display:inline-block;width:460px;height:320px;border-right:1px solid #dfe1e8; background:url(../../images/inno/main/buyingbg3.png) 290px 220px no-repeat #fff;} */
+/* .botright {display:inline-block;width:460px;height:320px;margin-left:-4px;background:url(../../images/inno/main/bookingbg3.png) 280px 220px no-repeat #f7f7f7; }  */
+ 
+
+
+.rightTop ul{display:inline-block;width:100%; vertical-align: top;}
+.rightTop ul li{font-size:13px;color:#575757;display:inline-block;width:100%;background:none;}
+.rightTop ul li a{font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;display:inline-block;width:100%;}
+.rightTop ul li a:hover {color:#1d186a;}
+
+.boxbtn {line-height:25px;margin-bottom:5px;border-radius:4px;}
+.boxbtn a {font-size:13px;color:#fff;}
+.boxbtn a:hover {color:#fff !important;} 
+.boxbtn1 {background:#3c74cb !important;text-align:center;}
+.boxbtn2 {background:#4c57a9 !important;text-align:center;}
+.boxbtn1:hover {background:#2561bd !important;text-align:center;}
+.boxbtn2:hover {background:#344097 !important;text-align:center;}
+
+.account_wrap, .people_wrap, .buying_wrap, .booking_wrap {padding-left:30px;}
+.account_wrap ul li a:hover {color:#fff !important;}
+.people_wrap ul li a:hover {color:#fff !important;}
+.buying_wrap ul li a:hover {color:#fff !important;}
+.booking_wrap ul li a:hover {color:#fff !important;}
+
+/*.people li {background:url(../../images/inno/main/arr02.gif) 200px 13px no-repeat #f7f7f7;padding:5px 10px 5px 15px; !important} 
+.account li {background:url(../../images/inno/main/arr03.gif) 200px 13px no-repeat #fff;padding:5px 10px 5px 15px; !important} 
+.buying li {background:url(../../images/inno/main/arr04.gif) 200px 13px no-repeat #f7f7f7;padding:5px 10px 5px 15px; !important} 
+.booking li {background:url(../../images/inno/main/arr05.gif) 200px 13px no-repeat #fff;padding:5px 10px 5px 15px; !important}  */
+.people li {background:url(../../images/inno/main/arr02.gif) 90% 13px no-repeat #f7f7f7;    padding: 5px 0px 5px 0px; !important} 
+.account li {background:url(../../images/inno/main/arr03.gif) 90% 13px no-repeat #fff;    padding: 5px 0px 5px 0px; !important} 
+.buying li {background:url(../../images/inno/main/arr04.gif) 90% 13px no-repeat #f7f7f7;    padding: 5px 0px 5px 0px; !important} 
+.booking li {background:url(../../images/inno/main/arr05.gif) 90% 13px no-repeat #fff;    padding: 5px 0px 5px 0px; !important} 
+.people li:hover {background:url(../../images/inno/main/arr00.png) 90% 13px no-repeat #8780e0;color:#fff !important;}
+.account li:hover {background:url(../../images/inno/main/arr00.png) 90% 13px no-repeat #3993c2;color:#fff !important;}
+.buying li:hover {background:url(../../images/inno/main/arr00.png) 90% 13px no-repeat #60aa4d;color:#fff !important;}
+.booking li:hover {background:url(../../images/inno/main/arr00.png) 90% 13px no-repeat #21adaf;color:#fff !important;}
+ 
+	
+.rightMid ul, .rightBot ul {display:inline-block;width:49%; vertical-align: top;}
+.rightMid ul li, .rightBot ul li {font-size:14px;color:#575757;display:inline-block;margin:0 0 7px 0px;    width: 95%;border-radius:4px;border:1px solid #dfe1e8; }
+.rightMid ul li a, .rightBot ul li a {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;display:inline-block;    min-width: 150px;color:#222;    padding: 0 0 0 10px;}
+.rightMid ul li a:hover, .rightBot ul li a:hover {color:#1d186a;}
+
+
+.rightTop .topright ul{display:inline-block;width:90%; vertical-align: top;}
+.rightTop .topright ul li{font-size:14px;color:#575757;display:inline-block;width:100%;padding-left:35px;height:35px;line-height:35px;border-bottom:1px dotted #dedede;}
+.topright ul li span {margin-right: 5px;} 
+.topright ul li .date {float:right;font-weight:bold;font-size:13px;padding-right:35px;color:#e96c5f;}
+/* .rightTop .topright ul li a{font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;} */
+.rightTop .topright ul li a:hover {color:#1d186a;}
+
+
+.member-info {display:inline-block;padding:15px 0 0 35px;}
+.member-info .photo_wrap {    vertical-align: top;
+    margin-top: 20px;display:inline-block;width:84px;height:84px;border-radius:100px;}
+.member-info .photo_wrap img {width:80px;height:80px;border-radius:80px;border:2px solid #fff;}
+.member-info .member-infotxt {    width: 100%;display:inline-block; padding:25px 0 0 20px;} 
+.member-info .member-infotxt dl dt {display:inline-block;font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;font-size:24px;line-height:24px;letter-spacing:-0.25px;color:#000;padding-bottom:10px;}
+.member-info .member-infotxt dl dd {display:inline-block;font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;font-size:16px;line-height:16px;letter-spacing:-0.25px;color:#666a7a;}
+.info-btn {padding:35px 0 0 30px;}
+.info-btn ul li {position:relative;background:#fff;border-radius:7px; margin:0 10px 0 0;display:inline-block;width:20.5%;padding:53px 0 10px; font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;font-size:12px;color:#666;letter-spacing:-0.25px;text-align:center;}
+.info-btn ul li span {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;position:absolute; top:5px;right:5px;background:#fff;font-size:14px;line-height:23px;color:#e45f51;font-weight:bold;text-align:center;width:23px;height:23px;border-radius:30px;}						  
+.info-btn ul li.trip {background:url(../../images/inno/main/tripico.jpg) center 15px no-repeat #3c74cb; }
+.info-btn ul li.education {background:url(../../images/inno/main/eduico.jpg) center 15px no-repeat #2bb3b1; }
+.info-btn ul li.stipend {background:url(../../images/inno/main/stipico.jpg) center 15px no-repeat #8abb45; }
+.info-btn ul li.card {background:url(../../images/inno/main/cardico.jpg) center 15px no-repeat #e77a15; } 
+.info-btn ul li.trip a, .leftTop .info-btn ul li.education a, .leftTop .info-btn ul li.card a, .leftTop .info-btn ul li.stipend a {display:inline-block;width:100%;font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;color:#fff;}
+.info-btn ul li.trip a:hover {color:#fff;} 
+.leftTop .info-btn ul li.education a:hover {color:#fff;} 
+.leftTop .info-btn ul li.card a:hover {color:#fff;} 
+.leftTop .info-btn ul li.stipend a:hover {color:#fff;} 
+ 
+ 
+.holiyday {    padding: 0px 0 0 20px;}
+.holiyday ul li {margin:0px 0px;font-size:16px;}
+.holiyday .custom {
+	
+	    font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NG;
+    display: inline-block;
+    height: 33px;
+    line-height: 30px;
+    background: #e3e3e3;
+    border-radius: 7px;
+    padding: 6px 10px 0px 10px;
+    text-align: left;
+    color: #0C0C0C;
+    margin: 16px 7px 0 0;
+	}
+.holiyday .last {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NG;display:inline-block;height:25px;line-height:25px;background:#01baf2;border-radius:7px;padding:0px 10px;text-align:left;color:#bfeefc;margin:15px 7px 0 0;}
+.holiyday .use1 {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NG;display:inline-block;height:25px;line-height:25px;background:#e7e7e7;border-radius:7px;padding:0px 10px;text-align:left;color:#666;}
+.holiyday .new {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NG;display:inline-block; height:30px;line-height:30px;background:#115eb3;border-radius:7px;padding:0px 10px;text-align:left;color:#a0bfe1;margin:15px 130px 0 0;}
+.holiyday .use2 {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NG;display:inline-block;height:30px;line-height:30px;background:#dcdcdc;border-radius:7px;padding:0px 10px;text-align:left;color:#666;}
+.holiyday .last span, .topright .holiyday .new span {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;color:#fff;text-align:right;float:right;}
+.holiyday .use1 span, .topright .holiyday .use2 span {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;color:#000;text-align:right;float:right;}
+.holiyday .allholiyday {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;display:inline-block;font-size:16px;color:#818181;padding:0px 0 0 0px;text-align:left;margin:0px 0 0 0;/* margin:-15px 0 0 0; */}
+.holiyday .allholiyday p {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG}
+.holiyday .allholiyday strong {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;color:#3e3e40;}
+.holiyday .allholiyday span.ttx {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;display:inline-block;color:#a5a5a6;margin:-3px 0 0 17px;}
+.holiyday .allholiyday span.ttx strong {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;font-weight:bold;font-size:27px;color:#fb8743;}
+
+ .ttx {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;display:inline-block;color:#a5a5a6;}
+ .ttx strong {font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', 맑은고딕,NBG;display:inline-block;color:#fb8743;}
+.TabbedPanelsContent li strong { 
+    color: #222;
+}
+.TabbedPanelsContent .team {
+    position: relative;
+    margin-top: -1px;
+    left: 0px;
+    display: inline;
+    font-size: 11px;
+    font-weight: normal;
+    text-shadow: none;
+    /* height: 25px; */
+    padding: 3px 7px;
+	margin-right:20px;
+    text-align: center;
+    vertical-align: bottom;
+    border-radius: 3px !important;
+    /* line-height: 20px; */
+}
+ 
+.blue {
+    background: #295080 !important;
+    color : #FFF;
+}
+.yellow {
+    background: #ed892b !important;
+    color : #FFF;
+}
+.green {
+    background: #90c336 !important;
+    color : #FFF;
+}
+.orange { 
+    background: #FFA500 !important;
+    color : #FFF;
+}
+
+
+ 
+
+@media (min-width: 1901px) and (max-width:2200px) { 
+.topright, .midright, botright {width:50%; }
+}
+ 
+ 
+@media (min-width: 2201px) and (max-width:3000px) { 
+.topright, .midright, botright {width:63%; }
+}
+
+@media (min-width: 3001px) { 
+.topright, .midright, botright {width:70%; }
+}

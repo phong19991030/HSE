@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sys_new.sys0100">
+
+	<!-- ##################### sys_0100 - 발전단지 리스트 조회 --> 
+	<select id="getFarmList" parameterType="map" resultType="HashMap">
+		SELECT SUB.*
+		FROM (
+		    SELECT F.FARM_ID
+		         , F.FARM_NM
+		         , F.INS_DT
+		         , IFNULL(OPRT.COMPANY_NM_LIST, 'X') AS COMPANY_NM_LIST
+         		 , IFNULL(TURBINE.POWER, 0) AS POWER
+		         , TURBINE.CNT
+		         , ROW_NUMBER() OVER (ORDER BY F.INS_DT DESC) AS RN
+		    FROM WT_FARM F
+		    LEFT JOIN (
+		        SELECT FC.FARM_ID
+		             , GROUP_CONCAT(C.COMPANY_NM SEPARATOR ' | ') AS COMPANY_NM_LIST
+		        FROM WT_FARM_COMPANY FC
+		        LEFT JOIN WT_COMPANY C
+		            ON C.COMPANY_ID = FC.COMPANY_ID
+		        GROUP BY FC.FARM_ID
+		    ) OPRT
+		        ON OPRT.FARM_ID = F.FARM_ID
+		
+		    LEFT JOIN (
+		        SELECT F.FARM_ID
+		             , SUM(T.POWER) AS POWER
+		             , COUNT(T.GERATOR_ID) AS CNT
+		        FROM WT_FARM F
+		        LEFT JOIN WT_GROUP G
+		            ON G.FARM_ID = F.FARM_ID
+		        LEFT JOIN WT_GERATOR T
+		            ON T.GROUP_ID = G.GROUP_ID
+		        GROUP BY F.FARM_ID
+		    ) TURBINE
+		        ON TURBINE.FARM_ID = F.FARM_ID
+		    <where>
+		    	<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+		    		AND (F.FARM_NM LIKE CONCAT('%',#{SEARCH_ALL},'%')
+		        	 	OR COMPANY_NM_LIST LIKE CONCAT('%',#{SEARCH_ALL},'%')
+		        	)
+		    	</if>
+		    	<if test="SEARCH_FARM_NM != null and SEARCH_FARM_NM != '' ">
+		    		AND F.FARM_NM LIKE CONCAT('%',#{SEARCH_FARM_NM},'%')
+		    	</if>
+		    	<if test="SEARCH_OPER_NM != null and SEARCH_OPER_NM != '' ">
+		    		AND COMPANY_NM_LIST LIKE CONCAT('%',#{SEARCH_OPER_NM},'%')
+		    	</if>
+		    </where>
+		) SUB
+		WHERE SUB.RN BETWEEN (#{PAGE}-1) * #{PAGE_SIZE}+1 and (#{PAGE} * #{PAGE_SIZE})
+		ORDER BY SUB.RN ASC
+	</select>
+	
+	<select id="getFarmCnt" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM WT_FARM F
+		LEFT JOIN (
+		    SELECT FC.FARM_ID
+		         , GROUP_CONCAT(C.COMPANY_NM SEPARATOR ' | ') AS COMPANY_NM_LIST
+		    FROM WT_FARM_COMPANY FC
+		    LEFT JOIN WT_COMPANY C
+		        ON C.COMPANY_ID = FC.COMPANY_ID
+		    GROUP BY FC.FARM_ID
+		) OPRT
+		    ON OPRT.FARM_ID = F.FARM_ID
+		
+		LEFT JOIN (
+		    SELECT F.FARM_ID
+		         , SUM(T.POWER) AS POWER
+		         , COUNT(T.GERATOR_ID) AS CNT
+		    FROM WT_FARM F
+		    LEFT JOIN WT_GROUP G
+		        ON G.FARM_ID = F.FARM_ID
+		    LEFT JOIN WT_GERATOR T
+		        ON T.GROUP_ID = G.GROUP_ID
+		    GROUP BY F.FARM_ID
+		) TURBINE
+		    ON TURBINE.FARM_ID = F.FARM_ID
+		 <where>
+		    <if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+		   		AND (F.FARM_NM LIKE CONCAT('%',#{SEARCH_ALL},'%')
+		       	 	OR COMPANY_NM_LIST LIKE CONCAT('%',#{SEARCH_ALL},'%')
+		       	)
+	    	</if>
+	    	<if test="SEARCH_FARM_NM != null and SEARCH_FARM_NM != '' ">
+	    		AND F.FARM_NM LIKE CONCAT('%',#{SEARCH_FARM_NM},'%')
+	    	</if>
+	    	<if test="SEARCH_OPER_NM != null and SEARCH_OPER_NM != '' ">
+	    		AND COMPANY_NM_LIST LIKE CONCAT('%',#{SEARCH_OPER_NM},'%')
+	    	</if>
+	    </where>
+    </select>
+	
+	<!-- 운영사 select 팝업창 -->
+	<select id="getPopupList" parameterType="map" resultType="HashMap">
+		<!-- SELECT FC.COMPANY_ID
+		     , COM.COMPANY_NM
+		     , COM.LOGO
+		     , IFNULL(COM.FLE_PATH, '') AS FLE_PATH
+		FROM WT_FARM_COMPANY FC
+        LEFT JOIN ( SELECT C.COMPANY_ID, C.COMPANY_NM, C.LOGO, TF.FLE_PATH
+                      FROM WT_COMPANY C
+                      LEFT JOIN TCCO_FILE TF
+		                         ON TF.ATCH_FLE_SEQ = C.LOGO
+                   )COM
+               ON COM.COMPANY_ID = FC.COMPANY_ID
+		<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+			AND (
+			    COM.COMPANY_NM LIKE CONCAT('%',#{SEARCH_ALL},'%')
+			)
+		</if> -->
+		
+		SELECT C.COMPANY_ID
+		     , C.COMPANY_NM
+		     , F.ATCH_FLE_SEQ
+		     , F.FLE_PATH
+		     , F.NEW_FLE_NM
+		FROM WT_COMPANY C
+		LEFT JOIN TCCO_FILE F
+		    ON F.ATCH_FLE_SEQ = C.LOGO
+		WHERE C.CLS = '1'  
+		<if test="SEARCH_ALL != null and SEARCH_ALL != '' ">
+			AND (
+			    C.COMPANY_NM LIKE CONCAT('%',#{SEARCH_ALL},'%')
+			)
+		</if> 
+	</select>
+	
+	<select id="duplicateCheckOfFarmName" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM WT_FARM
+		WHERE FARM_NM = #{FARM_NM}
+		<if test="FARM_ID != null and FARM_ID != '' ">
+			AND FARM_ID != #{FARM_ID}
+		</if>
+	</select>
+	
+	<select id="duplicateCheckOfGroupName" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM WT_GROUP
+		WHERE GROUP_NM = #{GROUP_NM}
+		AND FARM_ID = #{FARM_ID}
+	</select>
+	
+	<!--  ##################### sys_0101 - 발전단지 insert -->
+	<insert id="insertFarm" parameterType="map">
+		BEGIN NOT ATOMIC
+		DECLARE result VARCHAR(20);
+		CALL proc_gen_id('FARM_SEQ', @result);
+		
+		<!-- selectKey : DB에 명령을 한번만 보내며, 우선 입력한 값의 결과값을 다음 쿼리로 바로 return 시켜주는 것 -->
+		<selectKey keyProperty="FARM_ID" resultType="String" order="AFTER">
+			SELECT @result;
+		</selectKey>
+		
+		INSERT INTO WT_FARM
+		(
+		  FARM_ID,
+		  FARM_NM,
+		  LATITUDE,
+		  LONGTUD,
+		  RADIUS,
+		  DESCRPT,
+		  INS_USER
+		)
+		VALUES
+		(
+		  @result,
+		  #{FARM_NM},
+		  #{LATITUDE},
+		  #{LONGTUD},
+		  #{RADIUS}, 
+		  #{DESCRPT},
+		  #{session.USER_UID}
+		);
+		END;
+	</insert>
+	
+	<insert id="insertFarmGroup" parameterType="map">
+		BEGIN NOT ATOMIC
+		DECLARE result VARCHAR(20);
+		CALL proc_gen_id('GROUP_SEQ', @result);
+		
+		INSERT INTO WT_GROUP
+		(
+		  GROUP_ID,
+		  GROUP_NM,
+		  FARM_ID		
+		)
+		VALUES
+		(
+		  @result,
+		  #{GROUP_NM},
+		  #{FARM_ID}	
+		);
+		END;
+	</insert>
+	
+	<insert id="insertFarmOper" parameterType="map">
+<!-- 		<foreach collection="COMPANY_LIST" item="item" separator=""> -->
+<!-- 				INSERT INTO WT_FARM_COMPANY VALUES(#{FARM_ID}, #{item}); -->
+<!-- 		</foreach> -->
+		INSERT INTO WT_FARM_COMPANY
+	    (FARM_ID, COMPANY_ID)
+	    VALUES
+	    (#{FARM_ID}, #{COMPANY_ID})
+	</insert>
+	
+	<!-- ##################### sys_0102 : 상세정보 -->
+	<select id="getFarmInfo" parameterType="map" resultType="HashMap">
+		<!-- SELECT F.FARM_ID
+		     , F.FARM_NM
+		     , F.LONGTUD
+		     , F.LATITUDE
+		     , F.DESCRPT
+		     , G.GROUP_ID_LIST
+		     , G.GROUP_NM_LIST
+		     , COM.COMPANY_ID_LIST
+		     , COM.COMPANY_NM_LIST
+		FROM  WT_FARM F
+		LEFT JOIN (
+		    SELECT G.FARM_ID
+		         , GROUP_CONCAT(G.GROUP_ID SEPARATOR ' | ') AS GROUP_ID_LIST
+		         , GROUP_CONCAT(G.GROUP_NM SEPARATOR ' | ') AS GROUP_NM_LIST
+		    FROM WT_GROUP G
+		    WHERE G.FARM_ID = #{FARM_ID}
+		    AND G.GROUP_NM != 'NO GROUP'
+		    GROUP BY G.FARM_ID
+		) G
+		    ON G.FARM_ID = F.FARM_ID
+		LEFT JOIN (
+		    SELECT FC.FARM_ID
+		         , GROUP_CONCAT(FC.COMPANY_ID SEPARATOR ' | ') AS COMPANY_ID_LIST
+		         , GROUP_CONCAT(C.COMPANY_NM SEPARATOR ' | ') AS COMPANY_NM_LIST
+		    FROM WT_FARM_COMPANY FC
+		    LEFT JOIN WT_COMPANY C
+		         ON FC.COMPANY_ID = C.COMPANY_ID
+		    WHERE FC.FARM_ID = #{FARM_ID}
+		    GROUP BY FC.FARM_ID
+		) COM
+		    ON COM.FARM_ID = F.FARM_ID
+		WHERE F.FARM_ID = #{FARM_ID} -->
+		SELECT F.FARM_ID
+		     , F.FARM_NM
+		     , F.LONGTUD
+		     , F.LATITUDE
+		     , F.RADIUS
+		     , F.DESCRPT
+		     , G.GROUP_ID_LIST
+		     , G.GROUP_NM_LIST
+		     , G.GROUP_TURBINE_ID_LIST
+		     , G.GROUP_TURBINE_NM_LIST
+		     , G.GROUP_TURBINE_LAT_LIST
+     		 , G.GROUP_TURBINE_LNG_LIST
+		     , COM.COMPANY_ID_LIST
+		     , COM.COMPANY_NM_LIST
+		FROM  WT_FARM F
+		LEFT JOIN (
+		    SELECT G.FARM_ID
+		         , GROUP_CONCAT(G.GROUP_ID SEPARATOR ' | ') AS GROUP_ID_LIST
+		         , GROUP_CONCAT(G.GROUP_NM SEPARATOR ' | ') AS GROUP_NM_LIST
+		         , GROUP_CONCAT(IFNULL(T.TURBINE_ID_LIST, '') SEPARATOR ' | ') AS GROUP_TURBINE_ID_LIST
+         		 , GROUP_CONCAT(IFNULL(T.TURBINE_NM_LIST, '') SEPARATOR ' | ') AS GROUP_TURBINE_NM_LIST
+         		 , GROUP_CONCAT(IFNULL(T.TURBINE_LAT_LIST, '') SEPARATOR ' | ') AS GROUP_TURBINE_LAT_LIST
+         	 	 , GROUP_CONCAT(IFNULL(T.TURBINE_LNG_LIST, '') SEPARATOR ' | ') AS GROUP_TURBINE_LNG_LIST
+		    FROM WT_GROUP G
+		    LEFT JOIN (
+		        SELECT GROUP_ID
+		             , GROUP_CONCAT(GERATOR_ID SEPARATOR ' || ') AS TURBINE_ID_LIST
+		             , GROUP_CONCAT(GERATOR_NM SEPARATOR ' || ') AS TURBINE_NM_LIST
+		             , GROUP_CONCAT(LATITUDE SEPARATOR ' || ') AS TURBINE_LAT_LIST
+             		 , GROUP_CONCAT(LONGTUD SEPARATOR ' || ') AS TURBINE_LNG_LIST
+		        FROM WT_GERATOR
+		        GROUP BY GROUP_ID
+		    ) T
+		        ON T.GROUP_ID = G.GROUP_ID
+		    WHERE G.FARM_ID = #{FARM_ID}
+		    GROUP BY G.FARM_ID
+		) G
+		    ON G.FARM_ID = F.FARM_ID
+		LEFT JOIN (
+		    SELECT FC.FARM_ID
+		         , GROUP_CONCAT(FC.COMPANY_ID SEPARATOR ' | ') AS COMPANY_ID_LIST
+		         , GROUP_CONCAT(C.COMPANY_NM SEPARATOR ' | ') AS COMPANY_NM_LIST
+		    FROM WT_FARM_COMPANY FC
+		    LEFT JOIN WT_COMPANY C
+		         ON FC.COMPANY_ID = C.COMPANY_ID
+		    WHERE FC.FARM_ID = #{FARM_ID}
+		    GROUP BY FC.FARM_ID
+		) COM
+		    ON COM.FARM_ID = F.FARM_ID
+		WHERE F.FARM_ID = #{FARM_ID}
+	</select>
+	
+	<!-- ################### sys_0101 : 발전단지 수정 -->
+	<update id="updateFarm" parameterType="map">
+		UPDATE WT_FARM
+		SET FARM_NM = #{FARM_NM},
+		    LATITUDE = #{LATITUDE},
+		    LONGTUD = #{LONGTUD},
+		    RADIUS = #{RADIUS},
+		    DESCRPT = #{DESCRPT}
+		WHERE FARM_ID = #{FARM_ID}
+	</update>
+	
+	<!-- 운영사 삭제 -->
+	<delete id="deleteFarmOper" parameterType="map">
+		DELETE
+		FROM WT_FARM_COMPANY
+		WHERE FARM_ID = #{FARM_ID}
+	</delete>
+	
+	<!-- 그룹 수정 -->
+	<update id="updateFarmGroup" parameterType="map">
+		UPDATE WT_GROUP
+		SET GROUP_NM = #{GROUP_NM}
+		WHERE GROUP_ID = #{GROUP_ID}
+	</update>
+	
+	<!-- 그룹 삭제 -->
+	<delete id="deleteFarmGroup" parameterType="map">
+		DELETE
+		FROM WT_GROUP
+		WHERE GROUP_ID = #{GROUP_ID}
+	</delete>
+	
+	<update id="updateTurbine" parameterType="map">
+		UPDATE WT_GERATOR
+		SET GROUP_ID = #{GROUP_ID}
+		WHERE GERATOR_ID = #{GERATOR_ID}
+	</update>
+	
+	<!-- ################### sys_0102 : 발전단지 삭제 -->
+	<delete id="deleteFarm" parameterType="map">
+		DELETE
+		FROM WT_FARM
+		WHERE FARM_ID = #{FARM_ID}
+	</delete>
+</mapper>

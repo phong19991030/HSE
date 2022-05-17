@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!-- common lib js -->
+<script type="text/javascript" src="../../js/lib/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../../js/lib/date-search-setting.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery-timepicker.js"></script>
+<!-- common js -->
+<script type="text/javascript" src="../../js/common/layout.js"></script>
+<script type="text/javascript" src="../../js/common/common.js"></script>
+<script type="text/javascript" src="../../js/common/layerPopup.js"></script>
+<!-- sub js -->
+<script type="text/javascript" src="../../js/common/sub.js"></script>
+
+<head>
+  <meta charset="UTF-8">
+  <title>HSE 운영지원시스템</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1,width=device-width" />
+  <meta name="copyright" content="Copyright 2022 © AtwoM. ALL Rights Reserved HSE 운영지원시스템" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../../img/common/favicon-32x32.png" />
+  <!-- common css -->
+  <link rel="stylesheet" type="text/css" href="../../css/common/common.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/ui.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/reset.css" />
+  <!-- common lib css -->
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui.theme.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui-timepicker.css" />
+  <!-- sub css -->
+  <link rel="stylesheet" type="text/css" href="../../css/common/sub.css" />
+</head>
+
+<body>
+  <!-- layer-popup2-->
+  <!-- 개인 보호 장비 수정 (modify form)-->
+  <div class="layer-popup active" id="layer-popup2">
+    <div class="popup-cont" style="min-width: 970px;">
+
+      <h2 class="heading4">개인 보호 장비 수정</h2>
+      <ul class="popup-cont-inner">
+        <li>
+          <h3 class="heading5">개인 정보</h3>
+          <div class="register-write">
+            <div class="input-group">
+              <input type="text" title="이름" placeholder="이름" value="홍길동">
+            </div>
+          </div>
+          <div class="register-write">
+            <div class="input-group">
+              <input type="text" title="직급" placeholder="직급" value="과장">
+            </div>
+          </div>
+        </li>
+        <li>
+          <h3 class="heading5">개인 보호 장비 정보</h3>
+          <article class="view-form">
+            <div class="base-table" style="max-height: 55vh;">
+              <table>
+                <caption></caption>
+                <colgroup>
+                  <col style="width: 8%;">
+                  <col style="width: 12%;">
+                  <col style="width: auto;">
+                  <col style="width: 12%;">
+                  <col style="width: auto;">
+                  <col style="width: 3%;">
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <th scope="row" rowspan="3" class="border-right txt-center">1</th>
+                    <th scope="row">품목</th>
+                    <td colspan="3">
+                      <div class="select-group">
+                        <select title="품목">
+                          <option>품목명</option>
+                          <option selected>안전모</option>
+                        </select>
+                      </div>
+                      <div class="register-write">
+                        <div class="input-group">
+                          <input type="text" title="브랜드" placeholder="브랜드" value="Petzl">
+                        </div>
+                      </div>
+                      <div class="register-write">
+                        <div class="input-group">
+                          <input type="text" title="모델명" placeholder="모델명" value="Petzl-Helmet">
+                        </div>
+                      </div>
+                    </td>
+                    <td colspan="3" rowspan="3" class="border-left">
+                      <button class="table-remove-btn">
+                        <i class="las la-trash-alt"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">지급일자</th>
+                    <td>
+                      <div class="calendar-picker">
+                        <div class="input-group">
+                          <label class="sr-only">날짜설정</label>
+                          <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly
+                            value="2021.08.10">
+                          <button class="calendar-picker-btn"></button>
+                        </div>
+                      </div>
+                    </td>
+                    <th scope="row">교체일자</th>
+                    <td>
+                      <div class="calendar-picker">
+                        <div class="input-group">
+                          <label class="sr-only">날짜설정</label>
+                          <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly>
+                          <button class="calendar-picker-btn"></button>
+                        </div>
+                      </div>
+                      <span class="mgl10 checkbox-radio-group">
+                        <label for="radio" class="radio">
+                          <input type="radio" name="radio" id="radio" checked>
+                          <span class="circle"></span>
+                          <em>파손 시 까지</em>
+                        </label>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">상태</th>
+                    <td colspan="3">
+                      <div class="select-group">
+                        <select title="상태">
+                          <option>상태</option>
+                          <option selected>Good</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <!-- -------------------------------------------- -->
+                  <tr>
+                    <th scope="row" rowspan="3" class="border-right txt-center">2</th>
+                    <th scope="row">품목</th>
+                    <td colspan="3">
+                      <div class="select-group">
+                        <select title="품목">
+                          <option>품목명</option>
+                          <option selected>안전모</option>
+                        </select>
+                      </div>
+                      <div class="register-write">
+                        <div class="input-group">
+                          <input type="text" title="브랜드" placeholder="브랜드" value="Petzl">
+                        </div>
+                      </div>
+                      <div class="register-write">
+                        <div class="input-group">
+                          <input type="text" title="모델명" placeholder="모델명" value="Petzl-Helmet">
+                        </div>
+                      </div>
+                    </td>
+                    <td colspan="3" rowspan="3" class="border-left">
+                      <button class="table-remove-btn">
+                        <i class="las la-trash-alt"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">지급일자</th>
+                    <td>
+                      <div class="calendar-picker">
+                        <div class="input-group">
+                          <label class="sr-only">날짜설정</label>
+                          <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly
+                            value="2021.08.10">
+                          <button class="calendar-picker-btn"></button>
+                        </div>
+                      </div>
+                    </td>
+                    <th scope="row">교체일자</th>
+                    <td>
+                      <div class="calendar-picker">
+                        <div class="input-group">
+                          <label class="sr-only">날짜설정</label>
+                          <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly>
+                          <button class="calendar-picker-btn"></button>
+                        </div>
+                      </div>
+                      <span class="mgl10 checkbox-radio-group">
+                        <label for="radio" class="radio">
+                          <input type="radio" name="radio" id="radio" checked>
+                          <span class="circle"></span>
+                          <em>파손 시 까지</em>
+                        </label>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">상태</th>
+                    <td colspan="3">
+                      <div class="select-group">
+                        <select title="상태">
+                          <option>상태</option>
+                          <option selected>Good</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <!-- -------------------------------------------- -->
+                  <tr>
+                    <th scope="row" rowspan="3" class="border-right txt-center">3</th>
+                    <th scope="row">품목</th>
+                    <td colspan="3">
+                      <div class="select-group">
+                        <select title="품목">
+                          <option>품목명</option>
+                          <option selected>안전모</option>
+                        </select>
+                      </div>
+                      <div class="register-write">
+                        <div class="input-group">
+                          <input type="text" title="브랜드" placeholder="브랜드" value="Petzl">
+                        </div>
+                      </div>
+                      <div class="register-write">
+                        <div class="input-group">
+                          <input type="text" title="모델명" placeholder="모델명" value="Petzl-Helmet">
+                        </div>
+                      </div>
+                    </td>
+                    <td colspan="3" rowspan="3" class="border-left">
+                      <button class="table-remove-btn">
+                        <i class="las la-trash-alt"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">지급일자</th>
+                    <td>
+                      <div class="calendar-picker">
+                        <div class="input-group">
+                          <label class="sr-only">날짜설정</label>
+                          <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly
+                            value="2021.08.10">
+                          <button class="calendar-picker-btn"></button>
+                        </div>
+                      </div>
+                    </td>
+                    <th scope="row">교체일자</th>
+                    <td>
+                      <div class="calendar-picker">
+                        <div class="input-group">
+                          <label class="sr-only">날짜설정</label>
+                          <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly>
+                          <button class="calendar-picker-btn"></button>
+                        </div>
+                      </div>
+                      <span class="mgl10 checkbox-radio-group">
+                        <label for="radio" class="radio">
+                          <input type="radio" name="radio" id="radio" checked>
+                          <span class="circle"></span>
+                          <em>파손 시 까지</em>
+                        </label>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">상태</th>
+                    <td colspan="3">
+                      <div class="select-group">
+                        <select title="상태">
+                          <option>상태</option>
+                          <option selected>Good</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <!-- -------------------------------------------- -->
+                  <!-- add-btn -->
+                  <tr>
+                    <td colspan="6" class="txt-center">
+                      <button class="row-add-btn">
+                        <i class="las la-plus"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <!-- //add-btn -->
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </li>
+      </ul>
+
+      <div class="foot-btn-area">
+        <button class="btn-style3">
+          <i class="las la-reply"></i><span class="name">취소</span>
+        </button>
+        <button class="btn-style1">
+          <i class="las la-save"></i><span class="name">저장</span></button>
+      </div>
+
+      <button type="button" class="popup-close-btn">
+        <i class="xi-close"></i>
+      </button>
+    </div>
+  </div>
+  <!-- //layer-popup2 -->
+
+</body>
+
+</html>

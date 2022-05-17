@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="enumeration.ClsCode">
+	<!-- ************************ 파라미터 없는 경우 (static) ************************ -->
+	<!--
+		ID	: getListActCorp
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 사업장 코드 조회
+	-->
+	<select id="getListActCorp" parameterType="map" resultType="HashMap">
+		SELECT	
+			'CORP_CD' AS KEYCODE,
+			CORP_CD AS DATA,
+			CORP_NM AS LABEL
+		FROM TNAC_CORP
+		ORDER BY CORP_CD
+	</select>
+
+	<!--
+		ID	: getBankCdCombo
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 은행코드 콤보
+	-->	
+	<select id="getBankCdCombo" parameterType="map" resultType="HashMap">
+		SELECT	
+			'BANK_CD' AS KEYCODE,
+			BK_CD AS DATA,
+			BK_NM AS LABEL
+		FROM TCAC_BANK
+		WHERE USE_YN = 'Y'
+		ORDER BY	BK_NM
+	</select>	
+	
+	<!--
+		ID	: getComboTrfCls
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 교통 종류 구분
+	-->	
+	<select id="getComboTrfCls" parameterType="map" resultType="HashMap">
+		SELECT 
+			'TRF_TYPE' AS KEYCODE,	
+			COMM_CD AS DATA,
+			COMM_NM AS LABEL
+		  FROM	TCCO_STD
+		 WHERE	UP_COMM_CD = '809'
+		    OR	UP_COMM_CD = '808'
+		    OR	UP_COMM_CD = '810'
+		    OR	UP_COMM_CD = '811'
+		 ORDER BY COMM_CD
+	</select>	
+	
+	<!--
+		ID	: getTotCombo
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 집계구분 콤보 조회
+	-->	
+	<select id="getTotCombo" parameterType="map" resultType="HashMap">
+		SELECT	
+			'PAY_TOT_CLS' AS KEYCODE,
+		     COMM_CD AS DATA,
+			 COMM_NM AS LABEL
+		  FROM	TCCO_STD
+		 WHERE	UP_COMM_CD = 'PAY-030'
+		   AND	COMM_CD <![CDATA[<>]]> 'PAY-030-030'
+		   AND	COMM_CD <![CDATA[<>]]> 'PAY-030-010'
+	</select>	
+	
+	<!--
+		ID	: doComboNTax
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 비과세구분 콤보
+	-->	
+	<select id="doComboNTax" parameterType="map" resultType="HashMap">
+		SELECT	'PAY_N_TAX' AS KEYCODE,
+				NTAX_INCM_CD AS DATA,
+				NTAX_NM AS LABEL
+		  FROM	PAY_NTAX_INCM
+		 WHERE	PMT_SPEC_YN	=	'Y'
+		 ORDER	BY	NTAX_INCM_CD
+	</select>
+	
+	<!--
+		ID	: getRsltEvalDgre
+		parameterType	: map
+		resultType	: HashMap
+		설명 :  성과급등급 콤보박스 설정
+	-->	
+	<select id="getRsltEvalDgre" parameterType="map" resultType="HashMap">
+		SELECT 'RSLT_EVAL_DGRE' AS KEYCODE,
+			   COMM_CD AS DATA,
+			   COMM_NM AS LABEL
+		  FROM TCCO_STD
+		 WHERE UP_COMM_CD = '172'
+	</select>	
+	
+	<!--
+		ID	: getReslCls
+		parameterType	: map
+		resultType	: HashMap
+		설명 :  결의구분 콤보
+	-->	
+	<select id="getReslCls" parameterType="map" resultType="HashMap">
+		SELECT	'RESL_CLS'	AS KEYCODE,
+				COMM_CD		AS DATA,
+				COMM_NM		AS LABEL
+		  FROM TCAC_STD
+		WHERE UP_COMM_CD = '60-01'
+		  AND ACCT_CLS  = 'D'
+	</select>	
+		
+	<!--
+		ID	: getMinsCd
+		parameterType	: map
+		resultType	: HashMap
+		설명 :  부처코드
+	-->
+	<select id="getMinsCd" parameterType="map" resultType="HashMap">
+		SELECT
+			'MINS_CD'		AS KEYCODE,	
+			MINS_CD 		AS DATA,
+			KOR_NM 	AS LABEL
+		FROM	
+			TNBG_MINS
+		WHERE USE_YN = 'Y'
+		ORDER BY ORD
+	</select>	
+	
+	<!--
+		ID	: getMgtOrgCd
+		parameterType	: map
+		resultType	: HashMap
+		설명 :  관리기관 코드
+	-->
+	<select id="getMgtOrgCd" parameterType="map" resultType="HashMap">
+		SELECT	
+			'MGT_ORG_CD'	AS KEYCODE,	
+			MGT_ORG_CD 		AS DATA,
+			ORG_KOR_NM 	AS LABEL
+		FROM	
+			TNBG_BUSI_ORG
+		WHERE 
+			ORG_USE_YN = 'Y'
+		ORDER BY ORG_ORD
+	</select>	
+	
+	<!-- 
+		ID	: getEvaIntelClsCombo
+		parameterType	: map
+		resultType	: HashMap
+		설명 :  지적사항구분 콤보박스 설정	
+	-->
+	<select id="getEvaIntelClsCombo" parameterType="map" resultType="HashMap">
+		SELECT 'EVA_GUBUN_CLS' AS KEYCODE,
+     		 	COMM_CD AS DATA,
+     			COMM_NM AS LABEL
+  		FROM TCCO_STD
+  		WHERE UP_COMM_CD = 'EVA-000' AND USE_YN = 'Y'
+ 		ORDER BY UP_COMM_CD ASC, ORD_NO ASC, COMM_CD ASC
+	</select>
+	
+	<!-- 
+		ID	: getUpCdList
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 공통코드 상위코드 조회
+	-->			
+	<select id="getUpCdList" parameterType="map" resultType="HashMap">
+		SELECT	
+			'COMM_UP_CD' AS KEYCODE,
+			COMM_CD AS DATA,
+			IFNULL(COMM_NM,'') || '(' || COMM_CD || ')' AS LABEL
+		FROM TCCO_STD A
+		ORDER BY COMM_NM
+	</select>
+
+	<!-- 
+		ID	: getEtcList
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 업무구분 콤보박스 설정
+	-->			
+	<select id="getEtcList" parameterType="map" resultType="HashMap">
+		SELECT	DISTINCT 
+				'ETC_CLS' AS KEYCODE,
+				ETC1 AS DATA,
+				ETC1 AS LABEL 
+		FROM TCCO_STD
+		WHERE UP_COMM_CD = '020' AND ETC1 IS NOT NULL
+		ORDER BY ETC1
+	</select>		
+	
+	<!-- 
+		ID	: getVatClsCombo
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 출금 계산서구분 콤보박스 설정
+	-->		
+	<select id="getVatClsCombo" parameterType="map" resultType="HashMap">
+		SELECT 'VAT_CLS' AS KEYCODE,
+     		 	COMM_CD AS DATA,
+     			COMM_NM AS LABEL
+  		FROM TCCO_STD
+  		WHERE UP_COMM_CD = '360' AND CLS='O' AND ETC1 = 'E'
+ 		ORDER BY COMM_CD
+	</select>	
+
+	<!-- 
+		ID	: getRoleId
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 롤(담당자) 조회
+	-->
+	<select id="getRoleId" parameterType="map" resultType="HashMap">
+		SELECT 
+			'ROLE_ID' AS KEYCODE,
+			ROLE_ID AS DATA,
+			ROLE_NM AS LABEL
+		FROM TSST_ROLE_MGT
+		WHERE ROLE_ID != 'R001'
+		ORDER BY ROLE_ID
+	</select>
+	
+	<!-- 
+		ID	: getPamOutEmpCombo
+		parameterType	: map
+		resultType	: HashMap
+		설명 :  급여 외부인력 구분 조회
+	-->	
+	<select id="getPamOutEmpCombo" parameterType="map" resultType="HashMap">
+		SELECT 'PAM_OUTEMP' AS KEYCODE,
+     		 	COMM_CD AS DATA,
+     			COMM_NM AS LABEL
+  		FROM TCCO_STD
+  		WHERE UP_COMM_CD IN('PAY-015-110','PAY-015-120','PAY-015-130') AND USE_YN = 'Y'
+ 		ORDER BY UP_COMM_CD ASC, ORD_NO ASC, COMM_CD ASC
+	</select>
+	
+	<!-- 
+		ID	: getIncm
+		parameterType	: map
+		resultType	: HashMap
+		설명 :  소득구분 조회
+	-->		
+	<select id="getIncm" parameterType="map" resultType="HashMap">
+		SELECT	'ACT_INCM' AS KEYCODE,
+		        INCM_CD AS DATA,
+				INCM_NM AS LABEL
+		  FROM	TCAC_INCM
+		 ORDER BY INCM_CD
+	</select>	 
+	
+	<!-- 
+		ID	: getActStdUpNm
+		parameterType	: map
+		resultType	: HashMap
+		설명 :  회계 공통코드 상위코드 콤보
+	-->		
+	<select id="getActStdUpNm" parameterType="map" resultType="HashMap">
+		SELECT	'ACT_STD_UPNM' AS KEYCODE,
+		        COMM_CD AS DATA,
+				COMM_NM||' [ '||COMM_CD||' ] ' AS LABEL
+		FROM TCAC_STD
+		WHERE COMM_LEV = 1
+		START WITH(UP_COMM_CD IS NULL OR UP_COMM_CD	= '')
+	    CONNECT BY PRIOR COMM_CD = UP_COMM_CD
+	    ORDER BY COMM_CD, IFNULL(ORD_NO, 0)
+	</select>	
+
+	<!-- 
+		ID	: getAcctCharCombo
+		parameterType	: map
+		resultType	: HashMap
+		설명 :  회계 계정코드 콤보
+	-->			
+	<select id="getAcctCharCombo" parameterType="map" resultType="HashMap">
+		SELECT	'ACT_ACCT_CHAR' AS KEYCODE,
+		        ACCT_CD AS DATA,
+				ACCT_NM AS LABEL
+		  FROM	TCAC_ACCT
+		 WHERE	INST_YN = 'Y'
+		   AND	ACCT_CHAR = '304-081'
+		 ORDER BY ACCT_CD
+	</select>
+
+	<!-- 
+		ID	: getAprovCombo
+		parameterType	: map
+		resultType	: HashMap
+		설명 :  회계 결재권자정보 콤보
+	-->		
+	<select id="getAprovCombo" parameterType="map" resultType="HashMap">
+		SELECT	'ACT_APROV' AS KEYCODE,
+		        EMP_NO AS DATA,
+				COMM_NM AS LABEL
+		  FROM	TCAC_STD
+		 WHERE	UP_COMM_CD = '100'
+		 ORDER	BY COMM_CD, IFNULL(ORD_NO, 0)
+	</select>	
+	
+	<!-- 
+		ID	: getExpnCombo
+		parameterType	: map
+		resultType	: HashMap
+		설명 :  비목코드, 비목명 조회
+	-->		
+	<select id="getExpnCombo" parameterType="map" resultType="HashMap">
+		SELECT	'ACT_EXPN' AS KEYCODE,
+		        EXPN_ITM_CD AS DATA,
+				EXPN_ITM_NM AS LABEL
+		  FROM	TCBG_EXPN
+		 WHERE	USE_YN = 'Y'
+		   AND	LEV = '3'
+		 ORDER	BY EXPN_ITM_NM
+	</select>		
+	
+	<!-- 
+		ID	: getTnacBankAcntCombo
+		parameterType	: map
+		resultType	: HashMap
+		설명 :   계좌코드
+	-->			
+	<select id="getTnacBankAcntCombo" parameterType="map" resultType="HashMap">
+		SELECT
+			KEYCODE,
+			DATA,
+			LABEL
+		FROM(
+			SELECT	
+				'TNAC_BANK_ACNT' AS KEYCODE,
+				REPLACE(PKG_SECR.GET_SECR(BK_ACC_NO),'-','') AS DATA,
+				REPLACE(PKG_SECR.GET_SECR(BK_ACC_NO),'-','')||' ['||DISPLAY_NM||']' AS LABEL
+			FROM	
+				TCAC_BANK_ACNT
+			WHERE	
+					USE_YN = 'Y'
+				AND	ACCT_CD_MTHD IS NULL
+			UNION ALL
+			SELECT	
+				'TNAC_BANK_ACNT' AS KEYCODE,
+				REPLACE(PKG_SECR.GET_SECR(BK_ACC_NO),'-','') AS DATA,
+				REPLACE(PKG_SECR.GET_SECR(BK_ACC_NO),'-','')||' ['||DISPLAY_NM||']' AS LABEL
+			FROM	
+				TCAC_BANK_ACNT
+			WHERE
+					USE_YN = 'Y'
+				AND ACCT_CD_MTHD IS NOT NULL
+				<if test="!empty(ACCT_CD_MTHD)">
+					<trim prefix="AND">
+						ACCT_CD_MTHD = #{ACCT_CD_MTHD}
+					</trim>
+				</if>
+			)
+		ORDER	BY DATA ASC
+	</select>	
+	
+	<!-- 
+		ID	: getPendyCd
+		parameterType	: map
+		resultType	: HashMap
+		설명 :   미결 계정조회(콤보)
+	-->	
+	<select id="getPendyCd" parameterType="map" resultType="HashMap">
+		SELECT 'ACT_ACCT_CD' AS KEYCODE,
+		     A.ACCT_CD AS DATA,
+		     A.ACCT_NM AS LABEL
+		FROM TCAC_ACCT A <!-- INNER JOIN ACM_ACCT_MGMT B ON A.ACCT_CD = B.ACCT_CD -->
+		WHERE A.PENDY_YN = 'Y'
+		ORDER BY A.ACCT_CD
+	</select>
+	
+	<!-- 
+		ID	: getXreslMst
+		parameterType	: map
+		resultType	: HashMap
+		설명 :   결산결의서
+	-->	
+	<!-- 
+	<select id="getXreslMst" parameterType="map" resultType="HashMap">
+		SELECT  'ACT_RESL_X' AS KEYCODE,
+                RESL_NO AS DATA,
+				SLIP_NO||' ['||SBJ||']' AS LABEL
+        FROM  TNAC_RESL
+        WHERE  DOCU_DTL IN('307-180','307-190')
+        ORDER  BY RESL_NO ASC
+	</select>		
+	  -->
+	  
+	  
+	<!-- ************************ 파라미터 있는 경우 (dynamic) ************************ -->	
+	
+	<!-- 
+		ID	: getListComStdMgt
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 공통코드
+	-->	
+	<select id="getListComStdMgt" parameterType="map" resultType="HashMap">
+		SELECT
+            'COMM_CD_'||REPLACE(UP_COMM_CD,'-','_') KEYCODE,
+			COMM_CD AS DATA,
+			DECODE(UP_COMM_CD, '104', '['||COMM_CD||'] '|| COMM_NM, COMM_NM)  AS LABEL,
+			REF_CD AS DATA2
+		FROM	
+			TCCO_STD
+		WHERE
+			USE_YN = 'Y'
+			<if test="UP_COMM_CD != null and UP_COMM_CD != ''"> 
+				<trim prefix="and"> 
+					<choose>
+						<when test="instance(UP_COMM_CD).equals('String')">
+							UP_COMM_CD =#{UP_COMM_CD}  
+						</when>
+						<otherwise>
+							<foreach collection="UP_COMM_CD" item="upcommcd" separator="or" open="(" close=")">
+								UP_COMM_CD =#{upcommcd}  
+							</foreach>
+						</otherwise>
+					</choose>
+			    </trim>
+			</if>
+		ORDER BY UP_COMM_CD ASC, ORD_NO ASC, COMM_CD ASC
+	</select>	
+	
+	<!--
+		ID	: comStdMgtCondition
+		설명	: 공통코드기타조건
+	-->
+	<select id="comStdMgtCondition" parameterType="map" resultType="HashMap">
+		SELECT
+            UP_COMM_CD,
+			${CD_FIELD} AS DATA,
+			COMM_NM AS LABEL
+		FROM	
+			TCCO_STD
+		WHERE UP_COMM_CD IN (#{UP_COMM_CD})
+			<if test="!empty(ETC1)">
+				<trim prefix="AND">
+					ETC1 = #{ETC1}
+				</trim>
+			</if>
+			<if test="!empty(ETC2)">
+				<trim prefix="AND">
+					ETC2 = #{ETC2}
+				</trim>
+			</if>
+			<if test="!empty(ETC3)">
+				<trim prefix="AND">
+					ETC3 = #{ETC3}
+				</trim>
+			</if>
+			<if test="!empty(ETC4)">
+				<trim prefix="AND">
+					ETC4 = #{ETC4}
+				</trim>
+			</if>
+			<if test="!empty(ETC5)">
+				<trim prefix="AND">
+					ETC5 = #{ETC5}
+				</trim>
+			</if>
+			<if test="!empty(ETC6)">
+				<trim prefix="AND">
+					ETC6 = #{ETC6}
+				</trim>
+			</if>
+			<if test="!empty(ETC7)">
+				<trim prefix="AND">
+					ETC7 = #{ETC7}
+				</trim>
+			</if>
+			<if test="!empty(ETC8)">
+				<trim prefix="AND">
+					ETC8 = #{ETC8}
+				</trim>
+			</if>
+			<if test="!empty(ETC9)">
+				<trim prefix="AND">
+					ETC9 = #{ETC9}
+				</trim>
+			</if>
+			<if test="!empty(ETC10)">
+				<trim prefix="AND">
+					ETC10 = #{ETC10}
+				</trim>
+			</if>
+			<if test="!empty(USE_YN)">
+				<if test='USE_YN.equals("Y")'>
+					<trim prefix="AND">
+						USE_YN = #{USE_YN}
+					</trim>
+				</if>
+			</if>
+		ORDER BY UP_COMM_CD ASC, ORD_NO ASC, COMM_CD ASC
+	</select>		
+	  
+	<!-- 
+		ID	: getBaseGrdCombo
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 급여기본급 직급항목
+	-->	 
+	<select id="getBaseGrdCombo" parameterType="map" resultType="HashMap">
+		SELECT	 'PAM_BASE_GRD' KEYCODE,
+				 COMM_CD AS DATA,
+				 DECODE(UP_COMM_CD, '104', '['||COMM_CD||'] '|| COMM_NM, COMM_NM)  AS LABEL
+		FROM TCCO_STD 
+		WHERE USE_YN = 'Y' AND UP_COMM_CD = '104'
+		<if test="not empty(EMP_CLS)">
+		 	<trim prefix="AND">
+				ETC10 = #{EMP_CLS}
+		 	</trim>
+	 	</if>			 
+		ORDER BY COMM_CD
+	</select>
+	
+	<!-- 
+		ID	: getActStdMgtCombo
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 회계 공통코드 콤보
+	-->	 
+	<select id="getActStdMgtCombo" parameterType="map" resultType="HashMap">
+		SELECT	'ACT_STD_MGT' AS KEYCODE,
+		        COMM_CD AS DATA,
+				COMM_NM AS LABEL
+		  FROM	TCAC_STD
+		 WHERE	UP_COMM_CD = #{UP_COMM_CD, jdbcType=VARCHAR}
+		 ORDER	BY COMM_CD, IFNULL(ORD_NO, 0)
+	</select>		
+
+	<!-- 
+		ID	: getStatCombo
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 회계 결재상태 콤보
+	-->	 
+	<select id="getStatCombo" parameterType="map" resultType="HashMap">
+        SELECT 'ACT_STAT' AS KEYCODE,
+               CD AS DATA,
+               NM AS LABEL
+		  FROM(SELECT COMM_CD AS CD,
+                      COMM_NM AS NM,
+                      ORD_NO
+                 FROM TCCO_STD
+                WHERE ETC1 = 'ACM'
+                  AND UP_COMM_CD = '000-010'
+          <if test="empty(RESL_YN)">
+                UNION ALL
+               SELECT 'RESL' AS CD,
+                      '결의완료' AS NM,
+                      10 AS ORD_NO
+                 FROM DUAL
+                UNION ALL
+               SELECT 'SLIP' AS CD,
+                      '기결완료' AS NM,
+                      11 AS ORD_NO
+                 FROM DUAL          
+          </if>
+		 )
+		 ORDER BY ORD_NO
+	</select>		
+	
+	<!-- 
+		ID	: getAssetStat
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 자산 상태 콤보박스 설정
+	-->	 	
+	<select id="getAssetStat" parameterType="map" resultType="HashMap">
+		SELECT 'ASM_STAT' AS KEYCODE
+			   ,COMM_CD AS DATA
+			   ,COMM_NM AS LABEL
+		 FROM TCCO_STD
+		 WHERE USE_YN = 'Y'
+		<if test="not empty(ASM_STAT)"> 
+			<trim prefix="and"> 
+				<choose>
+					<when test="instance(ASM_STAT).equals('String')">
+						UP_COMM_CD =#{ASM_STAT}  
+					</when>
+					<otherwise>
+						<foreach collection="ASM_STAT" item="asm_stat" separator="or" open="(" close=")">
+							UP_COMM_CD =#{asm_stat}  
+						</foreach>
+					</otherwise>
+				</choose>
+		    </trim>
+		</if>
+		<if test="empty(ASM_STAT)"> 
+			<trim prefix="and"> 
+				UP_COMM_CD = ''
+			</trim>
+		</if>
+        ORDER BY UP_COMM_CD ASC, ORD_NO ASC, COMM_CD ASC
+	</select> 	
+	
+	<!-- 
+		ID	: getComboTrfCls2
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 등급구분 콤보박스 설정
+	-->		
+	<select id="getComboTrfCls2" parameterType="map" resultType="HashMap">
+		SELECT 'TRF_CLS' AS KEYCODE, 	
+				COMM_CD AS DATA,
+				COMM_NM AS LABEL
+		  FROM	TCCO_STD
+		 WHERE	ETC2 = #{TYPE_CLS, jdbcType=VARCHAR}
+		 ORDER BY COMM_CD
+	</select>	
+	
+	<!-- 
+		ID	: getPassYn
+		parameterType	: map
+		resultType	: HashMap
+		설명 : 채용합격 콤보
+	-->			
+	<select id="getPassYn" parameterType="map" resultType="HashMap">
+		SELECT	'PASS_CLS' AS KEYCODE,
+				COMM_NM AS LABEL,
+				COMM_CD AS DATA
+		  FROM	TCCO_STD
+		 WHERE	UP_COMM_CD = '137'	
+		<if test="not empty(PASS_CHK)"> 
+			<trim prefix="AND">
+				SUBSTR(COMM_CD, 1, 6) <![CDATA[<=]]> #{PASS_CHK} 
+			</trim> 
+		</if>
+		 ORDER  BY COMM_CD
+	</select>
+</mapper>

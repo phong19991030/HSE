@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!-- common lib js -->
+<script type="text/javascript" src="../../../js/lib/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../../js/lib/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../../../js/lib/date-search-setting.js"></script>
+<script type="text/javascript" src="../../../js/lib/jquery-timepicker.js"></script>
+<!-- common js -->
+<script type="text/javascript" src="../../../js/common/layout.js"></script>
+<script type="text/javascript" src="../../../js/common/common.js"></script>
+<script type="text/javascript" src="../../../js/common/layerPopup.js"></script>
+<!-- sub js -->
+<script type="text/javascript" src="../../../js/common/sub.js"></script>
+
+<head>
+  <meta charset="UTF-8">
+  <title>HSE 운영지원시스템</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1,width=device-width" />
+  <meta name="copyright" content="Copyright 2022 © AtwoM. ALL Rights Reserved HSE 운영지원시스템" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../img/common/favicon-32x32.png" />
+  <!-- common css -->
+  <link rel="stylesheet" type="text/css" href="../../../css/common/common.css" />
+  <link rel="stylesheet" type="text/css" href="../../../css/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="../../../css/common/ui.css" />
+  <link rel="stylesheet" type="text/css" href="../../../css/common/reset.css" />
+  <!-- common lib css -->
+  <link rel="stylesheet" type="text/css" href="../../../css/lib/jquery-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../../css/lib/jquery-ui.theme.css" />
+  <link rel="stylesheet" type="text/css" href="../../../css/lib/jquery-ui-timepicker.css" />
+  <!-- sub css -->
+  <link rel="stylesheet" type="text/css" href="../../../css/common/sub.css" />
+</head>
+
+<body>
+
+  <!-- layer-popup -->
+  <div class="layer-popup active">
+    <div class="popup-cont approval-cont">
+
+      <h2 class="heading4">결재라인 지정</h2>
+
+      <section class="approval-section">
+        <!-- left-area -->
+        <div class="left-area">
+          <!-- fixed-search-form2 -->
+          <div class="fixed-search-form2">
+            <div class="search-bar">
+              <input type="text" placeholder="이름">
+              <button class="search-btn">검색</button>
+            </div>
+
+            <!-- D : "search-panel", Please refer to it if necessary. -->
+            <!-- <div class="search-panel">
+                      <p>홍길동</p>
+                      <p>홍길동</p>
+                      <p>홍길동</p>
+                   </div> 
+            -->
+          </div>
+          <!-- //fixed-search-form2 -->
+
+          <h3 class="heading5">직원 목록</h3>
+          <div class="base-table">
+            <table>
+              <caption></caption>
+              <colgroup>
+                <col style="width: auto;">
+                <col style="width: auto;">
+                <col style="width: auto;">
+                <col style="width: auto;">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">회사명</th>
+                  <th scope="col">성명</th>
+                  <th scope="col">직급</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>(주)에이투엠</td>
+                  <td>홍길동</td>
+                  <td>대표</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>(주)에이투엠</td>
+                  <td>홍길동</td>
+                  <td>선임연구원</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>(주)에이투엠</td>
+                  <td>홍길동</td>
+                  <td>엔지니어</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>운영사 A</td>
+                  <td>이길동</td>
+                  <td>연구원</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>운영사 A</td>
+                  <td>이길동</td>
+                  <td>연구원</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>운영사 A</td>
+                  <td>이길동</td>
+                  <td>연구원</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>윈디텍(주)</td>
+                  <td>성길동</td>
+                  <td>선임연구원</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>윈디텍(주)</td>
+                  <td>장길동</td>
+                  <td>엔지니어</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>윈디텍(주)</td>
+                  <td>장길동</td>
+                  <td>엔지니어</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>윈디텍(주)</td>
+                  <td>장길동</td>
+                  <td>엔지니어</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>윈디텍(주)</td>
+                  <td>장길동</td>
+                  <td>엔지니어</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>윈디텍(주)</td>
+                  <td>장길동</td>
+                  <td>엔지니어</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- right-area -->
+        <div class="right-area">
+
+          <!-- D : The selected person from the left list will be added. -->
+          <!-- <ul class="selected-approval-custom">
+            <li>
+              <div class="custom info">
+                <span class="team">운영사 A</span>
+                <span class="name">박정권<em class="position">대표</em></span>
+                <button class="remove-btn"></button>
+              </div>
+              <div class="custom select-group">
+                <select title="결재">
+                  <option>전체</option>
+                  <option>기안</option>
+                  <option>검토</option>
+                  <option>결재</option>
+                  <option>전결</option>
+                </select>
+              </div>
+              <div class="custom">
+                <button class="drag-btn">
+                  <i class="las la-expand-arrows-alt"></i>
+                </button>
+              </div>
+            </li>
+            <li>
+              <div class="custom info">
+                <span class="team">운영사 A</span>
+                <span class="name">박정권<em class="position">이사</em></span>
+                <button class="remove-btn"></button>
+              </div>
+              <div class="custom select-group">
+                <select title="결재">
+                  <option>전체</option>
+                  <option>기안</option>
+                  <option>검토</option>
+                  <option>결재</option>
+                  <option>전결</option>
+                </select>
+              </div>
+              <div class="custom">
+                <button class="drag-btn">
+                  <i class="las la-expand-arrows-alt"></i>
+                </button>
+              </div>
+            </li>
+            <li>
+              <div class="custom info">
+                <span class="team">운영사 A</span>
+                <span class="name">박정권<em class="position">팀장</em></span>
+                <button class="remove-btn"></button>
+              </div>
+              <div class="custom select-group">
+                <select title="결재">
+                  <option>전체</option>
+                  <option>기안</option>
+                  <option>검토</option>
+                  <option>결재</option>
+                  <option>전결</option>
+                </select>
+              </div>
+              <div class="custom">
+                <button class="drag-btn">
+                  <i class="las la-expand-arrows-alt"></i>
+                </button>
+              </div>
+            </li>
+            <li>
+              <div class="custom info">
+                <span class="team">운영사 A</span>
+                <span class="name">박정권<em class="position">선임연구원</em></span>
+                <button class="remove-btn"></button>
+              </div>
+              <div class="custom select-group">
+                <select title="결재">
+                  <option>전체</option>
+                  <option>기안</option>
+                  <option>검토</option>
+                  <option>결재</option>
+                  <option>전결</option>
+                </select>
+              </div>
+              <div class="custom">
+                <button class="drag-btn">
+                  <i class="las la-expand-arrows-alt"></i>
+                </button>
+              </div>
+            </li>
+            <li>
+              <div class="custom info">
+                <span class="team">윈디텍(주)</span>
+                <span class="name">박정권<em class="position">선임연구원</em></span>
+                <button class="remove-btn"></button>
+              </div>
+              <div class="custom select-group">
+                <select title="결재">
+                  <option>전체</option>
+                  <option>기안</option>
+                  <option>검토</option>
+                  <option>결재</option>
+                  <option>전결</option>
+                </select>
+              </div>
+              <div class="custom">
+                <button class="drag-btn">
+                  <i class="las la-expand-arrows-alt"></i>
+                </button>
+              </div>
+            </li>
+          </ul> -->
+        </div>
+      </section>
+
+      <div class="foot-btn-area">
+        <button class="btn-style3">
+          <i class=" las la-reply"></i><span class="name">취소</span>
+        </button>
+        <button class="btn-style1">
+          <i class="las la-save"></i><span class="name">저장</span>
+        </button>
+      </div>
+
+      <button type="button" class="popup-close-btn">
+        <i class="xi-close"></i>
+      </button>
+    </div>
+  </div>
+  <!-- //layer-popup -->
+</body>
+
+</html>

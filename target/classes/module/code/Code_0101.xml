@@ -1,0 +1,1135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="code.Code_0101">
+
+<select id="getCommonCode" parameterType="map" resultType="HashMap">
+	SELECT  
+	COMM_CD AS CODE,
+	COMM_CD,
+	COMM_NM AS NAME,
+	UP_COMM_CD AS UP_CD,
+	USE_YN,
+	LEV,
+	DESCRPT
+	FROM COMM_CD
+</select>
+<select id="getCommonUpCode" parameterType="map" resultType="HashMap">
+	<if test="CODE != 'PART'">
+			SELECT  
+	COMM_CD AS CODE,
+	COMM_CD,
+	COMM_NM AS NAME,
+	UP_COMM_CD AS UP_CD,
+	USE_YN,
+	LEV,
+	DESCRPT
+	FROM COMM_CD
+	WHERE UP_COMM_CD = #{CODE}
+	</if>
+	<if test="CODE == 'PART'">
+		SELECT PART_ID CODE,
+		MNG_CODE NAME
+		FROM WT_PART_INFO
+		WHERE USE_YN = 'Y'
+	</if>
+
+	
+</select>
+<select id="getListAlarmByGroupID" parameterType="map" resultType="HashMap">
+select * from WT_ALARM_CD WHERE WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+</select>
+<select id="getLevCode" parameterType="map" resultType="HashMap">
+	SELECT  
+	COMM_CD AS CODE,
+	COMM_CD,
+	COMM_NM AS NAME,
+	UP_COMM_CD AS UP_CD,
+	USE_YN,
+	LEV,
+	DESCRPT
+	FROM COMM_CD
+	WHERE COMM_CD = #{CODE}
+</select>
+
+<select id="getGroupAlarmCode" parameterType="map" resultType="HashMap">
+	SELECT G.INS_USER,
+              G.WT_ALARM_GR_ID                                          AS CODE,
+              CONCAT(MANUFAR, ALARM_TP, CAPACITY, '(', ALARM_NM, ')') AS NAME,
+              DESCRPT,
+              DATE_TO_STRING(CONVERT_TZ(G.INS_DT, @@session.time_zone, #{CLIENT_TIME_ZONE}),  #{LANG_CODE}, 'T%T')                           AS INS_DT,
+              G.INS_DT dt,
+              CASE WHEN true THEN 'Alarm code' END                    AS TYPE,
+              CASE WHEN true THEN '004' END                           AS TYPE_CD,
+              IFNULL(COUNT, 0) COUNT_ALARM,
+              U.USER_ID,
+              UI.USER_NM
+       FROM WT_ALARM_GR_CD G
+       LEFT JOIN TSST_USER U ON G.INS_USER = U.USER_UID
+         LEFT JOIN TSST_USER_INFO UI ON U.USER_ID = UI.USER_ID
+         LEFT JOIN (SELECT WT_ALARM_GR_ID, COUNT(*) COUNT FROM WT_ALARM_CD GROUP BY WT_ALARM_GR_ID) A ON G.WT_ALARM_GR_ID = A.WT_ALARM_GR_ID
+         
+         
+       
+	<where>
+		<if test="NAME != null and NAME != '' "> 
+			<trim prefix="AND">
+					CONCAT(MANUFAR, ALARM_TP, CAPACITY, '(', ALARM_NM, ')') like CONCAT('%', #{NAME}, '%')
+			</trim>
+		</if>
+		<if test="all != null and all != '' "> 
+			<trim prefix="AND">
+					CONCAT(MANUFAR, ALARM_TP, CAPACITY, '(', ALARM_NM, ')') like CONCAT('%', #{all}, '%')
+			</trim>
+		</if>
+	</where>
+
+ORDER BY G.INS_DT DESC
+</select>
+
+<select id="getParentCommonCode" parameterType="map" resultType="HashMap">
+SELECT INS_USER,
+              COMM_CD                               AS CODE,
+              COMM_NM                               AS NAME,
+              DESCRPT,
+              DATE_TO_STRING(CONVERT_TZ(C.INS_DT, @@session.time_zone, #{CLIENT_TIME_ZONE}),  #{LANG_CODE}, '')         AS INS_DT,
+              C.INS_DT dt,
+              CASE WHEN true THEN 'Common code' END AS TYPE,
+              CASE WHEN true THEN '001' END         AS TYPE_CD,
+              U.USER_ID
+       FROM COMM_CD C
+ 	   LEFT JOIN TSST_USER U ON C.INS_USER = U.USER_UID
+       LEFT JOIN TSST_USER_INFO UI ON U.USER_ID = UI.USER_ID
+      <where>
+      USE_YN = 'Y'
+	<if test="NAME != null and NAME != '' "> 
+		<trim prefix="AND">
+				COMM_NM like CONCAT('%', #{NAME}, '%')
+		</trim>
+	</if>
+	<if test="all != null and all != '' "> 
+		<trim prefix="AND">
+			 (COMM_CD like CONCAT('%', #{all}, '%') ||	COMM_NM like CONCAT('%', #{all}, '%'))
+		</trim>
+	</if>
+	AND LEV = 1 
+</where>
+       ORDER BY dt DESC
+</select>
+
+
+
+<select id="getAllCode" parameterType="map" resultType="HashMap">
+
+SELECT TABLE_CODE.*, UI.USER_NM, U.USER_ID
+FROM ((SELECT ''                                     INS_USER,
+              CASE WHEN true THEN 'PART_CD' END   AS CODE,
+              CASE WHEN true THEN 'Part' END      AS NAME,
+              CASE WHEN true THEN '' END          AS DESCRPT,
+              CASE WHEN true THEN '' END          AS INS_DT,
+              CASE WHEN true THEN '' END          AS dt,
+              CASE WHEN true THEN 'Part code' END AS TYPE,
+              CASE WHEN true THEN '003' END       AS TYPE_CD)
+      UNION
+      (SELECT ''                                            INS_USER,
+              CASE WHEN true THEN 'MAIN_CD' END          AS CODE,
+              CASE WHEN true THEN 'Maintenance code' END AS NAME,
+              CASE WHEN true THEN '' END                 AS DESCRPT,
+              CASE WHEN true THEN '' END                 AS INS_DT,
+              CASE WHEN true THEN '' END          AS dt,
+              CASE WHEN true THEN 'Maintenance code' END AS TYPE,
+              CASE WHEN true THEN '002' END              AS TYPE_CD)
+      UNION
+      (SELECT INS_USER,
+              COMM_CD                               AS CODE,
+              COMM_NM                               AS NAME,
+              DESCRPT,
+              DATE_TO_STRING(CONVERT_TZ(INS_DT, @@session.time_zone, #{CLIENT_TIME_ZONE}),  #{LANG_CODE}, '')         AS INS_DT,
+              INS_DT dt,
+              CASE WHEN true THEN 'Common code' END AS TYPE,
+              CASE WHEN true THEN '001' END         AS TYPE_CD
+       FROM COMM_CD
+       WHERE USE_YN = 'Y'
+         AND LEV = 1 ORDER BY dt DESC)
+      UNION
+      (SELECT INS_USER,
+              WT_ALARM_GR_ID                                          AS CODE,
+              CONCAT(MANUFAR, ALARM_TP, CAPACITY, '(', ALARM_NM, ')') AS NAME,
+              DESCRPT,
+              DATE_TO_STRING(CONVERT_TZ(INS_DT, @@session.time_zone, #{CLIENT_TIME_ZONE}),  #{LANG_CODE}, '')                           AS INS_DT,
+              INS_DT dt,
+              CASE WHEN true THEN 'Alarm code' END                    AS TYPE,
+              CASE WHEN true THEN '004' END                           AS TYPE_CD
+       FROM WT_ALARM_GR_CD ORDER BY dt DESC)) AS TABLE_CODE
+         LEFT JOIN TSST_USER U ON TABLE_CODE.INS_USER = U.USER_UID
+         LEFT JOIN TSST_USER_INFO UI ON U.USER_ID = UI.USER_ID
+<where>
+	<if test="NAME != null and NAME != '' "> 
+		<trim prefix="AND">
+				NAME like CONCAT('%', #{NAME}, '%')
+		</trim>
+	</if>
+	<if test="TYPE != null and TYPE != '' "> 
+		<trim prefix="AND">
+				#{TYPE} = TYPE_CD
+		</trim>
+	</if>
+	<if test="all != null and all != '' "> 
+		<trim prefix="AND">
+				NAME like CONCAT('%', #{all}, '%')
+		</trim>
+	</if>
+</where>
+
+ORDER BY dt DESC
+</select>
+
+
+
+<select id="checkDuplicateMaintenanceCode" parameterType="map" resultType="HashMap">
+	<if test="MAINTEN_CD != null and MAINTEN_CD != '' "> 
+		<if test="UP_CD != null and UP_CD != '' "> 
+			select * from WT_MAINTEN_CD where (PREFIX_NM = #{PREFIX_NM} AND SUFFIX_NM = #{SUFFIX_NM}) and UP_CD = #{UP_CD} and MAINTEN_CD != #{MAINTEN_CD};
+		</if>
+		<if test="UP_CD == null or UP_CD == '' "> 
+			select * from WT_MAINTEN_CD where (PREFIX_NM = #{PREFIX_NM} AND SUFFIX_NM = #{SUFFIX_NM}) and (UP_CD is null or UP_CD = '') and MAINTEN_CD != #{MAINTEN_CD};
+		</if>
+	</if>
+	<if test="MAINTEN_CD == null or MAINTEN_CD == '' "> 
+		<if test="UP_CD != null and UP_CD != '' "> 
+			select * from WT_MAINTEN_CD where (PREFIX_NM = #{PREFIX_NM} AND SUFFIX_NM = #{SUFFIX_NM}) AND UP_CD = #{UP_CD};
+		</if>
+		<if test="UP_CD == null or UP_CD == '' "> 
+			select * from WT_MAINTEN_CD where (PREFIX_NM = #{PREFIX_NM} AND SUFFIX_NM = #{SUFFIX_NM}) AND (UP_CD is null or UP_CD = '');
+		</if>
+	</if>
+</select>
+
+
+<select id="getMaintanceCode" parameterType="map" resultType="HashMap">
+	SELECT 
+		MAINTEN_CD AS CODE,
+		MAINTEN_CD,
+		DESCRPT,
+		PREFIX_NM AS PRE_NM,
+		SUFFIX_NM AS SUF_NM,
+		CONCAT(PREFIX_NM, " | ",SUFFIX_NM) AS NAME,
+		UP_CD,
+		LEV,
+		INS_DT,
+		proc.MAINT_CD as USE_MAINT_CD
+	FROM  WT_MAINTEN_CD cd
+	LEFT JOIN WT_RPT_PROC proc ON cd.MAINTEN_CD = proc.MAINT_CD
+	<where>
+		<if test="SUFFIX_NM != null and SUFFIX_NM != '' "> 
+			<trim prefix="AND">
+					SUFFIX_NM like CONCAT('%', #{SUFFIX_NM}, '%')
+			</trim>
+		</if>
+		<if test="BLD_MAINT_ONLY != null and BLD_MAINT_ONLY == true">
+			<trim prefix="AND">
+				UP_CD = '20191004150332077'
+			</trim>
+		</if>
+
+	</where>
+	
+	<choose>
+	    <when  test="SORT != null and SORT == 'date'">
+			ORDER BY INS_DT DESC
+	    </when>
+	    <otherwise>
+			ORDER BY PREFIX_NM, SUFFIX_NM
+	    </otherwise>
+    </choose>
+	
+
+</select>
+
+<select id="getPartCode" parameterType="map" resultType="HashMap">
+
+
+		SELECT a.PART_CD AS CODE,
+		a.PART_CD,
+		a.DESCRPT,
+		a.PREFIX_NM AS PRE_NM,
+		a.PART_NM AS SUF_NM,
+		CASE when a.LEV = 1 then CONCAT(a.PREFIX_NM, " | ", a.PART_NM) else
+		a.PART_NM END AS NAME,
+		a.UP_CD,
+		a.INS_DT,
+		if(a.TYPE is null, b.TYPE, a.TYPE) TYPE,
+		a.LEV
+		FROM WT_PART_CD a
+		left join WT_PART_CD b on a.UP_CD = b.PART_CD
+		<where>
+			<if test="TYPE != null and TYPE != '' and  TYPE != 'all'">
+				(a.TYPE = #{TYPE} || b.TYPE = #{TYPE})
+			</if>
+
+			<if test="PART_NM != null and PART_NM != '' ">
+				<trim prefix="AND">
+					a.PART_NM like CONCAT('%', #{PART_NM}, '%')
+				</trim>
+			</if>
+		</where>
+
+<choose>
+	    <when  test="SORT != null and SORT == 'date'">
+			ORDER BY a.INS_DT DESC
+	    </when>
+	    <otherwise>
+		ORDER BY a.PREFIX_NM, a.PART_NM
+	    </otherwise>
+    </choose>
+	</select>
+
+
+
+
+<select id="checkDuplicatePartCode" parameterType="map" resultType="HashMap">
+	<if test="PART_CD != null and PART_CD != '' "> 
+		<if test="UP_CD != null and UP_CD != '' "> 
+			select * from WT_PART_CD where 
+			PART_NM = #{PART_NM} 
+			and UP_CD = #{UP_CD} 
+			and PART_CD != #{PART_CD}
+			<if test="PREFIX_NM != null and PREFIX_NM != '' "> 
+						AND PREFIX_NM = #{PREFIX_NM} 
+			</if>
+		</if>
+		<if test="UP_CD == null or UP_CD == '' "> 
+			select * from WT_PART_CD where PART_NM = #{PART_NM} and (UP_CD is null or UP_CD = '') and PART_CD != #{PART_CD}
+			<if test="PREFIX_NM != null and PREFIX_NM != '' "> 
+						AND PREFIX_NM = #{PREFIX_NM} 
+			</if>
+		</if>
+	</if>
+	<if test="PART_CD == null or PART_CD == '' "> 
+		<if test="UP_CD != null and UP_CD != '' "> 
+			select * from WT_PART_CD where PART_NM = #{PART_NM} AND UP_CD = #{UP_CD}
+			<if test="PREFIX_NM != null and PREFIX_NM != '' "> 
+						AND PREFIX_NM = #{PREFIX_NM} 
+			</if>
+		</if>
+		<if test="UP_CD == null or UP_CD == '' "> 
+			select * from WT_PART_CD where PART_NM = #{PART_NM} AND (UP_CD is null or UP_CD = '')
+			<if test="PREFIX_NM != null and PREFIX_NM != '' "> 
+						AND PREFIX_NM = #{PREFIX_NM} 
+			</if>
+		</if>
+	</if>
+</select>
+
+
+<select id="getPartCodeLv1" parameterType="map" resultType="HashMap">
+	SELECT 
+		PART_CD AS CODE,
+		PART_CD,
+		DESCRPT,
+		<!-- PREFIX_NM AS PRE_NM, -->
+		CONCAT(PREFIX_NM, " ", PART_NM) AS PRE_NM,
+		PART_NM AS SUF_NM,
+        CASE when UP_CD ='' then CONCAT(PREFIX_NM, " | ",PART_NM)
+        else PART_NM
+		END AS NAME,
+		UP_CD,
+		LEV
+	FROM  WT_PART_CD
+	WHERE LEV = 1
+	ORDER BY PRE_NM
+</select>
+
+<select id="getPartCodeByPrf" parameterType="map" resultType="HashMap">
+	SELECT 
+		PART_CD
+		
+	FROM  WT_PART_CD
+	WHERE LEV = 1
+	AND PREFIX_NM = #{PRF_NM}
+</select>
+
+<select id="getPartCodeByDetailNm" parameterType="map" resultType="HashMap">
+	SELECT 
+		PART_CD
+		
+	FROM  WT_PART_CD
+	WHERE UP_CD = #{PART_NO}
+	AND PART_NM = #{DETAIL_NM}
+</select>
+
+<select id="getPartCodeLv2" parameterType="map" resultType="HashMap">
+	SELECT 
+		PART_CD AS CODE,
+		PART_CD,
+		DESCRPT,
+		PREFIX_NM AS PRE_NM,
+		PART_NM AS SUF_NM,
+        CASE when UP_CD ='' then CONCAT(PREFIX_NM, " | ",PART_NM)
+        else PART_NM
+		END AS NAME,
+		UP_CD,
+		LEV
+	FROM  WT_PART_CD
+	WHERE UP_CD = #{PART_CD}
+	ORDER BY NAME
+</select>
+
+<insert id="insertCommonCode" parameterType="map">
+	INSERT INTO COMM_CD
+		(
+				COMM_CD
+				,INS_USER
+				,USE_YN
+				,INS_DT
+			<if test="LEV != null">
+			 	,LEV
+			</if>				
+			<if test="COMM_NM != null">
+			 	,COMM_NM
+			</if>
+			<if test="DESCRPT != null">
+			 	,DESCRPT
+			</if>
+			<if test="UP_CD != null">
+			 	,UP_COMM_CD
+			</if>
+		)
+	VALUES
+		(
+				#{COMM_CD}
+				,#{USER_UID}
+				,'Y'
+				,SYSDATE()
+			<if test="LEV != null">
+			 	,#{LEV}
+			</if>
+			<if test="COMM_NM != null">
+			 	,#{COMM_NM}
+			</if>
+			<if test="DESCRPT != null">
+			 	,#{DESCRPT}
+			</if>
+			<if test="UP_CD != null">
+			 	,#{UP_CD}
+			</if>
+		)
+</insert>
+
+<update id="updateCommonCode" parameterType="map">
+	UPDATE COMM_CD
+		SET
+		<if test="COMM_NM != null">
+			COMM_NM = #{COMM_NM}
+		</if>
+		<if test="DESCRPT != null">
+			,DESCRPT = #{DESCRPT}
+		</if>	
+WHERE 	COMM_CD = #{COMM_CD}
+</update>
+<delete id="deleteCommonCode" parameterType="map">
+	  DELETE FROM COMM_CD
+  	  WHERE COMM_CD IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")" >
+		#{item}		
+		</foreach>
+</delete>
+<insert id="insertMaintanceCode" parameterType="map">
+<selectKey keyProperty="MAINTEN_CD" resultType="string" order="AFTER">
+			SELECT @result
+</selectKey>
+	BEGIN NOT ATOMIC
+	DECLARE result VARCHAR(20);
+	CALL proc_gen_id('MAIN_CD_SEQ', @result);
+	INSERT INTO WT_MAINTEN_CD
+		(
+			MAINTEN_CD
+			,INS_DT
+			,LEV
+			,PREFIX_NM
+			,SUFFIX_NM
+			<if test="UP_CD != null">
+			 	,UP_CD
+			</if>
+			<if test="DESCRPT != null">
+			 	,DESCRPT
+			</if>
+		)
+	VALUES
+		(		
+			@result
+			,SYSDATE()
+			,CONVERT(#{LEV}, SIGNED)
+			,#{PREFIX_NM}
+			,#{SUFFIX_NM}
+			<if test="UP_CD != null">
+			 	,#{UP_CD}
+			</if>
+			<if test="DESCRPT != null">
+			 	,#{DESCRPT}
+			</if>
+		);
+	
+	END;	
+</insert>
+
+<update id="updateMaintanceCode" parameterType="map">
+	UPDATE WT_MAINTEN_CD
+		SET
+		<if test="PREFIX_NM != null">
+			PREFIX_NM = #{PREFIX_NM}
+		</if>
+		<if test="SUFFIX_NM != null">
+			,SUFFIX_NM = #{SUFFIX_NM}
+		</if>		
+		<if test="DESCRPT != null">
+			,DESCRPT = #{DESCRPT}
+		</if>
+		<if test="UP_CD != null">
+			,UP_CD = #{UP_CD}
+		</if>	
+WHERE 	MAINTEN_CD = #{MAINTEN_CD}
+</update>
+
+<delete id="deleteMaintanceCode">
+	  DELETE FROM WT_MAINTEN_CD
+  	  WHERE MAINTEN_CD IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")" >
+		#{item}		
+		</foreach>
+</delete>
+
+<insert id="insertPartCode" parameterType="map">
+<selectKey keyProperty="PART_CD" resultType="string" order="AFTER">
+			SELECT @result
+</selectKey>
+	BEGIN NOT ATOMIC
+	DECLARE result VARCHAR(20);
+	CALL proc_gen_id('PART_CD_SEQ', @result);
+	INSERT INTO WT_PART_CD
+		(
+			PART_CD
+			,INS_DT
+			,LEV
+			,TYPE
+			,PREFIX_NM
+			<if test="PART_NM != null">
+			 	,PART_NM
+			</if>			
+			<if test="UP_CD != null">
+			 	,UP_CD
+			</if>
+			<if test="DESCRPT != null">
+			 	,DESCRPT
+			</if>
+		)
+	VALUES
+		(		
+			@result
+			,SYSDATE()
+			,CONVERT(#{LEV}, SIGNED)
+			,#{TYPE}
+			,#{PREFIX_NM}
+			<if test="PART_NM != null">
+			 	,#{PART_NM}
+			</if>			
+			<if test="UP_CD != null">
+			 	,#{UP_CD}
+			</if>
+			<if test="DESCRPT != null">
+			 	,#{DESCRPT}
+			</if>
+		);
+	
+	END;	
+</insert>
+
+<update id="updatePartCode" parameterType="map">
+	UPDATE WT_PART_CD
+		SET
+		<if test="PREFIX_NM != null">
+			PREFIX_NM = #{PREFIX_NM}
+		</if>
+		<if test="PART_NM != null">
+			,PART_NM = #{PART_NM}
+		</if>		
+		<if test="DESCRPT != null">
+			,DESCRPT = #{DESCRPT}
+		</if>	
+WHERE 	PART_CD = #{PART_CD}
+</update>
+
+<delete id="deletePartCode">
+	  DELETE FROM WT_PART_CD
+  	  WHERE PART_CD IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")" >
+		#{item}		
+		</foreach>
+</delete>
+<update id="updateAlarmCode" parameterType="map">
+update WT_ALARM_GR_CD set ALARM_NM = #{ALARM_NM}, ALARM_TP=#{ALARM_TP}, CAPACITY= #{CAPACITY}, MANUFAR = #{MANUFAR}, DESCRPT=#{DESCRPT} WHERE WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+</update>
+<insert id="insertAlarmCode" parameterType="map">
+	<selectKey keyProperty="WT_ALARM_GR_ID" resultType="string" order="AFTER">
+			SELECT @result
+	</selectKey>
+	BEGIN NOT ATOMIC
+	DECLARE result VARCHAR(20);
+	CALL proc_gen_id('ALARM_CD_SEQ', @result);
+	INSERT INTO WT_ALARM_GR_CD
+		(
+			WT_ALARM_GR_ID
+			,INS_USER
+			,INS_DT
+			<if test="ALARM_TP != null">
+			 	,ALARM_TP
+			</if>			
+			<if test="MANUFAR != null">
+			 	,MANUFAR
+			</if>			
+			<if test="DESCRPT != null">
+			 	,DESCRPT
+			</if>
+			<if test="CAPACITY != null">
+			 	,CAPACITY
+			</if>
+			<if test="ALARM_NM != null">
+			 	,ALARM_NM
+			</if>						
+		)
+	VALUES
+		(		
+			@result
+			,#{USER_UID}
+			,SYSDATE()
+			<if test="ALARM_TP != null">
+			 	,#{ALARM_TP}
+			</if>			
+			<if test="MANUFAR != null">
+			 	,#{MANUFAR}
+			</if>
+			<if test="DESCRPT != null">
+			 	,#{DESCRPT}
+			</if>
+			<if test="CAPACITY != null">
+			 	,#{CAPACITY}
+			</if>
+			<if test="ALARM_NM != null">
+			 	,#{ALARM_NM}
+			</if>						
+		);
+	
+	END;	
+</insert>
+<select id="getDoubleAlarmCode" parameterType="map" resultType="HashMap">
+	SELECT WT_ALARM_GR_ID
+	FROM WT_ALARM_GR_CD
+	WHERE MANUFAR = #{MANUFAR}
+	AND ALARM_TP = #{ALARM_TP}
+	AND CAPACITY = #{CAPACITY}
+</select>
+<select id="getDoubleAlarmCode2" parameterType="map" resultType="HashMap">
+	SELECT WT_ALARM_GR_ID
+	FROM WT_ALARM_GR_CD
+	WHERE MANUFAR = #{MANUFAR}
+	AND ALARM_TP = #{ALARM_TP}
+	AND CAPACITY = #{CAPACITY}
+	AND WT_ALARM_GR_ID != #{WT_ALARM_GR_ID}
+</select>
+<select id="getAllDetailCode" parameterType="map" resultType="HashMap">
+	SELECT  WT_ALARM_ID
+			,ALARM_SUB_CD
+			,ALARM_TXT
+			,SUGGEST
+			,DOC_PATH
+			,WT_ALARM_CD.DESCRPT
+            ,FLE_KEY
+            ,FLE_NM
+            ,FLE_PATH
+            ,FLE_SZ
+            ,FLE_TP
+            ,USER_NM
+            ,U.USER_ID			
+	FROM    WT_ALARM_CD 
+	LEFT JOIN TSST_USER U ON U.USER_UID = WT_ALARM_CD.INS_USER
+	LEFT JOIN TSST_USER_INFO UI ON UI.USER_ID = U.USER_ID
+	LEFT JOIN TCCO_FILE ON WT_ALARM_CD.DOC_PATH = TCCO_FILE.ATCH_FLE_SEQ
+	<where>
+	WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+	<if test="ALARM_SUB_CD != null and ALARM_SUB_CD != '' "> 
+		<trim prefix="AND">
+				ALARM_SUB_CD like CONCAT('%', #{ALARM_SUB_CD}, '%')
+		</trim>
+		</if>
+		<if test="ALARM_TXT != null and ALARM_TXT != '' "> 
+		<trim prefix="AND">
+				ALARM_TXT like CONCAT('%', #{ALARM_TXT}, '%')
+		</trim>
+		</if>
+		<if test="all != null and all != '' "> 
+		<trim prefix="AND">
+				(ALARM_SUB_CD like CONCAT('%', #{all}, '%') OR ALARM_TXT like CONCAT('%', #{all}, '%')) 
+		</trim>
+		</if>
+		ORDER BY WT_ALARM_CD.INS_DT DESC
+</where>
+</select>
+<select id="getGroupAlarmById" parameterType="map" resultType="HashMap">
+
+select WT_ALARM_GR_ID, ALARM_TP, MANUFAR, CAPACITY, DESCRPT, INS_DT, UPT_DT, ALARM_NM, INS_USER from WT_ALARM_GR_CD where WT_ALARM_GR_ID = #{WT_ALARM_GR_ID};
+</select>
+
+
+<insert id="insertAlarmPpe" parameterType="map">
+	INSERT INTO WT_ALARM_PPE
+			(
+			PPE_NM
+			,INS_DT
+			,WT_ALARM_ID									
+		)
+	VALUES
+		(		
+			#{PPE_NM}
+			,SYSDATE()
+			,#{WT_ALARM_ID}
+					
+		)
+</insert>
+
+<insert id="insertAlarmAction" parameterType="map">
+	BEGIN NOT ATOMIC
+	<!-- //DECLARE result VARCHAR(20); -->
+	CALL proc_gen_id('ALARM_ACTION_SEQ', @result);
+	INSERT INTO WT_ALARM_ACTION
+			(
+			ACTION_ID
+			,INS_DT
+			,WT_ALARM_ID
+			<if test="ACTION_STP != null">
+			 	,ACTION_STP
+			</if>			
+			<if test="ACTION_NM != null">
+			 	,ACTION_NM
+			</if>									
+		)
+	VALUES
+		(		
+			@result
+			,SYSDATE()
+			,#{WT_ALARM_ID}
+			<if test="ACTION_STP != null">
+			 	,#{ACTION_STP}
+			</if>			
+			<if test="ACTION_NM != null">
+			 	,#{ACTION_NM}
+			</if>						
+		);
+	
+	END;
+</insert>
+
+<insert id="insertAlarmPart" parameterType="map">
+	INSERT INTO WT_ALARM_PARTS
+			(
+			INS_DT
+			,WT_ALARM_ID
+			,PARTS_NM
+								
+		)
+	VALUES
+		(		
+			SYSDATE()
+			,#{WT_ALARM_ID}
+			 	,#{PARTS_NM}						
+		)
+</insert>
+<insert id="insertAlarmTool" parameterType="map">
+	INSERT INTO WT_ALARM_TOOL
+			(
+			TOOL_NM
+			,INS_DT
+			,WT_ALARM_ID
+								
+		)
+	VALUES
+		(		
+			#{TOOL_NM}
+			,SYSDATE()
+			,#{WT_ALARM_ID}					
+		)
+</insert>
+<insert id="insertAlarmSubCode" parameterType="map">
+	<selectKey keyProperty="WT_ALARM_ID" resultType="string" order="AFTER">
+			SELECT @result
+	</selectKey>
+	BEGIN NOT ATOMIC
+	DECLARE result VARCHAR(20);
+	CALL proc_gen_id('ALARM_SUB_SEQ', @result);
+	INSERT INTO WT_ALARM_CD
+		(
+			WT_ALARM_ID
+			,INS_DT
+			,INS_USER
+			,WT_ALARM_GR_ID
+			,ALARM_SUB_CD
+			<if test="DESCRPT != null">
+			 	,DESCRPT
+			</if>			
+			<if test="ALARM_TXT != null">
+			 	,ALARM_TXT
+			</if>			
+			<if test="DOC_PATH != null">
+			 	,DOC_PATH
+			</if>
+			<if test="SUGGEST != null">
+			 	,SUGGEST
+			</if>						
+		)
+	VALUES
+		(		
+			@result
+			,SYSDATE()
+			,#{INS_USER}
+			,#{WT_ALARM_GR_ID}
+			,#{ALARM_SUB_CD}
+			<if test="DESCRPT != null">
+			 	,#{DESCRPT}
+			</if>			
+			<if test="ALARM_TXT != null">
+			 	,#{ALARM_TXT}
+			</if>
+			<if test="DOC_PATH != null">
+			 	,#{DOC_PATH}
+			</if>
+			<if test="SUGGEST != null">
+			 	,#{SUGGEST}
+			</if>						
+		);
+	
+	END;	
+</insert>
+<delete id="deleteSubAlarm" parameterType="map">
+	DELETE FROM WT_ALARM_CD
+	WHERE WT_ALARM_ID = #{WT_ALARM_ID}
+</delete>
+<delete id="deleteAlarmTool" parameterType="map">
+	DELETE FROM WT_ALARM_TOOL
+	WHERE WT_ALARM_ID = #{WT_ALARM_ID}
+</delete>
+<delete id="deleteAlarmPpe" parameterType="map">
+	DELETE FROM  WT_ALARM_PPE
+	WHERE WT_ALARM_ID = #{WT_ALARM_ID}
+</delete>
+<delete id="deleteAlarmPart" parameterType="map">
+	DELETE FROM  WT_ALARM_PARTS
+	WHERE WT_ALARM_ID = #{WT_ALARM_ID}
+</delete>
+<delete id="deleteAlarmAction" parameterType="map">
+	DELETE FROM  WT_ALARM_ACTION
+	WHERE WT_ALARM_ID = #{WT_ALARM_ID}
+</delete>
+<delete id="deleteGroupAlarmCode" parameterType="map">
+	delete from WT_ALARM_GR_CD where WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+</delete>
+
+
+<select id="getAlarmAction" parameterType="map" resultType="HashMap">
+SELECT * FROM (
+(	
+SELECT 
+    ACTION_NM AS NAME,
+    CASE WHEN TRUE THEN 'ACTION'
+    END AS TYPE,
+    WT_ALARM_ID,
+    ACTION_STP AS QTY
+	FROM WT_ALARM_ACTION
+    )
+UNION
+    (
+    SELECT 
+    TOOL_NM AS NAME,
+    CASE WHEN TRUE THEN 'TOOL'
+    END AS TYPE,
+    WT_ALARM_ID,
+    QTY
+	FROM WT_ALARM_TOOL
+    )
+UNION
+    (
+    SELECT 
+    PPE_NM AS NAME,
+    CASE WHEN TRUE THEN 'PPE'
+    END AS TYPE,
+    WT_ALARM_ID,
+    QTY
+	FROM WT_ALARM_PPE
+    )
+UNION
+    (
+    SELECT 
+    PARTS_NM AS NAME,
+    CASE WHEN TRUE THEN 'PART'
+    END AS TYPE,
+    WT_ALARM_ID,
+    QTY
+	FROM WT_ALARM_PARTS
+    )
+ )  AS ALARM 
+	WHERE WT_ALARM_ID = #{WT_ALARM_ID}
+</select>
+<update id="updateSubAlarmCd" parameterType="map">
+	UPDATE WT_ALARM_CD
+		SET		
+<!-- 		<if test="ALARM_SUB_CD != null"> -->
+<!-- 			 ALARM_SUB_CD= #{ALARM_SUB_CD} -->
+<!-- 		</if> -->
+		<if test="DESCRPT != null">
+			 DESCRPT= #{DESCRPT}
+		</if>			
+		<if test="ALARM_TXT != null">
+			 ,ALARM_TXT= #{ALARM_TXT}
+		</if>
+		<if test="DOC_PATH != null">
+			 ,DOC_PATH=#{DOC_PATH}
+		</if>
+		<if test="SUGGEST != null">
+			 ,SUGGEST=#{SUGGEST}
+		</if>	
+WHERE 	WT_ALARM_ID = #{WT_ALARM_ID}
+</update>
+<select id="getDoubuleAlarmDetail" parameterType="map" resultType="HashMap">
+	SELECT * FROM
+	 WT_ALARM_CD
+	 WHERE WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+	 AND ALARM_SUB_CD = #{ALARM_SUB_CD}
+</select>
+
+<select id="getAlarmGroupById" parameterType="map" resultType="HashMap">
+	SELECT *,               CONCAT(MANUFAR, ALARM_TP, CAPACITY, '(', ALARM_NM, ')') AS NAME
+	 FROM
+	 WT_ALARM_GR_CD 
+	 WHERE WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+</select>
+
+<select id="getAlarmCodeDetailById" parameterType="map" resultType="HashMap">
+	SELECT *
+	 FROM
+	 WT_ALARM_CD
+	 WHERE WT_ALARM_GR_ID = #{WT_ALARM_GR_ID}
+	 AND ALARM_SUB_CD = #{ALARM_SUB_CD}
+</select>
+<select id="findMantenLevTwo" parameterType="map" resultType="HashMap">
+	SELECT * 
+	FROM WT_MAINTEN_CD
+	WHERE PREFIX_NM = #{PREFIX_NM}
+</select>
+<select id="checkPartCd" parameterType="map" resultType="HashMap">
+	SELECT * 
+	FROM WT_PART_CD
+	WHERE PREFIX_NM = #{PREFIX_NM}	
+</select>
+<select id="findMantenLevThree" parameterType="map" resultType="HashMap">
+	SELECT * 
+	FROM WT_MAINTEN_CD
+	WHERE PREFIX_NM = #{PREFIX_NM}
+	AND   UP_CD = #{UP_CD}
+	AND   SUFFIX_NM = #{SUFFIX_NM}
+</select>
+<insert id="insertListDetailAlarm" parameterType="map">
+	BEGIN NOT ATOMIC
+	DECLARE result VARCHAR(20);
+	
+<!-- 		<if test="LIST_DETAIL != null"> 	 -->
+<!-- 		<foreach collection="LIST_DETAIL" item="item" separator=""  > -->
+				CALL proc_gen_id('ALARM_SUB_SEQ', @result);		
+				INSERT INTO WT_ALARM_CD
+				(
+				WT_ALARM_ID,
+				INS_DT,
+				WT_ALARM_GR_ID,
+				ALARM_SUB_CD,
+				DESCRPT,
+				ALARM_TXT,
+				SUGGEST
+				)
+				VALUES
+				(
+				 @result,
+				 SYSDATE(),
+				#{WT_ALARM_GR_ID},
+				#{ALARM_SUB_CD},
+				#{DESCRPT},
+				#{ALARM_TXT},
+				#{SUGGEST}
+				);
+
+	 <selectKey keyProperty="WT_ALARM_ID" resultType="String" order="AFTER">
+        SELECT @result;
+      </selectKey>
+<!-- 		</foreach> -->
+<!-- 		</if>	 -->
+	END;
+</insert>
+
+<insert id="insertSomeAlarmDetail" parameterType="map">
+	BEGIN NOT ATOMIC
+
+	DECLARE result2 VARCHAR(20);
+
+		<if test="LIST_ACTION != null"> 
+					<foreach collection="LIST_ACTION" item="each" separator=""  >
+						CALL proc_gen_id('ALARM_ACTION_SEQ', @result2);
+						INSERT INTO WT_ALARM_ACTION
+								(
+								ACTION_ID
+								,INS_DT
+								,WT_ALARM_ID
+								,ACTION_NM
+							)
+						VALUES
+							(		
+								@result2
+								,SYSDATE()
+								,#{WT_ALARM_ID}
+								,#{each}
+							);
+					</foreach>	
+				</if>
+				<if test="LIST_PART != null">
+					<foreach collection="LIST_PART" item="each" separator=""  >
+						INSERT INTO WT_ALARM_PARTS
+								(
+								INS_DT
+								,WT_ALARM_ID
+								,PARTS_NM
+													
+							)
+						VALUES
+							(		
+								SYSDATE()
+								,#{WT_ALARM_ID}
+								 ,#{each}						
+							);
+				</foreach>
+					
+				</if>
+				<if test="LIST_TOOL != null"> 	
+					<foreach collection="LIST_TOOL" item="each" separator=""  >
+						INSERT INTO WT_ALARM_TOOL
+							(
+								TOOL_NM
+								,INS_DT
+								,WT_ALARM_ID
+							)
+						VALUES
+							(		
+								#{each}
+								,SYSDATE()
+								,#{WT_ALARM_ID}
+							);
+					</foreach>
+				</if>
+				<if test="LIST_PPE != null"> 
+					<foreach collection="LIST_PPE" item="each" separator=""  >
+						INSERT INTO WT_ALARM_PPE
+								(
+								PPE_NM
+								,INS_DT
+								,WT_ALARM_ID									
+							)
+						VALUES
+							(		
+								#{each}
+								,SYSDATE()
+								,#{WT_ALARM_ID}
+										
+							);	
+				</foreach>
+					
+				</if>
+				END;
+</insert>
+<insert id="insertListCommonCode" parameterType="map">
+<foreach collection="LIST_COMM" item="item" separator=""  >
+	INSERT INTO COMM_CD
+		(
+				COMM_CD
+				,USE_YN
+				,INS_DT
+			 	,LEV			
+			 	,COMM_NM
+			<if test="item.UP_CD != null">
+			 	,UP_COMM_CD
+			</if>
+			<if test="item.DESCRPT != null">
+			 	,DESCRPT
+			</if>
+		)
+	VALUES
+		(
+			#{item.COMM_CD}
+			,'Y'
+			,SYSDATE()
+			,#{item.LEV}
+			,#{item.COMM_NM}
+			<if test="item.UP_CD != null">
+			,#{item.UP_COMM_CD}
+			</if>
+			<if test="item.DESCRPT != null">
+			,#{item.DESCRPT}
+			</if>			
+		)
+</foreach>
+</insert>
+<insert id="insertListAlarmCode" parameterType="map">
+	BEGIN NOT ATOMIC
+	DECLARE result VARCHAR(20);
+		<if test="LIST_ALARM != null"> 	
+		<foreach collection="LIST_ALARM" item="item" separator=""  >
+				CALL proc_gen_id('ALARM_CD_SEQ', @result);		
+				INSERT INTO WT_ALARM_GR_CD
+				(
+					WT_ALARM_GR_ID
+					,INS_DT
+					 ,ALARM_TP		
+					 ,MANUFAR		
+					<if test="item.DESCRPT != null">
+					 	,DESCRPT
+					</if>
+					 ,CAPACITY
+					 ,ALARM_NM
+				)
+				VALUES
+				(
+				 @result,
+				 SYSDATE(),
+				#{item.ALARM_TP},
+				#{item.MANUFAR},
+				<if test="item.DESCRPT != null">				
+				#{item.DESCRPT},
+				</if>				
+				#{item.CAPACITY},
+				#{item.ALARM_NM}
+				);
+		</foreach>
+		</if>	
+	END;
+</insert>
+<select id="validPartLev1" parameterType="map" resultType="HashMap">
+	SELECT * FROM WT_PART_CD
+	WHERE 
+	PREFIX_NM = #{PREFIX_NM} OR PART_NM = #{PART_NM}
+</select>
+<select id="validPartLev2" parameterType="map" resultType="HashMap">
+	SELECT * FROM WT_PART_CD
+	WHERE PART_NM = #{PART_NM} 
+	AND UP_CD = #{UP_CD}
+</select>
+<select id="getListFileByAlarm" parameterType="map" resultType="HashMap">
+	select * from WT_ALARM_CD A left join TCCO_FILE F on A.DOC_PATH = F.ATCH_FLE_SEQ WHERE WT_ALARM_ID = #{WT_ALARM_ID};
+</select>
+<delete id="deleteFile" parameterType="map">
+	delete from TCCO_FILE WHERE ATCH_FLE_SEQ = #{ATCH_FLE_SEQ};
+</delete>
+</mapper>

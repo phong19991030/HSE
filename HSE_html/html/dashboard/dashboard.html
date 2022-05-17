@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!-- common lib js -->
+<script type="text/javascript" src="../../js/lib/jquery-3.6.0.min.js"></script>
+<!-- common js -->
+<script type="text/javascript" src="../../js/common/layout.js"></script>
+<!-- main js -->
+<script type="text/javascript" src="../../js/common/main.js"></script>
+
+<head>
+  <meta charset="UTF-8">
+  <title>HSE 운영지원시스템</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1,width=device-width" />
+  <meta name="copyright" content="Copyright 2022 © AtwoM. ALL Rights Reserved HSE 운영지원시스템" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../../img/common/favicon-32x32.png" />
+  <!-- common css -->
+  <link rel="stylesheet" type="text/css" href="../../css/common/common.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/reset.css" />
+  <!-- main css -->
+  <link rel="stylesheet" type="text/css" href="../../css/common/main.css" />
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- Accessibility -->
+    <a href="#nav" class="skip-to sr-only">메뉴 바로가기</a>
+    <a href="#content" class="skip-to sr-only">본문 바로가기</a>
+
+    <header class="main-header">
+      <div class="header-wrap">
+        <a href="#" class="logo">
+          <span class="sr-only">상단로고</span>
+        </a>
+        <nav id="nav">
+          <ul class="gnb">
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-archive"></i><span>일반관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>보고서작성 이력관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>유저 정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>사업장정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>터빈 정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>보건안전환경 경영방침</span></a></li>
+                  <li><a href="javascript:void(0);"><span>보건안전환경 법규관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-briefcase-medical"></i><span>보건관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>직원 정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>직원 건강 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-hard-hat"></i><span>안전관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>작업 공구 및 장비 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>개인 보호 장비</span></a></li>
+                  <li><a href="javascript:void(0);"><span>작업 전 안전 교육</span></a></li>
+                  <li><a href="javascript:void(0);"><span>사고 조사 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>비상 대응 계획 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>법정의무교육 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>안전관리 조직도</span></a></li>
+                  <li><a href="javascript:void(0);"><span>안전점검 및 순찰 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-wrench"></i><span>작업관리</span>
+              </a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>작업 허가 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>위험성평가 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>위험성평가 DB 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-globe-americas"></i><span>환경관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>소방 화재 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>폐기물 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>유해물질 운영 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>해상환경 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>기타환경 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- header-user-area -->
+        <div class="header-user-area">
+          <span class="user-info">
+            <strong class="name">홍길동</strong>
+            <span class="position">과장</span>
+          </span>
+
+          <button class="logout-btn">LOGOUT</button>
+          <ul class="header-side">
+            <!-- D : alarm-toggle click -> "open" class is added to parents li. -->
+            <li>
+              <button class="alarm-toggle">
+                <i class="las la-bell"></i>
+                <span class="new-num">1</span>
+              </button>
+              <!-- alarm-panel -->
+              <div class="alarm-panel">
+                <a href="javascript:void(0);" class="go-btn">
+                  <i class="las la-paste"></i>
+                  <span>내 결재 이력 보기</span>
+                </a>
+                <!-- my-approval -->
+                <section class="my-approval">
+                  <div class="tit-area">
+                    <span class="tit">내 결재</span>
+                    <div class="approval-state">
+                      <span class="state proceed">
+                        <em class="txt">진행</em>
+                        <strong class="num">3</strong>
+                      </span>
+                      <span class="state return">
+                        <em class="txt">반려</em>
+                        <strong class="num">1</strong>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                  <div class="approval-history-wrap">
+                    <ul>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 완료</strong>
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.21</em>
+                            <em class="time">16:42</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="proceed">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 진행</strong>
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.21</em>
+                            <em class="time">13:03</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="return">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 반려</strong>
+                            <span class="history-lst">
+                              <em>안전관리</em>
+                              <em>작업공구 및 장비관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.20</em>
+                            <em class="time">17:54</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="proceed">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 진행</strong>
+                            <span class="history-lst">
+                              <em>안전관리</em>
+                              <em>작업공구 및 장비관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.20</em>
+                            <em class="time">15:36</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="proceed">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 진행</strong>
+                            <span class="history-lst">
+                              <em>작업관리</em>
+                              <em>작업 허가관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.19</em>
+                            <em class="time">11:04</em>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                    <!-- no-txt (There is no notification.)-->
+                    <div class="no-txt">
+                      <p>알림 내용이 없습니다.</p>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                </section>
+
+                <!-- ========================= -->
+                <!-- wait-approval -->
+                <section class="wait-approval">
+                  <div class="tit-area">
+                    <span class="tit">결재 대기</span>
+                    <div class="approval-state">
+                      <span class="state wait">
+                        <em class="txt">대기</em>
+                        <strong class="num">10</strong>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                  <div class="approval-history-wrap">
+                    <ul>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">16:42</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">이길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">13:03</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">나길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>작업관리</em>
+                              <em>작업공구 및 장비 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.20</em>
+                              <em class="time">17:54</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">채길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.20</em>
+                              <em class="time">14:06</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">나길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>작업관리</em>
+                              <em>작업공구 및 장비 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.19</em>
+                              <em class="time">09:23</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">박길동</em>
+                              <em class="position">주임</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">16:42</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">이길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">16:42</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">이길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                    <!-- no-txt (There is no notification.)-->
+                    <div class="no-txt">
+                      <p>알림 내용이 없습니다.</p>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                </section>
+              </div>
+              <!-- //alarm-panel -->
+            </li>
+          </ul>
+        </div>
+        <!-- //header-user-area -->
+      </div>
+      <div class="lnb-bg"></div>
+    </header>
+
+    <main id="content" class="clearfix">
+      <section class="section1">
+        <div class="total-cont1">
+          <h2 class="sub-tit">업체별 수행 프로젝트</h2>
+          <!-- D : If there's a new registration -> add class "new" -->
+          <p class="update-txt">오늘 새로 추가 된<br>프로젝트가<span><em>0</em>건</span>있습니다.</p>
+          <div class="chart-info">
+            <span class="tit">총 수행 프로젝트</span>
+            <span class="num"><em>3</em>건</span>
+          </div>
+          <div class="chart-box">
+            <!-- D : "example1,2,3" I temporarily put it in. -->
+            <div class="example1"></div>
+            <div class="example2"></div>
+            <div class="example3"></div>
+          </div>
+          <div class="chart-detail">
+            <ul>
+              <li>
+                <span class="tit">윈디텍</span>
+                <div class="inner">
+                  <span class="total"><em>1</em>건</span>
+                  <span class="per"><em>33.3</em>%</span>
+                </div>
+              </li>
+              <li>
+                <span class="tit">금화PSC</span>
+                <div class="inner">
+                  <span class="total"><em>1</em>건</span>
+                  <span class="per"><em>33.3</em>%</span>
+                </div>
+              </li>
+              <li>
+                <span class="tit">로맥스</span>
+                <div class="inner">
+                  <span class="total"><em>1</em>건</span>
+                  <span class="per"><em>33.3</em>%</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="total-cont2">
+          <h2 class="sub-tit">투입인력</h2>
+          <!-- D : If there's a new registration -> add class "new" -->
+          <p class="update-txt new">오늘 새로 추가 된<br>투입인력이<span><em>2</em>명</span>이 있습니다.</p>
+          <div class="chart-box">
+            <!-- D : I temporarily added the background color. Please delete it after checking it. -->
+            <div class="circle-chart-box" style="background: #b5cec8;">
+              <div class="chart-txt">
+                <span class="tit">총 투입인력</span>
+                <span class="num"><em>20</em>명</span>
+              </div>
+            </div>
+          </div>
+          <div class="chart-detail">
+            <ul>
+              <li>
+                <span class="tit">윈디텍</span>
+                <div class="inner">
+                  <span class="total"><em>10</em>명</span>
+                  <span class="per"><em>50</em>%</span>
+                </div>
+              </li>
+              <li>
+                <span class="tit">금화PSC</span>
+                <div class="inner">
+                  <span class="total"><em>5</em>명</span>
+                  <span class="per"><em>25</em>%</span>
+                </div>
+              </li>
+              <li>
+                <span class="tit">로맥스</span>
+                <div class="inner">
+                  <span class="total"><em>5</em>명</span>
+                  <span class="per"><em>25</em>%</span>
+                </div>
+              </li>
+              <li>
+                <span class="tit">윈디텍</span>
+                <div class="inner">
+                  <span class="total"><em>5</em>명</span>
+                  <span class="per"><em>25</em>%</span>
+                </div>
+              </li>
+              <li>
+                <span class="tit">금화PSC</span>
+                <div class="inner">
+                  <span class="total"><em>5</em>명</span>
+                  <span class="per"><em>25</em>%</span>
+                </div>
+              </li>
+              <li>
+                <span class="tit">로맥스</span>
+                <div class="inner">
+                  <span class="total"><em>5</em>명</span>
+                  <span class="per"><em>25</em>%</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section2">
+        <div class="header-cont">
+          <div class="header-cont-wrap">
+            <h1 class="header-tit">윈디텍(주)</h1>
+            <button class="select-btn"></button>
+          </div>
+          <div class="company-select">
+            <ul>
+              <li><a href="javascript:void(0);">금화PSC</a></li>
+              <li><a href="javascript:void(0);">로맥스</a></li>
+              <li><a href="javascript:void(0);">케이윈드</a></li>
+              <li><a href="javascript:void(0);">윈드트리</a></li>
+              <li><a href="javascript:void(0);">회사명</a></li>
+              <li><a href="javascript:void(0);">회사명</a></li>
+              <li><a href="javascript:void(0);">회사명</a></li>
+              <li><a href="javascript:void(0);">회사명</a></li>
+              <li><a href="javascript:void(0);">회사명</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- sub-cont1 -->
+        <div class="sub-cont sub-cont1">
+          <div class="tit-area">
+            <h2 class="sub-tit">스케줄 관리</h2>
+          </div>
+          <div class="schedule-area">
+            <!-- schedule-date-wrap -->
+            <div class="schedule-date-wrap">
+              <!-- date-header -->
+              <div class="date-header">
+                <div class="current"><strong class="year">2020</strong><strong class="month">01</strong></div>
+                <span class="date-controller">
+                  <button class="prev"><i class="las la-angle-left"></i></button>
+                  <button class="next"><i class="las la-angle-right"></i></button>
+                </span>
+              </div>
+
+              <!-- date-lst -->
+              <div class="date-lst">
+                <div class="day disabled">
+                  <span>토</span>
+                  <span class="num">1</span>
+                </div>
+                <div class="day disabled">
+                  <span>일</span>
+                  <span class="num">2</span>
+                </div>
+                <div class="day disabled">
+                  <span>월</span>
+                  <span class="num">3</span>
+                </div>
+                <div class="day disabled">
+                  <span>화</span>
+                  <span class="num">4</span>
+                </div>
+                <div class="day disabled">
+                  <span>수</span>
+                  <span class="num">5</span>
+                </div>
+                <div class="day disabled">
+                  <span>목</span>
+                  <span class="num">6</span>
+                </div>
+                <div class="day disabled">
+                  <span>금</span>
+                  <span class="num">7</span>
+                </div>
+                <div class="day disabled">
+                  <span>토</span>
+                  <span class="num">8</span>
+                </div>
+                <div class="day disabled">
+                  <span>일</span>
+                  <span class="num">9</span>
+                </div>
+                <div class="day disabled">
+                  <span>월</span>
+                  <span class="num">10</span>
+                </div>
+                <div class="day disabled">
+                  <span>화</span>
+                  <span class="num">11</span>
+                </div>
+                <div class="day disabled">
+                  <span>수</span>
+                  <span class="num">12</span>
+                </div>
+                <div class="day disabled">
+                  <span>목</span>
+                  <span class="num">13</span>
+                </div>
+                <div class="day today">
+                  <span>금</span>
+                  <span class="num">14</span>
+                </div>
+                <div class="day">
+                  <span>토</span>
+                  <span class="num">15</span>
+                </div>
+                <div class="day">
+                  <span>일</span>
+                  <span class="num">16</span>
+                </div>
+                <div class="day">
+                  <span>월</span>
+                  <span class="num">17</span>
+                </div>
+                <div class="day">
+                  <span>화</span>
+                  <span class="num">18</span>
+                </div>
+                <div class="day">
+                  <span>수</span>
+                  <span class="num">19</span>
+                </div>
+                <div class="day">
+                  <span>목</span>
+                  <span class="num">20</span>
+                </div>
+                <div class="day">
+                  <span>금</span>
+                  <span class="num">21</span>
+                </div>
+                <div class="day">
+                  <span>토</span>
+                  <span class="num">22</span>
+                </div>
+                <div class="day">
+                  <span>일</span>
+                  <span class="num">23</span>
+                </div>
+                <div class="day">
+                  <span>월</span>
+                  <span class="num">24</span>
+                </div>
+                <div class="day">
+                  <span>화</span>
+                  <span class="num">25</span>
+                </div>
+                <div class="day">
+                  <span>수</span>
+                  <span class="num">26</span>
+                </div>
+                <div class="day">
+                  <span>목</span>
+                  <span class="num">27</span>
+                </div>
+                <div class="day">
+                  <span>금</span>
+                  <span class="num">28</span>
+                </div>
+                <div class="day">
+                  <span>토</span>
+                  <span class="num">29</span>
+                </div>
+                <div class="day">
+                  <span>일</span>
+                  <span class="num">30</span>
+                </div>
+                <div class="day">
+                  <span>월</span>
+                  <span class="num">31</span>
+                </div>
+              </div>
+            </div>
+            <!-- --------------------------------------- -->
+            <!-- schedule-graph-wrap -->
+            <div class="schedule-graph-wrap">
+              <div class="graph-name">
+                <ul>
+                  <li class="th1">프로젝트 수행기간</li>
+                  <li class="th2">작업 전 안전교육</li>
+                  <li class="th3">작업 허가</li>
+                  <li class="th4">작업 순찰</li>
+                </ul>
+              </div>
+              <!-- D : schedule style
+1. track + "on" : When on is added, the schedule is displayed.
+2. track + "on" + "one-value" : Please let it be displayed when there is only one schedule.
+3. track + "on" + "start" : Please put it in at the beginning of the schedule.
+4. track + "on" + "end" : Please put it in at the end of the schedule.
+-->
+              <div class="graph-area">
+                <!-- graph-track1 -->
+                <div class="graph-track graph-track1">
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">1</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">2</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">3</span>
+                  </div>
+                  <div class="track on start">
+                    <span class="bar"></span>
+                    <span class="sr-only">4</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">5</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">6</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">7</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">8</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">9</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">10</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">11</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">12</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">13</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">14</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">15</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">16</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">17</span>
+                  </div>
+                  <div class="track on end">
+                    <span class="bar"></span>
+                    <span class="sr-only">18</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">19</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">20</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">21</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">22</span>
+                  </div>
+                  <div class="track on start">
+                    <span class="bar"></span>
+                    <span class="sr-only">23</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">24</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">25</span>
+                  </div>
+                  <div class="track on end">
+                    <span class="bar"></span>
+                    <span class="sr-only">26</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">27</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">28</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">29</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">30</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">31</span>
+                  </div>
+                </div>
+                <div class="graph-track graph-track2">
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">1</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">2</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">3</span>
+                  </div>
+                  <div class="track on start">
+                    <span class="bar"></span>
+                    <span class="sr-only">4</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">5</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">6</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">7</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">8</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">9</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">10</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">11</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">12</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">13</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">14</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">15</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">16</span>
+                  </div>
+                  <div class="track on end">
+                    <span class="bar"></span>
+                    <span class="sr-only">17</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">18</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">19</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">20</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">21</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">22</span>
+                  </div>
+                  <div class="track on start">
+                    <span class="bar"></span>
+                    <span class="sr-only">23</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">24</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">25</span>
+                  </div>
+                  <div class="track on end">
+                    <span class="bar"></span>
+                    <span class="sr-only">26</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">27</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">28</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">29</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">30</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">31</span>
+                  </div>
+                </div>
+                <div class="graph-track graph-track3">
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">1</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">2</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">3</span>
+                  </div>
+                  <div class="track on start">
+                    <span class="bar"></span>
+                    <span class="sr-only">4</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">5</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">6</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">7</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">8</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">9</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">10</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">11</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">12</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">13</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">14</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">15</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">16</span>
+                  </div>
+                  <div class="track on end">
+                    <span class="bar"></span>
+                    <span class="sr-only">17</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">18</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">19</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">20</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">21</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">22</span>
+                  </div>
+                  <div class="track on start">
+                    <span class="bar"></span>
+                    <span class="sr-only">23</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">24</span>
+                  </div>
+                  <div class="track on">
+                    <span class="bar"></span>
+                    <span class="sr-only">25</span>
+                  </div>
+                  <div class="track on end">
+                    <span class="bar"></span>
+                    <span class="sr-only">26</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">27</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">28</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">29</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">30</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">31</span>
+                  </div>
+                </div>
+                <div class="graph-track graph-track4">
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">1</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">2</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">3</span>
+                  </div>
+                  <div class="track on one-value">
+                    <span class="bar"></span>
+                    <span class="sr-only">4</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">5</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">6</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">7</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">8</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">9</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">10</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">11</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">12</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">13</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">14</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">15</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">16</span>
+                  </div>
+                  <div class="track on one-value">
+                    <span class="bar"></span>
+                    <span class="sr-only">17</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">18</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">19</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">20</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">21</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">22</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">23</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">24</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">25</span>
+                  </div>
+                  <div class="track on one-value">
+                    <span class="bar"></span>
+                    <span class="sr-only">26</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">27</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">28</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">29</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">30</span>
+                  </div>
+                  <div class="track">
+                    <span class="bar"></span>
+                    <span class="sr-only">31</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-cont-wrap">
+          <!-- sub-cont2 -->
+          <div class="sub-cont sub-cont2">
+            <div class="tit-area">
+              <h2 class="sub-tit">작업 위험성 평가</h2>
+            </div>
+            <div class="work-risk-assessment">
+              <ul class="value-bar value-bar1">
+                <li style="background: #87c7bd;">
+                  <em class="num count" data-count="2163">2163</em>
+                </li>
+                <li style="background: #ffd249;">
+                  <em class="num count" data-count="128">128</em>
+                </li>
+                <li style="background: #ff6934;">
+                  <em class="num count" data-count="96">96</em>
+                </li>
+                <li class="total-value count" data-count="2387">2387</li>
+
+              </ul>
+              <ul class="value-bar value-bar2">
+                <li style="background: #4e958a;">
+                  <em class="num count" data-count="28">28</em>
+                </li>
+                <li style="background: #e99f00;">
+                  <em class="num count" data-count="16">16</em>
+                </li>
+                <li style="background: #e44b15;">
+                  <em class="num count" data-count="9">9</em>
+                </li>
+                <li class="total-value count" data-count="53">53</li>
+              </ul>
+              <div class="value-box-wrap">
+                <small class="x-axis">빈도 (LIKELIHOOD)</small>
+                <small class="y-axis">결과 (CONSEQUENCES)</small>
+                <ul class="value-box">
+                  <!-- D :  type color 
+                  1. LOW - type1 : #87c7bd
+                  2. MEDIUM - type2 : #ffd249
+                  3. HIGH - tyep3 : #ff6934
+                  -->
+                  <li class="x-num-axis y-num-axis type3">
+                    <em class="num count" data-count="1">1</em>
+                    <span>LOW</span>
+                  </li>
+                  <li class="x-num-axis  type3">
+                    <em class="num count" data-count="4">4</em>
+                    <span>HIGH</span>
+                  </li>
+                  <li class="x-num-axis type3">
+                    <em class="num count" data-count="32">32</em>
+                    <span>HIGH</span>
+                  </li>
+                  <li class="x-num-axis type3">
+                    <em class="num count" data-count="5">5</em>
+                    <span>HIGH</span>
+                  </li>
+                  <li class="x-num-axis type3">
+                    <em class="num count" data-count="7">7</em>
+                    <span>HIGH</span>
+                  </li>
+                  <li class="y-num-axis type2">
+                    <em class="num count" data-count="10">10</em>
+                    <span>MEDIUM</span>
+                  </li>
+                  <li class="type2">
+                    <em class="num count" data-count="4">4</em>
+                    <span>MEDIUM</span>
+                  </li>
+                  <li class="type3">
+                    <em class="num count" data-count="36">36</em>
+                    <span>HIGH</span>
+                  </li>
+                  <li class="type3">
+                    <em class="num count" data-count="1">1</em>
+                    <span>HIGH</span>
+                  </li>
+                  <li class="type3">
+                    <em class="num count" data-count="2">2</em>
+                    <span>HIGH</span>
+                  </li>
+                  <li class="y-num-axis type1">
+                    <em class="num count" data-count="1">1</em>
+                    <span>LOW</span>
+                  </li>
+                  <li class="type2">
+                    <em class="num count" data-count="11">11</em>
+                    <span>MEDIUM</span>
+                  </li>
+                  <li class="type2">
+                    <em class="num count" data-count="83">83</em>
+                    <span>MEDIUM</span>
+                  </li>
+                  <li class="type2">
+                    <em class="num count" data-count="7">7</em>
+                    <span>MEDIUM</span>
+                  </li>
+                  <li class="type2">
+                    <em class="num count" data-count="2">2</em>
+                    <span>MEDIUM</span>
+                  </li>
+                  <li class="y-num-axis type1">
+                    <em class="num count" data-count="0">0</em>
+                    <span>LOW</span>
+                  </li>
+                  <li class="type1">
+                    <em class="num count" data-count="13">13</em>
+                    <span>LOW</span>
+                  </li>
+                  <li class="type1">
+                    <em class="num count" data-count="422">422</em>
+                    <span>LOW</span>
+                  </li>
+                  <li class="type2">
+                    <em class="num count" data-count="3">3</em>
+                    <span>MEDIUM</span>
+                  </li>
+                  <li class="type2">
+                    <em class="num count" data-count="1">1</em>
+                    <span>MEDIUM</span>
+                  </li>
+                  <li class="y-num-axis type1">
+                    <em class="num count" data-count="5">5</em>
+                    <span>LOW</span>
+                  </li>
+                  <li class="type1">
+                    <em class="num count" data-count="10">10</em>
+                    <span>LOW</span>
+                  </li>
+                  <li class="type1">
+                    <em class="num count" data-count="1687">1687</em>
+                    <span>LOW</span>
+                  </li>
+                  <li class="type1">
+                    <em class="num count" data-count="6">6</em>
+                    <span>LOW</span>
+                  </li>
+                  <li class="type1">
+                    <em class="num count" data-count="2">2</em>
+                    <span>LOW</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- sub-cont3 -->
+          <div class="sub-cont sub-cont3">
+            <div class="tit-area both">
+              <h2 class="sub-tit">사고분석</h2>
+              <!-- tab menu -->
+              <ul class="tab-menu clearfix">
+                <li tab="tab1" class="current">
+                  <a href="javascript:void(0);">발생 이력</a>
+                </li>
+                <li tab="tab2">
+                  <a href="javascript:void(0);">리스트</a>
+                </li>
+              </ul>
+              <!-- //tab menu -->
+            </div>
+
+            <!-- tab-content1 -->
+            <div class="tab-content current" tab="tab1">
+              <div class="tab-graph-area">
+                <ul class="legend">
+                  <li class="item1"><i class="color"></i><span>Hazard</span></li>
+                  <li class="item2"><i class="color"></i><span>Near Miss</span></li>
+                  <li class="item3"><i class="color"></i><span>Injury</span></li>
+                </ul>
+                <div class="graph-box">
+                  <span class="axis x-axis">빈도 (LIKELIHOOD)</span>
+                  <span class="axis y-axis">날짜 (DATE)</span>
+                  <em
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-decoration: underline; font-weight: 700;">This
+                    is the area
+                    where the graph goes in.</em>
+                </div>
+              </div>
+            </div>
+
+            <!-- tab-content2 -->
+            <div class="tab-content" tab="tab2">
+              <div class="bar-top"></div>
+              <!-- tab-list-table -->
+              <div class="tab-list-table">
+
+                <!-- row -->
+                <div class="row">
+                  <div class="total-panel">
+                    <div class="total-panel-wrap">
+                      <p class="name">Hazard</p>
+                      <strong class="num">2</strong>
+                    </div>
+                  </div>
+                  <ul class="list-info-area">
+                    <li>
+                      <div class="item-subject">
+                        <a href="javascript:void(0);" class="subject">
+                          <strong>크레인해치 열림</strong>
+                          <span>동복 풍력발전단지 블레이드 점검 및 수리</span>
+                        </a>
+                        <small class="bottom-info">
+                          <em class="place">대기리 풍력발전단지<span>4호기 인근</span></em>
+                          <em class="staff">김길동 작업자</em>
+                        </small>
+                      </div>
+                      <div class="item-info">
+                        <span class="staff">김길동 작업자</span>
+                        <span class="date-time-wrap">
+                          <em class="date">2020.10.05</em>
+                          <em class="time">15:20</em>
+                        </span>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="item-subject">
+                        <a href="javascript:void(0);" class="subject">
+                          <strong>검전기 동작 불량</strong>
+                          <span>신창풍력발전단지 정밀진단</span>
+                        </a>
+                        <small class="bottom-info">
+                          <em class="place">탐라 해상풍력<span>3호기 인근</span></em>
+                          <em class="staff">김길동 작업자</em>
+                        </small>
+                      </div>
+                      <div class="item-info">
+                        <span class="staff">김길동 작업자</span>
+                        <span class="date-time-wrap">
+                          <em class="date">2020.10.05</em>
+                          <em class="time">15:20</em>
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- row -->
+                <div class="row">
+                  <div class="total-panel">
+                    <div class="total-panel-wrap">
+                      <p class="name">Near Miss</p>
+                      <strong class="num">1</strong>
+                    </div>
+                  </div>
+                  <ul class="list-info-area">
+                    <li>
+                      <div class="item-subject">
+                        <a href="javascript:void(0);" class="subject">
+                          <strong>무전기 추락</strong>
+                          <span>행원풍력발전단지 기어박스 기어오일 교체</span>
+                        </a>
+                        <small class="bottom-info">
+                          <em class="place">GS월령풍력<span>3호기 인근</span></em>
+                          <em class="staff">김길동 작업자</em>
+                        </small>
+                      </div>
+                      <div class="item-info">
+                        <span class="staff">
+                          <em>김길동 작업자</em>
+                          <em>김길동 작업자</em>
+                        </span>
+                        <span class="date-time-wrap">
+                          <em class="date">2020.10.05</em>
+                          <em class="time">15:20</em>
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- row -->
+                <div class="row">
+                  <div class="total-panel">
+                    <div class="total-panel-wrap">
+                      <p class="name">Injury</p>
+                      <strong class="num">2</strong>
+                    </div>
+                  </div>
+                  <ul class="list-info-area">
+                    <li>
+                      <div class="item-subject">
+                        <a href="javascript:void(0);" class="subject">
+                          <strong>화상</strong>
+                          <span>시화, 경인 풍력발전단지 긴급점검</span>
+                        </a>
+                        <small class="bottom-info">
+                          <em class="place">김녕풍력<span>2호기 인근</span></em>
+                          <em class="staff">김길동 작업자</em>
+                        </small>
+                      </div>
+                      <div class="item-info">
+                        <span class="staff">김길동 작업자</span>
+                        <span class="date-time-wrap">
+                          <em class="date">2020.10.05</em>
+                          <em class="time">15:20</em>
+                        </span>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="item-subject">
+                        <a href="javascript:void(0);" class="subject">
+                          <strong>타박상</strong>
+                          <span>행원풍력발전단지 정밀진단 행원풍력발전단지 정밀진단행원풍력발전단지 정밀진단행원풍력발전단지 정밀진단</span>
+                        </a>
+                        <small class="bottom-info">
+                          <em class="place">GS월령풍력<span>2호기 인근</span></em>
+                          <em class="staff">김길동 작업자</em>
+                        </small>
+                      </div>
+                      <div class="item-info">
+                        <span class="staff">
+                          <em>김길동 작업자</em>
+                          <em>김길동 작업자</em>
+                          <em>김길동 작업자</em>
+						  <em>김길동 작업자</em>
+						  <em>김길동 작업자</em>
+                        </span>
+                        <span class="date-time-wrap">
+                          <em class="date">2020.10.05</em>
+                          <em class="time">15:20</em>
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+              <!-- // tab-list-table -->
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </main>
+
+  </div>
+</body>
+
+</html>

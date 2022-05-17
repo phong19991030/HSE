@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	
+	<definition name="tiles.common.layout" id="tiles.common.layout" template="/WEB-INF/view/layout/layout_new.jsp">
+	</definition>
+	<definition name="tiles.common.layout2" id="tiles.common.layout2" template="/WEB-INF/view/layout/layout_new2.jsp">
+	</definition>
+	<!-- <definition name="tiles.common.layout2" id="tiles.common.layout2" template="/WEB-INF/view/layout/common/baseLayout.jsp">
+	</definition> -->
+	
+	<!-- ajax_view -->
+	<!-- 
+			* Author : pjk
+			
+			* update list
+			- 현재 사내 프레임워크가 모든 요청 경로에서 tilesViewResolver 에 걸리고 jspViewResolver 이하로 못내려감
+			- 일단 tiles 설정에 ajax: 정의로 특정 폴더만 예외처리  
+			- ajax를 완벽히 활용 할 수 없음
+			
+			* find 
+			1) folder name 이나 bean name 에 _ 포함 시 요청경로에서 제대로 읽지 못함  
+	-->
+	<definition name="ajax:*" template="/WEB-INF/view/cms/view/ajax_layout.jsp">
+		<put-attribute cascade="true" name="chart" value="/WEB-INF/view/cms/{1}.jsp" />
+		
+	</definition>
+	
+	<!-- API -->
+	<definition name="api:view" template="/WEB-INF/view/layout/apiLayout.jsp">
+		<put-attribute name="title" value="A2m" />
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/layout/newspage.jsp" />
+	</definition>
+	
+	<!-- popup & dialog -->
+	<definition name="popup:*/*" template="/WEB-INF/view/layout/layout.jsp">
+		<put-attribute cascade="true" name="includeCSS" value="/{1}" />
+		<put-attribute name="title" value="MIS" />
+		<put-attribute cascade="true" name="body" value="/WEB-INF/view/{1}/{2}.jsp" />
+		<put-attribute cascade="true" name="footer" value="/WEB-INF/view/layout/tiles/footer.jsp" />
+		
+		<put-attribute name="HTML.BODY" >
+			<definition template="/WEB-INF/view/layout/popupLayout.jsp"> 
+			</definition>
+		</put-attribute>
+	</definition>
+	<definition name="dialog:*/*" template="/WEB-INF/view/layout/dialogLayout.jsp">
+<!-- 		<put-attribute name="title" value="MIS" /> -->
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/{1}/{2}.jsp" />
+	</definition>
+	<definition name="popup:*/*/*" template="/WEB-INF/view/layout/layout.jsp">
+		<put-attribute cascade="true" name="includeCSS" value="/{1}" />
+		<put-attribute name="title" value="MIS" />
+		<put-attribute cascade="true" name="body" value="/WEB-INF/view/{1}/{2}/{3}.jsp" />
+		<put-attribute cascade="true" name="footer" value="/WEB-INF/view/layout/tiles/footer.jsp" />
+		<put-attribute name="HTML.BODY" >
+			<definition template="/WEB-INF/view/layout/popupLayout.jsp"> 
+			</definition>
+		</put-attribute>
+	</definition>
+	<definition name="popup:*/*/*/*" template="/WEB-INF/view/layout/layout.jsp">
+		<put-attribute cascade="true" name="includeCSS" value="/{1}" />
+		<put-attribute name="title" value="MIS" />
+		<put-attribute cascade="true" name="body" value="/WEB-INF/view/{1}/{2}/{3}/{4}.jsp" />
+		<put-attribute name="HTML.BODY" >
+			<definition template="/WEB-INF/view/layout/popupLayout.jsp"> 
+			</definition>
+		</put-attribute>
+	</definition>
+	<definition name="dialog:*/*/*" template="/WEB-INF/view/layout/dialogLayout.jsp">
+<!-- 		<put-attribute name="title" value="MIS" /> -->
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/{1}/{2}/{3}.jsp" />
+	</definition>
+	
+	<!-- tab -->
+	<definition name="part:*/*/*" template="/WEB-INF/view/layout/emptyLayout.jsp">
+		<put-attribute name="title" value="MIS" />
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/{1}/{2}/{3}.jsp" />
+		
+	</definition>
+	<definition name="part:*/*" template="/WEB-INF/view/layout/emptyLayout.jsp">
+		<put-attribute name="title" value="MIS" />
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/{1}/{2}.jsp" />
+		
+	</definition>
+	
+	<!-- tab -->
+	<definition name="tab:*/*" template="/WEB-INF/view/layout/emptyLayout.jsp">
+		<put-attribute name="title" value="MIS" />
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/{1}/{2}.jsp" />
+	</definition>
+	<definition name="tab:*/*/*" template="/WEB-INF/view/layout/emptyLayout.jsp">
+		<put-attribute name="title" value="MIS" /> 
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/{1}/{2}/{3}.jsp" />
+	</definition>
+	<definition name="tab:*/*/*/*" template="/WEB-INF/view/layout/emptyLayout.jsp">
+		<put-attribute name="title" value="MIS" /> 
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
+	
+	<!-- mail -->
+	<definition name="mail:*/*" template="/WEB-INF/view/layout/mailLayout.jsp">
+		<put-attribute name="title" value="MIS" />
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/{1}/{2}.jsp" />
+	</definition>
+	<definition name="mail:*/*/*" template="/WEB-INF/view/layout/mailLayout.jsp">
+		<put-attribute name="title" value="MIS" />
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/{1}/{2}/{3}.jsp" />
+	</definition>
+	
+	<!-- index -->
+	<!--<definition name="*" template="/WEB-INF/view/layout/emptyLayout.jsp">-->
+		<!--<put-attribute name="HTML.BODY" value="/WEB-INF/view/{1}.jsp" />-->
+	<!--</definition>-->
+	<!-- common(loginForm, expire) -->
+	<definition name="common/auth/*" template="/WEB-INF/view/layout/emptyLayout.jsp">
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/common/auth/{1}.jsp" />
+<!-- 		<put-attribute name="HTML.BODY" value="/WEB-INF/view/common/auth/loginForm.jsp" /> -->
+	</definition>	
+	<!-- common(exception) -->
+	<definition name="common/exception/*" template="/WEB-INF/view/layout/emptyLayout.jsp">
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/common/exception/{1}.jsp" />
+	</definition>
+	<definition name="common/error/*" template="/WEB-INF/view/layout/emptyLayout.jsp">
+		<put-attribute name="HTML.BODY" value="/WEB-INF/view/common/error/{1}.jsp" />
+	</definition>
+	
+	<!-- dashboard -->
+	<!-- main-->
+	<definition name="main/*" extends="tiles.common.layout2">
+		<put-attribute name="title" value="A2m" />
+		<put-attribute cascade="true" name="includeCSS" value="/{1}" />
+		<put-attribute cascade="true" name="header" value="/WEB-INF/view/layout/tiles/header_hse.jsp" />
+		<put-attribute cascade="true" name="menu" value="/WEB-INF/view/layout/tiles/menu_left_empty.jsp" />
+		
+		<put-attribute cascade="true" name="body" value="/WEB-INF/view/main/{1}.jsp" />
+		<put-attribute cascade="true" name="footer" value="/WEB-INF/view/layout/tiles/footer.jsp" />
+		<put-attribute name="HTML.BODY" >
+			<definition template="/WEB-INF/view/layout/mainLayout_new.jsp"></definition>
+		</put-attribute>
+	</definition>
+	
+	<definition name="dashboard/*" extends="tiles.common.layout2">
+		<put-attribute name="title" value="A2m" />
+		<put-attribute cascade="true" name="includeCSS" value="/{1}" />
+		<put-attribute cascade="true" name="header" value="/WEB-INF/view/layout/tiles/header_hse.jsp" />
+		<put-attribute cascade="true" name="menu" value="/WEB-INF/view/layout/tiles/menu_left_empty.jsp" />
+		
+		<put-attribute cascade="true" name="body" value="/WEB-INF/view/main/{1}.jsp" />
+		<put-attribute cascade="true" name="footer" value="/WEB-INF/view/layout/tiles/footer.jsp" />
+		<put-attribute name="HTML.BODY" >
+			<definition template="/WEB-INF/view/layout/mainLayout_new.jsp"></definition>
+		</put-attribute>
+	</definition>
+	
+	
+	<definition name="portal/*/*" extends="tiles.common.layout">
+		<put-attribute name="title" value="A2m" /> 
+		<put-attribute cascade="true" name="header" value="/WEB-INF/view/layout/tiles/mainHeader_new.jsp" />
+		<put-attribute cascade="true" name="menu" value="/WEB-INF/view/layout/tiles/menu_left_empty.jsp" />
+		
+		<put-attribute cascade="true" name="body" value="/WEB-INF/view/portal/{1}/{2}.jsp" />
+		<put-attribute cascade="true" name="footer" value="/WEB-INF/view/layout/tiles/footer.jsp" />
+		<put-attribute name="HTML.BODY" >
+			<definition template="/WEB-INF/view/layout/mainLayout_new.jsp"></definition>
+		</put-attribute>
+	</definition>
+	
+	
+	<!-- new design version(sample) -->
+<!-- 	<definition name="oam/*" extends="tiles.common.layout2"> -->
+<!-- 		<put-attribute cascade="true" name="includeCSS" value="/{1}" /> -->
+<!-- 		<put-attribute cascade="true" name="header" value="/WEB-INF/view/layout/common/header.jsp" /> -->
+<!-- 		<put-attribute cascade="true" name="menu" value="/WEB-INF/view/layout/common/lnb.jsp" /> -->
+<!-- 		<put-attribute cascade="true" name="body" value="/WEB-INF/view/{1}/{2}.jsp" /> -->
+<!-- 		<put-attribute cascade="true" name="body" value="/WEB-INF/view/oam/{1}.jsp" /> -->
+<!-- 		<put-attribute name="HTML.BODY" > -->
+<!-- 			<definition template="/WEB-INF/view/layout/common/subLayout.jsp"></definition> -->
+<!-- 		</put-attribute>  -->
+<!-- 	</definition> -->
+	
+	<!-- sub -->
+	<definition name="*/*" extends="tiles.common.layout">
+		<put-attribute name="title" value="A2m" /> 
+		<put-attribute cascade="true" name="includeCSS" value="/{1}" />
+		<put-attribute cascade="true" name="header" value="/WEB-INF/view/layout/tiles/header_hse.jsp" />
+		
+		<put-attribute cascade="true" name="menu" value="/WEB-INF/view/layout/tiles/menu_left_empty.jsp" />
+		<put-attribute cascade="true" name="body" value="/WEB-INF/view/{1}/{2}.jsp" />
+		<put-attribute name="HTML.BODY" >
+			<definition template="/WEB-INF/view/layout/subLayout_new.jsp"></definition>
+		</put-attribute> 
+	</definition>
+	 
+	<definition name="*/*/*" extends="tiles.common.layout">
+		<put-attribute name="title" value="A2m" /> 
+		<put-attribute cascade="true" name="includeCSS" value="/{1}" />
+		<put-attribute cascade="true" name="header" value="/WEB-INF/view/layout/tiles/header_hse.jsp" />
+		<put-attribute cascade="true" name="menu" value="/WEB-INF/view/layout/tiles/menu_left_empty.jsp" />
+		<put-attribute cascade="true" name="menuButton" value="/WEB-INF/view/layout/tiles/menuButton.jsp" />
+		<put-attribute cascade="true" name="body" value="/WEB-INF/view/{1}/{2}/{3}.jsp" />
+		<put-attribute cascade="true" name="footer" value="/WEB-INF/view/layout/tiles/footer.jsp" />
+		<put-attribute name="HTML.BODY" >
+			<definition template="/WEB-INF/view/layout/subLayout_new.jsp"></definition>
+		</put-attribute>
+	</definition>
+	
+	<definition name="*/*/*/*" extends="tiles.common.layout">
+		<put-attribute name="title" value="A2m" /> 
+		<put-attribute cascade="true" name="includeCSS" value="/{1}" />
+		<put-attribute cascade="true" name="header" value="/WEB-INF/view/layout/tiles/header_hse.jsp" />
+		<put-attribute cascade="true" name="menu" value="/WEB-INF/view/layout/tiles/menu_left_empty.jsp" />
+		<put-attribute cascade="true" name="menuButton" value="/WEB-INF/view/layout/tiles/menuButton.jsp" />
+		<put-attribute cascade="true" name="body" value="/WEB-INF/view/{1}/{2}/{3}/{4}.jsp" />
+		<put-attribute cascade="true" name="footer" value="/WEB-INF/view/layout/tiles/footer.jsp" />
+		<put-attribute name="HTML.BODY" >
+			<definition template="/WEB-INF/view/layout/subLayout_new.jsp"> 
+			</definition>
+		</put-attribute>
+	</definition>
+	
+</tiles-definitions>

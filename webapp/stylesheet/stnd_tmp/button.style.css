@@ -1,0 +1,211 @@
+
+/*----------------------------------------------------------------------------------------------------*/
+.btn_저장{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#f56e46;
+}
+.btn_저장:after{ content: "저장";}
+.btn_저장:before{ content: " "; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-112px -128px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_거부{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px; background-color:#7e7e7e; }
+.btn_거부:after{ content: "거부";}
+.btn_거부:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-16px -144px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_결재요청{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_결재요청:after{ content: "결재요청";}
+.btn_결재요청:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-48px -96px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_닫기{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_닫기:after{ content: "닫기";}
+.btn_닫기:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position: -48px -208px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_등록{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_등록:after{ content: "등록";}
+.btn_등록:before{ content: " "; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-112px -128px;
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------------------------------*/
+.btn_도움말{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_도움말:after{ content: "도움말";}
+.btn_도움말:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-60px -160px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_목록{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_목록:after{ content: "목록";}
+.btn_목록:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-128px -128px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_발행저장{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_발행저장:after{ content: "발행저장";}
+.btn_발행저장:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-112px -128px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_복사{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_복사:after{ content: "복사";}
+.btn_복사:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-64px -96px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_삭제{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_삭제:after{ content: "삭제";}
+.btn_삭제:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-192px -112px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_승인{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_승인:after{ content: "승인";}
+.btn_승인:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-80px -160px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_확정{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_확정:after{ content: "확정";}
+.btn_확정:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-80px -160px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_신규{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_신규:after{ content: "신규";}
+.btn_신규:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-48px -112px;
+}
+.btn_신청{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_신청:after{ content: "신청";}
+.btn_신청:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-64px -112px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_엑셀{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_엑셀:after{ content: "엑셀";}
+.btn_엑셀:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-240px -64px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_인쇄{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_인쇄:after{ content: "인쇄";}
+.btn_인쇄:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-176px -112px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_임시저장{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_임시저장:after{ content: "임시저장";}
+.btn_임시저장:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-128px -80px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+/* .btn_저장 */
+/* .btn_저장:after{ content: "닫기";} */
+/* .btn_저장:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png); */
+/*   background-position:-208px -96px; */
+/* } */
+/*----------------------------------------------------------------------------------------------------*/
+.btn_접수{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_접수:after{ content: "접수";}
+.btn_접수:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-96px -128px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_접수목록{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_접수목록:after{ content: "접수목록";}
+.btn_접수목록:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-128px -128px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_조회{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_조회:after{ content: "조회";}
+.btn_조회:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-176px -128px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_초기화{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_초기화:after{ content: "초기화";}
+.btn_초기화:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-16px -80px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_취소{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_취소:after{ content: "취소";}
+.btn_취소:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-96px -144px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_확인{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_확인:after{ content: "확인";}
+.btn_확인:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-224px -208px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+.btn_확인요청{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+.btn_확인요청:after{ content: "확인요청";}
+.btn_확인요청:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-144px -112px;
+}
+/*----------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------*/
+.btn_기타{ display:inline-block; height:20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; margin-left:5px; font-weight:bold; background-repeat:no-repeat; padding-right:11px; color:#fff; cursor:pointer; padding-left:10px; line-height: 20px;
+	background-color:#7e7e7e;
+}
+/* .btn_기타:after{ content: "확인요청";} */
+.btn_기타:before{ content: ""; float: left; width: 16px; height: 16px; margin: 2px 5px 0px 0px; background-image:url(../../images/common/ico.png);
+  background-position:-112px -160px;
+}
+/*----------------------------------------------------------------------------------------------------*/

@@ -1,0 +1,78 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+   
+  <changeSet author="hieuph" id="createSequence-comment">
+    <createSequence 
+            cycle="true"
+            incrementBy="1"
+            maxValue="100000000"
+            minValue="1"
+            ordered="true"
+            sequenceName="seq_comment_id"
+            startValue="1"/>
+</changeSet>
+
+  <changeSet author="hieuph" id="createSequence-drafttAttachment">
+    <createSequence 
+            cycle="true"
+            incrementBy="1"
+            maxValue="100000000"
+            minValue="1"
+            ordered="true"
+            sequenceName="seq_draft_attachment_id"
+            startValue="1"/>
+</changeSet>
+
+<changeSet author="hieuph" id="createSequence_tndm_drft_approval_line">
+    <createSequence 
+            cycle="true"
+            incrementBy="1"
+            maxValue="100000000"
+            minValue="1"
+            ordered="true"
+            sequenceName="seq_tndm_drft_approval_line_id"
+            startValue="1"/>
+</changeSet>
+
+<changeSet author="hieuph" id="createSequence_tndm_rcth">
+    <createSequence 
+            cycle="true"
+            incrementBy="1"
+            maxValue="100000000"
+            minValue="1"
+            ordered="true"
+            sequenceName="seq_tndm_rcth_id"
+            startValue="1"/>
+</changeSet>
+
+<changeSet author="hieuph" id="createSequence_tndm_rcv_doc">
+    <createSequence 
+            cycle="true"
+            incrementBy="1"
+            maxValue="100000000"
+            minValue="1"
+            ordered="true"
+            sequenceName="seq_tndm_rcv_doc_id"
+            startValue="1"/>
+</changeSet>
+ 
+ <changeSet id="insert_tndm_drft_opt_value" author="nguyenpk">
+    <addDefaultValue catalogName="APVL"
+            columnDataType="int"
+            columnName="SEC_GRD"
+            defaultValue="0"
+            defaultValueBoolean="true"
+            tableName="TNDM_DRFT_OPT"/>
+  </changeSet>
+  
+  <changeSet id="insert_tcds_emp_mst_value" author="nguyenpk">
+    <addDefaultValue catalogName="APVL"
+            columnDataType="int"
+            columnName="GRADE"
+            defaultValue="0"
+            defaultValueBoolean="true"
+            tableName="TCDS_EMP_MST"/>
+  </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!-- common lib js -->
+<script type="text/javascript" src="../../js/lib/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../../js/lib/date-search-setting.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery-timepicker.js"></script>
+<!-- common js -->
+<script type="text/javascript" src="../../js/common/layout.js"></script>
+<script type="text/javascript" src="../../js/common/common.js"></script>
+<script type="text/javascript" src="../../js/common/layerPopup.js"></script>
+<!-- sub js -->
+<script type="text/javascript" src="../../js/common/sub.js"></script>
+
+<head>
+  <meta charset="UTF-8">
+  <title>HSE 운영지원시스템</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1,width=device-width" />
+  <meta name="copyright" content="Copyright 2022 © AtwoM. ALL Rights Reserved HSE 운영지원시스템" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../../img/common/favicon-32x32.png" />
+  <!-- common css -->
+  <link rel="stylesheet" type="text/css" href="../../css/common/common.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/ui.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/reset.css" />
+  <!-- common lib css -->
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui.theme.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui-timepicker.css" />
+  <!-- sub css -->
+  <link rel="stylesheet" type="text/css" href="../../css/common/sub.css" />
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- Accessibility -->
+    <a href="#nav" class="skip-to sr-only">메뉴 바로가기</a>
+    <a href="#content" class="skip-to sr-only">본문 바로가기</a>
+
+    <header>
+      <div class="header-wrap">
+        <a href="#" class="logo">
+          <span class="sr-only">상단로고</span>
+        </a>
+        <nav id="nav">
+          <ul class="gnb">
+            <li class="depth1 active">
+              <a href="javascript:void(0);"><i class="las la-archive"></i><span>일반관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>보고서작성 이력관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>유저 정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>사업장정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>터빈 정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>보건안전환경 경영방침</span></a></li>
+                  <li><a href="javascript:void(0);"><span>보건안전환경 법규관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-briefcase-medical"></i><span>보건관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>직원 정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>직원 건강 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-hard-hat"></i><span>안전관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>작업 공구 및 장비 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>개인 보호 장비</span></a></li>
+                  <li><a href="javascript:void(0);"><span>작업 전 안전 교육</span></a></li>
+                  <li><a href="javascript:void(0);"><span>사고 조사 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>비상 대응 계획 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>법정의무교육 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>안전관리 조직도</span></a></li>
+                  <li><a href="javascript:void(0);"><span>안전점검 및 순찰 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-wrench"></i><span>작업관리</span>
+              </a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>작업 허가 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>위험성평가 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>위험성평가 DB 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-globe-americas"></i><span>환경관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>소방 화재 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>폐기물 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>유해물질 운영 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>해상환경 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>기타환경 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- header-user-area -->
+        <div class="header-user-area">
+          <span class="user-info">
+            <strong class="name">홍길동</strong>
+            <span class="position">과장</span>
+          </span>
+
+          <button class="logout-btn">LOGOUT</button>
+          <ul class="header-side">
+            <!-- D : alarm-toggle click -> "open" class is added to parents li. -->
+            <li>
+              <button class="alarm-toggle">
+                <i class="las la-bell"></i>
+                <span class="new-num">1</span>
+              </button>
+              <!-- alarm-panel -->
+              <div class="alarm-panel">
+                <a href="javascript:void(0);" class="go-btn">
+                  <i class="las la-paste"></i>
+                  <span>내 결재 이력 보기</span>
+                </a>
+                <!-- my-approval -->
+                <section class="my-approval">
+                  <div class="tit-area">
+                    <span class="tit">내 결재</span>
+                    <div class="approval-state">
+                      <span class="state proceed">
+                        <em class="txt">진행</em>
+                        <strong class="num">3</strong>
+                      </span>
+                      <span class="state return">
+                        <em class="txt">반려</em>
+                        <strong class="num">1</strong>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                  <div class="approval-history-wrap">
+                    <ul>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 완료</strong>
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.21</em>
+                            <em class="time">16:42</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="proceed">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 진행</strong>
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.21</em>
+                            <em class="time">13:03</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="return">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 반려</strong>
+                            <span class="history-lst">
+                              <em>안전관리</em>
+                              <em>작업공구 및 장비관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.20</em>
+                            <em class="time">17:54</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="proceed">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 진행</strong>
+                            <span class="history-lst">
+                              <em>안전관리</em>
+                              <em>작업공구 및 장비관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.20</em>
+                            <em class="time">15:36</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="proceed">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 진행</strong>
+                            <span class="history-lst">
+                              <em>작업관리</em>
+                              <em>작업 허가관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.19</em>
+                            <em class="time">11:04</em>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                    <!-- no-txt (There is no notification.)-->
+                    <div class="no-txt">
+                      <p>알림 내용이 없습니다.</p>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                </section>
+
+                <!-- ========================= -->
+                <!-- wait-approval -->
+                <section class="wait-approval">
+                  <div class="tit-area">
+                    <span class="tit">결재 대기</span>
+                    <div class="approval-state">
+                      <span class="state wait">
+                        <em class="txt">대기</em>
+                        <strong class="num">10</strong>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                  <div class="approval-history-wrap">
+                    <ul>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">16:42</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">이길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">13:03</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">나길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>작업관리</em>
+                              <em>작업공구 및 장비 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.20</em>
+                              <em class="time">17:54</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">채길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.20</em>
+                              <em class="time">14:06</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">나길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>작업관리</em>
+                              <em>작업공구 및 장비 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.19</em>
+                              <em class="time">09:23</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">박길동</em>
+                              <em class="position">주임</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">16:42</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">이길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">16:42</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">이길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                    <!-- no-txt (There is no notification.)-->
+                    <div class="no-txt">
+                      <p>알림 내용이 없습니다.</p>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                </section>
+              </div>
+              <!-- //alarm-panel -->
+            </li>
+          </ul>
+        </div>
+        <!-- //header-user-area -->
+      </div>
+      <div class="lnb-bg"></div>
+    </header>
+
+    <main id="content" class="work-page">
+      <div class="container">
+        <section class="hdSection">
+          <!-- tit-wrap -->
+          <div class="tit-wrap">
+            <div class="tit-left">
+              <h1 class="heading1">작업 허가 관리 수정</h1>
+            </div>
+          </div>
+          <!-- //tit-wrap -->
+        </section>
+        <section class="contSection">
+          <div class="content clearfix">
+
+            <!-- left area -->
+            <div class="left-area">
+              <article class="approval-view">
+                <div class="flexWrap">
+                  <h2 class="heading4">결재라인</h2>
+                  <button class="btn2 refresh-btn" modal-id="layer-popup1">
+                    <span class="name">결재라인 재지정</span>
+                  </button>
+                </div>
+
+                <ul class="approval-view--line">
+                  <!-- D : li class="approval" -> "결재 승인" style is applied. -->
+                  <li class="approval">
+                    <p class="state">결재승인</p>
+                    <div class="box">
+                      <div class="info-wrap">
+                        <span class="info">
+                          <em class="team">윈디텍(주)</em>
+                          <em class="name">장길동</em>
+                          <em class="position">과장</em>
+                        </span>
+                        <!-- D : Badge style by approval status.
+                          1. approval-badge1 기안
+                          2. approval-badge2 검토
+                          3. approval-badge3 결재
+                        -->
+                        <small class="approval-badge1">기안</small>
+                      </div>
+                      <!-- D : li class="approval" -> "approval-date" The markup should be added. -->
+                      <p class="approval-date">
+                        <em>2021.06.01</em>
+                        <em>09:16</em>
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <p class="state">결재대기</p>
+                    <div class="box">
+                      <div class="info-wrap">
+                        <span class="info">
+                          <em class="team">윈디텍(주)</em>
+                          <em class="name">곽길동</em>
+                          <em class="position">팀장</em>
+                        </span>
+                        <!-- D : Badge style by approval status.
+                          1. approval-badge1 기안
+                          2. approval-badge2 검토
+                          3. approval-badge3 결재
+                        -->
+                        <small class="approval-badge2">검토</small>
+                      </div>
+                      <!-- D : li class="approval" -> "approval-date" The markup should be added. -->
+                      <!-- <p class="approval-date">
+                        <em>2021.06.01</em>
+                        <em>09:16</em>
+                      </p> -->
+                    </div>
+                  </li>
+                  <li>
+                    <p class="state">결재대기</p>
+                    <div class="box">
+                      <div class="info-wrap">
+                        <span class="info">
+                          <em class="team">운영사 A</em>
+                          <em class="name">채길동</em>
+                          <em class="position">부장</em>
+                        </span>
+                        <!-- D : Badge style by approval status.
+                          1. approval-badge1 기안
+                          2. approval-badge2 검토
+                          3. approval-badge3 결재
+                        -->
+                        <small class="approval-badge3">결재</small>
+                      </div>
+                      <!-- D : li class="approval" -> "approval-date" The markup should be added. -->
+                      <!-- <p class="approval-date">
+                        <em>2021.06.01</em>
+                        <em>09:16</em>
+                      </p> -->
+                    </div>
+                  </li>
+                </ul>
+              </article>
+
+              <article class="registration-form inner-view-form">
+                <h2 class="heading4">작업 정보</h2>
+
+                <div class="base-table custom-table3">
+                  <table>
+                    <caption></caption>
+                    <colgroup>
+                      <col style="width: 11%;">
+                      <col style="width: auto;">
+                      <col style="width: 5%;">
+                      <col style="width: auto;">
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <th scope="row">프로젝트명</th>
+                        <td colspan="3">
+                          <div class="register-write w70p">
+                            <div class="input-group">
+                              <input type="text" title="프로젝트명" placeholder="프로젝트명을 입력해주세요"
+                                value="동복 풍력발전단지 13호 Gearbox Oil Pump 교체">
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">작업 일자</th>
+                        <td colspan="3">
+                          <div class="calendar-picker">
+                            <div class="input-group">
+                              <label class="sr-only">날짜설정</label>
+                              <input type="text" title="날짜설정" placeholder="YYYY-MM-DD" class="datepicker"
+                                value="2020-08-12" readonly>
+                              <button class="calendar-picker-btn"></button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <!-- ---------------------------------------------------------------- -->
+                      <tr>
+                        <th scope="row" rowspan="4">작업 내용 및 절차</th>
+                        <td class="blank bm-none"></td>
+                        <th scope="row" rowspan="2">작업1</th>
+                        <td>
+                          <div class="register-write w90p">
+                            <div class="input-group">
+                              <input type="text" title="작업 내용" placeholder="작업 내용을 입력해주세요" value="Gearbox Oil Pump 교체">
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="blank bm-none"></td>
+                        <th>
+                          <div class="flexWrap">
+                            <div class="register-write w90p">
+                              <div class="input-group">
+                                <textarea title="작업 절차" placeholder="작업 절차를 입력해주세요">
+1) 기어오일 세팅 (Gear oil setting)
+2) 자재 창고에서 해당 발전기까지 기어오일 운송
+3) 발전기 정지
+4) 서비스 크레인을 이용하여 바스켓(Basket)을 나셀로 운반</textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </th>
+                      </tr>
+                      <!-- ---------------------------------------------------------------- -->
+                      <tr>
+                        <td class="blank bm-none"></td>
+                        <th scope="row" rowspan="2">작업2</th>
+                        <td>
+                          <div class="register-write w90p">
+                            <div class="input-group">
+                              <input type="text" title="작업 내용" placeholder="작업 내용을 입력해주세요" value="UPS 배터리 교체">
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="blank"></td>
+                        <th>
+                          <div class="flexWrap">
+                            <div class="register-write w90p">
+                              <div class="input-group">
+                                <textarea title="작업 절차" placeholder="작업 절차를 입력해주세요"></textarea>
+                              </div>
+                            </div>
+                            <div class="btn-vertical">
+                              <button class="btn6-2 motion">
+                                <i class="lar la-trash-alt"></i>
+                              </button>
+                              <button class="btn6-1 motion">
+                                <i class="las la-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </th>
+                      </tr>
+                      <!-- ---------------------------------------------------------------- -->
+                      <tr>
+                        <th scope="row">책임자</th>
+                        <td colspan="3">
+                          <div class="check-selected-wrap">
+                            <button class="btn1 style2" modal-id="layer-popup2">재 설정</button>
+                            <ul>
+                              <li>
+                                <span class="badge-custom8">
+                                  <i class="number">1</i>
+                                  <span class="txt-inner">
+                                    <em class="company">제주에너지공사</em>
+                                    <em class="name">채길동</em>
+                                    <em class="position">책임연구원</em>
+                                  </span>
+                                </span>
+                              </li>
+                              <li></li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">참여자</th>
+                        <td colspan="3">
+                          <div class="check-selected-wrap">
+                            <button class="btn1 style2" modal-id="layer-popup3">재 설정</button>
+                            <ul>
+                              <li>
+                                <span class="badge-custom8">
+                                  <i class="number">1</i>
+                                  <span class="txt-inner">
+                                    <em class="company">제주에너지공사</em>
+                                    <em class="name">이길동</em>
+                                    <em class="position">과장</em>
+                                  </span>
+                                </span>
+                              </li>
+                              <li>
+                                <span class="badge-custom8">
+                                  <i class="number">2</i>
+                                  <span class="txt-inner">
+                                    <em class="company">제주에너지공사</em>
+                                    <em class="name">박길동</em>
+                                    <em class="position">대리</em>
+                                  </span>
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">개인보호장비</th>
+                        <td colspan="3">
+                          <div class="check-selected-wrap">
+                            <button class="btn1 style2" modal-id="layer-popup4">재 설정</button>
+                            <ul>
+                              <li>
+                                <span class="badge-custom4">안전모</span>
+                              </li>
+                              <li>
+                                <span class="badge-custom4">멀티미터</span>
+                              </li>
+                              <li>
+                                <span class="badge-custom4">하네스</span>
+                              </li>
+                              <li>
+                                <span class="badge-custom4">안면보호대</span>
+                              </li>
+                              <li>
+                                <span class="badge-custom4">고글</span>
+                              </li>
+                              <li>
+                                <span class="badge-custom4">Lock out-Tag out</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">공구 및 장비</th>
+                        <td colspan="3">
+                          <div class="register-write w20p">
+                            <div class="input-group">
+                              <input type="text" title="장비명" placeholder="장비명" value="블레이드 베어링 교체 공구">
+                            </div>
+                          </div>
+                          <div class="register-write w50p">
+                            <div class="input-group">
+                              <input type="text" title="사용목적" placeholder="사용목적을 입력해주세요" value="블레이드 교체">
+                            </div>
+                          </div>
+                          <button class="btn6-1 motion mgl5">
+                            <i class="las la-plus"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">재료 및 소모품</th>
+                        <td colspan="3">
+                          <div class="select-group">
+                            <select title="재료 및 소모품류">
+                              <option selected>N/A</option>
+                              <option>N/A</option>
+                              <option>N/A</option>
+                            </select>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">위험성 평가 수행</th>
+                        <td colspan="3">
+                          <div class="select-group">
+                            <select title="위험성 평가 수행">
+                              <option selected>수행완료</option>
+                              <option>선택</option>
+                              <option>선택</option>
+                            </select>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">검토/확인사항</th>
+                        <td colspan="3">
+
+                          <div class="select-group">
+                            <select title="검토/확인사항">
+                              <option selected>중량물 취급</option>
+                              <option>선택</option>
+                              <option>선택</option>
+                            </select>
+                          </div>
+
+                          <div class="view-form mgt10">
+                            <div class="base-table">
+                              <table>
+                                <caption></caption>
+                                <colgroup>
+                                  <col style="width: 4%;">
+                                  <col style="width: 32%;">
+                                  <col style="width: 17%;">
+                                  <col style="width: 30%;">
+                                  <col style="width: 17%;">
+                                </colgroup>
+                                <thead>
+                                  <tr>
+                                    <th scope="col" class="txt-center">NO</th>
+                                    <th scope="col">PTW승인시 검토사항</th>
+                                    <th scope="col" class="txt-center">검토</th>
+                                    <th scope="col">실제 작업 수행 시 확인사항</th>
+                                    <th scope="col" class="txt-center">검토</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td class="txt-center">1</td>
+                                    <td>인양작업 유경험·자격을 가진 작업지휘자가 지정되었는가?</td>
+                                    <td class="txt-center">
+                                      <span class="checkbox-radio-group">
+                                        <label for="A-1-1" class="radio">
+                                          <input type="radio" name="A-1" id="A-1-1" checked>
+                                          <span class="circle"></span>
+                                          <em>Yes</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="A-1-2" class="radio">
+                                          <input type="radio" name="A-1" id="A-1-2">
+                                          <span class="circle"></span>
+                                          <em>No</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="A-1-3" class="radio">
+                                          <input type="radio" name="A-1" id="A-1-3">
+                                          <span class="circle"></span>
+                                          <em>N/A</em>
+                                        </label>
+                                      </span>
+                                    </td>
+                                    <td>
+                                      사용 장비와 인양 보조기구에 허가필증이 부착되어 있는가?
+                                    </td>
+                                    <td class="txt-center">
+                                      <span class="checkbox-radio-group">
+                                        <label for="A-2-1" class="radio">
+                                          <input type="radio" name="A-2" id="A-2-1" checked>
+                                          <span class="circle"></span>
+                                          <em>Yes</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="A-2-2" class="radio">
+                                          <input type="radio" name="A-2" id="A-2-2">
+                                          <span class="circle"></span>
+                                          <em>No</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="A-2-3" class="radio">
+                                          <input type="radio" name="A-2" id="A-2-3">
+                                          <span class="circle"></span>
+                                          <em>N/A</em>
+                                        </label>
+                                      </span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="txt-center">2</td>
+                                    <td>인양전문가에 의해 인양 방법과 사용장비에 대한<br />제원 및 작업계획서는 검토 되었는가?</td>
+                                    <td class="txt-center">
+                                      <span class="checkbox-radio-group">
+                                        <label for="B-1-1" class="radio">
+                                          <input type="radio" name="B-1" id="B-1-1" checked>
+                                          <span class="circle"></span>
+                                          <em>Yes</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="B-1-2" class="radio">
+                                          <input type="radio" name="B-1" id="B-1-2">
+                                          <span class="circle"></span>
+                                          <em>No</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="B-1-3" class="radio">
+                                          <input type="radio" name="B-1" id="B-1-3">
+                                          <span class="circle"></span>
+                                          <em>N/A</em>
+                                        </label>
+                                      </span>
+                                    </td>
+                                    <td>
+                                      3·3·3 수칙을 숙지하고 준수되고 있는가?<br />(30cm 인양, 30초 대기, 3m 통제)
+                                    </td>
+                                    <td class="txt-center">
+                                      <span class="checkbox-radio-group">
+                                        <label for="B-2-1" class="radio">
+                                          <input type="radio" name="B-2" id="B-2-1" checked>
+                                          <span class="circle"></span>
+                                          <em>Yes</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="B-2-2" class="radio">
+                                          <input type="radio" name="B-2" id="B-2-2">
+                                          <span class="circle"></span>
+                                          <em>No</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="B-2-3" class="radio">
+                                          <input type="radio" name="B-2" id="B-2-3">
+                                          <span class="circle"></span>
+                                          <em>N/A</em>
+                                        </label>
+                                      </span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="txt-center">3</td>
+                                    <td>장비 작업 구간 내 지내력 test는 실시되고<br />충분한 강도가 확보되었는가?</td>
+                                    <td class="txt-center">
+                                      <span class="checkbox-radio-group">
+                                        <label for="C-1-1" class="radio">
+                                          <input type="radio" name="C-1" id="C-1-1" checked>
+                                          <span class="circle"></span>
+                                          <em>Yes</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="C-1-2" class="radio">
+                                          <input type="radio" name="C-1" id="C-1-2">
+                                          <span class="circle"></span>
+                                          <em>No</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="C-1-3" class="radio">
+                                          <input type="radio" name="C-1" id="C-1-3">
+                                          <span class="circle"></span>
+                                          <em>N/A</em>
+                                        </label>
+                                      </span>
+                                    </td>
+                                    <td>운반경로, 중량물 고정, 상·하역시 인양능력, 짐걸이 방법은 적정한가?
+                                    </td>
+                                    <td class="txt-center">
+                                      <span class="checkbox-radio-group">
+                                        <label for="C-2-1" class="radio">
+                                          <input type="radio" name="C-2" id="C-2-1" checked>
+                                          <span class="circle"></span>
+                                          <em>Yes</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="C-2-2" class="radio">
+                                          <input type="radio" name="C-2" id="C-2-2">
+                                          <span class="circle"></span>
+                                          <em>No</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="C-2-3" class="radio">
+                                          <input type="radio" name="C-2" id="C-2-3">
+                                          <span class="circle"></span>
+                                          <em>N/A</em>
+                                        </label>
+                                      </span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="txt-center">4</td>
+                                    <td>모든 작업자가 인양작업에 대한 특별안전교육을<br />이수하였는가?</td>
+                                    <td class="txt-center">
+                                      <span class="checkbox-radio-group">
+                                        <label for="D-1-1" class="radio">
+                                          <input type="radio" name="D-1" id="D-1-1" checked>
+                                          <span class="circle"></span>
+                                          <em>Yes</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="D-1-2" class="radio">
+                                          <input type="radio" name="D-1" id="D-1-2">
+                                          <span class="circle"></span>
+                                          <em>No</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="D-1-3" class="radio">
+                                          <input type="radio" name="D-1" id="D-1-3">
+                                          <span class="circle"></span>
+                                          <em>N/A</em>
+                                        </label>
+                                      </span>
+                                    </td>
+                                    <td>기후, 기상조건은 (풍속 10m/s, 눈 1cm/h, 비 10mm/h 등 악천후 작업금지)적정한가?</td>
+                                    <td class="txt-center">
+                                      <span class="checkbox-radio-group">
+                                        <label for="D-2-1" class="radio">
+                                          <input type="radio" name="D-2" id="D-2-1" checked>
+                                          <span class="circle"></span>
+                                          <em>Yes</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="D-2-2" class="radio">
+                                          <input type="radio" name="D-2" id="D-2-2">
+                                          <span class="circle"></span>
+                                          <em>No</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="D-2-3" class="radio">
+                                          <input type="radio" name="D-2" id="D-2-3">
+                                          <span class="circle"></span>
+                                          <em>N/A</em>
+                                        </label>
+                                      </span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="txt-center">5</td>
+                                    <td>유경험 신호수가 배치되고 식별조끼, 신호방법은<br />결정되었는가?</td>
+                                    <td class="txt-center">
+                                      <span class="checkbox-radio-group">
+                                        <label for="E-1-1" class="radio">
+                                          <input type="radio" name="E-1" id="E-1-1" checked>
+                                          <span class="circle"></span>
+                                          <em>Yes</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="E-1-2" class="radio">
+                                          <input type="radio" name="E-1" id="E-1-2">
+                                          <span class="circle"></span>
+                                          <em>No</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="E-1-3" class="radio">
+                                          <input type="radio" name="E-1" id="E-1-3">
+                                          <span class="circle"></span>
+                                          <em>N/A</em>
+                                        </label>
+                                      </span>
+                                    </td>
+                                    <td>지반 평탄화 및 전도방지를 위한 철판은 준비되어 있는가?</td>
+                                    <td class="txt-center">
+                                      <span class="checkbox-radio-group">
+                                        <label for="E-2-1" class="radio">
+                                          <input type="radio" name="E-2" id="E-2-1" checked>
+                                          <span class="circle"></span>
+                                          <em>Yes</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="E-2-2" class="radio">
+                                          <input type="radio" name="E-2" id="E-2-2">
+                                          <span class="circle"></span>
+                                          <em>No</em>
+                                        </label>
+                                      </span>
+                                      <span class="checkbox-radio-group">
+                                        <label for="E-2-3" class="radio">
+                                          <input type="radio" name="E-2" id="E-2-3">
+                                          <span class="circle"></span>
+                                          <em>N/A</em>
+                                        </label>
+                                      </span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </article>
+            </div>
+            <!-- // left area -->
+            <!-- right area -->
+            <div class="right-area">
+              <div class="right-btn-type">
+                <button class="btn-style1">
+                  <i class=" las la-paste"></i><span class="name">결재상신</span>
+                </button>
+                <button class="btn-style5">
+                  <i class=" las la-trash-alt"></i><span class="name">삭제</span>
+                </button>
+                <button class="btn-style3">
+                  <i class="las la-reply"></i><span class="name">취소</span>
+                </button>
+              </div>
+            </div>
+            <!-- // right area -->
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- ======================================= -->
+
+  <!-- layer-popup (결재라인 지정)-->
+  <div class="layer-popup" id="layer-popup1">
+    <div class="popup-cont approval-cont">
+
+      <h2 class="heading4">결재라인 지정</h2>
+
+      <section class="approval-section">
+        <!-- left-area -->
+        <div class="left-area">
+          <!-- fixed-search-form2 -->
+          <div class="fixed-search-form2">
+            <div class="search-bar">
+              <input type="text" placeholder="이름">
+              <button class="search-btn">검색</button>
+            </div>
+
+            <!-- D : "search-panel", Please refer to it if necessary. -->
+            <!-- <div class="search-panel">
+                      <p>홍길동</p>
+                      <p>홍길동</p>
+                      <p>홍길동</p>
+                   </div> 
+            -->
+          </div>
+          <!-- //fixed-search-form2 -->
+
+          <h3 class="heading5">직원 목록</h3>
+          <div class="base-table">
+            <table>
+              <caption></caption>
+              <colgroup>
+                <col style="width: auto;">
+                <col style="width: auto;">
+                <col style="width: auto;">
+                <col style="width: auto;">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">회사명</th>
+                  <th scope="col">성명</th>
+                  <th scope="col">직급</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>(주)에이투엠</td>
+                  <td>홍길동</td>
+                  <td>대표</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>(주)에이투엠</td>
+                  <td>홍길동</td>
+                  <td>선임연구원</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>(주)에이투엠</td>
+                  <td>홍길동</td>
+                  <td>엔지니어</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>운영사 A</td>
+                  <td>이길동</td>
+                  <td>연구원</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>운영사 A</td>
+                  <td>이길동</td>
+                  <td>연구원</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>운영사 A</td>
+                  <td>이길동</td>
+                  <td>연구원</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>윈디텍(주)</td>
+                  <td>성길동</td>
+                  <td>선임연구원</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>윈디텍(주)</td>
+                  <td>장길동</td>
+                  <td>엔지니어</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>윈디텍(주)</td>
+                  <td>장길동</td>
+                  <td>엔지니어</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>윈디텍(주)</td>
+                  <td>장길동</td>
+                  <td>엔지니어</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>윈디텍(주)</td>
+                  <td>장길동</td>
+                  <td>엔지니어</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="checkbox-radio-group">
+                      <label><input type="checkbox" name="checkbox"></label>
+                    </span>
+                  </td>
+                  <td>윈디텍(주)</td>
+                  <td>장길동</td>
+                  <td>엔지니어</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- right-area -->
+        <div class="right-area">
+
+          <!-- D : The selected person from the left list will be added. -->
+          <ul class="selected-approval-custom">
+            <li>
+              <div class="custom info">
+                <span class="team">운영사 A</span>
+                <span class="name">박정권<em class="position">대표</em></span>
+                <button class="remove-btn"></button>
+              </div>
+              <div class="custom select-group">
+                <select title="결재">
+                  <option>전체</option>
+                  <option>기안</option>
+                  <option>검토</option>
+                  <option>결재</option>
+                  <option>전결</option>
+                </select>
+              </div>
+              <div class="custom">
+                <button class="drag-btn">
+                  <i class="las la-expand-arrows-alt"></i>
+                </button>
+              </div>
+            </li>
+            <li>
+              <div class="custom info">
+                <span class="team">운영사 A</span>
+                <span class="name">박정권<em class="position">이사</em></span>
+                <button class="remove-btn"></button>
+              </div>
+              <div class="custom select-group">
+                <select title="결재">
+                  <option>전체</option>
+                  <option>기안</option>
+                  <option>검토</option>
+                  <option>결재</option>
+                  <option>전결</option>
+                </select>
+              </div>
+              <div class="custom">
+                <button class="drag-btn">
+                  <i class="las la-expand-arrows-alt"></i>
+                </button>
+              </div>
+            </li>
+            <li>
+              <div class="custom info">
+                <span class="team">운영사 A</span>
+                <span class="name">박정권<em class="position">팀장</em></span>
+                <button class="remove-btn"></button>
+              </div>
+              <div class="custom select-group">
+                <select title="결재">
+                  <option>전체</option>
+                  <option>기안</option>
+                  <option>검토</option>
+                  <option>결재</option>
+                  <option>전결</option>
+                </select>
+              </div>
+              <div class="custom">
+                <button class="drag-btn">
+                  <i class="las la-expand-arrows-alt"></i>
+                </button>
+              </div>
+            </li>
+            <li>
+              <div class="custom info">
+                <span class="team">운영사 A</span>
+                <span class="name">박정권<em class="position">선임연구원</em></span>
+                <button class="remove-btn"></button>
+              </div>
+              <div class="custom select-group">
+                <select title="결재">
+                  <option>전체</option>
+                  <option>기안</option>
+                  <option>검토</option>
+                  <option>결재</option>
+                  <option>전결</option>
+                </select>
+              </div>
+              <div class="custom">
+                <button class="drag-btn">
+                  <i class="las la-expand-arrows-alt"></i>
+                </button>
+              </div>
+            </li>
+            <li>
+              <div class="custom info">
+                <span class="team">윈디텍(주)</span>
+                <span class="name">박정권<em class="position">선임연구원</em></span>
+                <button class="remove-btn"></button>
+              </div>
+              <div class="custom select-group">
+                <select title="결재">
+                  <option>전체</option>
+                  <option>기안</option>
+                  <option>검토</option>
+                  <option>결재</option>
+                  <option>전결</option>
+                </select>
+              </div>
+              <div class="custom">
+                <button class="drag-btn">
+                  <i class="las la-expand-arrows-alt"></i>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="foot-btn-area">
+        <button class="btn-style3">
+          <i class=" las la-reply"></i><span class="name">취소</span>
+        </button>
+        <button class="btn-style1">
+          <i class="las la-save"></i><span class="name">저장</span>
+        </button>
+      </div>
+
+      <button type="button" class="popup-close-btn">
+        <i class="xi-close"></i>
+      </button>
+    </div>
+  </div>
+  <!-- //layer-popup -->
+
+  <!-- layer-popup2 (책임자 설정 팝업) -->
+  <div class="layer-popup" id="layer-popup2">
+    <div class="popup-cont" style="min-width: 468px;">
+
+      <h2 class="heading4">책임자 설정</h2>
+
+      <!-- fixed-search-form2 -->
+      <div class="fixed-search-form2">
+        <div class="search-bar">
+          <input type="text" placeholder="이름">
+          <button class="search-btn">검색</button>
+        </div>
+      </div>
+      <!-- //fixed-search-form2 -->
+
+      <h3 class="heading5">직원 목록</h3>
+      <div class="base-table">
+        <table>
+          <caption></caption>
+          <colgroup>
+            <col style="width: 5%;">
+            <col style="width: 45%;">
+            <col style="width: 20%;">
+            <col style="width: 30%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">회사명</th>
+              <th scope="col">성명</th>
+              <th scope="col">직급</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>제주에너지공사</td>
+              <td>채길동</td>
+              <td>책임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>제주에너지공사</td>
+              <td>이길동</td>
+              <td>과장</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>제주에너지공사</td>
+              <td>박길동</td>
+              <td>대리</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>운영사 A</td>
+              <td>이길동</td>
+              <td>연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>운영사 A</td>
+              <td>채길동</td>
+              <td>대표</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>운영사 A</td>
+              <td>김길동</td>
+              <td>이사</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>곽길동</td>
+              <td>팀장</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>성길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>장길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>한길동</td>
+              <td>엔지니어</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>성길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>장길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>한길동</td>
+              <td>엔지니어</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>성길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>장길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>한길동</td>
+              <td>엔지니어</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>성길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>장길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>한길동</td>
+              <td>엔지니어</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="foot-btn-area">
+        <button class="btn-style3">
+          <i class=" las la-reply"></i><span class="name">취소</span>
+        </button>
+        <button class="btn-style1">
+          <i class="las la-edit"></i><span class="name">등록</span>
+        </button>
+      </div>
+
+      <button type="button" class="popup-close-btn">
+        <i class="xi-close"></i>
+      </button>
+    </div>
+  </div>
+  <!-- //layer-popup2 -->
+
+  <!-- layer-popup3 (참여자 설정 팝업) -->
+  <div class="layer-popup" id="layer-popup3">
+    <div class="popup-cont" style="min-width: 468px;">
+
+      <h2 class="heading4">참여자 설정</h2>
+
+      <!-- fixed-search-form2 -->
+      <div class="fixed-search-form2">
+        <div class="search-bar">
+          <input type="text" placeholder="이름">
+          <button class="search-btn">검색</button>
+        </div>
+      </div>
+      <!-- //fixed-search-form2 -->
+
+      <h3 class="heading5">직원 목록</h3>
+      <div class="base-table">
+        <table>
+          <caption></caption>
+          <colgroup>
+            <col style="width: 5%;">
+            <col style="width: 45%;">
+            <col style="width: 20%;">
+            <col style="width: 30%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">회사명</th>
+              <th scope="col">성명</th>
+              <th scope="col">직급</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>제주에너지공사</td>
+              <td>채길동</td>
+              <td>책임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>제주에너지공사</td>
+              <td>이길동</td>
+              <td>과장</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>제주에너지공사</td>
+              <td>박길동</td>
+              <td>대리</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>운영사 A</td>
+              <td>이길동</td>
+              <td>연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>운영사 A</td>
+              <td>채길동</td>
+              <td>대표</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>운영사 A</td>
+              <td>김길동</td>
+              <td>이사</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>곽길동</td>
+              <td>팀장</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>성길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>장길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>한길동</td>
+              <td>엔지니어</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>성길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>장길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>한길동</td>
+              <td>엔지니어</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>성길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>장길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>한길동</td>
+              <td>엔지니어</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>성길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>장길동</td>
+              <td>선임연구원</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>윈디텍(주)</td>
+              <td>한길동</td>
+              <td>엔지니어</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="foot-btn-area">
+        <button class="btn-style3">
+          <i class=" las la-reply"></i><span class="name">취소</span>
+        </button>
+        <button class="btn-style1">
+          <i class="las la-edit"></i><span class="name">등록</span>
+        </button>
+      </div>
+
+      <button type="button" class="popup-close-btn">
+        <i class="xi-close"></i>
+      </button>
+    </div>
+  </div>
+  <!-- //layer-popup3 -->
+
+  <!-- layer-popup4 (개인보호장비 설정 팝업) -->
+  <div class="layer-popup" id="layer-popup4">
+    <div class="popup-cont" style="min-width: 260px;">
+
+      <h2 class="heading4">개인보호장비 설정</h2>
+
+      <h3 class="heading5">장비 목록</h3>
+      <div class="base-table">
+        <table>
+          <caption></caption>
+          <colgroup>
+            <col style="width: 10%;">
+            <col style="width: 90%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">장비명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>안전모</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>안전화</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>보안경</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>보호장갑</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>멀티미터</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>하네스</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>안면보호대</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>고글</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>안전휀스</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>소화기</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="checkbox-radio-group">
+                  <label><input type="checkbox" name="checkbox"></label>
+                </span>
+              </td>
+              <td>Lock out-Tag out</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="foot-btn-area">
+        <button class="btn-style1">
+          <i class="las la-edit"></i><span class="name">등록</span>
+        </button>
+      </div>
+
+      <button type="button" class="popup-close-btn">
+        <i class="xi-close"></i>
+      </button>
+    </div>
+  </div>
+  <!-- //layer-popup4 -->
+</body>
+
+</html>

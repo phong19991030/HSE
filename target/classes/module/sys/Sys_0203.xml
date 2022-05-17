@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+ * 메뉴관리
+ * 기능 : 
+ * 이력 : 
+ * 1) 2014. 9. 29. 이한신 최초생성
+ * 비고 :
+-->
+<mapper namespace="sys.sys0203">
+	<!-- *********************** 메뉴 추가 *********************** -->
+	<!-- 
+		ID	: getOrdNo
+		설명	: 순번설정
+		parameterClass	: map
+		resultClass	: string
+	-->
+	<select id="getOrdNo" parameterType="map" resultType="HashMap">
+		SELECT	IFNULL (MAX (ORD_NO), 0) + 1 AS ORD_NO
+		  FROM	TSST_MENU_MGT
+		WHERE UP_MENU_ID = #{MENU_ID}
+	</select>
+	
+	<!-- 
+		ID	: getMenuId
+		설명	: 메뉴ID설정
+		parameterClass	: map
+		resultClass	: string
+	-->
+	<select id="getMenuId" parameterType="map" resultType="HashMap">
+		SELECT	
+			CONCAT(#{MENU_ID} , '_' , LPAD(TRIM(CONVERT(IFNULL(MAX(CONVERT(SUBSTRING(MENU_ID, LENGTH (#{MENU_ID}) + 2, LENGTH(MENU_ID) ), INT)  ) + 1, '01'), CHAR)), 2, '0')) AS MENU_ID
+		FROM	TSST_MENU_MGT
+		WHERE	UP_MENU_ID	=	#{MENU_ID}
+	</select>	
+	
+	<!-- ******************************************************** -->	
+	
+	<!-- 
+		ID	: getChkID
+		설명	: 메뉴ID 중복체크
+		parameterClass	: map
+		resultClass	: string
+	-->
+	<select id="getChkID" parameterType="map" resultType="string">
+		SELECT	TRIM (CONVERT(COUNT (*), CHAR)) AS CNT
+		  FROM	TSST_MENU_MGT
+		 WHERE	MENU_ID	=	#{MENU_ID}
+	</select>
+	
+	<!-- 
+		ID	: getMenuList
+		설명	: 메뉴 조회
+	-->
+	<select id="getMenuById" parameterType="map" resultType="HashMap">
+		SELECT 
+            M.MENU_ID,
+            M.UP_MENU_ID,
+            M.MENU_NM,
+            M.MENU_NM_ENG,
+            <!-- M.PGM_ID, -->
+            <!-- P.PGM_NM, -->
+            M.PARAM,
+            M.IMG_PATH,
+            M.IMG_OVER_PATH,
+            M.LEFT_IMG_PATH,   
+            M.WDT_SZ,                
+            M.HGT_SZ,
+            M.USE_YN,
+            M.ORD_NO,
+            <!-- 			LEV, -->
+        	CONVERT(LEV, CHAR)  LEV,
+            M.CLS_CD,
+            M.MENU_TP,
+            M.RMK,
+            M.MENU_OUT_YN,
+            M.INS_ID,
+            <!-- TO_CHAR(INS_DT, 'YYYY-MM-DD') AS INS_DT, -->
+            M.INS_DT,
+            M.UPT_ID,
+            <!-- TO_CHAR(UPT_DT, 'YYYY-MM-DD') AS UPT_DT -->
+            M.UPT_DT,
+            LINK_PATH
+		FROM TSST_MENU_MGT M
+		<!-- LEFT JOIN TSST_PGM_MGT P ON P.PGM_ID = M.PGM_ID -->
+		WHERE MENU_ID = #{MENU_ID}
+	</select>
+	
+
+	
+	
+		<select id="getMenuByLinkPath" parameterType="map" resultType="HashMap">
+		SELECT 
+            M.MENU_ID,
+            M.UP_MENU_ID,
+            M.MENU_NM,
+            M.MENU_NM_ENG,
+            <!-- M.PGM_ID, -->
+            <!-- P.PGM_NM, -->
+            M.PARAM,
+            M.IMG_PATH,
+            M.IMG_OVER_PATH,
+            M.LEFT_IMG_PATH,   
+            M.WDT_SZ,                
+            M.HGT_SZ,
+            M.USE_YN,
+            M.ORD_NO,
+            <!-- 			LEV, -->
+        	CONVERT(LEV, CHAR)  LEV,
+            M.CLS_CD,
+            M.MENU_TP,
+            M.RMK,
+            M.MENU_OUT_YN,
+            M.INS_ID,
+            <!-- TO_CHAR(INS_DT, 'YYYY-MM-DD') AS INS_DT, -->
+            M.INS_DT,
+            M.UPT_ID,
+            <!-- TO_CHAR(UPT_DT, 'YYYY-MM-DD') AS UPT_DT -->
+            M.UPT_DT,
+            LINK_PATH
+		FROM TSST_MENU_MGT M
+		<!-- LEFT JOIN TSST_PGM_MGT P ON P.PGM_ID = M.PGM_ID -->
+		WHERE LINK_PATH = #{LINK_PATH}
+	</select>
+
+	<!-- 
+		ID	: getMenuList
+		설명	: 메뉴 조회
+	-->
+	<select id="getMenuList" parameterType="map" resultType="HashMap">
+		SELECT 
+            MENU_ID,
+            UP_MENU_ID,
+            MENU_NM,
+            MENU_NM_ENG,
+            <!-- PGM_ID, -->
+            PARAM,
+            IMG_PATH,
+            IMG_OVER_PATH,
+            LEFT_IMG_PATH,   
+            WDT_SZ,                
+            HGT_SZ,
+            USE_YN,
+            ORD_NO,
+            <!-- 			LEV, -->
+        	CONVERT(LEV, CHAR)  LEV,
+            CLS_CD,
+            MENU_TP,
+            RMK,
+            MENU_OUT_YN,
+            INS_ID,
+            <!-- TO_CHAR(INS_DT, 'YYYY-MM-DD') AS INS_DT, -->
+            INS_DT,
+            UPT_ID,
+            <!-- TO_CHAR(UPT_DT, 'YYYY-MM-DD') AS UPT_DT -->
+            UPT_DT,
+            LINK_PATH
+		FROM TSST_MENU_MGT
+		ORDER BY LEV,UP_MENU_ID,ORD_NO
+		
+		<!-- SELECT    
+		    MENU_ID,
+		    UP_MENU_ID,
+		    MENU_NM,
+		    PGM_ID,
+		    PARAM,
+		    IMG_PATH,
+		    IMG_OVER_PATH,
+		    LEFT_IMG_PATH,   
+		    WDT_SZ,                
+		    HGT_SZ,                            
+		    USE_YN,
+		    ORD_NO,
+		    LEV,
+		    CLS_CD 
+		FROM TSST_MENU_MGT
+		<where>
+			<if test="MENU_CD1 != null and MENU_CD1 != ''">
+				<if test="MENU_CD2 == null or MENU_CD2 == ''">
+					<if test="MENU_CD3 == null or MENU_CD3 == ''">
+						MENU_ID LIKE '${MENU_CD1}%'
+					</if>
+				</if>
+				<if test="MENU_CD2 != null and MENU_CD2 != ''">
+					<if test="MENU_CD3 == null or MENU_CD3 == ''">
+						MENU_ID LIKE '${MENU_CD2}%'
+					</if>
+					<if test="MENU_CD3 != null and MENU_CD3 != ''">
+						MENU_ID LIKE '${MENU_CD3}%'
+					</if>
+				</if>
+			</if>		
+		</where>
+		START WITH MENU_ID = 'M_ROOT' 부모의 시작 조건 
+		CONNECT BY PRIOR  MENU_ID = UP_MENU_ID 자신의 키와 부모키를 비교
+		ORDER SIBLINGS BY UP_MENU_ID ASC, MENU_ID ASC -->	
+	</select>
+	
+	<!-- 
+		ID	: saveMenu
+		설명	: 메뉴등록
+		parameterClass	: map
+	-->
+	<insert id="saveMenu" parameterType="map">
+		INSERT	INTO	TSST_MENU_MGT(
+				MENU_ID
+				,MENU_NM
+				,MENU_NM_ENG
+				,LEV
+				,UP_MENU_ID
+				,USE_YN
+				,IMG_PATH
+				,IMG_OVER_PATH
+				,WDT_SZ					
+				,HGT_SZ				
+				<!-- ,PGM_ID -->
+				,PARAM
+				,ORD_NO
+				,MENU_TP
+				,CLS_CD
+				,RMK
+				,MENU_OUT_YN
+				,INS_ID
+				,INS_DT
+				,MENU_MAIN_YN
+				,LINK_PATH
+		)VALUES(
+				#{MENU_ID}
+				,#{MENU_NM}
+				,#{MENU_NM_ENG}
+				,#{LEV}
+				,#{UP_MENU_ID}
+				,#{USE_YN}
+				,#{IMG_PATH}
+				,#{IMG_OVER_PATH}
+				,#{WDT_SZ}					
+				,#{HGT_SZ}				
+				<!-- ,#{PGM_ID} -->
+				,#{PARAM}
+				,#{ORD_NO}
+				,NULL
+				,#{CLS_CD}
+				,#{RMK}
+				,#{MENU_OUT_YN}
+				,#{SESS_USER_ID}
+				,sysdate()
+				,#{MENU_MAIN_YN}
+				,#{LINK_PATH}
+		)
+	</insert>	
+	
+	<!--
+		ID	: updateMenu
+		설명	: 메뉴 수정
+	-->
+	<update id="updateMenu" parameterType="map">
+		UPDATE TSST_MENU_MGT SET 
+		    MENU_NM        =  #{MENU_NM,		jdbcType=VARCHAR},
+		    MENU_NM_ENG    =  #{MENU_NM_ENG,	jdbcType=VARCHAR},
+		    USE_YN         =  #{USE_YN,			jdbcType=VARCHAR},
+		    IMG_PATH       =  #{IMG_PATH,		jdbcType=VARCHAR},
+		    IMG_OVER_PATH  =  #{IMG_OVER_PATH,	jdbcType=VARCHAR},
+		    LEFT_IMG_PATH  =  #{LEFT_IMG_PATH,	jdbcType=VARCHAR},
+		    <!-- PGM_ID         =  #{PGM_ID,			jdbcType=VARCHAR}, -->
+		    LINK_PATH	   =  #{LINK_PATH,		jdbcType=VARCHAR},
+		    PARAM          =  #{PARAM,			jdbcType=VARCHAR},
+		    MENU_OUT_YN    =  #{MENU_OUT_YN,	jdbcType=VARCHAR},
+		    WDT_SZ         =  #{WDT_SZ,			jdbcType=VARCHAR},           
+		    HGT_SZ         =  #{HGT_SZ,			jdbcType=VARCHAR},
+		    ORD_NO         =  #{ORD_NO,			jdbcType=NUMERIC},
+		    UPT_ID         =  #{SESS_USER_ID,	jdbcType=VARCHAR},
+		    CLS_CD         =  #{CLS_CD,			jdbcType=VARCHAR},
+		    UPT_DT         =  SYSDATE()
+		WHERE MENU_ID = #{MENU_ID}
+	</update>
+	
+	<!--
+		ID	: deleteMenu
+		설명	: 메뉴 삭제
+	-->
+	<delete id="deleteMenu" parameterType="map">
+		BEGIN NOT ATOMIC
+			DELETE FROM TSST_ROLE_PGM WHERE MENU_ID = #{MENU_ID};
+			DELETE FROM TSST_MENU_MGT WHERE MENU_ID = #{MENU_ID};
+		END
+	</delete>	
+	
+	
+	<delete id="deleteAllBranch" parameterType="map">
+		BEGIN NOT ATOMIC
+			DELETE FROM TSST_ROLE_PGM WHERE MENU_ID LIKE '${MENU_ID}%';
+			DELETE FROM TSST_MENU_MGT WHERE MENU_ID LIKE '${MENU_ID}%';
+		END
+	</delete>	
+	
+	
+	
+<select id="getChildrenMenu" parameterType="map" resultType="HashMap">
+
+		
+		  with recursive TEMP AS (
+        SELECT MENU_ID, UP_MENU_ID, MENU_NM
+        FROM TSST_MENU_MGT
+        WHERE UP_MENU_ID = #{MENU_ID}
+    UNION ALL
+        SELECT m.MENU_ID, m.UP_MENU_ID, m.MENU_NM
+        FROM TSST_MENU_MGT m
+        INNER JOIN TEMP ON m.UP_MENU_ID = TEMP.MENU_ID
+    )
+    SELECT * FROM TEMP
+    ORDER BY MENU_ID;
+	</select>	
+	<!--
+		ID	: ordChg
+		설명	: 순서변경
+	-->
+	<!-- <select id="ordChg" parameterType="map">
+		BEGIN
+		    IF #{ORD_CLS} = 'up' THEN
+		
+		        UPDATE TSST_MENU_MGT SET    
+		            ORD_NO = ORD_NO + 1,
+		            UPT_ID = #{SESS_USER_ID},
+		            UPT_DT = sysdate
+		         WHERE MENU_ID != #{ORD_ID}
+		             AND UP_MENU_ID =  #{ORD_UP_ID}
+		             AND ORD_NO = 
+		             (
+		                SELECT 
+		                    ORD_NO - 1 ORD_NO
+		                FROM TSST_MENU_MGT
+		                WHERE MENU_ID = #{ORD_ID}
+		             );
+		             
+		        UPDATE TSST_MENU_MGT SET
+		            ORD_NO = ORD_NO - 1,
+		            UPT_ID = #{SESS_USER_ID},
+		            UPT_DT = sysdate
+		         WHERE MENU_ID = #{ORD_ID};
+		
+		    ELSIF #{ORD_CLS} = 'down' THEN
+		
+		        UPDATE TSST_MENU_MGT SET
+		            ORD_NO = ORD_NO - 1,
+		            UPT_ID = #{SESS_USER_ID}
+		            UPT_DT = sysdate
+		         WHERE MENU_ID != #{ORD_ID}
+		             AND UP_MENU_ID = #{ORD_UP_ID}
+		             AND ORD_NO  = 
+		             (
+		                SELECT
+		                    ORD_NO + 1 ORD_NO
+		                FROM TSST_MENU_MGT
+		                WHERE MENU_ID = #{ORD_ID}
+		             );
+		
+		        UPDATE TSST_MENU_MGT SET
+		            ORD_NO = ORD_NO + 1,
+		            UPT_ID = #{SESS_USER_ID},
+		            UPT_DT= sysdate
+		         WHERE MENU_ID = #{ORD_ID};
+		
+		    END IF;
+		END;
+	</select> -->					
+</mapper>

@@ -1,0 +1,79 @@
+@charset "UTF-8";
+@import url('../common/webfonts.css');
+
+/****************************************/
+/*  Name : HSE
+/*  PART : login.css
+/*  Version : 1.0
+/*  Author : LEE SO MANG
+/*  Modify : 
+/****************************************/
+
+body.login-start .login .title span {animation: motion 1s cubic-bezier(0.46, 0.03, 0.52, 0.96);; animation-fill-mode: both;}
+body.login-start .login .title span:nth-child(1) {animation-delay: .1s;}
+body.login-start .login .title span:nth-child(2) {animation-delay: .2s;}
+body.login-start .login .title span:nth-child(3) {animation-delay: .3s;}
+@keyframes motion {
+  0% {transform: translateX(30px); opacity: 0;}
+  80% {transform: translateX(-5px); opacity: 1;}
+  100% {transform: translateX(0); opacity: 1;}
+}
+
+body {min-height: auto;color: #fff;background: url(../../img/common/login-background.png) no-repeat center/cover;
+  /*background: rgb(8,9,9);background: linear-gradient(60deg, rgba(8,9,9,1) 0%, rgba(54,59,58,1) 100%);*/ }
+.login {max-width: 395px; margin: 240px auto 0;}
+.login .title {font-size: 35px; margin-bottom: 74px;text-indent: -4px;}
+.login .title span {display: inline-block; opacity: 0;}
+.login .title .txt1 {color: #3aa795; font-size: 39px; margin-right: 5px;font-weight: 400;}
+.login .title .txt2 {font-size: 34px; margin-right: 5px;font-weight: 500;}
+.login .title .txt3 {font-weight: 300;}
+
+/* input-group */
+.input-group {display: inline-block; vertical-align: middle; position: relative;width: 100%; min-height: 49px; box-sizing: border-box;} 
+.input-group + .input-group {margin-top: 45px;}
+.input-group input {width: 100%; height: 100%; font-size: 15px; color: #fff; font-weight: 500; background: rgba(255, 255, 255, 0.02); position: absolute; top: 0; left: 0; padding: 0 20px 0 51px; word-wrap: break-word; word-break: break-all; border-radius: 5px; border: 1px solid #fff; transition: all .3s;}
+.input-group label {font-size: 14px; font-weight: 600; position: absolute; top: -24px; transition: all .3s;}
+
+.input-group .icon:before {position: absolute; top: 50%; left: 19px; transform: translateY(-50%); font-size: 1.1rem;}
+.input-group.id .icon::before {content: "\f007"; font-family: 'Line Awesome Free';}
+.input-group.pw .icon::before {content: "\e966"; font-family: 'xeicon';}
+
+.input-group input::placeholder {font-size: 13px;}
+.input-group input:focus {color: #4e958a;border-color: #4e958a; outline: none;}
+.input-group input:focus ~ .icon,
+.input-group input:focus ~ label,
+.input-group input:focus::placeholder {color: #4e958a;}
+
+/* submit */
+.submit {height: 58px; line-height: 58px; display: block; text-align: center; background: #20584f; border-radius: 5px;font-weight: 700; margin: 22px 0 19px; width: 100%; color: #fff; transition: all .3s;}
+.submit:hover {background: #14423b;}
+
+/* remember-me */
+.remember-me * {cursor: pointer;}
+.remember-me label {font-size: 14px; font-weight: 500;transition: all .15s;}
+.remember-me input[type=checkbox]::after {content: "\f111";font-family: "Line Awesome Free"; font-size: 1.2rem; color: #777; vertical-align: middle;}
+.remember-me input[type=checkbox]:hover::after,
+.remember-me input[type=checkbox]:hover + label {color: #4e958a;}
+.remember-me input[type=checkbox]:checked:after {content: "\f058";  font-size: 1.2rem; color: #4e958a; animation: check .3s;}
+.remember-me input[type=checkbox]:checked + label {color: #4e958a;}
+
+@keyframes check {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* input password styling */
+input[type="password"] {font-family: 'pass', 'Roboto', Helvetica, Arial, sans-serif ;font-size: 18px;}  
+input[type="password"]::-webkit-input-placeholder {font-size: 13px;}
+input[type="password"]::-moz-placeholder {opacity: 1;}
+input[type="password"]:-ms-input-placeholder {font-family: 'Roboto', Helvetica, Arial, sans-serif;}
+
+/* footer */
+footer {position: fixed; bottom: 0; left: 0; width: 100%;height: 80px; line-height: 80px;text-align: center;border-top: 1px solid rgba(255, 255, 255, 0.1);}
+footer p {color: rgba(255, 255, 255, 0.4); font-size: 14px;font-weight: 200;letter-spacing: .5px;}

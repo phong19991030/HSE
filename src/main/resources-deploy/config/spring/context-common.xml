@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:task="http://www.springframework.org/schema/task"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		default-autowire="byName"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+				http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+ 
+	
+<!-- 	<mvc:annotation-driven /> -->
+	<!-- @Component -->
+<!-- 	<context:component-scan base-package="module" /> -->
+	<context:component-scan base-package="applications"> 
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+          <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+	<context:component-scan base-package="module"> 
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+	<context:component-scan base-package="infrastructure"> 
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+          <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <context:component-scan base-package="kr.a2mvn.largefileupload"/>
+  
+	 
+
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:/config/message/message-common</value>
+				<value>classpath:/config/message/message</value>
+<!-- 				<value>classpath:/egovframework/rte/fdl/idgnr/messages/idgnr</value> -->
+<!-- 				<value>classpath:/egovframework/rte/fdl/property/messages/properties</value> -->
+			</list>
+		</property>
+		<property name="cacheSeconds">
+			<value>60</value>
+		</property>
+	</bean>
+	
+	
+	<!--  exception을 던지지 않고 프로세스를 처리하게 하는 구조 -->
+	<!-- <bean id="leaveaTrace" class="egovframework.rte.fdl.cmmn.trace.LeaveaTrace">
+		<property name="traceHandlerServices">
+			<list>
+				<ref bean="traceHandlerService" />
+			</list>
+		</property>
+	</bean> -->
+
+	<!-- <bean id="traceHandlerService" class="egovframework.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager">
+		<property name="reqExpMatcher">
+			<ref bean="antPathMater" />
+		</property>
+		<property name="patterns">
+			<list>
+				<value>*</value>
+			</list>
+		</property>
+		<property name="handlers">
+			<list>
+				<ref bean="defaultTraceHandler" /> 
+			</list>
+		</property>
+	</bean> -->
+	
+	<bean id="antPathMater" class="org.springframework.util.AntPathMatcher" />
+	<!-- <bean id="defaultTraceHandler" class="egovframework.rte.fdl.cmmn.trace.handler.DefaultTraceHandler" /> -->
+	<bean id="contextApplicationContextProvider" class="infrastructure.context.ApplicationContextProvider"></bean> 
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    	<property name="host" value="webmail.a2m.co.kr"/>
+    	<property name="port" value="25"/>
+    	<property name="username" value="mailadmin@a2m.co.kr"/>
+    	<property name="password" value="mailadmina2m^^*"/>
+    	<property name="javaMailProperties">
+    		<props>
+    			<prop key="mail.smtp.auth">false</prop>
+    			<prop key="mail.smtp.starttls.enable">false</prop>
+    			<prop key="mail.smtp.timeout">8500</prop>
+    		</props>
+    	</property>
+    </bean>
+	
+	<bean id="mailViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="10" />
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/view/" /> 
+		<property name="suffix" value=".jsp" /> 
+	</bean>
+</beans>

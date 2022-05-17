@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Fri Jul 24 09:44:25 
+	ICT 2020 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="general.Com0304">
+
+	<select id="getPlanInfoByPid" parameterType="map"
+		resultType="HashMap">
+		SELECT SAFE_COURSE_PLAN_ID,
+		COURSE_TYPE,
+		TRAINEE,
+		TRAIN_TERM,
+		TRAINEE_TYPE,
+		TRAIN_HOURS,
+		CONTENT,
+		ROW_NUMBER()
+		OVER (ORDER
+		BY INS_DATE DESC ) AS RN,
+		INS_DATE,
+		INS_USER,
+		UPD_DATE,	
+		UPD_USER
+		FROM
+		HSE_SAFE_COURSE_PLANT_MGT
+		WHERE
+		SAFE_COURSE_PLAN_ID=#{SAFE_COURSE_PLAN_ID}
+	</select>
+
+	<update id="updatePlan" parameterType="map">
+		UPDATE
+		HSE_SAFE_COURSE_PLANT_MGT
+		U
+		SET U.COURSE_TYPE= #{COURSE_TYPE}
+		, U.TRAIN_TERM=#{TRAIN_TERM}
+		, U.TRAINEE_TYPE=#{TRAINEE_TYPE}
+		, U.TRAIN_HOURS=#{TRAIN_HOURS}
+		, U.CONTENT=#{CONTENT}
+		, U.UPD_DATE = CURRENT_TIMESTAMP()
+		WHERE U.SAFE_COURSE_PLAN_ID =
+		#{SAFE_COURSE_PLAN_ID}
+
+
+	</update>
+
+	<delete id="deletePlan" parameterType="map">
+		DELETE
+		FROM
+		HSE_SAFE_COURSE_PLANT_MGT
+		WHERE
+		SAFE_COURSE_PLAN_ID=#{SAFE_COURSE_PLAN_ID}
+	</delete>
+
+	<select id="getAll" parameterType="map" resultType="HashMap">
+		SELECT SAFE_COURSE_PLAN_ID,
+		COURSE_TYPE,
+		TRAINEE,
+		TRAIN_TERM,
+		TRAINEE_TYPE,
+		TRAIN_HOURS,
+		CONTENT,
+		ROW_NUMBER()
+		OVER (ORDER
+		BY INS_DATE DESC ) AS RN,
+		DATE_FORMAT(CONVERT_TZ(INS_DATE,
+		@@session.time_zone,
+		#{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T')
+		AS INS_DATE,
+		INS_USER,
+		DATE_FORMAT(CONVERT_TZ(UPD_DATE,
+		@@session.time_zone,
+		#{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T')
+		AS UPD_DATE,
+		UPD_USER
+		FROM
+		HSE_SAFE_COURSE_PLANT_MGT
+		<where>
+			<if test="all != null and all != '' ">
+				AND (
+				COURSE_TYPE LIKE CONCAT('%',#{all},'%')
+				OR
+				TRAIN_TERM
+				LIKE CONCAT('%',#{all},'%')
+				OR
+				TRAINEE_TYPE LIKE
+				CONCAT('%',#{all},'%')
+				OR
+				TRAIN_HOURS LIKE
+				CONCAT('%',#{all},'%')
+				)
+			</if>
+			<if
+				test="SEARCH_COURSE_TYPE != null and SEARCH_COURSE_TYPE != '' ">
+				AND COURSE_TYPE LIKE CONCAT('%',#{SEARCH_COURSE_TYPE},'%')
+			</if>
+			<if test="SEARCH_TRAIN_TERM != null and SEARCH_TRAIN_TERM != '' ">
+				AND TRAIN_TERM LIKE CONCAT('%',#{SEARCH_TRAIN_TERM},'%')
+			</if>
+			<if
+				test="SEARCH_TRAINEE_TYPE != null and SEARCH_TRAINEE_TYPE != '' ">
+				AND TRAINEE_TYPE LIKE CONCAT('%',#{SEARCH_TRAINEE_TYPE},'%')
+			</if>
+			<if
+				test="SEARCH_TRAIN_HOURS != null and SEARCH_TRAIN_HOURS != '' ">
+				AND TRAIN_HOURS LIKE CONCAT('%',#{SEARCH_TRAIN_HOURS},'%')
+			</if>
+		</where>
+
+	</select>
+
+	<insert id="insertPlan" parameterType="map">
+		INSERT
+		INTO
+		HSE_SAFE_COURSE_PLANT_MGT
+		(
+		COURSE_TYPE,
+		TRAINEE,
+		TRAIN_TERM,
+		TRAINEE_TYPE,
+		TRAIN_HOURS,
+		CONTENT,
+		INS_DATE,
+		INS_USER,
+		UPD_DATE,
+		UPD_USER)
+		VALUES ( #{COURSE_TYPE},#{TRAINEE}, #{TRAIN_TERM},
+		#{TRAINEE_TYPE},
+		#{TRAIN_HOURS}, #{CONTENT},
+		CURRENT_TIMESTAMP(), #{session.USER_UID},
+		CURRENT_TIMESTAMP(), #{session.USER_UID} );
+	</insert>
+
+	<select id="getPlanCnt" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM HSE_SAFE_COURSE_PLANT_MGT
+
+		<where>
+			<if test="all != null and all != '' ">
+				AND (
+				COURSE_TYPE LIKE CONCAT('%',#{all},'%')
+				OR
+				TRAIN_TERM
+				LIKE CONCAT('%',#{all},'%')
+				OR
+				TRAINEE_TYPE LIKE
+				CONCAT('%',#{all},'%')
+				OR
+				TRAIN_HOURS LIKE
+				CONCAT('%',#{all},'%')
+				)
+			</if>
+			<if
+				test="SEARCH_COURSE_TYPE != null and SEARCH_COURSE_TYPE != '' ">
+				AND COURSE_TYPE LIKE CONCAT('%',#{SEARCH_COURSE_TYPE},'%')
+			</if>
+			<if test="SEARCH_TRAIN_TERM != null and SEARCH_TRAIN_TERM != '' ">
+				AND TRAIN_TERM LIKE CONCAT('%',#{SEARCH_TRAIN_TERM},'%')
+			</if>
+			<if
+				test="SEARCH_TRAINEE_TYPE != null and SEARCH_TRAINEE_TYPE != '' ">
+				AND TRAINEE_TYPE LIKE CONCAT('%',#{SEARCH_TRAINEE_TYPE},'%')
+			</if>
+			<if
+				test="SEARCH_TRAIN_HOURS != null and SEARCH_TRAIN_HOURS != '' ">
+				AND TRAIN_HOURS LIKE CONCAT('%',#{SEARCH_TRAIN_HOURS},'%')
+			</if>
+		</where>
+	</select>
+</mapper>

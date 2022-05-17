@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common.file.SysFile">
+	<!-- List -->
+	<select id="getListSysFile" parameterType="map" resultType="hashmap">
+		SELECT BLTN_ID
+		      ,BLTN_SENT_SEQ
+		      ,TO_CHAR(ATCH_SENT_SEQ) AS ATCH_SENT_SEQ
+		      ,COMT_SENT_SEQ
+		      ,LGCL_FILE_NM
+		      ,PHYS_FILE_NM
+		      ,F_FILESIZE(TO_CHAR(FILE_CAPA)) AS FILE_CAPA
+		      ,FILE_TYPE
+		FROM AST0914
+		WHERE BLTN_ID = #{BLTN_ID}
+		  AND BLTN_SENT_SEQ = #{BLTN_SENT_SEQ}
+		  <if test="COMT_SENT_SEQ != null and COMT_SENT_SEQ != ''">AND COMT_SENT_SEQ = #{COMT_SENT_SEQ}</if>
+		ORDER BY BLTN_SENT_SEQ
+	</select>
+	<!-- Map -->
+	<select id="getSysFile" parameterType="map" resultType="hashmap">
+		SELECT BLTN_ID
+		      ,BLTN_SENT_SEQ
+		      ,TO_CHAR(ATCH_SENT_SEQ) AS ATCH_SENT_SEQ
+		      ,COMT_SENT_SEQ
+		      ,LGCL_FILE_NM
+		      ,PHYS_FILE_NM
+		      ,F_FILESIZE(TO_CHAR(FILE_CAPA)) AS FILE_CAPA
+		      ,FILE_TYPE
+		FROM AST0914
+		WHERE BLTN_ID = #{BLTN_ID}
+		  AND BLTN_SENT_SEQ = #{BLTN_SENT_SEQ}
+		  <if test="COMT_SENT_SEQ != null and COMT_SENT_SEQ != ''">AND COMT_SENT_SEQ = #{COMT_SENT_SEQ}</if>
+		  <if test="ATCH_SENT_SEQ != null and ATCH_SENT_SEQ != ''">AND ATCH_SENT_SEQ = #{ATCH_SENT_SEQ}</if>
+	</select>
+	<!-- Insert -->
+	<insert id="insertSysFile" parameterType="map">
+		<selectKey keyProperty="ATCH_SENT_SEQ" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(ATCH_SENT_SEQ),0) + 1 AS ATCH_SENT_SEQ
+			FROM AST0914 
+			WHERE BLTN_ID = #{BLTN_ID}
+		  	  AND BLTN_SENT_SEQ = #{BLTN_SENT_SEQ}
+		  	  AND COMT_SENT_SEQ = #{COMT_SENT_SEQ}
+		</selectKey>
+		INSERT INTO AST0914 (
+			 BLTN_ID
+			,BLTN_SENT_SEQ
+			,ATCH_SENT_SEQ
+			,COMT_SENT_SEQ
+			,LGCL_FILE_NM
+			,PHYS_FILE_NM
+			,FILE_CAPA
+			,FILE_TYPE
+		) VALUES (
+			 #{BLTN_ID}
+			,#{BLTN_SENT_SEQ}
+			,#{ATCH_SENT_SEQ}
+			,#{COMT_SENT_SEQ}
+			,#{LGCL_FILE_NM}
+			,#{BLTN_ID}||'_'||#{BLTN_SENT_SEQ}||'_'||#{COMT_SENT_SEQ}||'_'||#{ATCH_SENT_SEQ}||'_'||#{YMDHMS}||#{FILE_TYPE}
+			,#{FILE_CAPA}
+			,#{FILE_TYPE}			
+		)
+	</insert>
+	<!-- Delete -->
+	<delete id="deleteSysFile" parameterType="map">
+		DELETE FROM AST0914
+		WHERE BLTN_ID = #{BLTN_ID}
+		  AND BLTN_SENT_SEQ = #{BLTN_SENT_SEQ}
+		<if test="COMT_SENT_SEQ != null and COMT_SENT_SEQ != ''">AND COMT_SENT_SEQ = #{COMT_SENT_SEQ}</if>
+		<if test="ATCH_SENT_SEQ != null and ATCH_SENT_SEQ != ''">AND ATCH_SENT_SEQ = #{ATCH_SENT_SEQ}</if>
+	</delete>
+</mapper>

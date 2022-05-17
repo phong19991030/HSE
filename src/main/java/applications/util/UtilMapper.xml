@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="util.mapper">
+
+	<!-- get user security level -->
+	<select id="getUserSecurityLevel" parameterType="map" resultType="int">
+		SELECT 
+			EM.GRADE
+		FROM
+			TCDS_EMP_MST EM
+			INNER JOIN TSST_USER U ON EM.EMP_NO = U.EMP_NO	
+		WHERE
+			U.USER_UID = #{USER_UID}
+	</select>
+	
+	<!-- get Document or Documentary security level -->
+	<select id="getDocSecurityLevel" parameterType="map" resultType="int">
+		SELECT
+			SEC_GRD
+		FROM
+			TNDM_DRFT_OPT
+		WHERE
+			DOC_MNG_NO = #{DOC_MNG_NO}
+	</select>
+
+	<!-- insert data to MAIL_QUEUE -->
+	<insert id="insertMailQueue" parameterType="map">
+		INSERT INTO MAIL_QUEUE (
+		    MAIL_QUEUE_UID,
+		    MAIL_BYTES,
+		    INS_DT,
+		    STATUS,
+		    LOG,
+		    SEND_COUNT
+		) VALUES (
+		    SEQ_MAIL_QUEUE.NEXTVAL,
+		    #{MAIL_BYTES, jdbcType=BINARY},
+		    SYSDATE(),
+		    #{STATUS},
+		    #{LOG},
+		    #{SEND_COUNT}
+		)
+	</insert>
+	
+	<!-- update data to MAIL_QUEUE -->
+	<update id="updateMailQueue" parameterType="map">
+		UPDATE MAIL_QUEUE SET
+		    STATUS = #{STATUS},
+		    LOG = #{LOG},
+		    SEND_COUNT = #{SEND_COUNT}
+		WHERE
+			MAIL_QUEUE_UID = #{MAIL_QUEUE_UID}
+	</update>
+	
+	<!-- get 10 rows from MAIL_QUEUE -->
+	<select id="selectMailOnQueue" parameterType="map" resultType="map">
+		SELECT
+		    *
+		FROM
+		    (
+		        SELECT
+		            MAIL_QUEUE_UID,
+		            MAIL_BYTES,
+		            INS_DT,
+		            STATUS,
+		            LOG,
+		            SEND_COUNT
+		        FROM
+		            MAIL_QUEUE
+		        WHERE
+		            STATUS IN
+		            <foreach collection="STATUS_LIST" item="STATUS" index="i" open="(" separator="," close=")">
+				    	#{STATUS}
+				    </foreach>
+				    <![CDATA[
+				    	AND SEND_COUNT <= #{MAX_SEND_COUNT}
+				    ]]>
+		        ORDER BY
+		            INS_DT ASC
+		    )
+		WHERE
+		    <![CDATA[
+		    	ROWNUM < 10
+		    ]]>
+	</select>
+	
+	<!-- insert data to TCCO_FILE -->
+	<insert id="insertFileToTCCO_FILE" parameterType="map">
+		INSERT INTO TCCO_FILE (
+			
+			ATCH_FLE_SEQ,
+			FLE_TP,
+			FLE_PATH,
+			FLE_NM,
+			NEW_FLE_NM,
+			FLE_SZ,
+			INS_ID,
+			INS_DT,
+			DESCRPT
+		) VALUES (
+			
+			#{ATCH_FLE_SEQ},
+			#{FLE_TP},
+			#{FLE_PATH},
+			#{FLE_NM},
+			#{NEW_FLE_NM},
+			#{FLE_SZ},
+			#{INS_ID},
+			SYSDATE(),
+			#{DESCRPT}
+		)
+	</insert>
+	
+	<!-- get Document or Documentary security level -->
+	<select id="getFileById" parameterType="map" resultType="HashMap">
+		SELECT
+			*
+		FROM
+			TCCO_FILE
+		WHERE
+			ATCH_FLE_SEQ = #{ATCH_FLE_SEQ}
+	</select>
+	
+	<!-- update description for TCCO_FILE -->
+	<insert id="updateDescForFile" parameterType="map">
+		UPDATE TCCO_FILE SET
+			DESCRPT = #{DESCRPT},
+			UPT_ID = #{UPT_ID},
+			UPT_DT = SYSDATE()
+		WHERE
+			ATCH_FLE_SEQ = #{ATCH_FLE_SEQ}
+	</insert>
+	
+	<!--delete file from TCCO_FILE -->
+	<delete id="deleteFileFromTCCO_FILE" parameterType="java.lang.String">
+		BEGIN NOT ATOMIC
+			<!-- perform delete because it has a foreign key -->
+			<!-- DELETE FROM WT_RPT_BLD_PROC_ATTS
+			WHERE
+				ATCH_FLE_SEQ = #{ATCH_FLE_SEQ}; -->
+			
+			<!-- perform delete because it has a foreign key -->
+			<!-- DELETE FROM WT_RPT_PROC_ATTS
+			WHERE
+				ATCH_FLE_SEQ = #{ATCH_FLE_SEQ}; -->
+			
+			DELETE FROM TCCO_FILE
+			WHERE
+				ATCH_FLE_SEQ = #{ATCH_FLE_SEQ};
+		END;
+	</delete>
+	
+	<!--delete file from TCCO_FILE -->
+	<delete id="deleteFileFromTCCO_FILEV2" parameterType="java.lang.String">
+			DELETE FROM TCCO_FILE
+			WHERE
+				ATCH_FLE_SEQ = #{ATCH_FLE_SEQ};
+
+	</delete>
+	
+	<!-- get original file name by new name -->
+	<select id="getOriginalFileName" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT
+			FLE_NM
+		FROM
+			TCCO_FILE
+		WHERE
+			LOWER(NEW_FLE_NM) = LOWER(#{fileName})
+	</select>
+
+	<select id="getRememberMeByUserUID" parameterType="java.lang.String" resultType="hashmap">
+		SELECT * FROM REMEMBER_LOGIN_AUTH WHERE USER_UID = #{userUid} ORDER BY INS_DT DESC LIMIT 1
+	</select>
+	
+	<select id="rememberMeFindSelector" parameterType="java.lang.String" resultType="hashmap">
+		SELECT * FROM REMEMBER_LOGIN_AUTH WHERE SELECTOR = #{selector} ORDER BY INS_DT DESC LIMIT 1
+	</select>
+
+	<insert id="insertRememberMe" parameterType="map">
+		INSERT INTO REMEMBER_LOGIN_AUTH (
+			SELECTOR,
+			VALIDATOR,
+			USER_ID,
+			INS_DT
+		) VALUES (
+			#{SELECTOR},
+			#{VALIDATOR},
+			#{USER_ID},
+			SYSDATE()
+		)
+	</insert>
+
+	<delete id="deleteRememberMe" parameterType="map">
+		DELETE FROM REMEMBER_LOGIN_AUTH WHERE USER_ID = #{USER_ID} AND SELECTOR = #{SELECTOR}
+	</delete>
+
+	<select id="getUserByUserId" parameterType="java.lang.String" resultType="hashmap">
+		SELECT 
+			USER_UID,
+	    	USER_ID,
+	    	PWD, 
+			USE_FRM_DT, 
+			USE_TO_DT, 
+			INS_ID, 
+			INS_DT, 
+			UPT_ID, 
+			UPT_DT, 
+			IS_FIRST_LOGIN
+		FROM 
+			TSST_USER
+		WHERE 
+			USER_ID = #{userId}
+	</select>
+	
+	<update id="updateUserPassword" parameterType="map">
+		UPDATE TSST_USER SET PWD = #{PWD} WHERE USER_ID = #{USER_ID}
+	</update>
+
+	<select id="getGereratorSuggestion" parameterType="map" resultType="hashmap">
+		SELECT
+			T2.GERATOR_ID, T2.GERATOR_NM, T5.COMPANY_NM
+		FROM
+			WT_EVNT_MGMT T1
+			LEFT JOIN WT_GERATOR T2 ON T1.GERATOR_ID = T2.GERATOR_ID
+			LEFT JOIN WT_GROUP T3 ON T2.GROUP_ID = T3.GROUP_ID
+			LEFT JOIN WT_FARM T4 ON T3.FARM_ID = T4.FARM_ID
+			LEFT JOIN WT_COMPANY T5 ON T4.COMPANY_ID = T5.COMPANY_ID
+		WHERE
+			T1.EVENT_ID = #{EVENT_ID}
+	</select>
+	
+	<select id="getGereratorProps" parameterType="map" resultType="hashmap">
+		SELECT
+			D.MAIN_PART_ID,
+			D.PART_CD,
+			D.PART_NM,
+			D.SERIAL_NO,
+			E.PART_PROP_ID,
+			E.PROP_VALUE
+		FROM
+			WT_GERATOR A
+			LEFT JOIN WT_GROUP B ON A.GROUP_ID = B.GROUP_ID
+			LEFT JOIN WT_GERATOR_PART C ON A.GERATOR_ID = C.GERATOR_ID
+			LEFT JOIN WT_MAIN_PART D ON C.MAIN_PART_ID = D.MAIN_PART_ID
+			LEFT JOIN WT_MAIN_PART_DETAIL E ON D.MAIN_PART_ID = E.MAIN_PART_ID
+		WHERE
+			A.GERATOR_ID = #{GERATOR_ID}
+	</select>
+
+</mapper>

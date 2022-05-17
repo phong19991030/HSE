@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- prototype용 mapper는  kr.co.a2m.config.mappers.PrototypeConfiguration.xml에 등록해야 함-->
+<mapper namespace="common.auth.Log">
+	<!-- 등록(로그인) -->
+	<insert id="insertSysLogInfo" parameterType="map">
+		<selectKey keyProperty="SEQ" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(SEQ),0) + 1 AS SEQ
+			FROM AST0926 
+			WHERE YY = TO_CHAR(SYSDATE,'YYYY')
+			  AND MM = TO_CHAR(SYSDATE,'MM')
+			  AND DD = TO_CHAR(SYSDATE,'DD')
+		</selectKey>
+		INSERT INTO AST0926(YY, MM, DD, SEQ, USER_ID, IP, LOGIN_DATE, SESSION_ID) VALUES
+		(
+			  TO_CHAR(SYSDATE,'YYYY') 
+			 ,TO_CHAR(SYSDATE,'MM')
+			 ,TO_CHAR(SYSDATE,'DD')
+			 ,#{SEQ,jdbcType=INTEGER}
+			 ,#{USER_UID}
+			 ,#{IP}
+			 ,SYSDATE 
+			 ,#{SESSION_ID}
+		 )
+	</insert>
+	<!-- 수정(로그아웃) -->
+	<update id="updateSysLogInfo" parameterType="map">
+		UPDATE AST0926 SET
+			 SESSION_ID = NULL
+			,LOGOUT_DATE = SYSDATE
+		WHERE SESSION_ID = #{SESSION_ID}
+	</update>
+	<!-- 수정(로그인 시 1일이 지난 로그인정보를 정리한다) -->
+	<update id="updateSysLogInfoForExpired" parameterType="map">
+		UPDATE AST0926 SET 
+			 SESSION_ID = NULL
+			,LOGOUT_DATE = SYSDATE
+		WHERE USER_ID = #{USER_UID}
+		  AND SESSION_ID IS NOT NULL
+		  AND LOGIN_DATE <![CDATA[<]]> (SYSDATE - 1)
+	</update>
+</mapper>

@@ -1,0 +1,282 @@
+<!--JS-->
+<script src="../js/moment.min.js"></script>
+<script src="../js/moment-timezone.min.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+
+<!--High Chart-->
+<!--<script src="https://code.highcharts.com/highcharts.js"></script>-->
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<!--Boot Strap-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
+<!--
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+-->
+
+<script src="https://kit.fontawesome.com/6764854ea2.js" crossorigin="anonymous"></script>
+
+<!--Custom-->
+<script src="../js_custom/util.js"></script>
+<script src="../js_custom/file.js"></script>
+<script src="../js_custom/sample_data.js"></script>
+
+<link rel="stylesheet" href="../css/table.css">
+<link rel="stylesheet" href="../css/fft.css">
+
+
+
+<div id="option" class="menu">
+    <div class="area a">
+        <div class="title"><i class="far fa-file"></i>File</div>
+        <div class="row">
+            <input type="file" id="file" accept=".csv, .json" onchange="change(this);">  
+        </div>
+        <div class="row">
+            <div class="row">
+                <span>Name : </span><span id="file_name"></span>
+            </div>
+            <div class="row">
+                <span>Size : </span><span id="file_size"></span>
+            </div>
+            <div class="row">
+                <span>Type : </span><span id="file_type"></span>
+            </div>
+            <div class="row">
+                <span></span>
+            </div>
+        </div>
+        
+    </div>
+    <div id="option-zone" class="area b">
+       <div class="title"><i class="fas fa-cog"></i>File Read Option</div>
+       <div class="row">
+           <input type="checkbox" id="row"><span>Row title 사용</span>
+       </div>
+       <div class="row">
+           <input type="checkbox" id="column"><span>Column Title 사용</span>
+       </div>
+       <div class="row">
+           <input type="checkbox" id="json"><span>JSON 변환</span>
+       </div>
+       <div class="row">
+           <button id="readfile">Read File</button>
+       </div>
+    </div>
+    <div id="data-zone" class="area c">
+        <div class="title"><i class="fas fa-info"></i>Data</div>
+        
+        <div class="row">
+            <span>Data 선택</span>
+            <select id="selector">
+                <option>Data</option>
+            </select>
+            <button id="draw">Draw Chart</button>    
+        </div>
+        
+        <div class="row">
+            <button id="sample1" data="1">Sample 1</button>
+            <button id="sample2" data="2">Sample 2</button>
+            <button id="sample3" data="3">Sample 3</button>   
+            <button id="sample4" data="4">Sample 4</button>    
+        </div>
+    </div>
+    <div class="area d">
+        <div class="title"><i class="fas fa-wrench"></i>Tool</div>
+       
+        <select id="selector" onchange='changeBand(this);'>
+            <option value='#'>-- BAND --</option>
+            <option value="side">side</option>
+            <option value="harmonic">harmonic</option>
+        </select>
+
+        <input type="text" id="decimal" placeholder="Allow Decimal" numberOnly>
+    </div>
+</div>    
+
+    
+<div id="container"></div>    
+
+<div class="footer">
+   
+    <div>
+        
+    </div>
+    
+    <table id="table" class="table">
+    <!--
+        <tr>
+            <th>x</th>
+            <th>y</th>
+            <th>i</th>
+            <th>m</th>
+        </tr>
+    -->
+    </table>
+</div>
+   
+    
+    
+
+
+
+
+
+
+
+
+<script>
+
+    var load_data;
+    
+    
+    $('[id*=sample]').click(sampleChart);
+    
+    
+    function sampleChart() {
+        var num = parseInt($(this).attr('data'));
+        var data = sample_data.loader(num);
+        
+        var chart = chart_tool.getChart();
+        
+        if(!chart) {
+            Highcharts.chart('container', chart_option.fft_chart(data));
+        } else {
+            
+            chart_tool.removeSeriesByNum(0);
+            chart_tool.addSeries(data, num);
+            
+            //chart_tool.updateSeries(data);
+        }
+    }
+    
+    
+    $("input:text[numberOnly]").on("keyup", function() {
+        $(this).val($(this).val().replace(/[^0-9]/g,""));
+    });
+    
+    
+    function change() {
+        var files = $('#file')[0].files;
+        if(files.length == 0) {
+            $('#file_name').text('');
+            $('#file_type').text('');
+            $('#file_size').text('');
+            return false;
+        }
+        $('#file_name').text(files[0].name);
+        $('#file_type').text(files[0].type);
+        $('#file_size').text(file.convertFileSize(files[0].size, 1));
+    }
+    
+    
+    /* Read File 버튼 클릭 */
+    $('button#readfile').click(async function() {
+        var files = $('#file')[0].files;
+        if(files.length == 0) {
+            alert('Select .csv / .json File');
+            return false;
+        }
+        var data = await file.loader('#file');
+        dataParser(data);
+    });
+    
+    function dataParser(data) {
+        
+        var option = '';
+        
+        load_data = data.data;
+        
+        if(Array.isArray(data.data)) {
+            
+            data.data.map((e, i) => {
+                option += '<option value='+i+'>' + i + '</option>';
+            });
+            
+        } 
+        
+        else if(typeof data.data === 'object') {
+            
+            for(var key in data.data) {
+                option += '<option value='+key+'>' + key + '</option>';
+            }
+            
+        }
+        
+        $('#selector').html(option);
+        $('#draw').click(drawChart);
+    }
+    
+    
+    function drawChart() {
+        var num = $('#selector').val();
+        
+        console.log(num);
+        
+        var t = load_data[num];
+        var chart = Highcharts.chart('container', chart_option.fft_chart(t));
+    }
+    
+    
+    function changeBand(t) {
+        
+        var chart = chart_tool.getChart();
+        console.log(chart);
+        
+        chart_tool.removeBand();
+        
+        if(t.value === '#') {
+            
+        } else {
+            var list = _bandOption[t.value](chart_tool.getChart().xAxis[0].dataMax);
+            addDisplayValue(list);
+            addBand(list, t.value);
+        }
+    
+    }
+    
+    function addBand(list, mode) {
+        var chart = chart_tool.getChart();
+        
+        // line 추가 
+        list.forEach((e) => chart.xAxis[0].addPlotLine(e));
+        
+        switch(mode) {
+            case 'side':
+                band.side(chart.xAxis[0]);
+                return;    
+            case 'harmonic':
+                band.harmonic(chart.xAxis[0]);
+                return;
+        }
+    };
+    
+    function addDisplayValue(list) {
+        var elements = '<tr>'
+                    + '<th>Axis</th>'
+                    + '<th>X</th>'
+                    + '<th>Y</th>'
+                    + '<th>Index</th>'
+                    + '<th>Slope</th>'
+                    + '</tr>';
+        
+        list.forEach((e) => {
+            elements += '<tr id=' + e.id + '>';
+            elements += '<td>' + e.id + '</td>';
+            elements += '<td id="x"></td>';
+            elements += '<td id="y"></td>';
+            elements += '<td id="i"></td>';
+            elements += '<td id="m"></td>';
+            elements += '</tr>';
+        });
+        
+        $('#table').html(elements);
+    }
+    
+
+
+
+</script>

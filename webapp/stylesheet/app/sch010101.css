@@ -1,0 +1,85 @@
+@CHARSET "UTF-8";
+
+#mainDiv {
+	margin-top: 15px;
+	margin-left: 65px;
+	hegiht: 700px;
+}
+
+#leftDiv {
+	width: 350px;
+	height: 700px;
+	float: left;
+	box-shadow: 5px 5px 5px gray;
+	overflow: auto;
+	background-color: #fff;
+}
+
+#rightDiv {
+	width: 800px;
+	height: 700px;
+	float: left;
+	margin-left: 50px;
+	box-shadow: 5px 5px 5px gray;
+}
+
+.k-treeview .k-item {
+	padding: 0 !important;
+}
+
+.tabContent_list .k-treeview {
+	height: calc(100vh - 350px);
+}
+
+.tabContent_list_header {
+	border-top: 1px solid #ebebeb;
+}
+
+.tabContent_list {
+	padding: 15px;
+}
+
+.tabContent_list .k-treeview>ul>.k-item div>.k-in>span {
+	overflow: hidden;
+	white-space: nowrap;
+	word-wrap: normal !important;
+	display: inline-block;
+	text-overflow: ellipsis;
+	width: calc(100% - 15px);
+	height: 15px;
+	line-height: 15px;
+}
+
+.org_TYPE_EMP {
+	color: #6282e6;
+	font-weight: 800;
+}
+
+.groupList > li{
+	background-color : #DDDDDD;
+}
+
+.groupitem {
+	width: 85%;
+	text-align: left;
+	font-size: 13px !important;
+	padding: 10px 10px 10px 32px;
+}
+
+.groupitem:hover {
+	background: #d5d5d5;
+}
+
+.deleteBtn{
+	background: #222c39;
+	color : #fff;
+	font-size : 13px !important;
+	padding : 5px;
+	border-radius : 15px;
+}
+
+.deleteBtn:hover{
+	cursor:pointer;
+	background:#FFF;
+	color:#222c39;
+}

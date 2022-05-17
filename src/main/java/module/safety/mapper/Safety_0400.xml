@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="safety.safety_0400">
+
+	<select id="getEmergResPlanList" parameterType="map" resultType="HashMap">
+		SELECT SUB.*
+		FROM (
+		SELECT 
+		HERP.ERP_ID,
+		HERP.PROJECT_ID,
+		HERP.DOC_NO,
+		HERP.INS_USER,
+		HERP.INS_DATE,
+		HERP.EMERGENCY_PHONE,
+		HERP.OTHER_CONTACTS,
+		HERP.EXPECTED_EMERGENCY,
+		HERP.PROCEDURE_ACTION,
+		HERP.EVACUATION_ROUTE,
+		HERP.WRITER,
+		hem.EMP_NAME as WRITER_NAME,
+		HERP.UPD_DATE,
+		HERP.UPD_USER, 
+		HPM.PROJECT_NAME,
+		ROW_NUMBER() OVER (ORDER BY HERP.INS_DATE DESC ) AS RN
+		FROM HSE_EMERGENCY_RESPONSE_PLAN HERP
+		INNER JOIN TSST_USER_INFO TUI ON TUI.USER_UID = HERP.INS_USER
+		LEFT JOIN HSE_PROJECT_MGT HPM ON HERP.PROJECT_ID = HPM.PROJECT_ID
+		LEFT JOIN HSE_EMP_MGT hem ON hem.EMP_NO = HERP.WRITER
+		<where>
+			<if test="all != null and all != '' ">
+				AND (
+						    LOWER(hem.EMP_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+						    LOWER(HERP.EVACUATION_ROUTE) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+						    LOWER(HERP.PROCEDURE_ACTION) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+						    LOWER(HERP.EXPECTED_EMERGENCY) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+						    LOWER(HERP.EMERGENCY_PHONE) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+						    LOWER(HERP.DOC_NO) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+						    LOWER(HPM.PROJECT_NAME) LIKE LOWER(CONCAT('%', #{all}, '%'))
+
+						)
+			</if>
+			<if test="SEARCH_PAYMENT_STATUS != null and SEARCH_PAYMENT_STATUS != '' ">
+				
+			</if>
+		</where>
+		) SUB
+		WHERE SUB.RN BETWEEN (#{PAGE}-1) * #{PAGE_SIZE}+1 and (#{PAGE} * #{PAGE_SIZE})
+		ORDER BY SUB.RN ASC
+	</select>
+
+	<select id="getEmergResPlanCnt" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+		FROM HSE_EMERGENCY_RESPONSE_PLAN HERP
+		INNER JOIN TSST_USER_INFO TUI ON TUI.USER_UID = HERP.INS_USER
+		LEFT JOIN HSE_PROJECT_MGT HPM ON HERP.PROJECT_ID = HPM.PROJECT_ID
+		LEFT JOIN HSE_EMP_MGT hem ON hem.EMP_NO = HERP.WRITER
+		<where>
+			<if test="all != null and all != '' ">
+				AND (
+						   LOWER(hem.EMP_NAME) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+						    LOWER(HERP.EVACUATION_ROUTE) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+						    LOWER(HERP.PROCEDURE_ACTION) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+						    LOWER(HERP.EXPECTED_EMERGENCY) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+						    LOWER(HERP.EMERGENCY_PHONE) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+						    LOWER(HERP.DOC_NO) LIKE LOWER(CONCAT('%', #{all}, '%')) OR
+						    LOWER(HPM.PROJECT_NAME) LIKE LOWER(CONCAT('%', #{all}, '%'))
+
+						)
+			</if>
+			<if test="SEARCH_PAYMENT_STATUS != null and SEARCH_PAYMENT_STATUS != '' ">
+				
+			</if>
+		</where>
+	</select>
+
+	<select id="getEmergencyById" parameterType="map" resultType="HashMap">
+		SELECT 
+		HERP.ERP_ID,
+		HERP.PROJECT_ID,
+		HERP.DOC_NO,
+		HERP.EMERGENCY_PHONE,
+		HERP.OTHER_CONTACTS,
+		HERP.EXPECTED_EMERGENCY,
+		HERP.PROCEDURE_ACTION,
+		HERP.EVACUATION_ROUTE,
+		HERP.SAFE_OFFICER_PHONE,
+		HERP.FIELD_REPRESENT_PHONE,
+		HERP.SITE_REPRESENT_PHONE,
+		HERP.WRITER,
+		hem.EMP_NAME as WRITER_NAME,
+		HERP.INS_DATE,
+		HERP.INS_USER, 
+		HPM.PROJECT_NAME
+		FROM HSE_EMERGENCY_RESPONSE_PLAN HERP
+		LEFT JOIN HSE_PROJECT_MGT HPM ON HERP.PROJECT_ID = HPM.PROJECT_ID
+		LEFT JOIN HSE_EMP_MGT hem ON hem.EMP_NO = HERP.WRITER
+		WHERE
+		HERP.ERP_ID = #{ERP_ID}
+	</select>
+
+	<insert id="insert" parameterType="map" useGeneratedKeys="true" keyProperty="ERP_ID">
+		INSERT INTO
+		HSE_EMERGENCY_RESPONSE_PLAN
+		(
+		PROJECT_ID,
+		DOC_NO,
+		EMERGENCY_PHONE,
+		OTHER_CONTACTS,
+		EXPECTED_EMERGENCY,
+		PROCEDURE_ACTION,
+		EVACUATION_ROUTE,
+		SAFE_OFFICER_PHONE,
+		FIELD_REPRESENT_PHONE,
+		SITE_REPRESENT_PHONE,
+		WRITER,
+		INS_USER,
+		INS_DATE
+		)
+		VALUES
+		(
+		#{PROJECT_ID},
+		#{DOC_NO},
+		#{EMERGENCY_PHONE},
+		#{OTHER_CONTACTS},
+		#{EXPECTED_EMERGENCY},
+		#{PROCEDURE_ACTION},
+		#{EVACUATION_ROUTE},
+		#{SAFE_OFFICER_PHONE},
+		#{FIELD_REPRESENT_PHONE},
+		#{SITE_REPRESENT_PHONE},
+		#{WRITER},
+		#{session.USER_UID},
+		CURRENT_TIMESTAMP()
+		)
+	</insert>
+
+	<update id="update" parameterType="map">
+		UPDATE
+		HSE_EMERGENCY_RESPONSE_PLAN HERP
+		SET
+		HERP.PROJECT_ID = #{PROJECT_ID}
+		, HERP.DOC_NO = #{DOC_NO}
+		, HERP.EMERGENCY_PHONE = #{EMERGENCY_PHONE}
+		, HERP.OTHER_CONTACTS = #{OTHER_CONTACTS}
+		, HERP.SAFE_OFFICER_PHONE = #{SAFE_OFFICER_PHONE}
+		, HERP.FIELD_REPRESENT_PHONE = #{FIELD_REPRESENT_PHONE}
+		, HERP.SITE_REPRESENT_PHONE = #{SITE_REPRESENT_PHONE}
+		, HERP.EXPECTED_EMERGENCY = #{EXPECTED_EMERGENCY}
+		, HERP.PROCEDURE_ACTION = #{PROCEDURE_ACTION}
+		, HERP.EVACUATION_ROUTE = #{EVACUATION_ROUTE}
+		, HERP.WRITER = #{WRITER}
+		, HERP.UPD_DATE = CURRENT_TIMESTAMP()
+		, HERP.UPD_USER = #{session.USER_UID}
+		WHERE HERP.ERP_ID = #{ERP_ID}
+	</update>
+
+	<delete id="delete" parameterType="map">
+		BEGIN NOT ATOMIC
+		DELETE FROM HSE_EMERGENCY_FILE
+		WHERE ERP_ID = #{ERP_ID};
+		
+		DELETE FROM
+		HSE_EMERGENCY_RESPONSE_PLAN
+		WHERE ERP_ID = #{ERP_ID};
+		
+	END;
+	</delete>
+	
+	<select id="getEmergencyFiles" parameterType="map" resultType="HashMap">
+		SELECT 
+		HEF.EMERGENCY_FILE_ID,
+		HEF.ERP_ID,
+		HEF.FILE_TYPE,
+		HEF.FILE_ID,
+		file.FLE_PATH,
+		DATE_FORMAT(CONVERT_TZ(file.INS_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as FILE_INS_DATE,
+		file.FLE_SZ,
+		file.FLE_NM
+        FROM HSE_EMERGENCY_FILE HEF
+        LEFT JOIN TCCO_FILE file ON file.ATCH_FLE_SEQ = HEF.FILE_ID
+        WHERE HEF.ERP_ID = #{ERP_ID};
+	</select>
+	<insert id="inserEmergencyFile" parameterType="map" useGeneratedKeys="true" keyProperty="EMERGENCY_FILE_ID">
+		INSERT INTO HSE_EMERGENCY_FILE
+		(
+		    ERP_ID,
+		    FILE_TYPE,
+		    FILE_ID,
+		    INS_DATE,
+		    INS_USER
+		)
+		VALUES
+		(
+		    #{ERP_ID},
+		    #{FILE_TYPE},
+		    #{FILE_ID},
+		    CURRENT_TIMESTAMP(),
+		    #{REGI_EMP_NO}
+		)
+	</insert>
+	
+	<delete id="deleteEmergencyFile" parameterType="map">
+		DELETE
+		FROM HSE_EMERGENCY_FILE
+		WHERE EMERGENCY_FILE_ID = #{EMERGENCY_FILE_ID}
+	</delete>
+		<delete id="deleteEmergencyFileWithId" parameterType="map">
+		DELETE
+		FROM HSE_DEVICE_TOOL_FILE
+		WHERE EMERGENCY_FILE_ID = #{EMERGENCY_FILE_ID}
+	</delete>
+
+</mapper>

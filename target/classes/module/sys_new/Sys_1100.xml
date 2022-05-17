@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sys_new.sys1100">
+	
+	<!-- 부품 코드 리스트 조회 -->
+	<select id="getComCodeList" parameterType="map" resultType="HashMap">
+		SELECT CD1.COMM_CD
+		     , CD1.COMM_NM
+		     , CD1.UP_COMM_CD
+		     , CD2.COMM_NM AS UP_COMM_NM
+		     , CD1.LEV
+		     , CD1.DESCRPT
+		     , CD1.INS_DT
+		     , CD1.UPD_DT
+		FROM COMM_CD CD1
+		LEFT JOIN COMM_CD CD2
+		    ON CD2.COMM_CD = CD1.UP_COMM_CD
+		<choose>
+		    <when test='ORDER_BY == "B"'>
+				ORDER BY CD1.INS_DT DESC
+		    </when>
+		    <otherwise>
+				ORDER BY  CD1.COMM_NM ASC
+		    </otherwise>
+	    </choose>
+    </select>
+    
+    
+    <select id="getComCodeListByComm_Cd" parameterType="map" resultType="HashMap">
+		SELECT CD1.COMM_CD
+		     , CD1.COMM_NM
+		     , CD1.DESCRPT
+		     , CD1.USE_YN
+		     ,ROW_NUMBER() OVER (ORDER BY CD1.INS_DT DESC ) AS RN
+		FROM COMM_CD CD1
+		LEFT JOIN COMM_CD CD2
+		    ON CD2.COMM_CD = CD1.UP_COMM_CD
+		WHERE CD2.COMM_CD = #{COMM_CD}
+		ORDER BY CD1.INS_DT ASC
+		
+    </select>
+    
+    <select id="getComCodeByComm_Cd" parameterType="map" resultType="HashMap">
+		SELECT
+		CD.*
+		FROM COMM_CD CD
+			<where>
+			    	CD.COMM_CD IN 
+					<foreach item="item" index="index" collection="lstComcd"
+		            	open="(" separator="," close=")">
+			        	#{item}
+			    	</foreach>
+			    </where>
+	</select>
+    
+    <!-- 부품 코드 추가 -->
+	<insert id="insertComCode" parameterType="map">
+		BEGIN NOT ATOMIC
+		DECLARE result VARCHAR(50);
+		CALL proc_gen_id('USER_SEQ', @result);
+		
+		<selectKey keyProperty="USER_UID" resultType="String" order="AFTER">
+		    SELECT @result;
+		</selectKey>
+		INSERT INTO COMM_CD
+		(
+		    COMM_CD,
+		    <if test="UP_COMM_CD != null and UP_COMM_CD !=''">
+		    	UP_COMM_CD,
+		    </if>
+		    COMM_NM,
+		    LEV,
+		    DESCRPT,
+            USE_YN,
+		    INS_DT
+		)
+		VALUES
+		(
+		   #{COMM_CD},
+		    <if test="UP_COMM_CD != null and UP_COMM_CD !=''">
+		    	#{UP_COMM_CD},
+		    </if>
+		    #{COMM_NM},
+		    #{LEV},
+		    #{DESCRPT},
+            1,
+		    CURRENT_TIMESTAMP()
+		);
+		END;
+	</insert>
+	
+	<!-- 부품 코드 수정 -->
+	<update id="updateComCode" parameterType="map">
+		UPDATE COMM_CD
+		SET COMM_NM = #{COMM_NM}
+		  , DESCRPT = #{DESCRPT}
+		  , UPD_DT = CURRENT_TIMESTAMP()
+		  , UPD_USER = #{session.USER_UID}
+		WHERE COMM_CD = #{COMM_CD}
+	</update>
+	
+	<!-- 부품 코드 삭제 -->
+	<delete id="deleteComCode" parameterType="map">
+		DELETE
+		FROM COMM_CD
+		WHERE COMM_CD = #{COMM_CD}
+	</delete>
+	
+	<!-- 부품 코드 중복 체크 -->
+	<select id="checkDuplicateComCode" parameterType="map" resultType="HashMap">
+    	SELECT COUNT(*) AS CNT
+		FROM COMM_CD
+		<where> 
+		<if test="UP_COMM_CD != null and UP_COMM_CD != '' "> 
+			AND UP_COMM_CD = #{UP_COMM_CD}
+		</if>
+		<if test="UP_COMM_CD == null or UP_COMM_CD == '' ">
+			AND UP_COMM_CD IS NULL
+		</if>
+		<if test="COMM_CD != null or COMM_CD != '' ">
+			AND COMM_CD = #{COMM_CD}
+		</if>
+		</where>
+	</select>
+	
+</mapper>

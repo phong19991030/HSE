@@ -1,0 +1,142 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        * {
+        	font-family: NanumBarunGothic;
+        	font-size: 13px;
+        }
+        
+        table {
+        	border: 1px solid #000;
+        	border-collapse: collapse;
+        }
+        
+        table tr td {
+        	border: 1px solid #000;
+        	padding: 10px;
+        }
+        
+        .bg-gray {
+        	background: #dbdbdb;
+        }
+        
+        #toc-01{
+        	margin-top: 30px
+        }
+        
+    </style>
+</head>
+
+<body>
+	<div style="display: block; width: 100%; height: 100px;"></div>
+    <div style="text-align: center; font-weight: bold;"><h1>#{report_name}</h1></div>
+    <div style="display: block; width: 100%; height: 100px;"></div>
+    
+    <div>
+    	 <div><h3>Table of contents</h3></div>
+    	 <div style="display: block; width: 100%; height: 20px;"></div>
+    	 <div id="toc-01">1. Safety.........................................................................................................................................#{TOC_1}</div>
+    	 <div style="display: block; width: 100%; height: 10px;"></div>
+    	 <div id="toc-01">2. Purpose......................................................................................................................................#{TOC_2}</div>
+    	 <div style="display: block; width: 100%; height: 10px;"></div>
+    	 <div id="toc-01">3. Alarm..........................................................................................................................................#{TOC_3}</div>
+    	 <div style="display: block; width: 100%; height: 10px;"></div>
+    	 <div id="toc-01">4. Tool list......................................................................................................................................#{TOC_4}</div>
+    	 <div style="display: block; width: 100%; height: 10px;"></div>
+    	 <div id="toc-01">5. Parts..........................................................................................................................................#{TOC_5}</div>
+    	 <div style="display: block; width: 100%; height: 10px;"></div>
+    	 <div id="toc-01">6. Personal Protection Equipment................................................................................................#{TOC_6}</div>
+    	 <div style="display: block; width: 100%; height: 10px;"></div>
+    	 <div id="toc-01">7. Procedure.................................................................................................................................#{TOC_7}</div>
+    	 <div style="display: block; width: 100%; height: 10px;"></div>
+    	 <div id="toc-01">8. Conclusion.................................................................................................................................#{TOC_8}</div>
+    	 <div style="display: block; width: 100%; height: 10px;"></div>
+    	 <!-- 
+    	 <div id="toc-01">8. Issue.........................................................................................................................................#{TOC_8}</div>
+    	 <div style="display: block; width: 100%; height: 10px;"></div>
+    	 <div id="toc-01">8. Remark.....................................................................................................................................#{TOC_8}</div>
+    	 <div style="display: block; width: 100%; height: 10px;"></div>
+    	 <div id="toc-01">8. Conclusion..............................................................................................................................#{TOC_8}</div>
+    	 -->
+    </div>
+    <div style="page-break-before:always">&nbsp;</div>
+    
+    
+    <div style="display: block; width: 100%; height: 10px;"></div>
+    <div style="font-weight: bold;">1. Safety</div>
+    <div>#{safety_rpt_proceduce}</div>
+    #{safety_rpt_image}
+
+	<div style="display: block; width: 100%; height: 50px;"></div>
+	<div style="font-weight: bold;">2. Purpose</div>
+	<div>#{purpose_rpt_proceduce}</div>
+	#{purpose_rpt_image}
+
+	<div style="display: block; width: 100%; height: 50px;"></div>
+	<div style="font-weight: bold;">3. Alarm</div>
+	<div>
+		<table class="table-blade-desc" style="width: 97%;">
+			<tbody>
+				<tr>
+					<td class="bg-gray" style="width: 30%;">Alarm code</td>
+					<td>#{alarm_code}</td>
+				</tr>
+				<tr>
+					<td class="bg-gray">Alarm text</td>
+					<td>#{alarm_text}</td>
+				</tr>
+				<tr>
+					<td class="bg-gray">Description</td>
+					<td>#{alarm_description}</td>
+				</tr>
+				<tr>
+					<td class="bg-gray">Suggestion</td>
+					<td>#{alarm_suggestion}</td>
+				</tr>
+				<tr>
+					<td class="bg-gray">Description of Action</td>
+					<td>#{alarm_action}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div style="display: block; width: 100%; height: 50px;"></div>
+	<div style="font-weight: bold;">4. Tool list</div>
+	<div>#{tool_list_tb}</div>
+
+	<div style="display: block; width: 100%; height: 50px;"></div>
+	<div style="font-weight: bold;">5. Parts</div>
+	<div>#{part_list_tb}</div>
+
+	<div style="display: block; width: 100%; height: 50px;"></div>
+	<div style="font-weight: bold;">6. Personal Protection Equipment</div>
+	<div>#{ppe_list_tb}</div>
+
+	<div style="display: block; width: 100%; height: 50px;"></div>
+	<div style="font-weight: bold;">7. Procedure</div>
+	<div>#{work_rpt_diff}</div>
+	<div>#{work_rpt_name}</div>
+	<div>#{work_rpt_detail}</div>
+	<hr />
+	#{work_rpt_image}
+	
+	<div>#{work_rpt_name_added}</div>
+
+	<div style="display: block; width: 100%; height: 50px;"></div>
+	<div style="font-weight: bold;">8. Conclusion</div>
+	<div>#{conclution_rpt}</div>
+
+	<!-- 
+    <div style="display: block; width: 100%; height: 50px;"></div>
+  	<div style="font-weight: bold;"> 8. Issue</div>
+    <div>#{issue_rpt_proceduce}</div> 
+
+	<div style="display: block; width: 100%; height: 50px;"></div>
+	<div style="font-weight: bold;">8. Remark</div>
+	<div>#{remark_rpt_proceduce}</div>
+	-->
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+body {
+    font-family: 'Gotham','Noto Sans KR', 'Nanum Square', 'Apple SD Gothic Neo','맑은 고딕','Malgun Gothic','돋움',Dotum,'굴림',Gulim,AppleGothic,Sans-serif;
+    
+}
+.header {
+    display: block; 
+    width: 100%;
+}
+
+.menu {
+    display: block; 
+    width: 100%;
+    margin: 0px 0px 20px 0px;
+    height: 15%;
+}
+
+.menu > .area {
+    display: block; 
+    float: left;
+    width: 25%;
+    height: 100%;
+}
+
+/*
+.area.a {
+    background-color: red;
+}
+
+.area.b {
+    background-color: aqua;
+    
+}
+
+.area.c {
+    background-color: gold;
+}
+
+.area.d {
+    background-color: pink;
+}
+*/
+
+.area > .title {
+    font-size: 20px;
+    margin-bottom: 7px;
+}
+
+.area > .title > i {
+    margin-right: 7px;
+    
+}
+
+.row {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select {
+    width: 50%;
+}
+
+#container {
+    height: 500px;
+}

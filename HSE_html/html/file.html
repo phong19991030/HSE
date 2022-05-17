@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!-- common lib js -->
+<script type="text/javascript" src="../js/lib/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+
+    //Click Logo To Scroll To Top
+    $('header h2').on('click', () => {
+      $('html,body').animate({
+        scrollTop: 0
+      }, 500);
+    });
+
+    //Smooth Scrolling Using Navigation Menu
+    $('nav a[href*="#"]').on('click', function (e) {
+      $('html,body').animate({
+        scrollTop: $($(this).attr('href')).offset().top - 110
+      }, 500);
+      e.preventDefault();
+    });
+  });
+</script>
+
+<head>
+  <meta charset="UTF-8">
+  <title>WORK STATUS | HSE 운영지원시스템</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1,width=device-width" />
+  <meta name="copyright" content="Copyright 2022 © AtwoM. ALL Rights Reserved HSE" />
+  <link rel="icon" type="image/png" sizes="32x32" href="#" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    *:focus {
+      outline: none;
+    }
+
+    body {
+      font-size: 16px;
+      line-height: 1.8;
+      word-break: keep-all;
+      background: #f5f6f9;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    table a[target="_blank"] {
+      color: #0395a2;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      height: 88px;
+      line-height: 88px;
+      z-index: 100;
+      padding: 0 30px;
+      background-color: #00373e;
+      color: #fff;
+    }
+
+    header h2 {
+      font-weight: 400;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    nav {
+      padding-right: 60px;
+    }
+
+    nav a {
+      display: block;
+      text-align: center;
+      margin: 0 20px;
+      float: left;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      padding: 70px 0 0;
+    }
+
+    .project {
+      width: 96%;
+      margin: 58px auto 0;
+      background: #fff;
+      color: #020103;
+      border-radius: 15px;
+      padding: 20px 25px;
+      box-sizing: border-box;
+      border-bottom: 1px solid #f4f4f4;
+      box-shadow: 2px 5px 40px 0 rgba(0, 0, 0, 8%);
+    }
+
+    .project ul li::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 3px;
+      background: #00373e;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    .table {
+      padding: 30px 30px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+      overflow: hidden;
+      width: 100%;
+      border-spacing: 0;
+    }
+
+    table tbody {
+      box-shadow: 2px 5px 40px 0 rgba(0, 0, 0, 5%);
+    }
+
+    table tbody::after {
+      content: "";
+      width: 100%;
+      display: block;
+      margin-bottom: 30px;
+
+    }
+
+    table th {
+      padding: 20px 15px;
+      color: #979ba5;
+      background: transparent;
+      text-align: left;
+      position: sticky;
+      top: 0;
+    }
+
+    table tr {
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+
+    table td {
+      padding: 13px 15px;
+      background: #fff;
+      border-bottom: 1px solid #f4f4f4;
+      border-left: 1px solid #f4f4f4;
+      vertical-align: middle;
+    }
+
+    .top {
+      vertical-align: top !important;
+    }
+
+    .tit {
+      vertical-align: top;
+      font-weight: 500;
+    }
+
+    .bold {
+      font-weight: 700;
+    }
+
+    .txt-center {
+      text-align: center;
+    }
+
+    .txt-left {
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h2>[작업현황] HSE 운영지원시스템</h2>
+    <nav>
+      <a href="#common"><span>공통</span></a>
+      <a href="#approval"><span>결재</span></a>
+      <a href="#table1"><span>일반관리</span></a>
+      <a href="#table2"><span>보건관리</span></a>
+      <a href="#table3"><span>안전관리</span></a>
+      <a href="#table4"><span>작업관리</span></a>
+      <a href="#table5"><span>환경관리</span></a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="project">
+      <ul>
+        <li>참여인력 : 채성기 책임연구원, 박근태 주임연구원, 김은아 주임연구원, 이소망 연구원</li>
+        <li>개발언어 : </li>
+        <li>마크업 언어 : HTML5</li>
+        <li>제이쿼리버전 : 3.6.0</li>
+        <li>웹표준/웹접근성(작업 예정)/크로스브라우징(작업 예정)</li>
+        <li>최초 작성 : 이소망 연구원 (2022-01-11)</li>
+      </ul>
+    </div>
+
+    <div class="table">
+      <table>
+        <colgroup>
+          <col style="width: 10%;">
+          <col style="width: 10%;">
+          <col style="width: 30%;">
+          <col style="width: 25%;">
+          <col style="width: 15%;">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Main Category</th>
+            <th>Sub Category</th>
+            <th>Page</th>
+            <th>Link</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody id="common">
+          <tr>
+            <td rowspan="4" class="tit bold">공통</td>
+            <td rowspan="2">header</td>
+            <td>header (main dashboard)</td>
+            <td>
+              <a target="_blank" href="../html/header-main.html">header-main.html</a>
+            </td>
+            <td rowspan="2">(Difference - header hover effect)</td>
+          </tr>
+          <tr>
+            <td>header (sub)</td>
+            <td>
+              <a target="_blank" href="../html/header-sub.html">header-sub.html</a>
+            </td>
+          </tr>
+          <tr>
+            <td>검색폼</td>
+            <td>fixed-search-form</td>
+            <td>
+              <a target="_blank" href="../html/fixed-search-form.html">fixed-search-form.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>guide</td>
+            <td>Design Components</td>
+            <td>
+              <a target="_blank" href="../html/design-components.html">design-components.html</a>
+            </td>
+            <td>Update every week</td>
+          </tr>
+          <tr>
+            <td class="tit bold" rowspan="2">Dashboard</td>
+            <td rowspan="2"></td>
+            <td>0-1-1. 대시보드_사고_리스트</td>
+            <td rowspan="2">
+              <a target="_blank" href="../html/dashboard/dashboard.html">dashboard.html</a>
+            </td>
+            <td rowspan="2">completion</td>
+          </tr>
+          <tr>
+            <td>0-1-2. 대시보드_사고_그래프</td>
+          </tr>
+          <tr>
+            <td class="tit bold">login</td>
+            <td></td>
+            <td>00-3. 로그인</td>
+            <td>
+              <a target="_blank" href="../html/login.html">login.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+        </tbody>
+
+        <!-- 결재 -->
+        <tbody class="common" id="approval">
+          <!-- 결재 승인자 -->
+          <tr>
+            <td rowspan="8" class="tit bold">0. 결재</td>
+            <td rowspan="2" class="top">결재 승인자</td>
+            <td>0-1-1. 결재 상세화면</td>
+            <td><a target="_blank" href="../html/z_common/approval/sub0-1-1.html">sub0-1-1.html</a></td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>0-1-2. 결재승인 후 상세화면</td>
+            <td><a target="_blank" href="../html/z_common/approval/sub0-1-2.html">sub0-1-2.html</a></td>
+            <td>completion</td>
+          </tr>
+          <!-- 결재 작성자 -->
+          <tr>
+            <td rowspan="6" class="top">결재 작성자</td>
+            <td>0-2-1. 등록</td>
+            <td><a target="_blank" href="../html/z_common/approval_writer/sub0-2-1.html">sub0-2-1.html</a></td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>0-2-2. 결재라인 등록 팝업</td>
+            <td><a target="_blank" href="../html/z_common/approval_writer/sub0-2-2.html">sub0-2-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>0-2-2-1. 결재라인 등록 팝업_직원 선택</td>
+            <td><a target="_blank" href="../html/z_common/approval_writer/sub0-2-2-1.html">sub0-2-2-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>0-2-3. 결재라인 등록 완료 및 내용 입력</td>
+            <td><a target="_blank" href="../html/z_common/approval_writer/sub0-2-3.html">sub0-2-3.html</a>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>0-2-4. 결재상신 후 상세 화면</td>
+            <td><a target="_blank" href="../html/z_common/approval_writer/sub0-2-4.html">sub0-2-4.html</a>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>0-2-5. 결재완료 상세화면</td>
+            <td><a target="_blank" href="../html/z_common/approval_writer/sub0-2-5.html">sub0-2-5.html</a>
+            <td>completion</td>
+          </tr>
+        </tbody>
+        <!-- =================================================== -->
+        <tbody>
+          <tr>
+            <td class="tit bold"></td>
+            <td>completion</td>
+            <td>0-3-1. 내 결재 이력</td>
+            <td>
+              <a target="_blank" href="../html/z_common/approval_history/sub0-3-1.html">sub0-3-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+        </tbody>
+        <!-- =================================================== -->
+        <!-- 1. 일반관리 (후)-->
+        <tbody class="table1" id="table1">
+          <tr>
+            <td rowspan="24" class="tit bold">1. 일반관리(수정본)</td>
+            <td rowspan="24"></td>
+            <td>1-1. 일반관리_보고서작성 이력관리</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-1.html">sub1-1.html</a>
+            </td>
+            <td>- 0126 modify</td>
+          </tr>
+          <tr>
+            <td>1-2-1. 일반관리_유저 정보 목록</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-2-1.html">sub1-2-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-2-2. 일반관리 _유저 정보 등록</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-2-2.html">sub1-2-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-2-3. 일반관리 _유저 정보 수정</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-2-3.html">sub1-2-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-2-4. 일반관리 _유저 정보 상세</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-2-4.html">sub1-2-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-3-1. 일반관리_사업장 정보 목록</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-3-1.html">sub1-3-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-3-2. 일반관리 _사업장 정보 등록</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-3-2.html">sub1-3-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-3-2-1. 일반관리 _사업장 정보 등록_팝업</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-3-2-1.html">sub1-3-2-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-3-3. 일반관리_사업장 정보 수정</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-3-3.html">sub1-3-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-3-4. 일반관리 _사업장 정보 상세</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-3-4.html">sub1-3-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-4-1. 일반관리_터빈 정보 목록</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-4-1.html">sub1-4-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-4-2. 일반관리 _터빈 정보 등록</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-4-2.html">sub1-4-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-4-3. 일반관리_터빈 정보 수정</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-4-3.html">sub1-4-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-4-4. 일반관리 _터빈 정보 상세</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-4-4.html">sub1-4-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-5-1. 일반관리_보건안전환경 경영방침_산업안전보건법,품질경영인증 목록</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-5-1.html">sub1-5-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-5-1-1. 일반관리_보건안전환경 경영방침_산업안전보건법,품질경영인증 수정</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-5-1-1.html">sub1-5-1-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-5-2. 일반관리_보건안전환경 경영방침_안전관리체계</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-5-2.html">sub1-5-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-5-3. 일반관리_보건안전환경 경영방침_안전교육계획</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-5-3.html">sub1-5-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-6-1. 일반관리_보건안전환경 법규관리_국내법규</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-6-1.html">sub1-6-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-6-1-1. 일반관리_보건안전환경 법규관리_국내 법규 수정</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-6-1-1.html">sub1-6-1-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-6-2. 일반관리_보건안전환경 법규관리_국내인증</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-6-2.html">sub1-6-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-6-2-1. 일반관리_보건안전환경 법규관리_국내인증 수정</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-6-2-1.html">sub1-6-2-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-6-3. 일반관리_보건안전환경 법규관리_국내 가이드라인</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-6-3.html">sub1-6-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>1-6-3-1. 일반관리_보건안전환경 법규관리_국내 가이드라인 수정</td>
+            <td>
+              <a target="_blank" href="../html/a_general/sub1-6-3-1.html">sub1-6-3-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+        </tbody>
+        <!-- =================================================== -->
+
+        <!-- 2. 보건관리 -->
+        <tbody id="table2">
+          <tr>
+            <td rowspan="12" class="tit bold">2. 보건관리</td>
+            <td rowspan="12"></td>
+            <td>2-1. 보건관리 목록</td>
+            <td>
+              <a target="_blank" href="../html/b_health/sub2-1.html">sub2-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>2-1-1. 직원 정보 관리 목록</td>
+            <td>
+              <a target="_blank" href="../html/b_health/sub2-1-1.html">sub2-1-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>2-1-2. 직원 정보 관리 등록</td>
+            <td>
+              <a target="_blank" href="../html/b_health/sub2-1-2.html">sub2-1-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>2-1-3. 직원 정보 관리 수정</td>
+            <td>
+              <a target="_blank" href="../html/b_health/sub2-1-3.html">sub2-1-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>2-1-4. 직원 정보 관리 상세</td>
+            <td>
+              <a target="_blank" href="../html/b_health/sub2-1-4.html">sub2-1-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>2-2. 보건관리 등록</td>
+            <td>
+              <a target="_blank" href="../html/b_health/sub2-2.html">sub2-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>2-2-1. 직원 건강 관리 목록</td>
+            <td>
+              <a target="_blank" href="../html/b_health/sub2-2-1.html">sub2-2-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>2-2-2. 직원 건강 관리 등록</td>
+            <td>
+              <a target="_blank" href="../html/b_health/sub2-2-2.html">sub2-2-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>2-2-3. 직원 건강 관리 수정</td>
+            <td>
+              <a target="_blank" href="../html/b_health/sub2-2-3.html">sub2-2-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>2-2-4. 직원 건강 관리 상세</td>
+            <td>
+              <a target="_blank" href="../html/b_health/sub2-2-4.html">sub2-2-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>2-3. 보건관리 수정</td>
+            <td>
+              <a target="_blank" href="../html/b_health/sub2-3.html">sub2-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>2-4. 보건관리 상세</td>
+            <td>
+              <a target="_blank" href="../html/b_health/sub2-4.html">sub2-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+        </tbody>
+
+        <!-- =================================================== -->
+        <!--3. 안전관리 -->
+        <tbody id="table3">
+          <tr>
+            <td rowspan="36" class="tit bold">3. 안전관리</td>
+            <td rowspan="36"></td>
+            <td>3-1-1. 작업 공구 및 장비 목록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-1-1.html">sub3-1-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-1-2. 작업 공구 및 장비 등록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-1-2.html">sub3-1-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-1-3. 작업 공구 및 장비 수정</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-1-3.html">sub3-1-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-1-4. 작업 공구 및 장비 상세</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-1-4.html">sub3-1-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-2-1. 반출 반납 목록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-2-1.html">sub3-2-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-2-2. 반출 반납 등록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-2-2.html">sub3-2-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-2-3. 반출 반납 수정</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-2-3.html">sub3-2-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-2-4. 반출 반납 상세</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-2-4.html">sub3-2-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-3-1. 개인 보호 장비 목록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-3-1.html">sub3-3-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-3-2. 개인 보호 장비 등록_팝업</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-3-2.html">sub3-3-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-3-3. 개인 보호 장비 수정_팝업</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-3-3.html">sub3-3-3.html</a>
+            </td>
+            <td>- 0126 modify</td>
+          </tr>
+          <tr>
+            <td>3-4-1. 작업 전 안전교육 목록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-4-1.html">sub3-4-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-4-2. 작업 전 안전교육 등록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-4-2.html">sub3-4-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-4-3. 작업 전 안전교육 수정</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-4-3.html">sub3-4-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-4-4. 작업 전 안전교육 상세</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-4-4.html">sub3-4-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-5-1. 사고 조사 관리 목록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-5-1.html">sub3-5-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-5-2. 사고 조사 관리 등록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-5-2.html">sub3-5-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-5-3. 사고 조사 관리 수정</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-5-3.html">sub3-5-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-5-4. 사고 조사 관리 상세</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-5-4.html">sub3-5-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-6-1. 비상 대응 계획 관리 목록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-6-1.html">sub3-6-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-6-2. 비상 대응 계획 관리 등록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-6-2.html">sub3-6-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-6-3. 비상 대응 계획 관리 수정</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-6-3.html">sub3-6-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-6-4. 비상 대응 계획 관리 상세</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-6-4.html">sub3-6-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-7-1. 법정의무교육 목록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-7-1.html">sub3-7-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-7-2. 법정의무교육 등록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-7-2.html">sub3-7-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-7-3. 법정의무교육 수정</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-7-3.html">sub3-7-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-7-4. 법정의무교육 상세</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-7-4.html">sub3-7-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-8-1. 안전관리 조직도 목록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-8-1.html">sub3-8-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-8-2. 안전관리 조직도 등록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-8-2.html">sub3-8-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-8-3. 안전관리 조직도 수정</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-8-3.html">sub3-8-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-8-4. 안전관리 조직도 상세</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-8-4.html">sub3-8-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-9-1. 안전점검 및 순찰 관리 목록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-9-1.html">sub3-9-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-9-2. 안전점검 및 순찰 관리 등록</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-9-2.html">sub3-9-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-9-2-1.안전점검 및 순찰 관리 등록_팝업</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-9-2-1.html">sub3-9-2-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-9-3. 안전점검 및 순찰 관리 수정</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-9-3.html">sub3-9-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>3-9-4. 안전점검 및 순찰 관리 상세</td>
+            <td>
+              <a target="_blank" href="../html/c_safety/sub3-9-4.html">sub3-9-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+        </tbody>
+        <!-- =================================================== -->
+        <!--4. 작업관리 -->
+        <tbody id="table4">
+          <tr>
+            <td class="tit bold" rowspan="9">4. 작업관리</td>
+            <td rowspan="9"></td>
+            <td>4-1-1. 위험성 평가 관리 목록</td>
+            <td>
+              <a target="_blank" href="../html/d_work/sub4-1-1.html">sub4-1-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>4-1-2. 위험성 평가 관리 등록_팝업</td>
+            <td>
+              <a target="_blank" href="../html/d_work/sub4-1-2.html">sub4-1-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>4-1-3. 위험성 평가 관리 수정_팝업</td>
+            <td>
+              <a target="_blank" href="../html/d_work/sub4-1-3.html">sub4-1-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>4-1-4. 위험성 평가 관리 상세</td>
+            <td>
+              <a target="_blank" href="../html/d_work/sub4-1-4.html">sub4-1-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>4-2-1. 위험성 평가 DB 관리 목록</td>
+            <td>
+              <a target="_blank" href="../html/d_work/sub4-2-1.html">sub4-2-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>4-3-1. 작업 허가 관리 목록</td>
+            <td>
+              <a target="_blank" href="../html/d_work/sub4-3-1.html">sub4-3-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>4-3-2. 작업 허가 관리 등록_팝업</td>
+            <td>
+              <a target="_blank" href="../html/d_work/sub4-3-2.html">sub4-3-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>4-3-3. 작업 허가 관리 수정_팝업</td>
+            <td>
+              <a target="_blank" href="../html/d_work/sub4-3-3.html">sub4-3-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>4-3-4. 작업 허가 관리 상세</td>
+            <td>
+              <a target="_blank" href="../html/d_work/sub4-3-4.html">sub4-3-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+        </tbody>
+        <!-- =================================================== -->
+        <!--5. 환경관리 -->
+        <tbody id="table5">
+          <tr>
+            <td class="tit bold" rowspan="12">5. 환경관리</td>
+            <td rowspan="12"></td>
+            <td>5-1-1. 소방 화재 관리 목록</td>
+            <td>
+              <a target="_blank" href="../html/e_environ/sub5-1-1.html">sub5-1-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>5-1-2. 소방 화재 관리 등록</td>
+            <td>
+              <a target="_blank" href="../html/e_environ/sub5-1-2.html">sub5-1-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>5-1-3. 소방 화재 관리 수정</td>
+            <td>
+              <a target="_blank" href="../html/e_environ/sub5-1-3.html">sub5-1-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>5-1-4. 소방 화재 관리 상세</td>
+            <td>
+              <a target="_blank" href="../html/e_environ/sub5-1-4.html">sub5-1-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>5-2-1. 폐기물 관리 목록</td>
+            <td>
+              <a target="_blank" href="../html/e_environ/sub5-2-1.html">sub5-2-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>5-2-2. 폐기물 관리 등록</td>
+            <td>
+              <a target="_blank" href="../html/e_environ/sub5-2-2.html">sub5-2-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>5-2-3. 폐기물 관리 수정</td>
+            <td>
+              <a target="_blank" href="../html/e_environ/sub5-2-3.html">sub5-2-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>5-2-4. 폐기물 관리 상세</td>
+            <td>
+              <a target="_blank" href="../html/e_environ/sub5-2-4.html">sub5-2-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>5-3-1. 유해위험물질 관리 목록</td>
+            <td>
+              <a target="_blank" href="../html/e_environ/sub5-3-1.html">sub5-3-1.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>5-3-2. 유해위험물질 관리 등록</td>
+            <td>
+              <a target="_blank" href="../html/e_environ/sub5-3-2.html">sub5-3-2.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>5-3-3. 유해위험물질 관리 수정</td>
+            <td>
+              <a target="_blank" href="../html/e_environ/sub5-3-3.html">sub5-3-3.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+          <tr>
+            <td>5-3-4. 유해위험물질 관리 상세</td>
+            <td>
+              <a target="_blank" href="../html/e_environ/sub5-3-4.html">sub5-3-4.html</a>
+            </td>
+            <td>completion</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+
+</html>

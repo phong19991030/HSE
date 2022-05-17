@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE taglib
+            PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" 
+            "http://java.sun.com/j2ee/dtds/web-jsptaglib_1_1.dtd">
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>jq</shortname>
+	<uri>tlds/jquery-object.tld</uri>
+	<info>a2m jquery component taglib!</info>
+	<!-- jquery script -->
+	<tag>
+		<name>script</name>
+		<tagclass>kr.or.innopolis.mis.module.common.taglib.tag.FsJqueryScriptTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>make jquery script tag</info>	
+	</tag>
+	<!-- jqGrid -->
+	<tag>
+		<name>grid</name>
+		<tagclass>kr.or.innopolis.mis.module.common.taglib.tag.FsJqGridTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>make jqgrid</info>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<!-- default=253 -->
+			<name>resizeOffset</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<!-- ================================== jqGrid Option ================================================= -->
+		<attribute><name>ajaxGridOptions</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>ajaxSelectOptions</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>altclass</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>altRows</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>autoencode</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>autowidth</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>caption</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>cellLayout</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>cellEdit</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>cellsubmit</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- 'remote'|'clientArray' -->
+		<attribute><name>cellurl</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>cmTemplate</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>colModel</name><required>true</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>colNames</name><required>true</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>data</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>datastr</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>datatype</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>deepempty</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>deselectAfterSort</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>direction</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>editurl</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>emptyrecords</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>expandColClick</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>expandColumn</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>footerrow</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>forceFit</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>gridstate</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- 'visible'|'hidden' -->
+		<attribute><name>gridview</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>grouping</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>groupingView</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>headertitles</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>height</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>hiddengrid</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>hidegrid</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>hoverrows</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>idPrefix</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>ignoreCase</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>inlineData</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>jsonReader</name><required>true</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>lastpage</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>lastsort</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>loadonce</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>loadtext</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>loadui</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- 'disable'|'enabled'|'block' -->
+		<attribute><name>mtype</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- 'POST'|'GET' -->
+		<attribute><name>multikey</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- 'shiftKey'|'altKey'|'ctrlKey' -->
+		<attribute><name>multiboxonly</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>multiselect</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>multiselectWidth</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>page</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>pager</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>pagerpos</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>pgbuttons</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>pginput</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>pgtext</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>prmNames</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>postData</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>reccount</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>recordpos</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>records</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>recordtext</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>resizeclass</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>rowList</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>rownumbers</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>rowNum</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>rowTotal</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>rownumWidth</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>savedRow</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>scroll</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>scrollOffset</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>scrollTimeout</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>scrollrows</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>selarrrow</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>selrow</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>shrinkToFit</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>sortable</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>sortname</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>sortorder</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>subGrid</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>subGridOptions</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>subGridModel</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>subGridType</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>subGridUrl</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>subGridWidth</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>toolbar</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>toppager</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>totaltime</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>treedatatype</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>treeGrid</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>treeGridModel</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- 'adjacency'|'nested' -->
+		<attribute><name>treeIcons</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>treeReader</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>tree_root_level</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>url</name><required>true</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>userData</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>userDataOnFooter</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>viewrecords</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>viewsortcols</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>width</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<attribute><name>xmlReader</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>
+		<!-- ================================== jqGrid Events ================================================= -->
+		<!-- 
+			<Execution Order>
+			1.	beforeRequest
+			2.	loadBeforeSend
+			3.	serializeGridData
+			4.	loadError (if a error from the request occur - the event from steps 5 till 7 do not execute. If there is no error the event 4. does not execute and we continue to with the step 5.)
+			5.	beforeProcessing
+			6.	gridComplete
+			7.	loadComplete
+		 -->
+		 <attribute><name>event_afterInsertRow</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- rowid, rowdata, rowelem -->
+		<attribute><name>event_beforeProcessing</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- data,status,xhr(XMLHttpRequest) -->
+		<attribute><name>event_beforeRequest</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- none -->
+		<attribute><name>event_beforeSelectRow</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- rowid, e -->
+		<attribute><name>event_gridComplete</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- none -->
+		<attribute><name>event_loadBeforeSend</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- xhr, settings -->
+		<attribute><name>event_loadComplete</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- data -->
+		<!-- 태그에서 기본 구현  <attribute><name>event_loadError</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute>--><!-- xhr,status,error -->
+		<attribute><name>event_onCellSelect</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- rowid,iCol,cellcontent,e -->
+		<attribute><name>event_ondblClickRow</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- rowid,iRow,iCol,e -->
+		<attribute><name>event_onHeaderClick</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- gridstate -->
+		<attribute><name>event_onPaging</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- pgButton -->
+		<attribute><name>event_onRightClickRow</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- rowid,iRow,iCol,e -->
+		<attribute><name>event_onSelectAll</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- aRowids,status -->
+		<attribute><name>event_onSelectRow</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- rowid,status,e -->
+		<attribute><name>event_onSortCol</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- index,iCol,sortorder -->
+		<attribute><name>event_resizeStart</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- event,index -->
+		<attribute><name>event_resizeStop</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- newwidth,index -->
+		<attribute><name>event_serializeGridData</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- postData -->
+		<attribute><name>event_subGridRowExpanded</name><required>false</required><rtexprvalue>true</rtexprvalue></attribute><!-- subgrid_id, row_id -->
+	</tag>
+</taglib>

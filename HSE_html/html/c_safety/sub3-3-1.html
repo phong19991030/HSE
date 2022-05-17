@@ -1,0 +1,2511 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!-- common lib js -->
+<script type="text/javascript" src="../../js/lib/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../../js/lib/date-search-setting.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery-timepicker.js"></script>
+<!-- common js -->
+<script type="text/javascript" src="../../js/common/layout.js"></script>
+<script type="text/javascript" src="../../js/common/common.js"></script>
+<script type="text/javascript" src="../../js/common/layerPopup.js"></script>
+<!-- sub js -->
+<script type="text/javascript" src="../../js/common/sub.js"></script>
+
+<head>
+  <meta charset="UTF-8">
+  <title>HSE 운영지원시스템</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1,width=device-width" />
+  <meta name="copyright" content="Copyright 2022 © AtwoM. ALL Rights Reserved HSE 운영지원시스템" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../../img/common/favicon-32x32.png" />
+  <!-- common css -->
+  <link rel="stylesheet" type="text/css" href="../../css/common/common.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/ui.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/reset.css" />
+  <!-- common lib css -->
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui.theme.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui-timepicker.css" />
+  <!-- sub css -->
+  <link rel="stylesheet" type="text/css" href="../../css/common/sub.css" />
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- Accessibility -->
+    <a href="#nav" class="skip-to sr-only">메뉴 바로가기</a>
+    <a href="#content" class="skip-to sr-only">본문 바로가기</a>
+
+    <header>
+      <div class="header-wrap">
+        <a href="#" class="logo">
+          <span class="sr-only">상단로고</span>
+        </a>
+        <nav id="nav">
+          <ul class="gnb">
+            <li class="depth1 active">
+              <a href="javascript:void(0);"><i class="las la-archive"></i><span>일반관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>보고서작성 이력관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>유저 정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>사업장정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>터빈 정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>보건안전환경 경영방침</span></a></li>
+                  <li><a href="javascript:void(0);"><span>보건안전환경 법규관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-briefcase-medical"></i><span>보건관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>직원 정보 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>직원 건강 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-hard-hat"></i><span>안전관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>작업 공구 및 장비 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>개인 보호 장비</span></a></li>
+                  <li><a href="javascript:void(0);"><span>작업 전 안전 교육</span></a></li>
+                  <li><a href="javascript:void(0);"><span>사고 조사 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>비상 대응 계획 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>법정의무교육 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>안전관리 조직도</span></a></li>
+                  <li><a href="javascript:void(0);"><span>안전점검 및 순찰 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-wrench"></i><span>작업관리</span>
+              </a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>작업 허가 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>위험성평가 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>위험성평가 DB 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="depth1">
+              <a href="javascript:void(0);"><i class="las la-globe-americas"></i><span>환경관리</span></a>
+              <div class="depth-wrap">
+                <!-- depth2 -->
+                <ul class="depth2">
+                  <li><a href="javascript:void(0);"><span>소방 화재 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>폐기물 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>유해물질 운영 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>해상환경 관리</span></a></li>
+                  <li><a href="javascript:void(0);"><span>기타환경 관리</span></a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- header-user-area -->
+        <div class="header-user-area">
+          <span class="user-info">
+            <strong class="name">홍길동</strong>
+            <span class="position">과장</span>
+          </span>
+
+          <button class="logout-btn">LOGOUT</button>
+          <ul class="header-side">
+            <!-- D : alarm-toggle click -> "open" class is added to parents li. -->
+            <li>
+              <button class="alarm-toggle">
+                <i class="las la-bell"></i>
+                <span class="new-num">1</span>
+              </button>
+              <!-- alarm-panel -->
+              <div class="alarm-panel">
+                <a href="javascript:void(0);" class="go-btn">
+                  <i class="las la-paste"></i>
+                  <span>내 결재 이력 보기</span>
+                </a>
+                <!-- my-approval -->
+                <section class="my-approval">
+                  <div class="tit-area">
+                    <span class="tit">내 결재</span>
+                    <div class="approval-state">
+                      <span class="state proceed">
+                        <em class="txt">진행</em>
+                        <strong class="num">3</strong>
+                      </span>
+                      <span class="state return">
+                        <em class="txt">반려</em>
+                        <strong class="num">1</strong>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                  <div class="approval-history-wrap">
+                    <ul>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 완료</strong>
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.21</em>
+                            <em class="time">16:42</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="proceed">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 진행</strong>
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.21</em>
+                            <em class="time">13:03</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="return">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 반려</strong>
+                            <span class="history-lst">
+                              <em>안전관리</em>
+                              <em>작업공구 및 장비관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.20</em>
+                            <em class="time">17:54</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="proceed">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 진행</strong>
+                            <span class="history-lst">
+                              <em>안전관리</em>
+                              <em>작업공구 및 장비관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.20</em>
+                            <em class="time">15:36</em>
+                          </span>
+                        </a>
+                      </li>
+                      <!-- D : approval state color
+                        결재 진행 : li + proceed 
+                        결재 반려 : li + return
+                        -->
+                      <li class="proceed">
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <strong>결재 진행</strong>
+                            <span class="history-lst">
+                              <em>작업관리</em>
+                              <em>작업 허가관리</em>
+                            </span>
+                          </div>
+                          <span class="date-time">
+                            <em class="date">2021.11.19</em>
+                            <em class="time">11:04</em>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                    <!-- no-txt (There is no notification.)-->
+                    <div class="no-txt">
+                      <p>알림 내용이 없습니다.</p>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                </section>
+
+                <!-- ========================= -->
+                <!-- wait-approval -->
+                <section class="wait-approval">
+                  <div class="tit-area">
+                    <span class="tit">결재 대기</span>
+                    <div class="approval-state">
+                      <span class="state wait">
+                        <em class="txt">대기</em>
+                        <strong class="num">10</strong>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                  <div class="approval-history-wrap">
+                    <ul>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">16:42</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">이길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">13:03</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">나길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>작업관리</em>
+                              <em>작업공구 및 장비 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.20</em>
+                              <em class="time">17:54</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">채길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.20</em>
+                              <em class="time">14:06</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">나길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>작업관리</em>
+                              <em>작업공구 및 장비 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.19</em>
+                              <em class="time">09:23</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">박길동</em>
+                              <em class="position">주임</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">16:42</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">이길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);">
+                          <div class="approval-info">
+                            <span class="history-lst">
+                              <em>보건관리</em>
+                              <em>직원 건강 관리</em>
+                            </span>
+                          </div>
+                          <div class="flexWrap both">
+                            <span class="date-time">
+                              <em class="date">2021.11.21</em>
+                              <em class="time">16:42</em>
+                            </span>
+                            <span class="staff-info">
+                              <em class="name">이길동</em>
+                              <em class="position">대리</em>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                    <!-- no-txt (There is no notification.)-->
+                    <div class="no-txt">
+                      <p>알림 내용이 없습니다.</p>
+                    </div>
+                  </div>
+                  <!-- ------------------------------------------ -->
+                </section>
+              </div>
+              <!-- //alarm-panel -->
+            </li>
+          </ul>
+        </div>
+        <!-- //header-user-area -->
+      </div>
+      <div class="lnb-bg"></div>
+    </header>
+
+    <main id="content" class="safety-page">
+      <div class="container">
+        <section class="hdSection">
+          <!-- tit-wrap -->
+          <div class="tit-wrap">
+            <div class="tit-left">
+              <h1 class="heading1">개인 보호 장비 목록</h1>
+            </div>
+          </div>
+          <!-- //tit-wrap -->
+        </section>
+        <section class="contSection unborder">
+          <div class="content">
+
+            <!-- 검사 필요 목록 -->
+            <article class="view-form">
+              <h2 class="heading4">검사 필요 목록</h2>
+              <div class="base-table custom-table2 center-table">
+                <table>
+                  <colgroup>
+                    <col style="width: 11.1%;">
+                    <col style="width: 11.1%;">
+                    <col style="width: 11.1%;">
+                    <col style="width: 11.1%;">
+                    <col style="width: 11.1%;">
+                    <col style="width: 11.1%;">
+                    <col style="width: 11.1%;">
+                    <col style="width: 11.1%;">
+                    <col style="width: 11.1%;">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col">NO</th>
+                      <th scope="col">성명</th>
+                      <th scope="col">직급</th>
+                      <th scope="col">품목</th>
+                      <th scope="col">브랜드</th>
+                      <th scope="col">모델명</th>
+                      <th scope="col">지급일자</th>
+                      <th scope="col">검사 및 교체 일자</th>
+                      <th scope="col">상태</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row" rowspan="2">1</th>
+                      <td rowspan="2">홍길동</td>
+                      <td rowspan="2">과장</td>
+                      <td>하네스</td>
+                      <td>SkyLotec</td>
+                      <td>S-HE8</td>
+                      <td>2021.01.01</td>
+                      <td>
+                        <!-- D : When you need a test mark, 
+                          1. add class "test"
+                          2. add html markup <span class="badge-custom">검사</span> -->
+                        <span class="test">
+                          <em>2021.01.01</em>
+                        </span>
+                        <span class="badge-custom">검사</span>
+                      </td>
+                      <td>
+                        <!-- D : dot-badge-custom
+                          1. Great : dot-badge-custom1
+                          2. Good : dot-badge-custom2
+                          2. Bad : dot-badge-custom3
+                        -->
+                        <span class="dot-badge-custom3">bad</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>랜야드</td>
+                      <td>SkyLotec</td>
+                      <td>S-HE9001</td>
+                      <td>2020.02.10</td>
+                      <td>
+                        <!-- D : When you need a test mark, 
+                          1. add class "test"
+                          2. add html markup <span class="badge-custom">검사</span> -->
+                        <span class="test">
+                          <em>2021.02.10</em>
+                        </span>
+                        <span class="badge-custom">검사</span>
+                      </td>
+                      <td>
+                        <!-- D : dot-badge-custom
+                          1. Great : dot-badge-custom1
+                          2. Good : dot-badge-custom2
+                          2. Bad : dot-badge-custom3
+                        -->
+                        <span class="dot-badge-custom1">Great</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>박길동</td>
+                      <td>주임</td>
+                      <td>러너</td>
+                      <td>SkyLotec</td>
+                      <td>S-HE9001</td>
+                      <td>2020.08.10</td>
+                      <td>
+                        <!-- D : When you need a test mark, 
+                          1. add class "test"
+                          2. add html markup <span class="badge-custom">검사</span> -->
+                        <span class="test">
+                          <em>2021.08.10</em>
+                        </span>
+                        <span class="badge-custom">검사</span>
+                      </td>
+                      <td>
+                        <!-- D : dot-badge-custom
+                          1. Great : dot-badge-custom1
+                          2. Good : dot-badge-custom2
+                          2. Bad : dot-badge-custom3
+                        -->
+                        <span class="dot-badge-custom3">bad</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+            <!-- ================================= -->
+
+            <hr class="hr-line2">
+
+            <!-- fixed-search-form -->
+            <div class="fixed-search-form">
+              <div class="flex-wrap">
+                <!-- item -->
+                <div class="item">
+                  <span class="item-tit">품목</span>
+                  <div class="select-group">
+                    <select title="품목">
+                      <option value="1">전체</option>
+                      <option value="1">전체</option>
+                      <option value="1">전체</option>
+                    </select>
+                  </div>
+                </div>
+                <!-- item -->
+                <div class="item">
+                  <span class="item-tit">브랜드</span>
+                  <div class="select-group">
+                    <select title="브랜드">
+                      <option value="1">전체</option>
+                      <option value="1">전체</option>
+                      <option value="1">전체</option>
+                    </select>
+                  </div>
+                </div>
+                <!-- item -->
+                <div class="item">
+                  <span class="item-tit">상태</span>
+                  <div class="select-group">
+                    <select title="상태">
+                      <option value="1">전체</option>
+                      <option value="1">전체</option>
+                      <option value="1">전체</option>
+                    </select>
+                  </div>
+                </div>
+                <!-- item -->
+                <div class="item">
+                  <span class="item-tit">지급 일자</span>
+                  <div class="calendar-picker">
+                    <div class="input-group">
+                      <label class="sr-only">날짜설정</label>
+                      <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker hasDatepicker"
+                        readonly="" id="dp1642580053798">
+                      <button class="calendar-picker-btn"></button>
+                    </div>
+                  </div>
+                </div>
+                <!-- item -->
+                <div class="item">
+                  <span class="item-tit">교체 일자</span>
+                  <div class="calendar-picker">
+                    <div class="input-group">
+                      <label class="sr-only">날짜설정</label>
+                      <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker hasDatepicker"
+                        readonly="" id="dp1642580053798">
+                      <button class="calendar-picker-btn"></button>
+                    </div>
+                  </div>
+                </div>
+                <!-- item -->
+                <div class="item search">
+                  <span class="item-tit">통합검색</span>
+                  <div class="register-write">
+                    <div class="input-group">
+                      <input type="text" title="통합검색" placeholder="검색어를 입력해주세요" value="길동">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="btn-wrap">
+                <button class="refresh-btn"><span class="sr-only">새로고침</span></button>
+                <button class="search-btn">검색</button>
+              </div>
+
+            </div>
+            <!-- //fixed-search-form -->
+            <!-- ================================= -->
+
+            <div class="flexWrap both-end">
+              <p class="heading3">
+                <strong class="primary-color">'길동'</strong>에 대한 검색 결과는 총&nbsp;<strong
+                  class="primary-color">66</strong>&nbsp;건 입니다.
+              </p>
+              <button class="btn3" modal-id="layer-popup1">
+                <i class="las la-edit"></i><span class="name">등록</span>
+              </button>
+            </div>
+
+            <!-- equipment list -->
+            <div class="equipment-list">
+              <ul>
+                <li>
+                  <div class="tit-area">
+                    <h2 class="heading4">
+                      <span class="name">홍길동</span>
+                      <span class="position">과장</span>
+                    </h2>
+                    <button class="btn2" modal-id="layer-popup2">
+                      <i class="las la-eraser"></i><span class="name">수정</span>
+                    </button>
+                  </div>
+                  <article class="view-form">
+                    <div class="base-table custom-table2 center-table">
+                      <table>
+                        <colgroup>
+                          <col style="width: 16%;">
+                          <col style="width: 15%;">
+                          <col style="width: 15%;">
+                          <col style="width: 15%;">
+                          <col style="width: 20%;">
+                          <col style="width: 15%;">
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th scope="col" class="txt-left">품목</th>
+                            <th scope="col">브랜드</th>
+                            <th scope="col">모델명</th>
+                            <th scope="col">지급일자</th>
+                            <th scope="col">교체일자</th>
+                            <th scope="col">상태</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row" class="txt-left">안전모</th>
+                            <td>Petzl</td>
+                            <td>Petzl-Helmet</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보안경</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">청력보호구</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보호장갑</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">안전화</th>
+                            <td>DeWait</td>
+                            <td>EK-35123</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">하네스</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE8</td>
+                            <td>2021.08.10</td>
+                            <td>
+                              <!-- D : When "text" class is added,
+                                1. The color changed.
+                                2. <span class="badge-custom">갱신</span> Markup needs to be added. -->
+                              <span class="test">
+                                <em>2021.01.01</em>
+                              </span>
+                              <span class="badge-custom">검사</span>
+                            </td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">랜야드</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE9001</td>
+                            <td>2021.08.10</td>
+                            <td>
+                              <!-- D : When "text" class is added,
+                                1. The color changed.
+                                2. <span class="badge-custom">갱신</span> Markup needs to be added. -->
+                              <span class="test">
+                                <em>2021.02.01</em>
+                              </span>
+                              <span class="badge-custom">검사</span>
+                            </td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">러너</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE456</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">러너2</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보호복</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">구명조끼</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">탐색구조 단말기</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </article>
+                </li>
+                <li>
+                  <div class="tit-area">
+                    <h2 class="heading4">
+                      <span class="name">이길동</span>
+                      <span class="position">주임</span>
+                    </h2>
+                    <button class="btn2" modal-id="layer-popup2">
+                      <i class="las la-eraser"></i><span class="name">수정</span>
+                    </button>
+                  </div>
+                  <article class="view-form">
+                    <div class="base-table custom-table2 center-table">
+                      <table>
+                        <colgroup>
+                          <col style="width: 16%;">
+                          <col style="width: 15%;">
+                          <col style="width: 15%;">
+                          <col style="width: 15%;">
+                          <col style="width: 20%;">
+                          <col style="width: 15%;">
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th scope="col" class="txt-left">품목</th>
+                            <th scope="col">브랜드</th>
+                            <th scope="col">모델명</th>
+                            <th scope="col">지급일자</th>
+                            <th scope="col">교체일자</th>
+                            <th scope="col">상태</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row" class="txt-left">안전모</th>
+                            <td>Petzl</td>
+                            <td>Petzl-Helmet</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보안경</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">청력보호구</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보호장갑</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">안전화</th>
+                            <td>DeWait</td>
+                            <td>EK-35123</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">하네스</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE8</td>
+                            <td>2021.08.10</td>
+                            <td>
+                              <!-- D : When "text" class is added,
+                                1. The color changed.
+                                2. <span class="badge-custom">갱신</span> Markup needs to be added. -->
+                              <span class="test">
+                                <em>2021.01.01</em>
+                              </span>
+                              <span class="badge-custom">검사</span>
+                            </td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">랜야드</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE9001</td>
+                            <td>2021.08.10</td>
+                            <td>
+                              <!-- D : When "text" class is added,
+                                1. The color changed.
+                                2. <span class="badge-custom">갱신</span> Markup needs to be added. -->
+                              <span class="test">
+                                <em>2021.08.10</em>
+                              </span>
+                              <span class="badge-custom">검사</span>
+                            </td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">러너</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE456</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">러너2</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보호복</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">구명조끼</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </article>
+                </li>
+                <li>
+                  <div class="tit-area">
+                    <h2 class="heading4">
+                      <span class="name">김길동</span>
+                      <span class="position">팀장</span>
+                    </h2>
+                    <button class="btn2" modal-id="layer-popup2">
+                      <i class="las la-eraser"></i><span class="name">수정</span>
+                    </button>
+                  </div>
+                  <article class="view-form">
+                    <div class="base-table custom-table2 center-table">
+                      <table>
+                        <colgroup>
+                          <col style="width: 16%;">
+                          <col style="width: 15%;">
+                          <col style="width: 15%;">
+                          <col style="width: 15%;">
+                          <col style="width: 20%;">
+                          <col style="width: 15%;">
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th scope="col" class="txt-left">품목</th>
+                            <th scope="col">브랜드</th>
+                            <th scope="col">모델명</th>
+                            <th scope="col">지급일자</th>
+                            <th scope="col">교체일자</th>
+                            <th scope="col">상태</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row" class="txt-left">안전모</th>
+                            <td>Petzl</td>
+                            <td>Petzl-Helmet</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보안경</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">청력보호구</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보호장갑</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">안전화</th>
+                            <td>DeWait</td>
+                            <td>EK-35123</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">하네스</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE8</td>
+                            <td>2021.08.10</td>
+                            <td>
+                              <!-- D : When "text" class is added,
+                                1. The color changed.
+                                2. <span class="badge-custom">갱신</span> Markup needs to be added. -->
+                              <span class="test">
+                                <em>2021.01.01</em>
+                              </span>
+                              <span class="badge-custom">검사</span>
+                            </td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">랜야드</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE9001</td>
+                            <td>2021.08.10</td>
+                            <td>
+                              <!-- D : When "text" class is added,
+                                1. The color changed.
+                                2. <span class="badge-custom">갱신</span> Markup needs to be added. -->
+                              <span class="test">
+                                <em>2021.01.01</em>
+                              </span>
+                              <span class="badge-custom">검사</span>
+                            </td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">러너</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE456</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">러너2</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보호복</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">구명조끼</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">탐색구조 단말기</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </article>
+                </li>
+                <li>
+                  <div class="tit-area">
+                    <h2 class="heading4">
+                      <span class="name">홍길동</span>
+                      <span class="position">과장</span>
+                    </h2>
+                    <button class="btn2" modal-id="layer-popup2">
+                      <i class="las la-eraser"></i><span class="name">수정</span>
+                    </button>
+                  </div>
+                  <article class="view-form">
+                    <div class="base-table custom-table2 center-table">
+                      <table>
+                        <colgroup>
+                          <col style="width: 16%;">
+                          <col style="width: 15%;">
+                          <col style="width: 15%;">
+                          <col style="width: 15%;">
+                          <col style="width: 20%;">
+                          <col style="width: 15%;">
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th scope="col" class="txt-left">품목</th>
+                            <th scope="col">브랜드</th>
+                            <th scope="col">모델명</th>
+                            <th scope="col">지급일자</th>
+                            <th scope="col">교체일자</th>
+                            <th scope="col">상태</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row" class="txt-left">안전모</th>
+                            <td>Petzl</td>
+                            <td>Petzl-Helmet</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보안경</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">청력보호구</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보호장갑</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">안전화</th>
+                            <td>DeWait</td>
+                            <td>EK-35123</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">하네스</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE8</td>
+                            <td>2021.08.10</td>
+                            <td>
+                              <!-- D : When "text" class is added,
+                                1. The color changed.
+                                2. <span class="badge-custom">갱신</span> Markup needs to be added. -->
+                              <span class="test">
+                                <em>2021.01.01</em>
+                              </span>
+                              <span class="badge-custom">검사</span>
+                            </td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">랜야드</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE9001</td>
+                            <td>2021.08.10</td>
+                            <td>
+                              <!-- D : When "text" class is added,
+                                1. The color changed.
+                                2. <span class="badge-custom">갱신</span> Markup needs to be added. -->
+                              <span class="test">
+                                <em>2021.01.01</em>
+                              </span>
+                              <span class="badge-custom">검사</span>
+                            </td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">러너</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE456</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">러너2</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보호복</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">구명조끼</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">탐색구조 단말기</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </article>
+                </li>
+                <li>
+                  <div class="tit-area">
+                    <h2 class="heading4">
+                      <span class="name">황길동</span>
+                      <span class="position">주임</span>
+                    </h2>
+                    <button class="btn2" modal-id="layer-popup2">
+                      <i class="las la-eraser"></i><span class="name">수정</span>
+                    </button>
+                  </div>
+                  <article class="view-form">
+                    <div class="base-table custom-table2 center-table">
+                      <table>
+                        <colgroup>
+                          <col style="width: 16%;">
+                          <col style="width: 15%;">
+                          <col style="width: 15%;">
+                          <col style="width: 15%;">
+                          <col style="width: 20%;">
+                          <col style="width: 15%;">
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th scope="col" class="txt-left">품목</th>
+                            <th scope="col">브랜드</th>
+                            <th scope="col">모델명</th>
+                            <th scope="col">지급일자</th>
+                            <th scope="col">교체일자</th>
+                            <th scope="col">상태</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row" class="txt-left">안전모</th>
+                            <td>Petzl</td>
+                            <td>Petzl-Helmet</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보안경</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">청력보호구</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보호장갑</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">안전화</th>
+                            <td>DeWait</td>
+                            <td>EK-35123</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">하네스</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE8</td>
+                            <td>2021.08.10</td>
+                            <td>
+                              <!-- D : When "text" class is added,
+                                1. The color changed.
+                                2. <span class="badge-custom">갱신</span> Markup needs to be added. -->
+                              <span class="test">
+                                <em>2021.01.01</em>
+                              </span>
+                              <span class="badge-custom">검사</span>
+                            </td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">랜야드</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE9001</td>
+                            <td>2021.08.10</td>
+                            <td>
+                              <!-- D : When "text" class is added,
+                                1. The color changed.
+                                2. <span class="badge-custom">갱신</span> Markup needs to be added. -->
+                              <span class="test">
+                                <em>2021.01.01</em>
+                              </span>
+                              <span class="badge-custom">검사</span>
+                            </td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">러너</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE456</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">러너2</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보호복</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">구명조끼</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">탐색구조 단말기</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </article>
+                </li>
+                <li>
+                  <div class="tit-area">
+                    <h2 class="heading4">
+                      <span class="name">김길동</span>
+                      <span class="position">팀장</span>
+                    </h2>
+                    <button class="btn2" modal-id="layer-popup2">
+                      <i class="las la-eraser"></i><span class="name">수정</span>
+                    </button>
+                  </div>
+                  <article class="view-form">
+                    <div class="base-table custom-table2 center-table">
+                      <table>
+                        <colgroup>
+                          <col style="width: 16%;">
+                          <col style="width: 15%;">
+                          <col style="width: 15%;">
+                          <col style="width: 15%;">
+                          <col style="width: 20%;">
+                          <col style="width: 15%;">
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th scope="col" class="txt-left">품목</th>
+                            <th scope="col">브랜드</th>
+                            <th scope="col">모델명</th>
+                            <th scope="col">지급일자</th>
+                            <th scope="col">교체일자</th>
+                            <th scope="col">상태</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row" class="txt-left">안전모</th>
+                            <td>Petzl</td>
+                            <td>Petzl-Helmet</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보안경</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">청력보호구</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보호장갑</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">안전화</th>
+                            <td>DeWait</td>
+                            <td>EK-35123</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">하네스</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE8</td>
+                            <td>2021.08.10</td>
+                            <td>
+                              <!-- D : When "text" class is added,
+                                1. The color changed.
+                                2. <span class="badge-custom">갱신</span> Markup needs to be added. -->
+                              <span class="test">
+                                <em>2021.01.01</em>
+                              </span>
+                              <span class="badge-custom">검사</span>
+                            </td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">랜야드</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE9001</td>
+                            <td>2021.08.10</td>
+                            <td>
+                              <!-- D : When "text" class is added,
+                                1. The color changed.
+                                2. <span class="badge-custom">갱신</span> Markup needs to be added. -->
+                              <span class="test">
+                                <em>2021.01.01</em>
+                              </span>
+                              <span class="badge-custom">검사</span>
+                            </td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">러너</th>
+                            <td>SkyLotec</td>
+                            <td>S-HE456</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">러너2</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom3">Bad</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">보호복</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">구명조끼</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom1">Great</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="txt-left">탐색구조 단말기</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>2021.08.10</td>
+                            <td>파손시 까지</td>
+                            <td>
+                              <!-- D : dot-badge-custom
+                                1. Great : dot-badge-custom1
+                                2. Good : dot-badge-custom2
+                                2. Bad : dot-badge-custom3
+                                -->
+                              <span class="dot-badge-custom2">Good</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </article>
+                </li>
+              </ul>
+            </div>
+            <!-- //equipment list -->
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+</body>
+
+<!-- ================================ -->
+<!-- layer-popup1-->
+<!-- 개인 보호 장비 등록 (registration form) -->
+<div class="layer-popup" id="layer-popup1">
+  <div class="popup-cont" style="min-width: 904px;">
+
+    <h2 class="heading4">개인 보호 장비 등록</h2>
+    <ul class="popup-cont-inner">
+      <li>
+        <h3 class="heading5">개인 정보</h3>
+        <div class="register-write">
+          <div class="input-group">
+            <input type="text" title="이름" placeholder="이름">
+          </div>
+        </div>
+        <div class="register-write">
+          <div class="input-group">
+            <input type="text" title="직급" placeholder="직급">
+          </div>
+        </div>
+      </li>
+      <li>
+        <h3 class="heading5">개인 보호 장비 정보</h3>
+        <article class="view-form">
+          <div class="base-table" style="max-height: 55vh;">
+            <table>
+              <caption></caption>
+              <colgroup>
+                <col style="width: 8%;">
+                <col style="width: 12%;">
+                <col style="width: auto;">
+                <col style="width: 12%;">
+                <col style="width: auto;">
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th scope="row" rowspan="3" class="border-right txt-center">1</th>
+                  <th scope="row">품목</th>
+                  <td colspan="3">
+                    <div class="select-group">
+                      <select title="품목">
+                        <option>품목명</option>
+                        <option>품목명</option>
+                        <option>품목명</option>
+                      </select>
+                    </div>
+                    <div class="register-write">
+                      <div class="input-group">
+                        <input type="text" title="브랜드" placeholder="브랜드">
+                      </div>
+                    </div>
+                    <div class="register-write">
+                      <div class="input-group">
+                        <input type="text" title="모델명" placeholder="모델명">
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">지급일자</th>
+                  <td>
+                    <div class="calendar-picker">
+                      <div class="input-group">
+                        <label class="sr-only">날짜설정</label>
+                        <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly>
+                        <button class="calendar-picker-btn"></button>
+                      </div>
+                    </div>
+                  </td>
+                  <th scope="row">교체일자</th>
+                  <td>
+                    <div class="calendar-picker">
+                      <div class="input-group">
+                        <label class="sr-only">날짜설정</label>
+                        <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly>
+                        <button class="calendar-picker-btn"></button>
+                      </div>
+                    </div>
+                    <span class="mgl10 checkbox-radio-group">
+                      <label for="radio" class="radio">
+                        <input type="radio" name="radio" id="radio">
+                        <span class="circle"></span>
+                        <em>파손 시 까지</em>
+                      </label>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">상태</th>
+                  <td colspan="3">
+                    <div class="select-group">
+                      <select title="상태">
+                        <option>상태</option>
+                        <option>상태</option>
+                        <option>상태</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+                <!-- -------------------------------------------- -->
+                <tr>
+                  <th scope="row" rowspan="3" class="border-right txt-center">2</th>
+                  <th scope="row">품목</th>
+                  <td colspan="3">
+                    <div class="select-group">
+                      <select title="품목">
+                        <option>품목명</option>
+                        <option>품목명</option>
+                        <option>품목명</option>
+                      </select>
+                    </div>
+                    <div class="register-write">
+                      <div class="input-group">
+                        <input type="text" title="브랜드" placeholder="브랜드">
+                      </div>
+                    </div>
+                    <div class="register-write">
+                      <div class="input-group">
+                        <input type="text" title="모델명" placeholder="모델명">
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">지급일자</th>
+                  <td>
+                    <div class="calendar-picker">
+                      <div class="input-group">
+                        <label class="sr-only">날짜설정</label>
+                        <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly>
+                        <button class="calendar-picker-btn"></button>
+                      </div>
+                    </div>
+                  </td>
+                  <th scope="row">교체일자</th>
+                  <td>
+                    <div class="calendar-picker">
+                      <div class="input-group">
+                        <label class="sr-only">날짜설정</label>
+                        <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly>
+                        <button class="calendar-picker-btn"></button>
+                      </div>
+                    </div>
+                    <span class="mgl10 checkbox-radio-group">
+                      <label for="radio" class="radio">
+                        <input type="radio" name="radio" id="radio">
+                        <span class="circle"></span>
+                        <em>파손 시 까지</em>
+                      </label>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">상태</th>
+                  <td colspan="3">
+                    <div class="select-group">
+                      <select title="상태">
+                        <option>상태</option>
+                        <option>상태</option>
+                        <option>상태</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+                <!-- -------------------------------------------- -->
+                <!-- add-btn -->
+                <tr>
+                  <td colspan="5" class="txt-center">
+                    <button class="row-add-btn">
+                      <i class="las la-plus"></i>
+                    </button>
+                  </td>
+                </tr>
+                <!-- //add-btn -->
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </li>
+    </ul>
+
+    <div class="foot-btn-area">
+      <button class="btn-style3">
+        <i class="las la-reply"></i><span class="name">취소</span>
+      </button>
+      <button class="btn-style1">
+        <i class="las la-edit"></i><span class="name">등록</span></button>
+    </div>
+
+    <button type="button" class="popup-close-btn">
+      <i class="xi-close"></i>
+    </button>
+  </div>
+</div>
+<!-- //layer-popup1 -->
+
+<!-- layer-popup2-->
+<!-- 개인 보호 장비 수정 (modify form)-->
+<div class="layer-popup" id="layer-popup2">
+  <div class="popup-cont" style="min-width: 970px;">
+
+    <h2 class="heading4">개인 보호 장비 수정</h2>
+    <ul class="popup-cont-inner">
+      <li>
+        <h3 class="heading5">개인 정보</h3>
+        <div class="register-write">
+          <div class="input-group">
+            <input type="text" title="이름" placeholder="이름" value="홍길동">
+          </div>
+        </div>
+        <div class="register-write">
+          <div class="input-group">
+            <input type="text" title="직급" placeholder="직급" value="과장">
+          </div>
+        </div>
+      </li>
+      <li>
+        <h3 class="heading5">개인 보호 장비 정보</h3>
+        <article class="view-form">
+          <div class="base-table" style="max-height: 55vh;">
+            <table>
+              <caption></caption>
+              <colgroup>
+                <col style="width: 8%;">
+                <col style="width: 12%;">
+                <col style="width: auto;">
+                <col style="width: 12%;">
+                <col style="width: auto;">
+                <col style="width: 3%;">
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th scope="row" rowspan="3" class="border-right txt-center">1</th>
+                  <th scope="row">품목</th>
+                  <td colspan="3">
+                    <div class="select-group">
+                      <select title="품목">
+                        <option>품목명</option>
+                        <option selected>안전모</option>
+                      </select>
+                    </div>
+                    <div class="register-write">
+                      <div class="input-group">
+                        <input type="text" title="브랜드" placeholder="브랜드" value="Petzl">
+                      </div>
+                    </div>
+                    <div class="register-write">
+                      <div class="input-group">
+                        <input type="text" title="모델명" placeholder="모델명" value="Petzl-Helmet">
+                      </div>
+                    </div>
+                  </td>
+                  <td colspan="3" rowspan="3" class="border-left">
+                    <button class="table-remove-btn">
+                      <i class="las la-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">지급일자</th>
+                  <td>
+                    <div class="calendar-picker">
+                      <div class="input-group">
+                        <label class="sr-only">날짜설정</label>
+                        <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly
+                          value="2021.08.10">
+                        <button class="calendar-picker-btn"></button>
+                      </div>
+                    </div>
+                  </td>
+                  <th scope="row">교체일자</th>
+                  <td>
+                    <div class="calendar-picker">
+                      <div class="input-group">
+                        <label class="sr-only">날짜설정</label>
+                        <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly>
+                        <button class="calendar-picker-btn"></button>
+                      </div>
+                    </div>
+                    <span class="mgl10 checkbox-radio-group">
+                      <label for="radio" class="radio">
+                        <input type="radio" name="radio" id="radio" checked>
+                        <span class="circle"></span>
+                        <em>파손 시 까지</em>
+                      </label>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">상태</th>
+                  <td colspan="3">
+                    <div class="select-group">
+                      <select title="상태">
+                        <option>상태</option>
+                        <option selected>Good</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+                <!-- -------------------------------------------- -->
+                <tr>
+                  <th scope="row" rowspan="3" class="border-right txt-center">2</th>
+                  <th scope="row">품목</th>
+                  <td colspan="3">
+                    <div class="select-group">
+                      <select title="품목">
+                        <option>품목명</option>
+                        <option selected>안전모</option>
+                      </select>
+                    </div>
+                    <div class="register-write">
+                      <div class="input-group">
+                        <input type="text" title="브랜드" placeholder="브랜드" value="Petzl">
+                      </div>
+                    </div>
+                    <div class="register-write">
+                      <div class="input-group">
+                        <input type="text" title="모델명" placeholder="모델명" value="Petzl-Helmet">
+                      </div>
+                    </div>
+                  </td>
+                  <td colspan="3" rowspan="3" class="border-left">
+                    <button class="table-remove-btn">
+                      <i class="las la-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">지급일자</th>
+                  <td>
+                    <div class="calendar-picker">
+                      <div class="input-group">
+                        <label class="sr-only">날짜설정</label>
+                        <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly
+                          value="2021.08.10">
+                        <button class="calendar-picker-btn"></button>
+                      </div>
+                    </div>
+                  </td>
+                  <th scope="row">교체일자</th>
+                  <td>
+                    <div class="calendar-picker">
+                      <div class="input-group">
+                        <label class="sr-only">날짜설정</label>
+                        <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly>
+                        <button class="calendar-picker-btn"></button>
+                      </div>
+                    </div>
+                    <span class="mgl10 checkbox-radio-group">
+                      <label for="radio" class="radio">
+                        <input type="radio" name="radio" id="radio" checked>
+                        <span class="circle"></span>
+                        <em>파손 시 까지</em>
+                      </label>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">상태</th>
+                  <td colspan="3">
+                    <div class="select-group">
+                      <select title="상태">
+                        <option>상태</option>
+                        <option selected>Good</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+                <!-- -------------------------------------------- -->
+                <tr>
+                  <th scope="row" rowspan="3" class="border-right txt-center">3</th>
+                  <th scope="row">품목</th>
+                  <td colspan="3">
+                    <div class="select-group">
+                      <select title="품목">
+                        <option>품목명</option>
+                        <option selected>안전모</option>
+                      </select>
+                    </div>
+                    <div class="register-write">
+                      <div class="input-group">
+                        <input type="text" title="브랜드" placeholder="브랜드" value="Petzl">
+                      </div>
+                    </div>
+                    <div class="register-write">
+                      <div class="input-group">
+                        <input type="text" title="모델명" placeholder="모델명" value="Petzl-Helmet">
+                      </div>
+                    </div>
+                  </td>
+                  <td colspan="3" rowspan="3" class="border-left">
+                    <button class="table-remove-btn">
+                      <i class="las la-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">지급일자</th>
+                  <td>
+                    <div class="calendar-picker">
+                      <div class="input-group">
+                        <label class="sr-only">날짜설정</label>
+                        <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly
+                          value="2021.08.10">
+                        <button class="calendar-picker-btn"></button>
+                      </div>
+                    </div>
+                  </td>
+                  <th scope="row">교체일자</th>
+                  <td>
+                    <div class="calendar-picker">
+                      <div class="input-group">
+                        <label class="sr-only">날짜설정</label>
+                        <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly>
+                        <button class="calendar-picker-btn"></button>
+                      </div>
+                    </div>
+                    <span class="mgl10 checkbox-radio-group">
+                      <label for="radio" class="radio">
+                        <input type="radio" name="radio" id="radio" checked>
+                        <span class="circle"></span>
+                        <em>파손 시 까지</em>
+                      </label>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">상태</th>
+                  <td colspan="3">
+                    <div class="select-group">
+                      <select title="상태">
+                        <option>상태</option>
+                        <option selected>Good</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+                <!-- -------------------------------------------- -->
+                <!-- add-btn -->
+                <tr>
+                  <td colspan="6" class="txt-center">
+                    <button class="row-add-btn">
+                      <i class="las la-plus"></i>
+                    </button>
+                  </td>
+                </tr>
+                <!-- //add-btn -->
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </li>
+    </ul>
+
+    <div class="foot-btn-area">
+      <button class="btn-style3">
+        <i class="las la-reply"></i><span class="name">취소</span>
+      </button>
+      <button class="btn-style1">
+        <i class="las la-save"></i><span class="name">저장</span></button>
+    </div>
+
+    <button type="button" class="popup-close-btn">
+      <i class="xi-close"></i>
+    </button>
+  </div>
+</div>
+<!-- //layer-popup2 -->
+
+</html>

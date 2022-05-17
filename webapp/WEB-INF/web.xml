@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd" 
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd" 
+id="WebApp_ID" version="3.1">
+	<display-name>Wind turbine</display-name>
+    
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+  
+  
+  
+ <filter>
+   <filter-name>sessionValidationFilter</filter-name>
+   <filter-class>infrastructure.session.SessionValidationFilter</filter-class>
+ </filter>
+ <filter-mapping>
+   <filter-name>sessionValidationFilter</filter-name>
+   <url-pattern>/*</url-pattern>
+ </filter-mapping>
+ 
+<!-- <servlet> -->
+<!-- 		<servlet-name>action</servlet-name> -->
+<!-- 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> -->
+<!-- 		<init-param> -->
+<!-- 			<param-name>contextConfigLocation</param-name> -->
+<!-- 			<param-value>/WEB-INF/config/egovframework/springmvc/dispatcher-servlet.xml</param-value> -->
+<!-- 		</init-param> -->
+<!-- 		<load-on-startup>1</load-on-startup> -->
+<!-- 	</servlet> -->
+ 
+  <session-config>
+<!--     <session-timeout>1440</session-timeout> -->
+    <session-timeout>30</session-timeout>
+  </session-config>
+  
+<!--   <listener> -->
+<!--         <listener-class>infrastructure.session.SessionListener</listener-class> -->
+<!--     </listener> -->
+    
+	<!-- <filter>
+		<filter-name>HTMLTagFilter</filter-name>
+		<filter-class>egovframework.rte.ptl.mvc.filter.HTMLTagFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HTMLTagFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+    
+
+    
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	 <context-param>
+        <param-name>isLog4jAutoInitializationDisabled</param-name>
+        <param-value>false</param-value>
+    </context-param>
+	
+    <context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:config/spring/context-*.xml</param-value>
+	</context-param>
+	
+	
+	<servlet>
+	  <servlet-name>dispatcher</servlet-name>
+	  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	  <init-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value>
+					WEB-INF/config/framework/springmvc/dispatcher-servlet.xml
+<!-- 			classpath:kr/or/innopolis/mis/config/application/aop-servlet.xml -->
+		</param-value>
+	  </init-param>
+	  <load-on-startup>1</load-on-startup>
+	</servlet>
+ 	
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+
+   
+    <servlet>
+		<servlet-name>WorkerServlet</servlet-name>
+		<servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>0</param-value>
+		</init-param>
+		<init-param>
+			<param-name>listings</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		
+		<!-- @JK -->
+		<init-param>
+			<param-name>dispatchOptionsRequest</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		 
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	 <servlet-mapping>
+		<servlet-name>WorkerServlet</servlet-name>
+		<!--images종류  -->
+		<!-- <url-pattern>*.png</url-pattern>
+		<url-pattern>*.gif</url-pattern>
+		<url-pattern>*.jpg</url-pattern> -->
+		<!--JS 타입  -->
+		<url-pattern>*.js</url-pattern>
+		<!--css 타입 -->
+		<url-pattern>*.css</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	
+	<servlet>
+		<servlet-name>GeneratorStart</servlet-name>
+		<servlet-class>infrastructure.gen.GeneratorThreadStarter</servlet-class>
+		<load-on-startup>0</load-on-startup> 
+	</servlet>
+	 
+	
+	
+	<welcome-file-list>
+		<welcome-file>/index.jsp</welcome-file>
+	</welcome-file-list>	
+	
+    
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/WEB-INF/view/common/error/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/view/common/error/error404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/view/common/error.jsp</location>
+	</error-page>
+	
+	<!-- @JK 보안 취약점 - 불필요한 메서드 제외 -->
+	<security-constraint>
+		<display-name>Http Method Non-use</display-name>
+		<web-resource-collection>
+			<web-resource-name>Forbidden HTTP Method</web-resource-name>
+			<url-pattern>/*</url-pattern>
+			<http-method>PUT</http-method>
+			<http-method>DELETE</http-method>
+			<http-method>TRACE</http-method>
+			<http-method>OPTIONS</http-method>
+			<http-method>PATCH</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name></role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+</web-app>

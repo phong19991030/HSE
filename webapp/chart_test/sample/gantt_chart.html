@@ -1,0 +1,105 @@
+<script src="../js/moment.min.js"></script>
+<script src="../js/moment-timezone.min.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js_custom/util.js"></script>
+
+
+<script src="https://code.highcharts.com/gantt/highcharts-gantt.js"></script>
+<script src="https://code.highcharts.com/gantt/modules/exporting.js"></script>
+
+<div id="container"></div>
+<!--<button id="add">Add</button>-->
+
+<div id="button-container">
+
+	<button id="pdf">
+		<i class="fa fa-download"></i> pdf
+	</button>
+	
+	<button id="png">
+		<i class="fa fa-download"></i> png
+	</button>
+	
+	<button id="jpg">
+		<i class="fa fa-download"></i> jpg
+	</button>
+	
+	<button id="xml">
+		<i class="fa fa-download"></i> xml
+	</button>
+	
+</div>
+
+
+
+
+
+
+<script>
+
+        var series_config = [
+            {
+                name: 'turbine1'
+            },
+            {
+                name: 'turbine2'
+            },
+            {
+                name: 'turbine3'
+            },
+        ];
+              
+        var arr = createDateArray('2020-05-01', '2020-05-02', 'Asia/Seoul', 'min', 10);
+        var series = createInitData.gantt_chart(arr, series_config);
+    
+        console.log(JSON.stringify(series));
+        console.log(series);
+    
+        var options = chart_option.gantt_chart(series);
+
+        //options.series = series;
+
+
+        //chart = $('#container').highcharts('StockChart', options); 
+        //chart = $('#container').highcharts('chart', options); 
+        //chart = Highcharts.chart('container', options);
+        //chart = Highcharts.stockChart('container', options);
+        chart = Highcharts.ganttChart('container', options);
+        
+        drawChartAfter();    
+        
+        
+    
+    
+    // Activate the custom button
+    $('#pdf').click(function() {
+        Highcharts.charts[0].exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        });
+    });
+    
+    $('#png').click(function() {
+        Highcharts.charts[0].exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        });
+    });
+    
+    $('#jpg').click(function() {
+        Highcharts.charts[0].exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpeg'
+        });
+    });
+    
+    $('#xml').click(function() {
+        Highcharts.charts[0].exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-xml'
+        });
+    });
+
+
+
+</script>

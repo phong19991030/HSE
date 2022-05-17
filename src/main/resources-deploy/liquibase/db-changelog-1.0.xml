@@ -1,0 +1,31 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+ 
+  <!-- <changeSet id="insert_title_of_doc" author="hieuph">
+     <addColumn 
+            tableName="TNDM_DOC_MST">
+        <column name="DOC_TITLE" type="varchar(255)"/>
+    </addColumn >
+  </changeSet>
+  
+  <changeSet id="insert_column_to_tdnm_draft_attach" author="hieuph">
+     <addColumn 
+            tableName="TNDM_DRFT_ATCH">
+        <column name="ATCH_DOC_MNG_NO" type="varchar(21)"/>
+        <column name="ATCH_DRFT_DOC_NO" type="varchar(21)"/>
+        <column name="INS_DT" type="DATE"/>
+        <column name="INS_USER" type="varchar(21)"/>
+    </addColumn >
+  </changeSet> -->
+  
+  <!-- Insert OPEN_YN to know if user view latest draft -->
+  <changeSet id="insert_draft_open_YN_flag" author="hieuph">
+     <addColumn 
+            tableName="TNDM_DRFT_APVL_LINE">
+        <column name="IS_VIEW_LATEST_DRAFT" type="bit" valueBoolean="true" defaultValueBoolean="true"/>
+    </addColumn >
+  </changeSet>
+ 
+</databaseChangeLog>

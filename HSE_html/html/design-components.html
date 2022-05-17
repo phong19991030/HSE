@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!-- common lib js -->
+<script type="text/javascript" src="../js/lib/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../js/lib/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/lib/date-search-setting.js"></script>
+<script type="text/javascript" src="../js/lib/jquery-timepicker.js"></script>
+<!-- common js -->
+<script type="text/javascript" src="../js/common/layout.js"></script>
+<script type="text/javascript" src="../js/common/common.js"></script>
+<script type="text/javascript" src="../js/common/layerPopup.js"></script>
+<!-- sub js -->
+<script type="text/javascript" src="../js/common/sub.js"></script>
+
+<script>
+  $(document).ready(function () {
+
+    //Click Logo To Scroll To Top
+    $('header h2').on('click', () => {
+      $('html,body').animate({
+        scrollTop: 0
+      }, 500);
+    });
+
+    //Smooth Scrolling Using Navigation Menu
+    $('.guide-side-nav a[href*="#"]').on('click', function (e) {
+      $('html,body').animate({
+        scrollTop: $($(this).attr('href')).offset().top - 100
+      }, 300);
+      e.preventDefault();
+    });
+
+  });
+</script>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Design Components | HSE</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1,width=device-width" />
+  <meta name="copyright" content="Copyright 2022 © AtwoM. ALL Rights Reserved HSE" />
+  <link rel="icon" type="image/png" sizes="32x32" href="#" />
+  <!-- common css -->
+  <link rel="stylesheet" type="text/css" href="../css/common/common.css" />
+  <link rel="stylesheet" type="text/css" href="../css/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="../css/common/ui.css" />
+  <link rel="stylesheet" type="text/css" href="../css/common/reset.css" />
+  <!-- common lib css -->
+  <link rel="stylesheet" type="text/css" href="../css/lib/jquery-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="../css/lib/jquery-ui.theme.css" />
+  <link rel="stylesheet" type="text/css" href="../css/lib/jquery-ui-timepicker.css" />
+  <!-- sub css -->
+  <link rel="stylesheet" type="text/css" href="../css/common/sub.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Noto Sans KR';
+    }
+
+    body.header-active .guide-header {
+      height: auto;
+    }
+
+    .guide-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      height: 88px;
+      line-height: 88px;
+      z-index: 100;
+      padding: 0 30px;
+      background-color: #fffffff2;
+      color: #111;
+      box-shadow: initial;
+      border-bottom: 1px solid #f4f4f4;
+      text-transform: uppercase;
+    }
+
+    .guide-header h2 {
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 1.3rem;
+    }
+
+    .guide-side-nav {
+      width: 259px;
+      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: calc(100% - 88px);
+      position: fixed;
+      top: 88px;
+      left: 0;
+      border-right: 1px solid #f4f4f4;
+      -ms-text-overflow: none;
+      scrollbar-width: none;
+    }
+
+    .guide-side-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .page-tit,
+    .guide-side-nav ul a {
+      display: block;
+      font-size: .75rem;
+      font-weight: 300;
+      color: #949494;
+      padding: 0.6rem 30px;
+      text-transform: uppercase;
+    }
+
+    .page-tit {
+      color: #000;
+      font-weight: 800;
+      padding-top: 1rem;
+    }
+
+    .guide-side-nav ul a:hover,
+    .guide-side-nav ul a:focus {
+      background: #f4f4f4;
+      color: #000;
+    }
+
+    main {
+      margin: 0 200px 0 259px;
+      padding: 110px 40px 80px 150px;
+      min-height: calc(100vh - 88px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section~section {
+      padding-top: 150px;
+    }
+
+    section .box {
+      padding: 30px 0;
+      overflow-x: auto;
+    }
+
+    .box-lst>li {
+      margin: 30px 0;
+    }
+
+    .box-lst img {
+      width: 70%;
+      display: block;
+    }
+
+    .section-tit {
+      padding: 1rem 0;
+    }
+
+    .section-sub-tit {
+      padding: 1rem 0 2rem;
+      font-size: 3rem;
+      color: #000;
+      font-weight: 800;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .section-sub-tit::after {
+      content: "";
+      width: 100%;
+      height: 1px;
+      background: #f4f4f4;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .box>h3 {
+      font-size: 32px;
+      padding: 2.3rem 0;
+      color: #000;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .box h3+* {
+      margin-top: 25px;
+    }
+
+    .list-table th,
+    .list-table td {
+      padding: 15px 20px;
+      text-align: left;
+    }
+
+    .list-table th {
+      border-bottom: 1px solid #efefef;
+    }
+
+    .list-table td {
+      border-bottom: 1px solid #efefef;
+    }
+
+    .list-table.center-table th,
+    .list-table.center-table td {
+      text-align: center;
+    }
+
+    .txt {
+      display: inline-block;
+      color: #c3c3c3;
+    }
+
+    .txt+img {
+      margin-top: 25px;
+    }
+
+    .br {
+      display: block;
+      margin: 50px 0;
+      background: #f4f4f4;
+      width: 100%;
+      height: 1px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="guide-header">
+    <h2>Design Component</h2>
+  </header>
+
+  <div class="guide-side-nav">
+    <ul>
+      <li>
+        <p class="page-tit">Common Component</p>
+      </li>
+      <li><a href="#sec1">font</a></li>
+      <li><a href="#sec2">buttons</a></li>
+      <li><a href="#sec3">input-group</a></li>
+      <li><a href="#sec4">datepicker</a></li>
+      <li><a href="#sec5">select-group</a></li>
+      <li><a href="#sec6">checkbox</a></li>
+      <li><a href="#sec7">radio button</a></li>
+      <li><a href="#sec8">switch</a></li>
+      <li><a href="#sec9">fixed-search-form</a></li>
+      <li><a href="#sec10">TAB</a></li>
+      <li><a href="#sec11">badge</a></li>
+      <li><a href="#sec12">pagination</a></li>
+      <li><a href="#sec13">attachment</a></li>
+      <li><a href="#sec14">download-box-area</a></li>
+      <li>
+        <p class="page-tit" style="padding-top: 30px;">layout</p>
+      </li>
+      <li><a href="#header">header</a></li>
+      <li><a href="#layout">layout</a></li>
+      <li><a href="#icon">icon</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <div class="guide-container">
+      <section id="sec1">
+        <h2 class="section-sub-tit">font</h2>
+
+        <table class="list-table">
+          <colgroup>
+            <col style="width: 20%;">
+            <col style="width: 20%;">
+            <col style="width: 60%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Style</th>
+              <th>Size</th>
+              <th>example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Heading1</td>
+              <td>32px</td>
+              <td>
+                <h1 class="heading1">heading1 / 계약관리 목록화면</h1>
+              </td>
+            </tr>
+            <tr>
+              <td>Heading2</td>
+              <td>28px</td>
+              <td>
+                <h2 class="heading2">heading2 / 계약관리 목록화면</h2>
+              </td>
+            </tr>
+            <tr>
+              <td>Heading3</td>
+              <td>18px</td>
+              <td>
+                <h3 class="heading3">heading3 / 계약관리 목록화면</h3>
+              </td>
+            </tr>
+            <tr>
+              <td>Heading4</td>
+              <td>16px</td>
+              <td>
+                <h4 class="heading4">heading4 / 계약관리 목록화면</h4>
+              </td>
+            </tr>
+            <tr>
+              <td>Heading5</td>
+              <td>14px</td>
+              <td>
+                <h4 class="heading5">heading5 / 계약관리 목록화면</h4>
+              </td>
+            </tr>
+            <tr>
+              <td>Heading6</td>
+              <td>13px</td>
+              <td>
+                <h4 class="heading6">heading6 / 계약관리 목록화면</h4>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </section>
+      <!-- ======================== -->
+      <section id="sec2">
+        <h2 class="section-sub-tit">buttons</h2>
+        <div class="box">
+          <h3>class="btn-style"</h3>
+          <ul class="box-lst">
+            <li>
+              <span class="txt">right-btn-type > "btn-style"</span>
+              <img src="../img/sub/example/ex1.jpg" alt="버튼 예시 이미지1">
+            </li>
+            <li>
+              <span class="txt">table-foot-area > "btn-style"</span>
+              <img src="../img/sub/example/ex2.jpg" alt="버튼 예시 이미지2">
+            </li>
+            <li>
+              <span class="txt">foot-btn-area > "btn-style"</span>
+              <img src="../img/sub/example/ex3.jpg" alt="버튼 예시 이미지3">
+            </li>
+          </ul>
+
+          <ul class="box-lst">
+            <li>
+              <button class="btn-style1">btn-style1</button>
+              <button class="btn-style1">
+                <i class="las la-edit"></i><span class="name">등록</span>
+              </button>
+              <button class="btn-style1">
+                <i class="las la-save"></i><span class="name">저장</span>
+              </button>
+              <button class="btn-style1">결재승인</button>
+              <button class="btn-style1">결재상신</button>
+            </li>
+            <li>
+              <button class="btn-style2">btn-style2</button>
+              <button class="btn-style2">
+                <i class="las la-eraser"></i><span class="name">수정</span>
+              </button>
+            </li>
+            <li>
+              <button class="btn-style3">btn-style3</button>
+              <button class="btn-style3">
+                <i class=" las la-reply"></i><span class="name">취소</span>
+              </button>
+            </li>
+            <li>
+              <button class="btn-style4">btn-style4</button>
+              <button class="btn-style4">인쇄</button>
+            </li>
+            <li>
+              <button class="btn-style5">btn-style5</button>
+              <button class="btn-style5">삭제</button>
+              <button class="btn-style5">회수</button>
+            </li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Class="Btn-Style" + ICON (mainly used)</h3>
+          <table class="list-table">
+            <colgroup>
+              <col style="width: 12%;">
+              <col style="width: 88%;">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>title class</th>
+                <th>icon</th>
+              </tr>
+            </thead>
+            <tbody class="right-btn-type">
+              <tr>
+                <td>btn-style1</td>
+                <td>
+                  <div class="mgb10">
+                    <button class="btn-style1">
+                      <i class="las la-edit"></i><span class="name">등록</span>
+                    </button>
+                    &nbsp;
+                    <span>&lt;i <span>class="<span>
+                          las a-edit</span>"</span>&gt;&lt;/i&gt;</span>
+                  </div>
+                  <div class="mgb10">
+                    <button class="btn-style1">
+                      <i class="las la-save"></i><span class="name">저장</span>
+                    </button>
+                    &nbsp;
+                    <span>&lt;i <span>class="<span>
+                          las la-save</span>"</span>&gt;&lt;/i&gt;</span>
+                  </div>
+                  <div class="mgb10">
+                    <button class="btn-style1">
+                      <i class="las la-check-circle"></i><span class="name">결재승인</span>
+                    </button>
+                    &nbsp;
+                    <span>&lt;i <span>class="<span>
+                          las la-check-circle</span>"</span>&gt;&lt;/i&gt;</span>
+                  </div>
+                  <div>
+                    <button class="btn-style1">
+                      <i class="las la-paste"></i><span class="name">결재상신</span>
+                    </button>
+                    &nbsp;
+                    <span>&lt;i <span>class="<span>
+                          las la-paste</span>"</span>&gt;&lt;/i&gt;</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>btn-style2</td>
+                <td>
+                  <button class="btn-style2">
+                    <i class="las la-eraser"></i><span class="name">수정</span>
+                  </button>
+                  &nbsp;
+                  <span>&lt;i <span>class="<span>
+                        las la-eraser</span>"</span>&gt;&lt;/i&gt;</span>
+                </td>
+              </tr>
+              <tr>
+                <td>btn-style3</td>
+                <td>
+                  <div class="mgb10">
+                    <button class="btn-style3">
+                      <i class="las la-reply"></i><span class="name">취소</span>
+                    </button>
+                    &nbsp;
+                    <span>&lt;i <span>class="<span>
+                          las la-reply</span>"</span>&gt;&lt;/i&gt;</span>
+                  </div>
+                  <div>
+                    <button class="btn-style3">
+                      <i class="las la-reply"></i><span class="name">뒤로가기</span>
+                    </button>
+                    &nbsp;
+                    <span>&lt;i <span>class="<span>
+                          las la-reply</span>"</span>&gt;&lt;/i&gt;</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>btn-style4</td>
+                <td>
+                  <button class="btn-style4">
+                    <i class="las la-print"></i><span class="name">인쇄</span>
+                  </button>
+                  &nbsp;
+                  <span>&lt;i <span>class="<span>
+                        las la-print</span>"</span>&gt;&lt;/i&gt;</span>
+                </td>
+              </tr>
+              <tr>
+                <td>btn-style5</td>
+                <td>
+                  <div class="mgb10">
+                    <button class="btn-style5">
+                      <i class="las la-trash-alt"></i><span class="name">삭제</span>
+                    </button>
+                    &nbsp;
+                    <span>&lt;i <span>class="<span>
+                          las la-trash-alt</span>"</span>&gt;&lt;/i&gt;</span>
+                  </div>
+                  <div>
+                    <button class="btn-style5">
+                      <i class="las la-redo-alt"></i><span class="name">회수</span>
+                    </button>
+                    &nbsp;
+                    <span>&lt;i <span>class="<span>
+                          las la-redo-alt</span>"</span>&gt;&lt;/i&gt;</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>btn-style6</td>
+                <td>
+                  <div>
+                    <button class="btn-style6">
+                      <i class="las la-ban"></i><span class="name">반려</span>
+                    </button>
+                    &nbsp;
+                    <span>&lt;i <span>class="<span>
+                          las la-ban</span>"</span>&gt;&lt;/i&gt;</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class="box">
+          <h3>class="btn"</h3>
+          <ul class="box-lst">
+            <li>
+              <p style="margin-bottom: 10px;">button style 1 / class="btn1"</p>
+              <button class="btn1">버튼스타일1</button>
+              <button class="btn1">btn-style</button>
+              <button class="btn1">10</button>
+              <button class="btn1">1000</button>
+              <button class="btn1"><i class="las la-bell"></i></button>
+            </li>
+            <li>
+              <p style="margin-bottom: 10px;">button style 2 / class="btn2"</p>
+              <button class="btn2">버튼스타일2</button>
+              <button class="btn2">btn-style</button>
+              <button class="btn2">10</button>
+              <button class="btn2">1000</button>
+              <button class="btn2"><i class="las la-bell"></i></button>
+            </li>
+            <li>
+              <p style="margin-bottom: 10px;">button style 3 / class="btn3"</p>
+              <button class="btn3">버튼스타일3</button>
+              <button class="btn3">btn-style</button>
+              <button class="btn3">10</button>
+              <button class="btn3">1000</button>
+              <button class="btn3"><i class="las la-bell"></i></button>
+            </li>
+            <li>
+              <p style="margin-bottom: 10px;">button style 4 / class="btn4"</p>
+              <button class="btn4">버튼스타일4</button>
+              <button class="btn4">btn-style</button>
+              <button class="btn4">10</button>
+              <button class="btn4">1000</button>
+              <button class="btn4"><i class="las la-bell"></i></button>
+            </li>
+            <li>
+              <p style="margin-bottom: 10px;">button style 5 / class="btn5"</p>
+              <button class="btn5">버튼스타일5</button>
+              <button class="btn5"><span class="name">view more</span></button>
+              <button class="btn5"><span class="name">더보기</span></button>
+              <div style="margin-top: 15px;">
+                <p class="txt">클릭 전</p>&nbsp;
+                <button class="btn5"><span class="name">더보기</span></button>
+              </div>
+              <div style="margin-top: 15px;" class="open">
+                <p class="txt">클릭 후</p>&nbsp;
+                <button class="btn5"><span class="name">더보기</span></button>
+              </div>
+            </li>
+            <li>
+              <p style="margin-bottom: 10px;">button style 6 / class="btn6"</p>
+              <button class="btn6-1">
+                <i class="las la-plus"></i>
+              </button>
+              <button class="btn6-2">
+                <i class="lar la-trash-alt"></i>
+              </button>
+            </li>
+          </ul>
+
+          <h3>Motion btn (addClass="motion")</h3>
+          <ul class="box-lst">
+            <li>
+              <p style="margin-bottom: 10px;">버튼스타일1 / class="btn1" + "motion"</p>
+              <button class="btn1 motion">버튼스타일1</button>
+              <button class="btn1 motion">btn-style</button>
+              <button class="btn1 motion">10</button>
+              <button class="btn1 motion">1000</button>
+              <button class="btn1 motion"><i class="las la-bell"></i></button>
+            </li>
+            <li>
+              <p style="margin-bottom: 10px;">버튼스타일2 / class="btn2" + "motion"</p>
+              <button class="btn2 motion">버튼스타일2</button>
+              <button class="btn2 motion">btn-style</button>
+              <button class="btn2 motion">10</button>
+              <button class="btn2 motion">1000</button>
+              <button class="btn2 motion"><i class="las la-bell"></i></button>
+            </li>
+            <li>
+              <p style="margin-bottom: 10px;">버튼스타일3 / class="btn3" + "motion"</p>
+              <button class="btn3 motion">버튼스타일3</button>
+              <button class="btn3 motion">btn-style</button>
+              <button class="btn3 motion">10</button>
+              <button class="btn3 motion">1000</button>
+              <button class="btn3 motion"><i class="las la-bell"></i></button>
+            </li>
+            <li>
+              <p style="margin-bottom: 10px;">버튼 스타일4 / class="btn4" + "motion"</p>
+              <button class="btn4 motion">버튼스타일4</button>
+              <button class="btn4 motion">btn-style</button>
+              <button class="btn4 motion">10</button>
+              <button class="btn4 motion">1000</button>
+              <button class="btn4 motion"><i class="las la-bell"></i></button>
+            </li>
+            <li>
+              <p style="margin-bottom: 10px;">버튼 스타일6 / class="btn6" + "motion"</p>
+              <button class="btn6-1 motion">
+                <i class="las la-plus"></i>
+              </button>
+              <button class="btn6-2 motion">
+                <i class="lar la-trash-alt"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h3>class="btns"</h3>
+          <table class="list-table">
+            <colgroup>
+              <col style="width: 25%;">
+              <col style="width: 25%;">
+              <col style="width: 25%;">
+              <col style="width: 25%;">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>small</th>
+                <th>default (기본)</th>
+                <th>medium</th>
+                <th>large</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><button class="btns small"><i class="las la-bell"></i></button></td>
+                <td><button class="btns"><i class="las la-bell"></i></button></td>
+                <td><button class="btns medium"><i class="las la-bell"></i></button></td>
+                <td><button class="btns large"><i class="las la-bell"></i></button></td>
+              </tr>
+              <tr>
+                <td><button class="btns small"><i class="las la-trash-alt"></i></button></td>
+                <td><button class="btns"><i class="las la-trash-alt"></i></button></td>
+                <td><button class="btns medium"><i class="las la-trash-alt"></i></button></td>
+                <td><button class="btns large"><i class="las la-trash-alt"></i></button></td>
+              </tr>
+              <tr>
+                <td><button class="btns small"><i class="las la-pencil-alt"></i></button></td>
+                <td><button class="btns"><i class="las la-pencil-alt"></i></button></td>
+                <td><button class="btns medium"><i class="las la-pencil-alt"></i></button></td>
+                <td><button class="btns large"><i class="las la-pencil-alt"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="box">
+          <h3>class="form-add-wrap"</h3>
+
+          <div class="base-table center-table">
+            <table>
+              <colgroup>
+                <col style="width: auto;">
+                <col style="width: auto;">
+                <col style="width: auto;">
+              </colgroup>
+              <tr>
+                <td class="txt-center">
+                  <button class="row-add-btn">
+                    <i class="las la-plus"></i>
+                  </button>
+                </td>
+                <td>
+                  <button class="row-add-btn">
+                    <i class="las la-plus"></i>
+                  </button>
+                </td>
+                <td>
+                  <button class="row-add-btn">
+                    <i class="las la-plus"></i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="box">
+          <h3>class="row-remove-btn"</h3>
+          <article class="registration-form">
+            <div class="base-table center-table">
+              <table>
+                <colgroup>
+                  <col style="width: 42%;">
+                  <col style="width: 42%;">
+                  <col style="width: 8%;">
+                </colgroup>
+                <tr>
+                  <td><span class="txt">항목</span></td>
+                  <td><span class="txt">항목</span></td>
+                  <td>
+                    <button class="row-remove-btn">
+                      <i class="xi-close"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="txt">항목</span></td>
+                  <td><span class="txt">항목</span></td>
+                  <td>
+                    <button class="row-remove-btn">
+                      <i class="xi-close"></i>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </article>
+
+        </div>
+      </section>
+      <!-- ======================== -->
+      <section id="sec3">
+        <h2 class="section-sub-tit">input-group</h2>
+
+        <div class="box">
+          <h3>input-text</h3>
+          <ul class="box-lst">
+            <li>
+              <div class="register-write">
+                <div class="input-group">
+                  <input type="text" title="타이틀" placeholder="width: default">
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="register-write">
+                <div class="input-group">
+                  <input type="text" title="타이틀" placeholder="disabled" disabled>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="register-write w20p">
+                <div class="input-group">
+                  <input type="text" title="타이틀" placeholder="width: 20%">
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="register-write w40p">
+                <div class="input-group">
+                  <input type="text" title="타이틀" placeholder="width: 40%">
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="register-write w60p">
+                <div class="input-group">
+                  <input type="text" title="타이틀" placeholder="width: 60%">
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="register-write w80p">
+                <div class="input-group">
+                  <input type="text" title="타이틀" placeholder="width: 80%">
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="register-write w100p">
+                <div class="input-group">
+                  <input type="text" title="타이틀" placeholder="width: 100%">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>textarea</h3>
+          <ul class="box-lst">
+            <li>
+              <div class="register-write w30p">
+                <div class="input-group">
+                  <textarea title="설명"
+                    placeholder="내용을 입력해주세요">발전기의 경우는 발전된 전력이 부하에 공급됩니다. 부하의 연결 상태 즉 부하 전류의 크기에 따라서 발전기 출력 단자의 전압이 영향을 받게 됩니다.</textarea>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="register-write w60p">
+                <div class="input-group">
+                  <textarea title="설명"
+                    placeholder="내용을 입력해주세요">발전기의 경우는 발전된 전력이 부하에 공급됩니다. 부하의 연결 상태 즉 부하 전류의 크기에 따라서 발전기 출력 단자의 전압이 영향을 받게 됩니다.</textarea>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="register-write w100p">
+                <div class="input-group">
+                  <textarea title="설명"
+                    placeholder="내용을 입력해주세요">발전기의 경우는 발전된 전력이 부하에 공급됩니다. 부하의 연결 상태 즉 부하 전류의 크기에 따라서 발전기 출력 단자의 전압이 영향을 받게 됩니다.</textarea>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </section>
+      <!-- ======================== -->
+      <section id="sec4">
+        <h2 class="section-sub-tit">datepicker</h2>
+        <div class="box">
+          <h3>calendar</h3>
+          <!-- =========================================================== -->
+          <div class="calendar-picker">
+            <div class="input-group">
+              <label class="sr-only">날짜설정</label>
+              <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly>
+              <button class="calendar-picker-btn"></button>
+            </div>
+          </div>
+          <!-- =========================================================== -->
+          <h3>time</h3>
+          <!-- =========================================================== -->
+          <div class="calendar-picker">
+            <div class="input-group">
+              <label class="sr-only">날짜설정</label>
+              <input type="text" placeholder="00:00" title="날짜설정" class="date-time-picker" readonly>
+              <button class="calendar-picker-btn"></button>
+            </div>
+          </div>
+          <!-- =========================================================== -->
+          <h3>calendar + time</h3>
+          <!-- =========================================================== -->
+          <div class="calendar-picker">
+            <div class="flexWrap">
+              <div class="first-date">
+                <div class="input-group">
+                  <label class="sr-only">처음날짜</label>
+                  <input type="text" title="처음날짜설정" class="datepicker" readonly placeholder="YYYY-DD-DD">
+                  <button class="calendar-picker-btn"></button>
+                </div>
+                <div class="input-group time">
+                  <label class="sr-only">처음시간</label>
+                  <input type="text" title="처음시간설정" class="date-time-picker" readonly placeholder="00:00">
+                  <button class="calendar-picker-btn"></button>
+                </div>
+              </div>
+
+              <div class="last-date">
+                <div class="input-group">
+                  <label class="sr-only">마지막날짜</label>
+                  <input type="text" title="마지막날짜설정" class="datepicker" readonly placeholder="YYYY-DD-DD">
+                  <button class="calendar-picker-btn"></button>
+                </div>
+                <div class="input-group time">
+                  <label class="sr-only">마지막시간</label>
+                  <input type="text" title="마지막시간설정" class="date-time-picker" readonly placeholder="00:00">
+                  <button class="calendar-picker-btn"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- =========================================================== -->
+        </div>
+      </section>
+      <!-- ======================== -->
+      <section id="sec5">
+        <h2 class="section-sub-tit">select-group</h2>
+        <div class="box">
+          <p class="txt">The overall width also increases according to the length of the text. (셀렉트 옵션 텍스트 길이에 따라 셀렉트 전체
+            너비도 함께 늘어납니다.)</p>
+          <ul class="box-lst">
+            <li>
+              <div class="select-group">
+                <select title="분류">
+                  <option>option</option>
+                  <option>optionoptionoption</option>
+                  <option>optionoptionoptionoption</option>
+                </select>
+              </div>
+            </li>
+            <li>
+              <div class="select-group w30p">
+                <select title="분류">
+                  <option>option</option>
+                  <option>option</option>
+                  <option>option</option>
+                </select>
+              </div>
+            </li>
+            <li>
+              <div class="select-group w60p">
+                <select title="분류">
+                  <option>option</option>
+                  <option>option</option>
+                  <option>option</option>
+                </select>
+              </div>
+            </li>
+            <li>
+              <div class="select-group w100p">
+                <select title="분류">
+                  <option>option</option>
+                  <option>option</option>
+                  <option>option</option>
+                </select>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <!-- ======================== -->
+      <section id="sec6">
+        <h2 class="section-sub-tit">checkbox</h2>
+        <div class="box">
+
+          <div class="list-table">
+            <table>
+              <tr>
+                <th>Text "X" (텍스트 없을때) - 암시적 작성 방식</th>
+                <th>Text "O" (텍스트 있을때) - 명시적 작성 방식</th>
+              </tr>
+              <tr>
+                <td>
+                  <!-- ======================================== -->
+                  <span class="checkbox-radio-group">
+                    <label><input type="checkbox" name="checkbox"></label>
+                  </span>
+                  <!-- ======================================== -->
+                  <span class="txt">no-txt</span>
+                </td>
+                <td>
+                  <!-- ======================================== -->
+                  <span class="checkbox-radio-group">
+                    <input type="checkbox" name="checkbox" id="chk1">
+                    <label for="chk1">check-txt1</label>
+                  </span>
+                  <span class="checkbox-radio-group">
+                    <input type="checkbox" name="checkbox" id="chk2">
+                    <label for="chk2">check-txt</label>
+                  </span>
+                  <!-- ======================================== -->
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <!-- ======================================== -->
+                  <span class="checkbox-radio-group">
+                    <label><input type="checkbox" name="checkbox"></label>
+                  </span>
+                  <!-- ======================================== -->
+                  <span class="txt">no-txt</span>
+                </td>
+                <td>
+                  <!-- ======================================== -->
+                  <span class="checkbox-radio-group">
+                    <input type="checkbox" name="checkbox" id="chk3">
+                    <label for="chk3">check-txt1</label>
+                  </span>
+                  <span class="checkbox-radio-group">
+                    <input type="checkbox" name="checkbox" id="chk4">
+                    <label for="chk4">check-txt</label>
+                  </span>
+                  <!-- ======================================== -->
+                </td>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <!-- ======================================== -->
+                  <span class="checkbox-radio-group">
+                    <label><input type="checkbox" name="checkbox"></label>
+                  </span>
+                  <!-- ======================================== -->
+                  <span class="txt">no-txt</span>
+                </td>
+                <td>
+                  <!-- ======================================== -->
+                  <span class="checkbox-radio-group">
+                    <input type="checkbox" name="checkbox" id="chk5">
+                    <label for="chk5">check-txt1</label>
+                  </span>
+                  <span class="checkbox-radio-group">
+                    <input type="checkbox" name="checkbox" id="chk6">
+                    <label for="chk6">check-txt</label>
+                  </span>
+                  <!-- ======================================== -->
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+      <!-- ======================== -->
+      <section id="sec7">
+        <h2 class="section-sub-tit">radio button</h2>
+        <div class="box">
+          <table class="list-table">
+            <thead>
+              <tr>
+                <th>Text "X" (텍스트 없을때)</th>
+                <th>Text "O" (텍스트 있을때)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <!-- ======================================== -->
+                  <span class="checkbox-radio-group">
+                    <label for="radio1-1" class="radio">
+                      <input type="radio" name="radio" id="radio1-1">
+                      <span class="circle"></span>
+                    </label>
+                  </span>
+                  <!-- ======================================== -->
+                </td>
+                <td>
+                  <!-- ======================================== -->
+                  <span class="checkbox-radio-group">
+                    <label for="radio2-1" class="radio">
+                      <input type="radio" name="radio" id="radio2-1">
+                      <span class="circle"></span>
+                      <em>radio-txt1</em>
+                    </label>
+                  </span>
+                  <!-- ======================================== -->
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <!-- ======================================== -->
+                  <span class="checkbox-radio-group">
+                    <label for="radio1-2" class="radio">
+                      <input type="radio" name="radio" id="radio1-2">
+                      <span class="circle"></span>
+                    </label>
+                  </span>
+                  <!-- ======================================== -->
+                </td>
+                <td>
+                  <!-- ======================================== -->
+                  <span class="checkbox-radio-group">
+                    <label for="radio2-2" class="radio">
+                      <input type="radio" name="radio" id="radio2-2">
+                      <span class="circle"></span>
+                      <em>radio-txt1</em>
+                    </label>
+                  </span>
+                  <!-- ======================================== -->
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <!-- ======================================== -->
+                  <span class="checkbox-radio-group">
+                    <label for="radio1-3" class="radio">
+                      <input type="radio" name="radio" id="radio1-3">
+                      <span class="circle"></span>
+                    </label>
+                  </span>
+                  <!-- ======================================== -->
+                </td>
+                <td>
+                  <!-- ======================================== -->
+                  <span class="checkbox-radio-group">
+                    <label for="radio2-3" class="radio">
+                      <input type="radio" name="radio" id="radio2-3">
+                      <span class="circle"></span>
+                      <em>radio-txt1</em>
+                    </label>
+                  </span>
+                  <!-- ======================================== -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <!-- ======================== -->
+      <section id="sec8">
+        <h2 class="section-sub-tit">toggle-switch</h2>
+        <div class="box">
+          <table class="list-table">
+            <colgroup>
+              <col style="width: 5%;">
+              <col style="width: 95%;">
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="switch1">
+                    <label for="switch1"></label>
+                  </div>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="switch2">
+                    <label for="switch2"></label>
+                  </div>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="switch3" checked>
+                    <label for="switch3"></label>
+                  </div>
+                </td>
+                <td><span class="txt">checked</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="switch4" checked>
+                    <label for="switch4"></label>
+                  </div>
+                </td>
+                <td><span class="txt">checked</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <!-- ======================== -->
+      <section id="sec9">
+        <h2 class="section-sub-tit">fixed-search-form</h2>
+        <div class="box">
+          <!-- fixed-search-form -->
+          <div class="fixed-search-form">
+            <div class="flex-wrap">
+              <div class="item">
+                <span class="item-tit">제목</span>
+                <div class="select-group">
+                  <select title="분류">
+                    <option value="1">내용</option>
+                    <option value="1">내용</option>
+                    <option value="1">내용</option>
+                  </select>
+                </div>
+              </div>
+              <div class="item">
+                <span class="item-tit">날짜검색</span>
+                <div class="calendar-picker">
+                  <div class="input-group">
+                    <label class="sr-only">날짜설정</label>
+                    <input type="text" placeholder="YYYY-MM-DD" title="날짜설정" class="datepicker" readonly>
+                    <button class="calendar-picker-btn"></button>
+                  </div>
+                </div>
+              </div>
+              <div class="item search">
+                <span class="item-tit">통합검색</span>
+                <div class="register-write">
+                  <div class="input-group">
+                    <input type="text" title="통합검색" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-wrap">
+              <button class="refresh-btn"><span class="sr-only">새로고침</span></button>
+              <button class="search-btn">검색</button>
+            </div>
+          </div>
+          <!-- // fixed-search-form -->
+          <!-- ======================================== -->
+
+          <!-- fixed-search-form -->
+          <div class="fixed-search-form">
+            <div class="flex-wrap">
+              <div class="item">
+                <span class="item-tit">제목</span>
+                <div class="select-group">
+                  <select title="분류">
+                    <option value="1">내용</option>
+                    <option value="1">내용</option>
+                    <option value="1">내용</option>
+                  </select>
+                </div>
+              </div>
+              <div class="item">
+                <span class="item-tit">제목</span>
+                <div class="select-group">
+                  <select title="분류">
+                    <option value="1">옵션명설정</option>
+                    <option value="1">옵션명설정</option>
+                    <option value="1">옵션명설정</option>
+                  </select>
+                </div>
+              </div>
+              <div class="item">
+                <span class="item-tit">날짜검색</span>
+                <div class="calendar-picker">
+                  <div class="first-date">
+                    <div class="input-group">
+                      <label class="sr-only">처음날짜</label>
+                      <input type="text" title="처음날짜설정" class="datepicker" placeholder="YYYY-MM-DD" readonly>
+                      <button class="calendar-picker-btn"></button>
+                    </div>
+                    <div class="input-group time">
+                      <label class="sr-only">처음시간</label>
+                      <input type="text" title="처음시간설정" class="date-time-picker" placeholder="00:00" readonly>
+                      <button class="calendar-picker-btn"></button>
+                    </div>
+                  </div>
+
+                  <div class="last-date">
+                    <div class="input-group">
+                      <label class="sr-only">마지막날짜</label>
+                      <input type="text" title="마지막날짜설정" class="datepicker" placeholder="YYYY-MM-DD" readonly>
+                      <button class="calendar-picker-btn"></button>
+                    </div>
+                    <div class="input-group time">
+                      <label class="sr-only">마지막시간</label>
+                      <input type="text" title="마지막시간설정" class="date-time-picker" placeholder="00:00" readonly>
+                      <button class="calendar-picker-btn"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item search">
+                <span class="item-tit">통합검색</span>
+                <div class="register-write">
+                  <div class="input-group">
+                    <input type="text" title="통합검색" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-wrap">
+              <button class="refresh-btn"><span class="sr-only">새로고침</span></button>
+              <button class="search-btn">검색</button>
+            </div>
+          </div>
+          <!-- // fixed-search-form -->
+          <!-- ======================================== -->
+        </div>
+      </section>
+      <!-- ======================== -->
+      <section id="sec10">
+        <h2 class="section-sub-tit">TAB</h2>
+        <div class="box">
+          <h3>tab</h3>
+          <span class="txt">- If you click, go to another link. (클릭시 다른 페이지로 이동합니다.)</span>
+          <!-- ======================================== -->
+          <ul class="tab clearfix">
+            <li class="current"><a href="javascript:void(0);">menu1</a></li>
+            <li><a href="javascript:void(0);">menu2</a></li>
+            <li><a href="javascript:void(0);">menu3</a></li>
+          </ul>
+          <!-- ======================================== -->
+
+          <div class="br"></div>
+          <h3>tab2</h3>
+          <span class="txt">- Go to the same page when you click. (클릭시 같은 페이지안에서 이동합니다)</span>
+          <!-- ======================================== -->
+          <ul class="tab2 clearfix">
+            <li class="current" tab="tab-th1">
+              <a href="javascript:void(0);">menu1</a>
+            </li>
+            <li tab="tab-th2">
+              <a href="javascript:void(0);">menu2</a>
+            </li>
+            <li tab="tab-th3">
+              <a href="javascript:void(0);">menu3</a>
+            </li>
+          </ul>
+
+          <div class="tab-content current" tab="tab-th1">
+            <div style="height: 150px; padding: 30px 0 0 20px; border: 1px solid #f4f4f4;">content 1</div>
+          </div>
+          <div class="tab-content" tab="tab-th2">
+            <div style="height: 150px; padding: 30px 0 0 20px; border: 1px solid #f4f4f4;">content 2</div>
+          </div>
+          <div class="tab-content" tab="tab-th3">
+            <div style="height: 150px; padding: 30px 0 0 20px; border: 1px solid #f4f4f4;">content 3</div>
+          </div>
+          <!-- ======================================== -->
+
+          <h3>States</h3>
+          <table class="list-table">
+            <colgroup>
+              <col style="width: 30%;">
+              <col style="width: 20%;">
+              <col style="width: 50%;">
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>Selected</td>
+                <td>
+                  <ul class="tab clearfix">
+                    <li class="current"><a href="javascript:void(0);">Item</a></li>
+                    <li><a href="javascript:void(0);">Item</a></li>
+                  </ul>
+                </td>
+                <td>The tab has been selected and activated. (탭이 선택되어 활성화된 상태입니다.)</td>
+              </tr>
+              <tr>
+                <td>Unselected</td>
+                <td>
+                  <ul class="tab clearfix">
+                    <li><a href="javascript:void(0);">Item</a></li>
+                    <li><a href="javascript:void(0);">Item</a></li>
+                  </ul>
+                </td>
+                <td>Tab is not selected. (탭이 선택되지 않은 상태입니다.)</td>
+              </tr>
+              <tr>
+                <td>Hover</td>
+                <td>
+                  <ul class="tab clearfix">
+                    <li><a href="javascript:void(0);">Item</a></li>
+                    <li><a href="javascript:void(0);" style="color: #777;">Item</a></li>
+                  </ul>
+                </td>
+                <td>mouse hover (사용자가 탭에 마우스를 올려놓은 상태입니다.)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <!-- ======================== -->
+      <section id="sec11">
+        <h2 class="section-sub-tit">badge</h2>
+        <div class="box">
+          <h3>badge-custom</h3>
+          <ul class="box-lst">
+            <li>
+              <span class="badge-custom">badge-custom</span>
+              <span class="badge-custom">뱃지</span>
+              <span class="badge-custom">1</span>
+              <span class="badge-custom">100000</span>
+            </li>
+            <li>
+              <span class="badge-custom2">badge-custom2</span>
+              <span class="badge-custom2">뱃지</span>
+              <span class="badge-custom2">1</span>
+              <span class="badge-custom2">100000</span>
+            </li>
+            <li>
+              <span class="badge-custom3">badge-custom3</span>
+              <span class="badge-custom3">뱃지</span>
+              <span class="badge-custom3">1</span>
+              <span class="badge-custom3">100000</span>
+            </li>
+            <li>
+              <span class="badge-custom4">badge-custom4</span>
+              <span class="badge-custom4">뱃지</span>
+              <span class="badge-custom4">1</span>
+              <span class="badge-custom4">100000</span>
+            </li>
+            <li>
+              <span class="badge-custom5">badge-custom5</span>
+              <span class="badge-custom5">뱃지</span>
+              <span class="badge-custom5">1</span>
+              <span class="badge-custom5">100000</span>
+            </li>
+            <li>
+              <span class="badge-custom6">badge-custom6</span>
+              <span class="badge-custom6">뱃지</span>
+              <span class="badge-custom6">1</span>
+              <span class="badge-custom6">100000</span>
+            </li>
+            <li>
+              <span class="badge-custom7">badge-custom7</span>
+              <span class="badge-custom7">뱃지</span>
+              <span class="badge-custom7">1</span>
+              <span class="badge-custom7">100000</span>
+            </li>
+            <li>
+              <span class="badge-custom8">
+                <i class="number">1</i>
+                <span class="txt-inner">
+                  <em class="company">제주에너지공사</em>
+                  <em class="name">채길동</em>
+                  <em class="position">책임연구원</em>
+                </span>
+              </span>
+              <span class="badge-custom8">
+                <i class="number">2</i>
+                <span class="txt-inner">
+                  <em class="company">제주에너지공사</em>
+                  <em class="name">채길동</em>
+                  <em class="position">책임연구원</em>
+                </span>
+              </span>
+              <span class="badge-custom8">
+                <i class="number">3</i>
+                <span class="txt-inner">
+                  <em class="company">제주에너지공사</em>
+                  <em class="name">채길동</em>
+                  <em class="position">책임연구원</em>
+                </span>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>dot-badge-custom</h3>
+          <ul class="box-lst">
+            <li>
+              <span class="dot-badge-custom1">dot-badge-custom</span>
+              <span class="dot-badge-custom1">뱃지</span>
+              <span class="dot-badge-custom1">1</span>
+              <span class="dot-badge-custom1">100000</span>
+            </li>
+            <li>
+              <span class="dot-badge-custom2">dot-badge-custom2</span>
+              <span class="dot-badge-custom2">뱃지</span>
+              <span class="dot-badge-custom2">1</span>
+              <span class="dot-badge-custom2">100000</span>
+            </li>
+            <li>
+              <span class="dot-badge-custom3">dot-badge-custom3</span>
+              <span class="dot-badge-custom3">뱃지</span>
+              <span class="dot-badge-custom3">1</span>
+              <span class="dot-badge-custom3">100000</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <!-- ======================== -->
+      <section id="sec12">
+        <h2 class="section-sub-tit">pagination</h2>
+        <div class="box">
+          <div class="table-foot-area">
+            <!-- ======================================== -->
+            <!-- pager -->
+            <div class="pager">
+              <a href="javascript:void(0);" class="arr prev">
+                <span class="sr-only">이전</span>
+              </a>
+              <strong class="active">1</strong>
+              <a href="javascript:void(0);">2</a>
+              <a href="javascript:void(0);">3</a>
+              <a href="javascript:void(0);">4</a>
+              <a href="javascript:void(0);">5</a>
+              <a href="javascript:void(0);">6</a>
+              <a href="javascript:void(0);">7</a>
+              <a href="javascript:void(0);">8</a>
+              <a href="javascript:void(0);" class="arr next">
+                <span class="sr-only">다음</span>
+              </a>
+            </div>
+            <!-- ======================================== -->
+          </div>
+        </div>
+      </section>
+      <!-- ======================== -->
+      <section id="sec13">
+        <h2 class="section-sub-tit">attachment</h2>
+        <div class="box">
+          <ul class="box-lst">
+            <li>
+              <h3>attach-file(big attachment)</h3>
+              <div class="download-lst-area">
+                <label for="file" class="attach-file">
+                  <span data-placeholder="첨부파일" class="attach-file--panel"></span>
+                  <input type="file" name="file" id="file" class="attach-file--input" title="첨부파일">
+                </label>
+              </div>
+            </li>
+            <li>
+              <h3>download-lst (many)</h3>
+              <div class="download-lst-area">
+                <ul class="download-lst">
+                  <li>
+                    <div class="info">
+                      <span class="name">01_This is the name of the attached file.</span>
+                      <span class="extension">.hwp</span>
+                      <span class="size"><em>803.4</em>KB</span>
+                    </div>
+                    <button class="row-remove-btn">
+                      <i class="xi-close"></i>
+                      <span class="sr-only">첨부파일 삭제</span>
+                    </button>
+                  </li>
+                  <li>
+                    <div class="info">
+                      <span class="name">01_This is the name of the attached file.</span>
+                      <span class="extension">.jpg</span>
+                      <span class="size"><em>803.4</em>KB</span>
+                    </div>
+                    <button class="row-remove-btn">
+                      <i class="xi-close"></i>
+                      <span class="sr-only">첨부파일 삭제</span>
+                    </button>
+                  </li>
+                  <li>
+                    <div class="info">
+                      <span class="name">02_This is the name of the attached file.</span>
+                      <span class="extension">.jpg</span>
+                      <span class="size"><em>803.4</em>KB</span>
+                    </div>
+                    <button class="row-remove-btn">
+                      <i class="xi-close"></i>
+                      <span class="sr-only">첨부파일 삭제</span>
+                    </button>
+                  </li>
+                  <li>
+                    <div class="info">
+                      <span class="name">02_This is the name of the attached file.</span>
+                      <span class="extension">.jpg</span>
+                      <span class="size"><em>803.4</em>KB</span>
+                    </div>
+                    <button class="row-remove-btn">
+                      <i class="xi-close"></i>
+                      <span class="sr-only">첨부파일 삭제</span>
+                    </button>
+                  </li>
+                  <li>
+                    <div class="info">
+                      <span class="name">03_This is the name of the attached file. This is the name of the attached
+                        file.This is the name of the attached file.This is the name of the attached file.This is the
+                        name of the attached file.This is the name of the attached file.</span>
+                      <span class="extension">.jpg</span>
+                      <span class="size"><em>803.4</em>KB</span>
+                    </div>
+                    <button class="row-remove-btn">
+                      <i class="xi-close"></i>
+                      <span class="sr-only">첨부파일 삭제</span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h3>download-item (one)</h3>
+              <!-- ===================================== -->
+              <div class="download-item">
+                <em class="info">
+                  <span class="name">01_IOS_COMPONENTS.SKETCH</span>
+                  <span class="extension">.hwp</span>
+                  <span class="size"><em>803.4</em>KB</span>
+                </em>
+                <button class="download-btn">
+                  <i class="las la-download"></i>
+                  <span class="sr-only">내려받기</span>
+                </button>
+              </div>
+              <!-- ===================================== -->
+            </li>
+          </ul>
+
+        </div>
+      </section>
+      <!-- ======================== -->
+      <section id="sec14">
+        <h2 class="section-sub-tit">download-box-area</h2>
+        <div class="box">
+          <div class="download-box-area">
+            <h2 class="heading4">registration-form & view-form style</h2>
+            <ul>
+              <!-- D : If you click download-btn, li has an active. -->
+              <li>
+                <div class="file-wrap">
+                  <span class="file-info">
+                    <em class="name">산업안전보건법.PDF</em>
+                  </span>
+                  <span class="bottom-info">
+                    <em class="date">2021.11.21</em>
+                    <em>17MB</em>
+                  </span>
+                </div>
+                <button class="download-btn"></button>
+              </li>
+              <li>
+                <div class="file-wrap">
+                  <span class="file-info">
+                    <em class="name">산업안전보건법 시행령.PDF</em>
+                  </span>
+                  <span class="bottom-info">
+                    <em class="date">2021.11.21</em>
+                    <em>155MB</em>
+                  </span>
+                </div>
+                <button class="download-btn"></button>
+              </li>
+              <li>
+                <div class="file-wrap">
+                  <span class="file-info">
+                    <em class="name">산업안전보건법 시행령.PDF</em>
+                  </span>
+                  <span class="bottom-info">
+                    <em class="date">2021.11.21</em>
+                    <em>155MB</em>
+                  </span>
+                </div>
+                <button class="download-btn"></button>
+              </li>
+              <li>
+                <div class="file-wrap">
+                  <span class="file-info">
+                    <em class="name">산업안전보건법 시행령.PDF</em>
+                  </span>
+                  <span class="bottom-info">
+                    <em class="date">2021.11.21</em>
+                    <em>155MB</em>
+                  </span>
+                </div>
+                <button class="download-btn"></button>
+              </li>
+              <li>
+                <div class="file-wrap">
+                  <span class="file-info">
+                    <em class="name">산업안전보건법 시행령.PDF</em>
+                  </span>
+                  <span class="bottom-info">
+                    <em class="date">2021.11.21</em>
+                    <em>155MB</em>
+                  </span>
+                </div>
+                <button class="download-btn"></button>
+              </li>
+              <li>
+                <div class="file-wrap">
+                  <span class="file-info">
+                    <em class="name">산업안전보건법 시행규칙.PDF</em>
+                  </span>
+                  <span class="bottom-info">
+                    <em class="date">2021.11.21</em>
+                    <em>7MB</em>
+                  </span>
+                </div>
+                <button class="download-btn"></button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="download-box-area">
+            <h2 class="heading4">modify style</h2>
+            <ul>
+              <!-- D : If you click download-btn, li has an active. -->
+              <li>
+                <div class="file-wrap">
+                  <span class="file-info">
+                    <em class="name">화재예방, 소방시설 설치유지 화재예방, 소방시설 설치유지화재예방, 소방시설 설치유지화재예방, 소방시설 설치유지 및 안전관리에 관한
+                      법률.PDF</em>
+                  </span>
+                  <span class="bottom-info">
+                    <em class="date">2021.11.21</em>
+                    <em class="size">13MB</em>
+                  </span>
+                </div>
+                <button class="download-btn"></button>
+                <!-- remove-btn (only on modify page)-->
+                <button class="remove-btn"></button>
+              </li>
+              <li>
+                <div class="file-wrap">
+                  <span class="file-info">
+                    <em class="name">화재예방, 소방시설 설치유지 및 안전관리에 관한 시행령.jpg</em>
+                  </span>
+                  <span class="bottom-info">
+                    <em class="date">2021.11.21</em>
+                    <em class="size">13KB</em>
+                  </span>
+                </div>
+                <button class="download-btn"></button>
+                <!-- remove-btn (only on modify page)-->
+                <button class="remove-btn"></button>
+              </li>
+              <li>
+                <div class="file-wrap">
+                  <span class="file-info">
+                    <em class="name">화재예방, 소방시설 설치유지 및 안전관리에 관한 시행령.jpg</em>
+                  </span>
+                  <span class="bottom-info">
+                    <em class="date">2021.11.21</em>
+                    <em class="size">13KB</em>
+                  </span>
+                </div>
+                <button class="download-btn"></button>
+                <!-- remove-btn (only on modify page)-->
+                <button class="remove-btn"></button>
+              </li>
+              <li>
+                <div class="file-wrap">
+                  <span class="file-info">
+                    <em class="name">화재예방, 소방시설 설치유지 및 안전관리에 관한 시행령.jpg</em>
+                  </span>
+                  <span class="bottom-info">
+                    <em class="date">2021.11.21</em>
+                    <em class="size">13KB</em>
+                  </span>
+                </div>
+                <button class="download-btn"></button>
+                <!-- remove-btn (only on modify page)-->
+                <button class="remove-btn"></button>
+              </li>
+              <li>
+                <div class="file-wrap">
+                  <span class="file-info">
+                    <em class="name">화재예방, 소방시설 설치유지 및 안전관리에 관한 시행령.jpg</em>
+                  </span>
+                  <span class="bottom-info">
+                    <em class="date">2021.11.21</em>
+                    <em class="size">13KB</em>
+                  </span>
+                </div>
+                <button class="download-btn"></button>
+                <!-- remove-btn (only on modify page)-->
+                <button class="remove-btn"></button>
+              </li>
+              <!-- add-box (only on modify page)-->
+              <li class="add-box">
+                <button class="add-btn"></button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!-- ======================== -->
+      <!-- ======================== -->
+
+      <section id="header">
+        <h2 class="section-sub-tit">header</h2>
+      </section>
+      <!-- ======================== -->
+      <section id="layout">
+        <h2 class="section-sub-tit">layout</h2>
+      </section>
+      <!-- ======================== -->
+      <section id="icon">
+        <h2 class="section-sub-tit">icon</h2>
+        <a target="_blank" href="https://icons8.com/line-awesome" class="btn3 mgt20">line-awesome (move link)</a>
+        <a target="_blank" href="http://xpressengine.github.io/XEIcon/library-2.3.3.html" class="btn3 mgt20">XEIcon
+          (move link)</a>
+      </section>
+    </div>
+  </main>
+</body>
+
+
+</html>

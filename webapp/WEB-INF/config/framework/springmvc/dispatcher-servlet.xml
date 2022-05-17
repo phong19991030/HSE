@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:task="http://www.springframework.org/schema/task"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		default-autowire="byName"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+				http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+ 
+<!-- 	<context:annotation-config /> -->
+	  
+	<mvc:annotation-driven />
+<!-- 	 @Component --> 
+<!-- 	<context:component-scan base-package="module" /> -->
+<!--     <bean id="ApplyingStructureScheduler" class="applications.scheduler.ApplyingStructureScheduler"></bean> -->
+
+	<context:component-scan base-package="applications" use-default-filters="false"> 
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+ 
+	<context:component-scan base-package="module" use-default-filters="false"> 
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+	<context:component-scan base-package="infrastructure" use-default-filters="false"> 
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+    <context:component-scan base-package="kr.a2mvn.largefileupload" />
+    
+   
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="infrastructure.grant.GrantInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean id="localeChangeInterceptor"
+	            class="infrastructure.interceptor.LocaleInterceptor">
+	            <property name="paramName" value="lang" />
+	        </bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+ 	<mvc:interceptors>
+		<mvc:interceptor >
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping  path="/stylesheet/**"/>
+			<mvc:exclude-mapping  path="/stylesheet/**"/>
+			<mvc:exclude-mapping  path="/script/**"/> 
+			<mvc:exclude-mapping  path="/files/**"/>
+			<bean class =  "infrastructure.aop.LoggingControllerAspect" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+	<!-- Context -->
+	<mvc:default-servlet-handler default-servlet-name="WorkerServlet"/>
+	
+	<!-- <bean id="localeChangeInterceptor"
+	            class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+	            <property name="paramName" value="lang" />
+	        </bean> -->
+
+	<!-- Tiles -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/config/framework/tiles/tiles-defs.xml</value>
+			</list>
+		</property> 
+	</bean>
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="order" value="1" />
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+		<property name="contentType" value="text/html;charset=UTF-8"/>
+	</bean>
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="2" />
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/view/" /> 
+		<property name="suffix" value=".jsp" /> 
+	</bean> 
+<!-- 	Exception Resolver -->
+	<bean class="infrastructure.exception.A2mExceptionHandler">
+		<property name="defaultErrorView" value="common/exception/exception"/>
+		<property name="exceptionMappings">
+			<props>
+				<prop key="infrastructure.exception.ValidateException">common/exception/validate</prop>
+				<prop key="infrastructure.exception.SystemException">common/exception/null</prop>
+				<prop key="java.lang.NullPointerException">common/exception/null</prop>
+				<prop key="java.sql.SQLException">common/exception/sql</prop> 
+				<prop key="java.lang.Exception">common/exception/exception</prop>
+			</props>
+		</property>
+	</bean>	
+			
+	<!-- MultiPart -->
+	<!-- org.springframework.web.multipart.commons.CommonsMultipartResolver-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes(-1) -->
+    	<property name="maxUploadSize" value="3000000000"/>
+	</bean>
+	<!-- Empty View	 -->
+	<bean id="emptyView" class="infrastructure.view.EmptyView" />
+	<!-- DownLoad View -->
+	<bean id="downloadView" class="infrastructure.view.DownloadView" />
+	<!-- JSON View -->
+	<bean id="jsonView" class="infrastructure.view.JSONView" />
+<!-- 	<bean id="jsonViewEx" class="infrastructure.view.JsonView"> -->
+<!-- 	  <property name="contentType" value="application/json;charset=UTF-8" /> -->
+<!-- 	</bean> -->
+	<!-- Excel View -->
+	<bean id="excelView" class="infrastructure.view.ExcelView" />
+	<!-- Chart View(For Exporting) -->
+<!-- 	<bean id="chartView" class="kr.or.innopolis.mis.framework.view.ChartView" /> -->
+	<!-- BeanNameViewResolver -->
+	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" >
+		<property name="order"><value>0</value></property>
+	</bean>
+
+
+  	<!-- @Scheduled annotation	 -->
+  	<!-- 
+  		pool-size : 쓰레드 풀의 개수 => '개수' 또는 '최소크기-최대크기' 형태
+  		queue-capacity : 작업이 저장되는 큐의 최대 크기(풀의 쓰레드가 모두 작업 중이면 큐에 대기)
+  		keep-alive : 풀에 있는 쓰레드의 최대 유휴 시간(해당 시간 동안 새로운 작업을 실행하지 않으면 풀에서 제거, 단위는 초)
+  		rejection-policy : 큐가 차서 더 이상 작업을 받을 수 없을 때 작업 처리 결정 
+  	 -->
+	<task:executor id="executor" keep-alive="60" pool-size="10-20" queue-capacity="10" rejection-policy="ABORT" />
+<!-- 	<task:scheduler id="scheduler" pool-size="10" /> -->
+<!-- 	<task:annotation-driven executor="executor" scheduler="scheduler" /> -->
+	<task:annotation-driven/>
+
+
+
+
+   <!--  <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <ref bean="localeChangeInterceptor" />
+            </list>
+        </property>
+    </bean> -->
+   
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+            <property name="defaultLocale" value="ko"/>  
+    </bean> 
+<!--     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/> -->
+	<!-- <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+    	<property name="paramName" value="lang" />
+  	</bean> -->
+<!--     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> -->
+<!--         <property name="defaultErrorView" value="cmmn/egovError"/> -->
+<!--         <property name="exceptionMappings"> -->
+<!--             <props> -->
+<!--                 <prop key="org.springframework.dao.DataAccessException">cmmn/dataAccessFailure</prop> -->
+<!--                 <prop key="org.springframework.transaction.TransactionException">cmmn/transactionFailure</prop> -->
+<!--                 <prop key="egovframework.rte.fdl.cmmn.exception.EgovBizException">cmmn/egovError</prop> -->
+<!--                 <prop key="org.springframework.security.AccessDeniedException">cmmn/egovError</prop> -->
+<!--             </props> -->
+<!--         </property> -->
+<!--     </bean> -->
+
+<!--     <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1" -->
+<!-- 	    p:viewClass="org.springframework.web.servlet.view.JstlView" -->
+<!-- 	    p:prefix="/WEB-INF/jsp/egovframework/example/" p:suffix=".jsp"/> -->
+
+    <!-- For Pagination Tag -->
+<!--     <bean id="imageRenderer" class="egovframework.example.cmmn.web.EgovImgPaginationRenderer"/>
+
+    <bean id="paginationManager" class="egovframework.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
+        <property name="rendererType">
+            <map>
+                <entry key="image" value-ref="imageRenderer"/>
+            </map>
+        </property>
+    </bean> -->
+	<!-- /For Pagination Tag -->
+
+<!--     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/> -->
+
+	
+</beans>

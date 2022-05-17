@@ -1,0 +1,532 @@
+@charset "utf-8";
+
+/******** 2016 Button ********/
+/* basic */
+ /* .btn{
+	display:inline-block; 
+	padding:0 5px; 
+	height:33px; 
+	line-height:35px; 
+ //	border:1px solid #d3d5d9; border-bottom-color:#b8babe; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;   
+	font-size:14px; 
+	color:#fff; 
+	cursor:pointer;
+	margin: 0px 2px;
+    background-color: #273eb7; }
+    */
+ .btn{
+	padding:0 20px; 
+    background: #37cbda;
+    font-size: 14px;
+    color: #fff;    
+    min-width: 120px;
+    height: 40px;
+    font-weight: 300;
+/* 	height:33px;  */
+	line-height:35px; 
+	text-align: center;
+    /* line-height: 150px; */
+    border-radius: 30px;
+    display: inline-block !important;
+    cursor: pointer;
+}
+    
+.btn:focus{outline:1px dotted #000;}
+.btn:before{display:inline-block; vertical-align:middle;}
+.btn.bt_ico{padding:0 5px 0 0;}
+.btn.bt_ico:before{content:"";}
+.btn.bt_disabled{background:#ededed; color:#D0D0D0; cursor:default;}
+.btn.bt_disabled:focus{outline:0;}
+
+.btn_ico{display:inline-block; width:17px; height:17px; vertical-align:middle; overflow:hidden; line-height:999; cursor:pointer; margin-left: 5px;}
+
+.move_arrow_left, .move_arrow_right{display:block; margin:0 auto; width:25px; height:25px; overflow:hidden; line-height:999; cursor:pointer; background-size: contain !important;}
+.move_arrow_left{background-position:0 0;  background:url(../../images/stnd/common/new/04_left_arrow.png) no-repeat 0 0;}
+.move_arrow_right{margin-top:15px; background-position:0 -25px;  background:url(../../images/stnd/common/new/04_right_arrow.png) no-repeat 0 0;}
+
+/* color */
+.btg_blue{background:#23b1f7!important; border-color:#23b1f7; color:#fff;}
+.btg_red{background:#e23939!important; border-color:#e23939; color:#fff;}
+.btg_orange{background:#ff6c00!important; border-color:#ff6c00; color:#fff;}
+.btg_black{background:#535353!important; border-color:#535353; color:#fff;}
+.btg_gray{background:#ededed!important;}
+.btg_yellow{background:#ffff00!important; border-color:#ffff00; color:#000;}
+.btg_pink{background:#ff66ff!important; border-color:#ff66ff; color:#000;}
+
+/* .btm_refresh, */
+/* .bts_excel {background: #222c39 !important; border-color: #222c39;} */
+
+/* 12 default */
+.btn[class*="btm"]{padding:10px 5px; background:url(../../images/stnd/common/btm_bg.gif) repeat-x 1 bottom #6582e6;}
+.btn[class*="btm_"], .btn[class*="bts"].bt_ico{padding:0 10px!important;}
+.btn[class*="btm_"]:before, .btn[class*="btm"].bt_ico:before{margin:0 0 2px 0; width:16px; height:16px; content:""; background-image:url(../../images/stnd/common/btm_ico_02.png); background-repeat:no-repeat; display:none;}
+.btn[class*="btm_"]:before, .btn[class*="btm"].bt_ico:before{margin:-2px 8px 2px 0px;}
+.btn[class*="btm_"].bt_disabled:before, .btn[class*="btm"].bt_ico.bt_disabled:before{background-image:url(../../images/stnd/common/btm_ico_02_disabled.png);}
+
+.btm_accept:after{content:"Accept";}
+.btm_accept:before{background-position:-16px -256px;}
+.btm_accept2:before{background-position:-16px -256px;}
+.btm_add:after{content:"Add";}
+.btm_add:before{background-position:-32px -256px;}
+.btm_add2:before{background-position:-32px -256px;}
+.btm_sub:after{content:"Sub";}
+.btm_sub:before{background-position:-128px -272px;}
+.btm_sub2:before{background-position:-128px -272px;}
+.btm_cancel:after{content:"Cancel";}
+.btm_cancel:before{background-position:-48px -256px;}
+.btm_cancel2:before{background-position:-48px -256px;}
+.btm_approval:after{content:"Approval";}
+.btm_approval:before{background-position:-64px -256px;}
+.btm_approval2:before{background-position:-64px -256px;}
+.btm_delete:after{content:"Delete";}
+.btm_delete:before{background-position:-80px -256px;}
+.btm_delete2:before{background-position:-80px -256px;}
+.btm_alldelete:after{content:"Delete all";}
+.btm_alldelete:before{background-position:-80px -256px;}
+.btm_alldelete2:before{background-position:-80px -256px;}
+.btm_detail:after{content:"상세";}
+.btm_detail:before{background-position:-96px -256px;}
+.btm_detail2:before{background-position:-96px -256px;}
+.btm_excel:after{content:"엑셀";}
+.btm_excel:before{background-position:-112px -256px;}
+.btm_excel2:before{background-position:-112px -256px;}
+.btm_info:after{content:"정보";}
+.btm_info:before{background-position:-128px -256px;}
+.btm_info2:before{background-position:-128px -256px;}
+.btm_list:after{content:"목록";}
+.btm_list:before{background-position:-144px -256px;}
+.btm_list2:before{background-position:-144px -256px;}
+.btm_print:after{content:"출력";}
+.btm_print:before{background-position:-160px -256px;}
+.btm_print2:before{background-position:-160px -256px;}
+.btm_refresh:after{content:"Refresh";}
+.btm_refresh:before{background-position:-176px -256px;}
+.btm_refresh2:before{background-position:-176px -256px;}
+.btm_approvalrequest:after{content:"결재요청";}
+.btm_approvalrequest:before{background-position:-192px -256px;}
+.btm_approvalrequest2:before{background-position:-192px -256px;}
+.btm_request:after{content:"요청";}
+.btm_request:before{background-position:-192px -256px;}
+.btm_request2:before{background-position:-192px -256px;}
+.btm_return:after{content:"반려";}
+.btm_return:before{background-position:-208px -256px;}
+.btm_return2:before{background-position:-208px -256px;}
+.btm_submit:after{content:"Submit";}
+.btm_submit:before{background-position:-144px -272px;}
+.btm_submit2:before{background-position:-144px -272px;}
+.btm_save:after{content:"Save";}
+.btm_save:before{background-position:-224px -256px;}
+.btm_save2:before{background-position:-224px -256px;}
+.btm_search:after{content:"Search";}
+.btm_search:before{background-position:-240px -256px;}
+.btm_search2:before{background-position:-240px -256px;}
+.btm_select:after{content:"선택";}
+.btm_select:before{background-position:-256px -256px;}
+.btm_select2:before{background-position:-256px -256px;}
+.btm_writecomplete:after{content:"작성완료";}
+.btm_writecomplete:before{background-position:-16px -272px;}
+.btm_writecomplete2:before{background-position:-16px -272px;}
+.btm_receiptcomplete:after{content:"접수완료";}
+.btm_receiptcomplete:before{background-position:-16px -272px;}
+.btm_receiptcomplete2:before{background-position:-16px -272px;}
+.btm_receipt:after{content:"접수";}
+.btm_receipt:before{background-position:-32px -272px;}
+.btm_receipt2:before{background-position:-32px -272px;}
+.btm_apply:after{content:"적용";}
+.btm_apply:before{background-position:-16px -256px;}
+.btm_apply2:before{background-position:-16px -256px;}
+.btm_fileupload:after{content:"파일첨부";}
+.btm_fileupload:before{background-position:-48px -272px;}
+.btm_fileupload2:before{background-position:-48px -272px;}
+.btm_filedown:after{content:"파일다운로드";}
+.btm_filedown:before{background-position:-64px -272px;}
+.btm_filedown2:before{background-position:-64px -272px;}
+.btm_popup:after{content:"새창열림";}
+.btm_popup:before{background-position:-80px -272px;}
+.btm_popup2:before{background-position:-80px -272px;}
+.btm_close:after{content:"닫기";}
+.btm_close:before{background-position:-96px -272px;}
+.btm_close2:before{background-position:-96px -272px;}
+.btm_confirm:after{content:"확인";}
+.btm_confirm:before{background-position:-112px -272px;}
+.btm_confirm2:before{background-position:-112px -272px;}
+.btm_preview:after{content:"미리보기";}
+.btm_preview:before{background-position:-160px -272px;}
+.btm_preview2:before{background-position:-160px -272px;}
+.btm_new:after{content:"신규";}
+.btm_new:before{background-position:-32px -256px;}
+.btm_new2:before{background-position:-32px -256px;}
+.btm_rowadd:after{content:"행추가";}
+.btm_rowadd:before{background-position:-32px -256px;}
+.btm_rowadd2:before{background-position:-32px -256px;}
+.btm_rowdelete:after{content:"행삭제";}
+.btm_rowdelete:before{background-position:-128px -272px;}
+.btm_rowdelete2:before{background-position:-128px -272px;}
+.btm_small_search{padding:0px 0px 0px 1px!important;}
+.btm_small_search:before{background-position:-256px -256px;}
+
+/* 12 default no content */
+.btm_accept_nc:before{background-position:-16px -256px;}
+.btm_add_nc:before{background-position:-32px -256px;}
+.btm_sub_nc:before{background-position:-128px -272px;}
+.btm_cancel_nc:before{background-position:-48px -256px;}
+.btm_approval_nc:before{background-position:-64px -256px;}
+.btm_delete_nc:before{background-position:-80px -256px;}
+.btm_alldelete_nc:before{background-position:-80px -256px;}
+.btm_detail_nc:before{background-position:-96px -256px;}
+.btm_excel_nc:before{background-position:-112px -256px;}
+.btm_info_nc:before{background-position:-128px -256px;}
+.btm_list_nc:before{background-position:-144px -256px;}
+.btm_print_nc:before{background-position:-160px -256px;}
+.btm_refresh_nc:before{background-position:-176px -256px;}
+.btm_approvalrequest_nc:before{background-position:-192px -256px;}
+.btm_request_nc:before{background-position:-192px -256px;}
+.btm_return_nc:before{background-position:-208px -256px;}
+.btm_submit_nc:before{background-position:-144px -272px;}
+.btm_save_nc:before{background-position:-224px -256px;}
+.btm_search_nc:before{background-position:-240px -256px;}
+.btm_select_nc:before{background-position:-256px -256px;}
+.btm_writecomplete_nc:before{background-position:-16px -272px;}
+.btm_receiptcomplete_nc:before{background-position:-16px -272px;}
+.btm_receipt_nc:before{background-position:-32px -272px;}
+.btm_apply_nc:before{background-position:-16px -256px;}
+.btm_fileupload_nc:before{background-position:-48px -272px;}
+.btm_filedown_nc:before{background-position:-64px -272px;}
+.btm_popup_nc:before{background-position:-80px -272px;}
+.btm_close_nc:before{background-position:-96px -272px;}
+.btm_confirm_nc:before{background-position:-112px -272px;}
+.btm_preview_nc:before{background-position:-160px -272px;}
+.btm_new_nc:before{background-position:-32px -256px;}
+.btm_rowadd_nc:before{background-position:-32px -256px;}
+.btm_rowdelete_nc:before{background-position:-128px -272px;}
+.btm_small_search{padding:0px 0px 0px 1px!important;}
+.btm_small_search_nc:before{background-position:-256px -256px;}
+
+/* 11 small */
+/* .btn[class*="bts"]{height:21px; line-height:21px; background:#f5f6f9; font-size:11px;} */
+/* .btn[class*="bts_"], .btn[class*="bts"].bt_ico{padding:0 5px 0 0!important;} */
+/* .btn[class*="bts_"]:before, .btn[class*="bts"].bt_ico:before{width:16px; height:16px; content:""; background-image:url(../../images/stnd/common/bts_ico.png); background-repeat:no-repeat;} */
+/* .btn[class*="bts_"].bt_disabled:before, .btn[class*="bts"].bt_ico.bt_disabled:before{background-image:url(../../images/stnd/common/bts_ico_disabled.png);} */
+.bts_accept:after{content:"Accept";}
+.bts_accept:before{background-position:-16px -256px;}
+.bts_accept2:before{background-position:-16px -256px;}
+.bts_add:after{content:"Add";}
+.bts_add:before{background-position:-32px -256px;}
+.bts_add2:before{background-position:-32px -256px;}
+.bts_sub:after{content:"Sub";}
+.bts_sub:before{background-position:-128px -272px;}
+.bts_sub2:before{background-position:-128px -272px;}
+.bts_cancel:after{content:"Cancel";}
+.bts_cancel:before{background-position:-48px -256px;}
+.bts_cancel2:before{background-position:-48px -256px;}
+.bts_approval:after{content:"Approval";}
+.bts_approval:before{background-position:-64px -256px;}
+.bts_approval2:before{background-position:-64px -256px;}
+.bts_delete:after{content:"Delete";}
+.bts_delete:before{background-position:-80px -256px;}
+.bts_delete2:before{background-position:-80px -256px;}
+.bts_update:after{content:"Update";}
+.bts_update:before{background-position:-192px -256px;}
+.bts_update2:before{background-position:-192px -256px;}
+.bts_alldelete:after{content:"Delete all";}
+.bts_alldelete:before{background-position:-80px -256px;}
+.bts_alldelete2:before{background-position:-80px -256px;}
+.bts_detail:after{content:"Detail";}
+.bts_detail:before{background-position:-96px -256px;}
+.bts_detail2:before{background-position:-96px -256px;}
+.bts_excel:after{content:"Export excel";}
+.bts_excel:before{background-position:-112px -256px;}
+.bts_excel2:before{background-position:-112px -256px;}
+.bts_info:after{content:"Info";}
+.bts_info:before{background-position:-128px -256px;}
+.bts_info2:before{background-position:-128px -256px;}
+.bts_list:after{content:"List";}
+.bts_list:before{background-position:-144px -256px;}
+.bts_list2:before{background-position:-144px -256px;}
+.bts_print:after{content:"Print";}
+.bts_print:before{background-position:-160px -256px;}
+.bts_print2:before{background-position:-160px -256px;}
+.bts_refresh:after{content:"Refresh";}
+.bts_refresh:before{background-position:-176px -256px;}
+.bts_refresh2:before{background-position:-176px -256px;}
+.bts_approvalrequest:after{content:"결재요청";}
+.bts_approvalrequest:before{background-position:-192px -256px;}
+.bts_approvalrequest2:before{background-position:-192px -256px;}
+.bts_request:after{content:"Request";}
+.bts_request:before{background-position:-192px -256px;}
+.bts_request2:before{background-position:-192px -256px;}
+.bts_return:after{content:"Return";}
+.bts_return:before{background-position:-208px -256px;}
+.bts_return2:before{background-position:-208px -256px;}
+.bts_submit:after{content:"Submit";}
+.bts_submit:before{background-position:-144px -272px;}
+.bts_submit2:before{background-position:-144px -272px;}
+.bts_save:after{content:"Save";}
+.bts_save:before{background-position:-224px -256px;}
+.bts_save2:before{background-position:-224px -256px;}
+.bts_search:after{content:"Search";}
+.bts_search:before{background-position:-240px -256px;}
+.bts_search2:before{background-position:-240px -256px;}
+.bts_select:after{content:"Select";}
+.bts_select:before{background-position:-256px -256px;}
+.bts_select2:before{background-position:-256px -256px;}
+.bts_writecomplete:after{content:"Write complete";}
+.bts_writecomplete:before{background-position:-16px -272px;}
+.bts_writecomplete2:before{background-position:-16px -272px;}
+.bts_receiptcomplete:after{content:"접수완료";}
+.bts_receiptcomplete:before{background-position:-16px -272px;}
+.bts_receiptcomplete2:before{background-position:-16px -272px;}
+.bts_receipt:after{content:"Receipt";}
+.bts_receipt:before{background-position:-32px -272px;}
+.bts_receipt2:before{background-position:-32px -272px;}
+.bts_apply:after{content:"Apply";}
+.bts_apply:before{background-position:-16px -256px;}
+.bts_apply2:before{background-position:-16px -256px;}
+.bts_fileupload:after{content:"Upload";}
+.bts_fileupload:before{background-position:-48px -272px;}
+.bts_fileupload2:before{background-position:-48px -272px;}
+.bts_filedown:after{content:"Download";}
+.bts_filedown:before{background-position:-64px -272px;}
+.bts_filedown2:before{background-position:-64px -272px;}
+.bts_popup:after{content:"Popup";}
+.bts_popup:before{background-position:-80px -272px;}
+.bts_popup2:before{background-position:-80px -272px;}
+.bts_close:after{content:"Close";}
+.bts_close:before{background-position:-96px -272px;}
+.bts_close2:before{background-position:-96px -272px;}
+.bts_confirm:after{content:"Confirm";}
+.bts_confirm:before{background-position:-112px -272px;}
+.bts_confirm2:before{background-position:-112px -272px;}
+.bts_preview:after{content:"Preview";}
+.bts_preview:before{background-position:-160px -272px;}
+.bts_preview2:before{background-position:-160px -272px;}
+.bts_new:after{content:"New";}
+.bts_new:before{background-position:-32px -256px;}
+.bts_new2:before{background-position:-32px -256px;}
+.bts_rowadd:after{content:"Add row";}
+.bts_rowadd:before{background-position:-32px -256px;}
+.bts_rowadd2:before{background-position:-32px -256px;}
+.bts_rowdelete:after{content:"Delete row";}
+.bts_rowdelete:before{background-position:-128px -272px;}
+.bts_rowdelete2:before{background-position:-128px -272px;}
+
+
+/* 11 small no content */
+.bts_accept_nc:before{background-position:-16px -256px;}
+.bts_add_nc:before{background-position:-32px -256px;}
+.bts_sub_nc:before{background-position:-128px -272px;}
+.bts_cancel_nc:before{background-position:-48px -256px;}
+.bts_approval_nc:before{background-position:-64px -256px;}
+.bts_delete_nc:before{background-position:-80px -256px;}
+.bts_update_nc:before{background-position:-192px -256px;}
+.bts_alldelete_nc:before{background-position:-80px -256px;}
+.bts_detail_nc:before{background-position:-96px -256px;}
+.bts_excel_nc:before{background-position:-112px -256px;}
+.bts_info_nc:before{background-position:-128px -256px;}
+.bts_list_nc:before{background-position:-144px -256px;}
+.bts_print_nc:before{background-position:-160px -256px;}
+.bts_refresh_nc:before{background-position:-176px -256px;}
+.bts_approvalrequest_nc:before{background-position:-192px -256px;}
+.bts_request_nc:before{background-position:-192px -256px;}
+.bts_return_nc:before{background-position:-208px -256px;}
+.bts_submit_nc:before{background-position:-144px -272px;}
+.bts_save_nc:before{background-position:-224px -256px;}
+.bts_search_nc:before{background-position:-240px -256px;}
+.bts_select_nc:before{background-position:-256px -256px;}
+.bts_writecomplete_nc:before{background-position:-16px -272px;}
+.bts_receiptcomplete_nc:before{background-position:-16px -272px;}
+.bts_receipt_nc:before{background-position:-32px -272px;}
+.bts_apply_nc:before{background-position:-16px -256px;}
+.bts_fileupload_nc:before{background-position:-48px -272px;}
+.bts_filedown_nc:before{background-position:-64px -272px;}
+.bts_popup_nc:before{background-position:-80px -272px;}
+.bts_close_nc:before{background-position:-96px -272px;}
+.bts_confirm_nc:before{background-position:-112px -272px;}
+.bts_preview_nc:before{background-position:-160px -272px;}
+.bts_new_nc:before{background-position:-32px -256px;}
+.bts_rowadd_nc:before{background-position:-32px -256px;}
+.bts_rowdelete_nc:before{background-position:-128px -272px;}
+
+/* 11 xsmall */
+.btn[class*="btxs"]{height:19px; line-height:19px; background:#f5f6fa; font-size:11px;}
+.btxs_fileupload{background:#f5f6f9!important;}
+.btxs_fileupload:after{content:"파일첨부";}
+.btxs_alldelete{background:#e23939!important; border:1px solid #e23939; color:#fff;}
+.btxs_alldelete:after{content:"전체삭제";}
+.btxs_filedown{background:#8190a3!important; border:1px solid #8190a3; border-bottom-color:#697483; color:#fff;}
+.btxs_filedown:after{content:"다운로드";}
+.btxs_search:after{content:"조회";}
+.btxs_ico_popup{background:url(../../images/stnd/common/btxs_popup.png) no-repeat 0 0; }
+.btxs_ico_search{background:url(../../images/stnd/common/btxs_search_01.png) no-repeat 0 0; width:25px; height:25px;}
+.btxs_ico_delete{background:url(../../images/search_h.png) no-repeat 0 0;}
+
+/* 12 default 한글 */
+.btm_확정:after{content:"확정";}
+.btm_확정:before{background-position:-16px -256px;}
+.btm_추가:after{content:"추가";}
+.btm_추가:before{background-position:-32px -256px;}
+.btm_제거:after{content:"제거";}
+.btm_제거:before{background-position:-128px -272px;}
+.btm_취소:after{content:"취소";}
+.btm_취소:before{background-position:-48px -256px;}
+.btm_승인:after{content:"승인";}
+.btm_승인:before{background-position:-64px -256px;}
+.btm_삭제:after{content:"삭제";}
+.btm_삭제:before{background-position:-80px -256px;}
+.btm_전체삭제:after{content:"전체삭제";}
+.btm_전체삭제:before{background-position:-80px -256px;}
+.btm_상세:after{content:"상세";}
+.btm_상세:before{background-position:-96px -256px;}
+.btm_엑셀:after{content:"엑셀";}
+.btm_엑셀:before{background-position:-112px -256px;}
+.btm_정보:after{content:"정보";}
+.btm_정보:before{background-position:-128px -256px;}
+.btm_목록:after{content:"목록";}
+.btm_목록:before{background-position:-144px -256px;}
+.btm_출력:after{content:"출력";}
+.btm_출력:before{background-position:-160px -256px;}
+.btm_초기화:after{content:"초기화";}
+.btm_초기화:before{background-position:-176px -256px;}
+.btm_결재요청:after{content:"결재요청";}
+.btm_결재요청:before{background-position:-192px -256px;}
+.btm_요청:after{content:"요청";}
+.btm_요청:before{background-position:-192px -256px;}
+.btm_반려:after{content:"반려";}
+.btm_반려:before{background-position:-208px -256px;}
+.btm_제출:after{content:"제출";}
+.btm_제출:before{background-position:-144px -272px;}
+.btm_저장:after{content:"저장";}
+.btm_저장:before{background-position:-224px -256px;}
+.btm_조회:after{content:"조회";}
+.btm_조회:before{background-position:-240px -256px;}
+.btm_선택:after{content:"선택";}
+.btm_선택:before{background-position:-256px -256px;}
+.btm_작성완료:after{content:"작성완료";}
+.btm_작성완료:before{background-position:-16px -272px;}
+.btm_접수완료:after{content:"접수완료";}
+.btm_접수완료:before{background-position:-16px -272px;}
+.btm_접수:after{content:"접수";}
+.btm_접수:before{background-position:-32px -272px;}
+.btm_적용:after{content:"적용";}
+.btm_적용:before{background-position:-16px -256px;}
+.btm_파일첨부:after{content:"파일첨부";}
+.btm_파일첨부:before{background-position:-48px -272px;}
+.btm_파일다운로드:after{content:"파일다운로드";}
+.btm_파일다운로드:before{background-position:-64px -272px;}
+
+.btm_다운로드:after{content:"";}
+.btm_다운로드:before{background-position:-64px -272px;}
+
+.btm_새창열림:after{content:"새창열림";}
+.btm_새창열림:before{background-position:-80px -272px;}
+.btm_닫기:after{content:"닫기";}
+.btm_닫기:before{background-position:-96px -272px;}
+.btm_확인:after{content:"확인";}
+.btm_확인:before{background-position:-112px -272px;}
+.btm_미리보기:after{content:"미리보기";}
+.btm_미리보기:before{background-position:-160px -272px;}
+.btm_신규:after{content:"신규";}
+.btm_신규:before{background-position:-32px -256px;}
+.btm_행추가:after{content:"행추가";}
+.btm_행추가:before{background-position:-32px -256px;}
+.btm_행삭제:after{content:"행삭제";}
+.btm_행삭제:before{background-position:-128px -272px;}
+.btm_default:before {background-position: -112px -160px;}
+.btm_메일통보:before {background-position: -177px -272px;}
+
+
+/* 11 small 한글 */
+.bts_확정:after{content:"확정";}
+.bts_확정:before{background-position:-16px -256px;}
+.bts_추가:after{content:"추가";}
+.bts_추가:before{background-position:-32px -256px;}
+.bts_제거:after{content:"제거";}
+.bts_제거:before{background-position:-128px -272px;}
+.bts_취소:after{content:"취소";}
+.bts_취소:before{background-position:-48px -256px;}
+.bts_승인:after{content:"승인";}
+.bts_승인:before{background-position:-64px -256px;}
+.bts_삭제:after{content:"삭제";}
+.bts_삭제:before{background-position:-80px -256px;}
+.bts_전체삭제:after{content:"전체삭제";}
+.bts_전체삭제:before{background-position:-80px -256px;}
+.bts_상세:after{content:"상세";}
+.bts_상세:before{background-position:-96px -256px;}
+.bts_엑셀:after{content:"엑셀";}
+.bts_엑셀:before{background-position:-112px -256px;}
+.bts_정보:after{content:"정보";}
+.bts_정보:before{background-position:-128px -256px;}
+.bts_목록:after{content:"목록";}
+.bts_목록:before{background-position:-144px -256px;}
+.bts_출력:after{content:"출력";}
+.bts_출력:before{background-position:-160px -256px;}
+.bts_초기화:after{content:"초기화";}
+.bts_초기화:before{background-position:-176px -256px;}
+.bts_결재요청:after{content:"결재요청";}
+.bts_결재요청:before{background-position:-192px -256px;}
+.bts_요청:after{content:"요청";}
+.bts_요청:before{background-position:-192px -256px;}
+.bts_반려:after{content:"반려";}
+.bts_반려:before{background-position:-208px -256px;}
+.bts_제출:after{content:"제출";}
+.bts_제출:before{background-position:-144px -272px;}
+.bts_저장:after{content:"저장";}
+.bts_저장:before{background-position:-224px -256px;}
+.bts_조회:after{content:"조회";}
+.bts_조회:before{background-position:-240px -256px;}
+.bts_선택:after{content:"선택";}
+.bts_선택:before{background-position:-256px -256px;}
+.bts_작성완료:after{content:"작성완료";}
+.bts_작성완료:before{background-position:-16px -272px;}
+.bts_접수완료:after{content:"접수완료";}
+.bts_접수완료:before{background-position:-16px -272px;}
+.bts_접수:after{content:"접수";}
+.bts_접수:before{background-position:-32px -272px;}
+.bts_적용:after{content:"적용";}
+.bts_적용:before{background-position:-16px -256px;}
+.bts_파일첨부:after{content:"파일첨부";}
+.bts_파일첨부:before{background-position:-48px -272px;}
+.bts_파일다운로드:after{content:"파일다운로드";}
+.bts_파일다운로드:before{background-position:-64px -272px;}
+.bts_새창열림:after{content:"새창열림";}
+.bts_새창열림:before{background-position:-80px -272px;}
+.bts_닫기:after{content:"닫기";}
+.bts_닫기:before{background-position:-96px -272px;}
+.bts_확인:after{content:"확인";}
+.bts_확인:before{background-position:-112px -272px;}
+.bts_미리보기:after{content:"미리보기";}
+.bts_미리보기:before{background-position:-160px -272px;}
+.bts_신규:after{content:"신규";}
+.bts_신규:before{background-position:-32px -256px;}
+.bts_행추가:after{content:"행추가";}
+.bts_행추가:before{background-position:-32px -256px;}
+.bts_행삭제:after{content:"행삭제";}
+.bts_행삭제:before{background-position:-128px -272px;}
+.bts_행삭제:before{background-position:-128px -272px;}
+
+.btn.no_bg {background-color: transparent !important;}
+
+/* page */
+.subpage_normal .btn[class*="bts"]{padding:10px 5px; background:url(../../images/stnd/common/btm_bg.gif) repeat-x 1 bottom #6582e6;}
+.subpage_normal .btn[class*="bts_"], .btn[class*="bts"].bt_ico{padding:0 10px!important;}
+.subpage_normal .btn[class*="bts_"]:before, .btn[class*="bts"].bt_ico:before{margin:0 0 2px 0; width:16px; height:16px; content:""; background-image:url(../../images/stnd/common/btm_ico_01.png); background-repeat:no-repeat;}
+.subpage_normal .btn[class*="bts_"]:before, .btn[class*="bts"].bt_ico:before{margin:-2px 8px 2px 0px;}
+.subpage_normal .btn[class*="bts_"].bt_disabled:before, .btn[class*="bts"].bt_ico.bt_disabled:before{background-image:url(../../images/stnd/common/btm_ico_01_disabled.png);}
+
+#right_box .btn {
+/* 	float: right; */
+    margin-top: -4px;
+    height: 27px;
+    line-height: 29px;
+    padding: 0 10px;
+}
+
+.btn_moveUp, .btn_moveDown {
+	border: 1px solid #ebebeb;
+	color: #6582e6;
+	padding: 0 8px;
+}
+
+.btm_save, .bts_save, .btn_save_cs {
+/* 	background-color : #222c39 !important;	 */
+}

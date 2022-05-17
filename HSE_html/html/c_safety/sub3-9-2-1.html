@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!-- common lib js -->
+<script type="text/javascript" src="../../js/lib/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../../js/lib/date-search-setting.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery-timepicker.js"></script>
+<!-- common js -->
+<script type="text/javascript" src="../../js/common/layout.js"></script>
+<script type="text/javascript" src="../../js/common/common.js"></script>
+<script type="text/javascript" src="../../js/common/layerPopup.js"></script>
+<!-- sub js -->
+<script type="text/javascript" src="../../js/common/sub.js"></script>
+
+<head>
+  <meta charset="UTF-8">
+  <title>HSE 운영지원시스템</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1,width=device-width" />
+  <meta name="copyright" content="Copyright 2022 © AtwoM. ALL Rights Reserved HSE 운영지원시스템" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../../img/common/favicon-32x32.png" />
+  <!-- common css -->
+  <link rel="stylesheet" type="text/css" href="../../css/common/common.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/ui.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/common/reset.css" />
+  <!-- common lib css -->
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui.theme.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui-timepicker.css" />
+  <!-- sub css -->
+  <link rel="stylesheet" type="text/css" href="../../css/common/sub.css" />
+</head>
+
+<body>
+  <!-- layer-popup2-->
+  <!-- 현장 점검 확인 사항 설정 팝업 -->
+  <div class="layer-popup active" id="layer-popup2">
+    <div class="popup-cont" style="min-width: 447px;">
+
+      <h2 class="heading4">현장 점검 확인 사항 설정</h2>
+      <h3 class="heading5">항목 목록</h3>
+
+      <div class="base-table">
+        <table>
+          <caption></caption>
+          <colgroup>
+            <col style="width: auto;">
+            <col style="width: auto;">
+            <col style="width: auto;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col" class="txt-center">NO</th>
+              <th scope="col">점검 사항</th>
+              <th scope="col" class="txt-center">설정</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="txt-center">1</td>
+              <td>직원 정보 관리</td>
+              <td class="txt-center">
+                <div class="toggle-switch">
+                  <input type="checkbox" id="toggle1" checked>
+                  <label for="toggle1"></label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="txt-center">2</td>
+              <td>직원 건강 관리</td>
+              <td class="txt-center">
+                <div class="toggle-switch">
+                  <input type="checkbox" id="toggle2" checked>
+                  <label for="toggle2"></label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="txt-center">3</td>
+              <td>작업 공구 및 장비 관리</td>
+              <td class="txt-center">
+                <div class="toggle-switch">
+                  <input type="checkbox" id="toggle3" checked>
+                  <label for="toggle3"></label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="txt-center">4</td>
+              <td>개인 보호 장비</td>
+              <td class="txt-center">
+                <div class="toggle-switch">
+                  <input type="checkbox" id="toggle4" checked>
+                  <label for="toggle4"></label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="txt-center">5</td>
+              <td>법정의무교육 관리</td>
+              <td class="txt-center">
+                <div class="toggle-switch">
+                  <input type="checkbox" id="toggle5" checked>
+                  <label for="toggle5"></label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="txt-center">6</td>
+              <td>안전관리 조직도</td>
+              <td class="txt-center">
+                <div class="toggle-switch">
+                  <input type="checkbox" id="toggle6" checked>
+                  <label for="toggle6"></label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="txt-center">7</td>
+              <td>안전점검 및 순찰 관리</td>
+              <td class="txt-center">
+                <div class="toggle-switch">
+                  <input type="checkbox" id="toggle7">
+                  <label for="toggle7"></label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="txt-center">8</td>
+              <td>위험성 평가 관리</td>
+              <td class="txt-center">
+                <div class="toggle-switch">
+                  <input type="checkbox" id="toggle8">
+                  <label for="toggle8"></label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="txt-center">9</td>
+              <td>직업 전 안전교육</td>
+              <td class="txt-center">
+                <div class="toggle-switch">
+                  <input type="checkbox" id="toggle9" checked>
+                  <label for="toggle9"></label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="txt-center">10</td>
+              <td>사고 조사 관리</td>
+              <td class="txt-center">
+                <div class="toggle-switch">
+                  <input type="checkbox" id="toggle10" checked>
+                  <label for="toggle10"></label>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="foot-btn-area">
+        <button class="btn-style3">
+          <i class=" las la-reply"></i><span class="name">취소</span>
+        </button>
+        <button class="btn-style1">
+          <i class="las la-edit"></i><span class="name">등록</span>
+        </button>
+      </div>
+
+      <button type="button" class="popup-close-btn">
+        <i class="xi-close"></i>
+      </button>
+    </div>
+  </div>
+  <!-- //layer-popup2 -->
+</body>
+
+</html>

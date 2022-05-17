@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	default-autowire="byName"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd">
+	
+<!-- 	<jdbc:embedded-database id="dataSource" type="HSQL"> -->
+<!-- 		<jdbc:script location= "classpath:/db/sampledb.sql"/> -->
+<!-- 	</jdbc:embedded-database> -->
+    
+    <!-- hsql
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="net.sf.log4jdbc.DriverSpy"/>
+        <property name="url" value="jdbc:log4jdbc:hsqldb:hsql://localhost/sampledb"/>
+        <property name="username" value="sa"/>
+    </bean>
+    -->  
+    
+    <!-- Mysql  
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/example" />
+        <property name="username" value="user"/>
+        <property name="password" value="password"/>
+    </bean>
+    -->
+    
+<!--     oracle -->
+<!--     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
+<!--         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> -->
+<!--         <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:example" /> -->
+<!--         <property name="username" value="user"/> -->
+<!--         <property name="password" value="password"/> -->
+<!--     </bean> -->
+    
+    <context:property-placeholder location="classpath:config/jdbc/datasource.properties"/>
+    <bean id="dataSourceBase" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${base.jdbc.driver}"/>
+		<property name="url" value="${base.jdbc.url}"/>
+		<property name="username" value="${base.jdbc.username}"/>
+		<property name="password" value="${base.jdbc.password}"/>
+		<property name="initialSize" value="${base.jdbc.initialSize}"/>
+		<property name="maxActive" value="${base.jdbc.maxActive}"/>
+		<property name="validationQuery" value="${base.jdbc.validationQuery}"/>
+	</bean>
+	<!-- 개발 시 콘솔을 통한 디버깅용(실서버에서는 삭제하고 'dataSourceTarget'을  'dataSource'로 id수정)-->
+	<bean id="dataSource" class="com.p6spy.engine.spy.P6DataSource">
+		<constructor-arg>
+			<ref bean="dataSourceBase"/>
+		</constructor-arg>
+	</bean>
+	<!-- MyBatis(SqlSessionFactoryBean)	 -->
+<!-- 	<bean id="sqlMapClientBase" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
+<!-- 		<property name="dataSource" ref="dataSource"/> -->
+<!-- 		<property name="configLocation" value="classpath:/config/jdbc/mybatis-config.xml"/> -->
+<!-- 		<property name="mapperLocations" > -->
+<!-- 			<array> -->
+<!-- 				<value>classpath:/module/**/*.xml</value> -->
+<!-- 				<value>classpath:/applications/**/*.xml</value>  -->
+<!-- 			</array> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+	
+	<!-- Transaction -->
+<!-- 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+<!-- 		<property name="dataSource" ref="dataSource"/> -->
+<!-- 		<qualifier value="defaultTX"/> -->
+<!-- 	</bean> -->
+	
+
+	
+    
+<!--     -->
+    
+</beans>

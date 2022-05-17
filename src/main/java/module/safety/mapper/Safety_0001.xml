@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sft.sft_0001">
+
+	<select id="getToolCnt" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) AS CNT
+        FROM HSE_DEVICE_TOOL_MGT mgt
+		<!-- INNER JOIN HSE_EMP_MGT hem ON hem.EMP_NO = mgt.MANAGER 
+		LEFT JOIN TCCO_FILE tf ON tf.ATCH_FLE_SEQ = mgt.IMAGE_FILE_ID  -->
+		LEFT JOIN COMM_CD cc ON mgt.TOOL_TYPE = cc.COMM_CD
+		<where>
+			1 = 1
+			<if test="all != null and all != '' ">
+				AND (
+				UPPER(mgt.TOOL_TYPE) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+				UPPER(mgt.MANAGE_NO) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+				UPPER(mgt.TOOL_NAME) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+				UPPER(mgt.STANDARD) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+				UPPER(mgt.BRAND_NAME) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+				UPPER(mgt.MODEL_NAME) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+				UPPER(mgt.SERIAL_NO) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+				UPPER(mgt.SPECIFICATION) LIKE CONCAT('%', UPPER(#{all}), '%')
+				)
+			</if>
+			<if test="TOOL_TYPE != null and TOOL_TYPE != '' ">
+				AND mgt.TOOL_TYPE = #{TOOL_TYPE}
+			</if>
+			<if test="SEARCH_FIRST_DT != null and SEARCH_FIRST_DT != '' ">
+		    		AND mgt.CORRECTION_DATE &gt;= #{SEARCH_FIRST_DT}
+		    	</if>
+	    	<if test="SEARCH_LAST_DT != null and SEARCH_LAST_DT != '' ">
+	    		AND mgt.CORRECTION_DATE &lt;= #{SEARCH_LAST_DT}
+	    	</if>
+		</where>
+	</select>
+	
+	<select id="getToolList" parameterType="map" resultType="HashMap">
+		SELECT SUB.*
+		FROM (
+			SELECT 
+			ROW_NUMBER() OVER (ORDER BY mgt.INS_DATE DESC) AS RN,
+			IF( (SELECT TCI.SYS_CONFIG_VALUE FROM TSST_CONFIG_INFO TCI WHERE SYS_CONFIG_KEY=#{SYS_CONFIG_KEY}) 
+							&gt;= DATEDIFF(mgt.RENEW_DATE, CURRENT_TIMESTAMP()), 'Y', 'N') as isNew,
+			mgt.TOOL_ID,
+			mgt.TOOL_TYPE,
+			mgt.MANAGE_NO,
+			mgt.TOOL_NAME,
+			mgt.STANDARD,
+			mgt.BRAND_NAME,
+			mgt.MODEL_NAME,
+			mgt.AMOUNT,
+			mgt.LOSS_OR_DAMAGE,
+			<!-- DATE_FORMAT(CONVERT_TZ(mgt.CORRECTION_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%dT%T') as CORRECTION_DATE, -->
+			mgt.UNNECESSARY,
+			DATE_FORMAT(CONVERT_TZ(mgt.CORRECTION_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as CORRECTION_DATE,
+			DATE_FORMAT(CONVERT_TZ(mgt.RENEW_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as RENEW_DATE,
+			<!-- tf.FLE_PATH AS IMAGE_PATH, -->
+			mgt.SERIAL_NO,
+			DATE_FORMAT(CONVERT_TZ(mgt.IMPORT_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as IMPORT_DATE,
+			mgt.MANAGER AS MANAGER_NO,
+			<!-- hem.EMP_NAME AS MANAGER_NAME, -->
+			mgt.IMPORT_PRICE,
+			mgt.SPECIFICATION,
+			DATE_FORMAT(CONVERT_TZ(mgt.INS_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as INS_DATE,
+			mgt.INS_USER,
+			DATE_FORMAT(CONVERT_TZ(mgt.UPD_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as UPD_DATE,
+			mgt.UPP_USER,
+			cc.COMM_NM as TOOL_TYPE_NAME,
+			cc1.COMM_NM as LOSS_OR_DAMAGE_NAME
+			
+	        FROM HSE_DEVICE_TOOL_MGT mgt
+	        LEFT JOIN COMM_CD cc ON mgt.TOOL_TYPE = cc.COMM_CD
+	        LEFT JOIN COMM_CD cc1 ON mgt.LOSS_OR_DAMAGE = cc1.COMM_CD
+			<!-- INNER JOIN HSE_EMP_MGT hem ON hem.EMP_NO = mgt.MANAGER 
+			LEFT JOIN TCCO_FILE tf ON tf.ATCH_FLE_SEQ = mgt.IMAGE_FILE_ID  -->
+			<where>
+				1 = 1
+				<if test="all != null and all != '' ">
+					AND (
+					UPPER(mgt.TOOL_TYPE) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+					UPPER(mgt.MANAGE_NO) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+					UPPER(mgt.TOOL_NAME) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+					UPPER(mgt.STANDARD) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+					UPPER(mgt.BRAND_NAME) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+					UPPER(mgt.MODEL_NAME) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+					UPPER(mgt.SERIAL_NO) LIKE CONCAT('%', UPPER(#{all}), '%') OR 
+					UPPER(mgt.SPECIFICATION) LIKE CONCAT('%', UPPER(#{all}), '%')
+					)
+				</if>
+				<if test="SEARCH_FIRST_DT != null and SEARCH_FIRST_DT != '' ">
+		    		AND mgt.CORRECTION_DATE &gt;= #{SEARCH_FIRST_DT}
+		    	</if>
+		    	<if test="SEARCH_LAST_DT != null and SEARCH_LAST_DT != '' ">
+		    		AND mgt.CORRECTION_DATE &lt;= #{SEARCH_LAST_DT}
+		    	</if>
+		    	<if test="TOOL_TYPE != null and TOOL_TYPE != '' ">
+		    		AND mgt.TOOL_TYPE = #{TOOL_TYPE}
+		    	</if>
+			</where> 
+		) SUB
+		WHERE SUB.RN BETWEEN (#{PAGE}-1) * #{PAGE_SIZE}+1 and (#{PAGE} * #{PAGE_SIZE})
+		ORDER BY SUB.RN ASC
+	</select>
+	
+	<select id="getAllToolList" parameterType="map" resultType="HashMap">
+		SELECT 
+			ROW_NUMBER() OVER (ORDER BY mgt.INS_DATE DESC) AS RN,
+			mgt.TOOL_ID,
+			mgt.TOOL_TYPE,
+			mgt.MANAGE_NO,
+			mgt.TOOL_NAME,
+			mgt.STANDARD,
+			mgt.BRAND_NAME,
+			mgt.MODEL_NAME,
+			mgt.AMOUNT,
+			mgt.LOSS_OR_DAMAGE,
+			mgt.UNNECESSARY,
+			DATE_FORMAT(CONVERT_TZ(mgt.CORRECTION_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as CORRECTION_DATE,
+			DATE_FORMAT(CONVERT_TZ(mgt.RENEW_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as RENEW_DATE,
+			mgt.SERIAL_NO,
+			DATE_FORMAT(CONVERT_TZ(mgt.IMPORT_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as IMPORT_DATE,
+			mgt.MANAGER AS MANAGER_NO,
+			mgt.IMPORT_PRICE,
+			DATE_FORMAT(CONVERT_TZ(mgt.INS_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as INS_DATE,
+			mgt.INS_USER,
+			DATE_FORMAT(CONVERT_TZ(mgt.UPD_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as UPD_DATE,
+			mgt.UPP_USER
+			
+	        FROM HSE_DEVICE_TOOL_MGT mgt
+	</select>
+	
+	<select id="getToolDetail" parameterType="map" resultType="HashMap">
+		SELECT 
+		mgt.TOOL_ID,
+		mgt.TOOL_TYPE,
+		cc.COMM_NM AS TOOL_TYPE_NAME,
+		mgt.MANAGE_NO,
+		mgt.TOOL_NAME,
+		mgt.STANDARD,
+		mgt.BRAND_NAME,
+		mgt.MODEL_NAME,
+		mgt.AMOUNT,
+		mgt.LOSS_OR_DAMAGE,
+		cc1.COMM_NM as LOSS_OR_DAMAGE_NAME,
+		mgt.UNNECESSARY,
+		DATE_FORMAT(CONVERT_TZ(mgt.CORRECTION_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as CORRECTION_DATE,
+		DATE_FORMAT(CONVERT_TZ(mgt.RENEW_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as RENEW_DATE,
+		mgt.IMAGE_FILE_ID,
+		<!-- tf.FLE_PATH AS IMAGE_PATH,
+		tf.FLE_NM AS IMAGE_NAME, -->
+		mgt.SERIAL_NO,
+		DATE_FORMAT(CONVERT_TZ(mgt.IMPORT_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as IMPORT_DATE,
+		mgt.MANAGER,
+		hem.EMP_NAME AS MANAGER_NAME,
+		mgt.IMPORT_PRICE,
+		mgt.SPECIFICATION,
+		mgt.INS_DATE,
+		mgt.INS_USER,
+		mgt.UPD_DATE,
+		mgt.UPP_USER
+        FROM HSE_DEVICE_TOOL_MGT mgt
+        LEFT JOIN COMM_CD cc ON cc.COMM_CD = mgt.TOOL_TYPE
+        LEFT JOIN COMM_CD cc1 ON cc1.COMM_CD = mgt.LOSS_OR_DAMAGE
+		LEFT JOIN HSE_EMP_MGT hem ON hem.EMP_NO = mgt.MANAGER
+		<!-- LEFT JOIN TCCO_FILE tf ON tf.ATCH_FLE_SEQ = mgt.IMAGE_FILE_ID  -->
+        WHERE mgt.TOOL_ID = #{TOOL_ID};
+	</select>
+	
+	<select id="getToolFiles" parameterType="map" resultType="HashMap">
+		SELECT 
+		tf.TOOL_FILE_ID,
+		tf.TOOL_ID,
+		tf.FILE_TYPE,
+		tf.FILE_ID,
+		file.FLE_PATH,
+		DATE_FORMAT(CONVERT_TZ(file.INS_DT, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as FILE_INS_DATE,
+		file.FLE_SZ,
+		file.FLE_NM
+        FROM HSE_DEVICE_TOOL_FILE tf
+        LEFT JOIN TCCO_FILE file ON file.ATCH_FLE_SEQ = tf.FILE_ID
+        WHERE tf.TOOL_ID = #{TOOL_ID};
+	</select>
+	
+	<select id="getToolHistorys" parameterType="map" resultType="HashMap">
+		SELECT 
+		his.TOOL_HIS_ID,
+		his.TOOL_ID AS TOOL_ID_HIS,
+		DATE_FORMAT(CONVERT_TZ(his.HIS_DATE, @@session.time_zone,  #{session.CLIENT_TIMEZONE_OFFSET}), '%Y-%m-%d') as HIS_DATE,
+		his.HIS_CONTENT
+        FROM HSE_DEVICE_TOOL_HIS his
+        WHERE his.TOOL_ID = #{TOOL_ID};
+	</select>
+	
+	<insert id="insertTool" parameterType="map" useGeneratedKeys="true" keyProperty="TOOL_ID">
+		INSERT INTO HSE_DEVICE_TOOL_MGT
+		(
+		    TOOL_TYPE,
+		    MANAGE_NO,
+		    TOOL_NAME,
+		    STANDARD,
+		    BRAND_NAME,
+		    MODEL_NAME,
+		    AMOUNT,
+		    LOSS_OR_DAMAGE,
+		    UNNECESSARY,
+		    CORRECTION_DATE,
+		    RENEW_DATE,
+		    IMAGE_FILE_ID,
+		    SERIAL_NO,
+		    IMPORT_DATE,
+		    MANAGER,
+		    IMPORT_PRICE,
+		    SPECIFICATION,
+		    INS_DATE,
+		    INS_USER
+		)
+		VALUES
+		(
+		    #{TOOL_TYPE},
+		    #{MANAGE_NO},
+		    #{TOOL_NAME},
+		    #{STANDARD},
+		    #{BRAND_NAME},
+		    #{MODEL_NAME},
+		    #{AMOUNT},
+		    #{LOSS_OR_DAMAGE},
+		    #{UNNECESSARY},
+		    #{CORRECTION_DATE},
+		    #{RENEW_DATE},
+		    #{IMAGE_FILE_ID},
+		    #{SERIAL_NO},
+		    #{IMPORT_DATE},
+		    #{MANAGER},
+		    #{IMPORT_PRICE},
+		    #{SPECIFICATION},
+		    CURRENT_TIMESTAMP(),
+		    #{REGI_EMP_NO}
+		)
+	</insert>
+	
+	<update id="updateTool" parameterType="map">
+		UPDATE HSE_DEVICE_TOOL_MGT
+		SET 
+		    TOOL_TYPE = #{TOOL_TYPE},
+		    MANAGE_NO = #{MANAGE_NO},
+		    TOOL_NAME = #{TOOL_NAME},
+		    STANDARD = #{STANDARD},
+		    BRAND_NAME = #{BRAND_NAME},
+		    MODEL_NAME = #{MODEL_NAME},
+		    AMOUNT = #{AMOUNT},
+		    LOSS_OR_DAMAGE = #{LOSS_OR_DAMAGE},
+		    UNNECESSARY = #{UNNECESSARY},
+		    CORRECTION_DATE = #{CORRECTION_DATE},
+		    RENEW_DATE = #{RENEW_DATE},
+		    IMAGE_FILE_ID = #{IMAGE_FILE_ID},
+		    SERIAL_NO = #{SERIAL_NO},
+		    IMPORT_DATE = #{IMPORT_DATE},
+		    MANAGER = #{MANAGER},
+		    IMPORT_PRICE = #{IMPORT_PRICE},
+		    SPECIFICATION = #{SPECIFICATION},
+		    UPD_DATE = CURRENT_TIMESTAMP(),
+		    UPP_USER = #{MDFY_EMP_NO}
+		    
+		WHERE TOOL_ID = #{TOOL_ID}
+	</update>
+	
+	<delete id="deleteTool" parameterType="map">
+		DELETE
+		FROM HSE_DEVICE_TOOL_MGT
+		WHERE TOOL_ID = #{TOOL_ID}
+	</delete>
+	
+	<insert id="insertToolHistory" parameterType="java.util.List">
+        INSERT INTO HSE_DEVICE_TOOL_HIS (
+        TOOL_HIS_ID,
+        TOOL_ID,
+        HIS_DATE,
+        HIS_CONTENT)
+        VALUES
+        <foreach collection="list" item="element" index="index" open="(" separator="),("  close=")">
+            #{element.TOOL_HIS_ID},
+            #{element.TOOL_ID},
+            #{element.HIS_DATE},
+            #{element.HIS_CONTENT}
+       </foreach>
+    </insert>
+
+	<update id="updateToolHistory"  parameterType="java.util.List">  
+	    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	        UPDATE HSE_DEVICE_TOOL_HIS
+	        <set>
+		        HIS_DATE = ${item.HIS_DATE},
+		        HIS_CONTENT = ${item.HIS_CONTENT}
+	        </set>
+	        WHERE TOOL_HIS_ID = ${item.TOOL_HIS_ID}
+	    </foreach>      
+	</update>
+
+	<delete id="deleteToolHis" parameterType="map">
+		DELETE
+		FROM HSE_DEVICE_TOOL_HIS
+		WHERE TOOL_ID = #{TOOL_ID}
+	</delete>
+	
+	<insert id="insertToolFile" parameterType="map" useGeneratedKeys="true" keyProperty="TOOL_FILE_ID">
+		INSERT INTO HSE_DEVICE_TOOL_FILE
+		(
+		    TOOL_ID,
+		    FILE_TYPE,
+		    FILE_ID,
+		    INS_DATE,
+		    INS_USER
+		)
+		VALUES
+		(
+		    #{TOOL_ID},
+		    #{FILE_TYPE},
+		    #{FILE_ID},
+		    CURRENT_TIMESTAMP(),
+		    #{REGI_EMP_NO}
+		)
+	</insert>
+	
+	<delete id="deleteToolFile" parameterType="map">
+		DELETE
+		FROM HSE_DEVICE_TOOL_FILE
+		WHERE TOOL_ID = #{TOOL_ID}
+	</delete>
+	
+	<delete id="deleteToolFileWithId" parameterType="map">
+		DELETE
+		FROM HSE_DEVICE_TOOL_FILE
+		WHERE TOOL_FILE_ID = #{TOOL_FILE_ID}
+	</delete>
+	
+	
+	<select id="getToolType" resultType="HashMap">
+		SELECT DISTINCT hdtm.TOOL_TYPE	
+        FROM HSE_DEVICE_TOOL_MGT hdtm 
+	</select>
+	
+	<select id="getBrandsByToolType" parameterType="map" resultType="HashMap">
+		SELECT hdtm.BRAND_NAME
+        FROM HSE_DEVICE_TOOL_MGT hdtm 
+        <where>
+        	<if test="TOOL_TYPE != null and TOOL_TYPE != '' ">
+				AND hdtm.TOOL_TYPE =#{TOOL_TYPE}
+			</if>
+        </where>
+	</select>
+	
+</mapper>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sys_new.sys1000">
+	
+	<!-- 유지보수 코드 리스트 조회 -->
+	<select id="getMaintenanceCodeList" parameterType="map" resultType="HashMap">
+		SELECT MC.MAINTEN_CD AS CODE
+		     , MC.MAINTEN_CD
+		     , MC.DESCRPT
+		     , MC.PREFIX_NM
+		     , MC.SUFFIX_NM
+		     , CONCAT(MC.PREFIX_NM, ' | ', MC.SUFFIX_NM) AS NAME
+		     , MC.UP_CD
+		     , MC.LEV
+		     , MC.INS_DT
+		     , UMC.PREFIX_NM AS UP_PREFIX_NM
+     		 , UMC.SUFFIX_NM AS UP_SUFFIX_NM
+		FROM WT_MAINTEN_CD MC
+		LEFT JOIN WT_MAINTEN_CD UMC
+    		ON UMC.MAINTEN_CD = MC.UP_CD
+    	<choose>
+		    <when test='ORDER_BY == "B"'>
+				ORDER BY INS_DT DESC
+		    </when>
+		    <otherwise>
+				ORDER BY PREFIX_NM, SUFFIX_NM ASC
+		    </otherwise>
+	    </choose>
+    </select>
+    
+    <!-- 유지보수 코드 추가 -->
+	<insert id="insertMaintenanceCode" parameterType="map">
+		BEGIN NOT ATOMIC
+		DECLARE result VARCHAR(20);
+		CALL proc_gen_id('MAIN_CD_SEQ', @result);
+		
+		<selectKey keyProperty="MAINTEN_CD" resultType="string" order="AFTER">
+			SELECT @result
+		</selectKey>
+		INSERT INTO WT_MAINTEN_CD
+		(
+		    MAINTEN_CD,
+		    <if test="UP_CD != null and UP_CD !=''">
+		    	UP_CD,
+		    </if>
+		    PREFIX_NM,
+		    SUFFIX_NM,
+		    DESCRPT,
+		    LEV,
+		    INS_DT
+		)
+		VALUES
+		(
+		    @result,
+		    <if test="UP_CD != null and UP_CD !=''">
+		    	#{UP_CD},
+		    </if>
+		   	#{PREFIX_NM},
+		    #{SUFFIX_NM},
+		    #{DESCRPT},
+		    #{LEV},
+		    CURRENT_TIMESTAMP()
+		);
+		END;
+	</insert>
+	
+	<!-- 유지보수 코드 수정 -->
+	<update id="updateMaintenanceCode" parameterType="map">
+		UPDATE WT_MAINTEN_CD
+		SET PREFIX_NM = #{PREFIX_NM}
+		  , SUFFIX_NM = #{SUFFIX_NM}
+		  , DESCRPT = #{DESCRPT}
+		  , UPT_DT = CURRENT_TIMESTAMP()
+		WHERE MAINTEN_CD = #{MAINTEN_CD}
+	</update>
+	
+	<!-- 유지보수 코드 삭제 -->
+	<delete id="deleteMaintenanceCode" parameterType="map">
+		DELETE
+		FROM WT_MAINTEN_CD
+		WHERE MAINTEN_CD = #{MAINTEN_CD}
+	</delete>
+	
+	<!-- 유지보수 코드 중복 체크 -->
+	<select id="checkDuplicateMaintenanceCode" parameterType="map" resultType="HashMap">
+    	SELECT COUNT(*) AS CNT
+		FROM WT_MAINTEN_CD
+		WHERE PREFIX_NM = #{PREFIX_NM}
+		<if test="UP_CD != null and UP_CD != '' "> 
+			AND UP_CD = #{UP_CD}
+		</if>
+		<if test="UP_CD == null or UP_CD == '' "> 
+			AND UP_CD IS NULL
+		</if>
+		<if test="MAINTEN_CD != null or MAINTEN_CD != '' ">
+			AND MAINTEN_CD != #{MAINTEN_CD}
+		</if>
+	</select>
+	
+</mapper>

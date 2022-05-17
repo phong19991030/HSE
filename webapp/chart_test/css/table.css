@@ -1,0 +1,28 @@
+table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    width: 20%;
+    text-align: center;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+td {
+    word-break:break-all;        /* 자동 줄바꿈 */
+/*    white-space:pre;*/
+/*    white-space:pre-line;*/
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}

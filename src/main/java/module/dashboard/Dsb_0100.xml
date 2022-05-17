@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dsb.dsb0100">
+	
+	<!-- 권한에 따른 발전단지 목록 조회 -->
+<!-- 	<select id="getFarmByRole" parameterType="map" resultType="HashMap"> -->
+<!-- 		SELECT F.FARM_ID  -->
+<!-- 		     , F.FARM_NM -->
+<!-- 		     , F.LONGTUD -->
+<!-- 		     , F.LATITUDE -->
+<!-- 		     , COUNT(T.GERATOR_ID) CNT_WT -->
+<!-- 		     , CASE WHEN SUM(T.POWER) &lt;=&gt; NULL THEN 0 ELSE SUM(T.POWER) END AS SUM_CAPACITY -->
+<!-- 		     , TG.SUM_GR_QTY -->
+<!-- 		     , TG.SUM_GR_TIME -->
+<!-- 		     , TG.SUM_GR_0_TIME -->
+<!-- 		     , TG.START_TIME -->
+<!-- 		     , TG.END_TIME -->
+<!-- 		     , TS.SENSOR_ERR_CNT -->
+<!-- 		     , OH.SUM_GR_QTY_THIS_YEAR -->
+<!--      		 , OH2.SUM_GR_QTY_LAST_YEAR -->
+<!-- 		     , WT.W_MAIN -->
+<!-- 		     , WT.W_ICON -->
+<!-- 		     , WT.TP -->
+<!-- 		     , WT.TP_MAX -->
+<!-- 		     , WT.TP_MIN -->
+<!-- 		     , WT.WD_SPD -->
+<!-- 		     , WT.WD_DEG -->
+		     
+<!-- 		     , GROUP_CONCAT(CO.COMPANY_NM SEPARATOR ',,') AS OPERATOR_NM -->
+<!--      		 , GROUP_CONCAT(TF.NEW_FLE_NM SEPARATOR ',,') AS OPERATOR_LOGO -->
+     		 
+<!-- 		FROM   WT_FARM F -->
+<!-- 		LEFT JOIN WT_GROUP G -->
+<!-- 		    ON F.FARM_ID = G.FARM_ID AND CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID) -->
+<!-- 		LEFT JOIN WT_GERATOR T -->
+<!-- 		    ON G.GROUP_ID = T.GROUP_ID AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN SUM(TG.GR_QTY) &lt;=&gt; NULL THEN 0 ELSE ROUND(SUM(TG.GR_QTY), 2) END AS SUM_GR_QTY -->
+<!-- 		         , CASE WHEN SUM(TG.GR_TIME) &lt;=&gt; NULL THEN 0 ELSE SUM(TG.GR_TIME) - SUM(TG.GR_0_TIME) END AS SUM_GR_TIME -->
+<!-- 		         , CASE WHEN SUM(TG.GR_0_TIME) &lt;=&gt; NULL THEN 0 ELSE SUM(TG.GR_0_TIME) END AS SUM_GR_0_TIME -->
+<!-- 		         , CASE WHEN MIN(START_TIME) &lt;=&gt; NULL THEN #{START_TIME} ELSE MIN(START_TIME) END AS START_TIME -->
+<!-- 				 , CASE WHEN MAX(END_TIME) &lt;=&gt; NULL THEN #{END_TIME} ELSE MAX(END_TIME) END AS END_TIME -->
+<!-- 		         , F.FARM_ID -->
+<!-- 		    FROM WT_FARM F -->
+<!-- 		    LEFT JOIN WT_GROUP G -->
+<!-- 		        ON F.FARM_ID = G.FARM_ID AND CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID) -->
+<!-- 		    LEFT JOIN WT_GERATOR T -->
+<!-- 		        ON T.GROUP_ID = G.GROUP_ID AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		    LEFT JOIN WT_GERATOR_GENERATION TG -->
+<!-- 		        ON TG.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        AND TG.START_TIME &gt;= #{START_TIME} -->
+<!-- 		        AND TG.END_TIME &lt;= #{END_TIME} -->
+<!-- 		    WHERE CHECK_PERMISSION_FARM(#{USER_UID}, F.FARM_ID) -->
+<!-- 		    GROUP BY F.FARM_ID -->
+<!-- 		) TG -->
+<!-- 		    ON TG.FARM_ID = F.FARM_ID -->
+		    
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN COUNT(TS.GERATOR_ID) &lt;=&gt; NULL THEN 0 ELSE COUNT(TS.GERATOR_ID) END AS SENSOR_ERR_CNT -->
+<!-- 		         , F.FARM_ID -->
+<!-- 		    FROM WT_FARM F -->
+<!-- 		    LEFT JOIN WT_GROUP G -->
+<!-- 		        ON F.FARM_ID = G.FARM_ID AND CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID) -->
+<!-- 		    LEFT JOIN WT_GERATOR T -->
+<!-- 		        ON T.GROUP_ID = G.GROUP_ID AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		    LEFT JOIN ( -->
+<!-- 		        SELECT DISTINCT TS.GERATOR_ID   -->
+<!-- 		        FROM WT_GERATOR_SENSOR_ERR TS -->
+<!-- 		        LEFT JOIN WT_GERATOR G -->
+<!-- 		            ON TS.GERATOR_ID = G.GERATOR_ID -->
+<!-- 		        WHERE TS.OCCUR_START &gt;= #{START_TIME} -->
+<!-- 		        AND TS.OCCUR_END &lt;= #{END_TIME} -->
+<!-- 		    ) TS -->
+<!-- 		    ON TS.GERATOR_ID = T.GERATOR_ID         -->
+<!-- 		    WHERE CHECK_PERMISSION_FARM(#{USER_UID}, F.FARM_ID) -->
+<!-- 		    GROUP BY F.FARM_ID -->
+<!-- 		) TS     -->
+<!-- 		    ON TS.FARM_ID = F.FARM_ID   -->
+		    
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN SUM(OH.GR_QTY) &lt;=&gt; NULL THEN 0 ELSE ROUND(SUM(OH.GR_QTY), 2) END AS SUM_GR_QTY_THIS_YEAR -->
+<!-- 		         , F.FARM_ID -->
+<!-- 		    FROM WT_FARM F -->
+<!-- 		    LEFT JOIN WT_GROUP G -->
+<!-- 		        ON F.FARM_ID = G.FARM_ID AND CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID) -->
+<!-- 		    LEFT JOIN WT_GERATOR T -->
+<!-- 		        ON T.GROUP_ID = G.GROUP_ID AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		    LEFT JOIN WT_GERATOR_OPRT_HIS OH -->
+<!-- 		        ON OH.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        AND START_TIME &gt;= #{START_TIME_THIS_YEAR} -->
+<!-- 		        AND END_TIME &lt;= #{END_TIME_THIS_YEAR} -->
+<!-- 		    WHERE CHECK_PERMISSION_FARM(#{USER_UID}, F.FARM_ID) -->
+<!-- 		    GROUP BY F.FARM_ID -->
+<!-- 		) OH -->
+<!-- 		    ON OH.FARM_ID = F.FARM_ID -->
+		    
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN SUM(OH2.GR_QTY) &lt;=> NULL THEN 0 ELSE ROUND(SUM(OH2.GR_QTY), 2) END AS SUM_GR_QTY_LAST_YEAR -->
+<!-- 		         , F.FARM_ID -->
+<!-- 		    FROM WT_FARM F -->
+<!-- 		    LEFT JOIN WT_GROUP G -->
+<!-- 		        ON F.FARM_ID = G.FARM_ID AND CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID) -->
+<!-- 		    LEFT JOIN WT_GERATOR T -->
+<!-- 		        ON T.GROUP_ID = G.GROUP_ID AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		    LEFT JOIN WT_GERATOR_OPRT_HIS OH2 -->
+<!-- 		        ON OH2.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        AND START_TIME &gt;= #{START_TIME_LAST_YEAR} -->
+<!-- 		        AND END_TIME &lt;= #{END_TIME_LAST_YEAR} -->
+<!-- 		    WHERE CHECK_PERMISSION_FARM(#{USER_UID}, F.FARM_ID) -->
+<!-- 		    GROUP BY F.FARM_ID -->
+<!-- 		) OH2 -->
+<!-- 		    ON OH2.FARM_ID = F.FARM_ID -->
+		    
+<!-- 		LEFT JOIN WT_FARM_WEATHER WT -->
+<!-- 			ON WT.LAT = F.LATITUDE  -->
+<!-- 			AND WT.LNG = F.LONGTUD -->
+<!-- 		INNER JOIN  -->
+<!-- 		( -->
+<!-- 		  SELECT MAX(A.CHECK_TIME) AS CHECK_TIME -->
+<!-- 		      , A.LAT -->
+<!-- 		      , A.LNG -->
+<!-- 		  FROM WT_FARM_WEATHER A -->
+<!-- 		  GROUP BY A.LAT, A.LNG  -->
+<!-- 		) LWT -->
+<!-- 			ON WT.LAT = LWT.LAT -->
+<!-- 			AND WT.LNG = LWT.LNG -->
+<!-- 			AND WT.CHECK_TIME = LWT.CHECK_TIME -->
+			
+<!-- 		LEFT JOIN WT_COMPANY CO -->
+<!--     		ON CO.COMPANY_ID = T.OPERATOR_ID -->
+    	
+<!--     	LEFT JOIN TCCO_FILE TF -->
+<!--     		ON TF.ATCH_FLE_SEQ = CO.LOGO -->
+    		
+<!-- 		WHERE CHECK_PERMISSION_FARM(#{USER_UID}, F.FARM_ID) -->
+<!-- 		GROUP BY F.FARM_ID, F.FARM_NM -->
+<!-- 	</select> -->
+
+
+
+<!-- 	<select id="getFarmByRole" parameterType="map" resultType="HashMap"> -->
+<!-- 		SELECT F.FARM_ID  -->
+<!-- 		     , F.FARM_NM -->
+<!-- 		     , F.LONGTUD -->
+<!-- 		     , F.LATITUDE -->
+<!-- 		     , COUNT(T.GERATOR_ID) CNT_WT -->
+<!-- 		     , CASE WHEN SUM(T.POWER) &lt;=&gt; NULL THEN 0 ELSE SUM(T.POWER) END AS SUM_CAPACITY -->
+<!-- 		     , TG.SUM_GR_QTY -->
+<!-- 		     , TG.SUM_GR_TIME -->
+<!-- 		     , TG.SUM_GR_0_TIME -->
+<!-- 		     , TG.START_TIME -->
+<!-- 		     , TG.END_TIME -->
+<!-- 		     , TS.SENSOR_ERR_CNT -->
+<!-- 		     , OH.SUM_GR_QTY_THIS_YEAR -->
+<!--      		 , OH2.SUM_GR_QTY_LAST_YEAR -->
+		    
+<!-- 			 , GROUP_CONCAT(CO.COMPANY_NM SEPARATOR ',,') AS OPERATOR_NM -->
+<!--      		 , GROUP_CONCAT(TF.NEW_FLE_NM SEPARATOR ',,') AS OPERATOR_LOGO -->
+     		 
+<!-- 		FROM   WT_FARM F -->
+<!-- 		LEFT JOIN WT_GROUP G -->
+<!-- 		    ON F.FARM_ID = G.FARM_ID  -->
+<!-- 		LEFT JOIN WT_GERATOR T -->
+<!-- 		    ON G.GROUP_ID = T.GROUP_ID  -->
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN SUM(TG.GR_QTY) &lt;=&gt; NULL THEN 0 ELSE ROUND(SUM(TG.GR_QTY), 2) END AS SUM_GR_QTY -->
+<!-- 		         , CASE WHEN SUM(TG.GR_TIME) &lt;=&gt; NULL THEN 0 ELSE SUM(TG.GR_TIME) - SUM(TG.GR_0_TIME) END AS SUM_GR_TIME -->
+<!-- 		         , CASE WHEN SUM(TG.GR_0_TIME) &lt;=&gt; NULL THEN 0 ELSE SUM(TG.GR_0_TIME) END AS SUM_GR_0_TIME -->
+<!-- 		         , CASE WHEN MIN(START_TIME) &lt;=&gt; NULL THEN #{START_TIME} ELSE MIN(START_TIME) END AS START_TIME -->
+<!-- 				 , CASE WHEN MAX(END_TIME) &lt;=&gt; NULL THEN #{END_TIME} ELSE MAX(END_TIME) END AS END_TIME -->
+<!-- 		         , F.FARM_ID -->
+<!-- 		    FROM WT_FARM F -->
+<!-- 		    LEFT JOIN WT_GROUP G -->
+<!-- 		        ON F.FARM_ID = G.FARM_ID  -->
+<!-- 		    LEFT JOIN WT_GERATOR T -->
+<!-- 		        ON T.GROUP_ID = G.GROUP_ID  -->
+<!-- 		    LEFT JOIN WT_GERATOR_GENERATION TG -->
+<!-- 		        ON TG.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        AND TG.START_TIME &gt;= #{START_TIME} -->
+<!-- 		        AND TG.END_TIME &lt;= #{END_TIME} -->
+<!-- 		    GROUP BY F.FARM_ID -->
+<!-- 		) TG -->
+<!-- 		    ON TG.FARM_ID = F.FARM_ID -->
+		    
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN COUNT(TS.GERATOR_ID) &lt;=&gt; NULL THEN 0 ELSE COUNT(TS.GERATOR_ID) END AS SENSOR_ERR_CNT -->
+<!-- 		         , F.FARM_ID -->
+<!-- 		    FROM WT_FARM F -->
+<!-- 		    LEFT JOIN WT_GROUP G -->
+<!-- 		        ON F.FARM_ID = G.FARM_ID  -->
+<!-- 		    LEFT JOIN WT_GERATOR T -->
+<!-- 		        ON T.GROUP_ID = G.GROUP_ID  -->
+<!-- 		    LEFT JOIN ( -->
+<!-- 		        SELECT DISTINCT TS.GERATOR_ID   -->
+<!-- 		        FROM WT_GERATOR_SENSOR_ERR TS -->
+<!-- 		        LEFT JOIN WT_GERATOR G -->
+<!-- 		            ON TS.GERATOR_ID = G.GERATOR_ID -->
+<!-- 		        WHERE TS.OCCUR_START &gt;= #{START_TIME} -->
+<!-- 		        AND TS.OCCUR_END &lt;= #{END_TIME} -->
+<!-- 		    ) TS -->
+<!-- 		    ON TS.GERATOR_ID = T.GERATOR_ID         -->
+<!-- 		    GROUP BY F.FARM_ID -->
+<!-- 		) TS     -->
+<!-- 		    ON TS.FARM_ID = F.FARM_ID   -->
+		    
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN SUM(OH.GR_QTY) &lt;=&gt; NULL THEN 0 ELSE ROUND(SUM(OH.GR_QTY), 2) END AS SUM_GR_QTY_THIS_YEAR -->
+<!-- 		         , F.FARM_ID -->
+<!-- 		    FROM WT_FARM F -->
+<!-- 		    LEFT JOIN WT_GROUP G -->
+<!-- 		        ON F.FARM_ID = G.FARM_ID  -->
+<!-- 		    LEFT JOIN WT_GERATOR T -->
+<!-- 		        ON T.GROUP_ID = G.GROUP_ID  -->
+<!-- 		    LEFT JOIN WT_GERATOR_OPRT_HIS OH -->
+<!-- 		        ON OH.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        AND START_TIME &gt;= #{START_TIME_THIS_YEAR} -->
+<!-- 		        AND END_TIME &lt;= #{END_TIME_THIS_YEAR} -->
+<!-- 		    GROUP BY F.FARM_ID -->
+<!-- 		) OH -->
+<!-- 		    ON OH.FARM_ID = F.FARM_ID -->
+		    
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN SUM(OH2.GR_QTY) &lt;=> NULL THEN 0 ELSE ROUND(SUM(OH2.GR_QTY), 2) END AS SUM_GR_QTY_LAST_YEAR -->
+<!-- 		         , F.FARM_ID -->
+<!-- 		    FROM WT_FARM F -->
+<!-- 		    LEFT JOIN WT_GROUP G -->
+<!-- 		        ON F.FARM_ID = G.FARM_ID  -->
+<!-- 		    LEFT JOIN WT_GERATOR T -->
+<!-- 		        ON T.GROUP_ID = G.GROUP_ID  -->
+<!-- 		    LEFT JOIN WT_GERATOR_OPRT_HIS OH2 -->
+<!-- 		        ON OH2.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        AND START_TIME &gt;= #{START_TIME_LAST_YEAR} -->
+<!-- 		        AND END_TIME &lt;= #{END_TIME_LAST_YEAR} -->
+		    
+<!-- 		    GROUP BY F.FARM_ID -->
+<!-- 		) OH2 -->
+<!-- 		    ON OH2.FARM_ID = F.FARM_ID -->
+		    
+<!-- 		LEFT JOIN WT_COMPANY CO -->
+<!--     		ON CO.COMPANY_ID = T.OPERATOR_ID -->
+    	
+<!--     	LEFT JOIN TCCO_FILE TF -->
+<!--     		ON TF.ATCH_FLE_SEQ = CO.LOGO -->
+<!--     	WHERE CHECK_PERMISSION_FARM(#{USER_UID}, F.FARM_ID) -->
+		
+<!-- 		GROUP BY F.FARM_ID, F.FARM_NM -->
+<!-- 	</select> -->
+	
+	<!-- FARM의 GROUP 조회 -->
+<!-- 	<select id="getGroupByFarm" parameterType="map" resultType="HashMap"> -->
+<!-- 		SELECT G.GROUP_ID -->
+<!-- 		     , G.GROUP_NM -->
+<!-- 		     , COUNT(T.GERATOR_ID) CNT_WT -->
+<!-- 		     , CASE WHEN SUM(T.POWER) &lt;=&gt; NULL THEN 0 ELSE SUM(T.POWER) END AS SUM_CAPACITY -->
+<!-- 		     , MAX(T.STATE) AS STATE -->
+		     
+<!-- 		     , TG.SUM_GR_QTY -->
+<!-- 		     , TG.SUM_GR_TIME -->
+<!-- 		     , TG.SUM_GR_0_TIME -->
+<!-- 		     , TG.START_TIME -->
+<!-- 		     , TG.END_TIME -->
+		     
+<!-- 		     , TS.SENSOR_ERR_CNT -->
+		     
+<!-- 		     , OH.SUM_GR_QTY_THIS_YEAR -->
+<!-- 		     , OH2.SUM_GR_QTY_LAST_YEAR -->
+		        
+<!-- 		     , GROUP_CONCAT(CO.COMPANY_NM SEPARATOR ',,') AS OPERATOR_NM -->
+<!-- 		     , GROUP_CONCAT(TF.NEW_FLE_NM SEPARATOR ',,') AS OPERATOR_LOGO -->
+		     
+<!-- 		FROM WT_GROUP G -->
+		
+<!-- 		LEFT JOIN WT_GERATOR T -->
+<!-- 		    ON G.GROUP_ID = T.GROUP_ID  -->
+<!-- 		    AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+		    
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN SUM(TG.GR_QTY) &lt;=&gt; NULL THEN 0 ELSE ROUND(SUM(TG.GR_QTY), 2) END AS SUM_GR_QTY -->
+<!-- 		         , CASE WHEN SUM(TG.GR_TIME) &lt;=&gt; NULL THEN 0 ELSE SUM(TG.GR_TIME) - SUM(TG.GR_0_TIME) END AS SUM_GR_TIME -->
+<!-- 		         , CASE WHEN SUM(TG.GR_0_TIME) &lt;=&gt; NULL THEN 0 ELSE SUM(TG.GR_0_TIME) END AS SUM_GR_0_TIME -->
+<!-- 		         , CASE WHEN MIN(TG.START_TIME) &lt;=&gt; NULL THEN #{START_TIME} ELSE MIN(TG.START_TIME) END AS START_TIME -->
+<!-- 		         , CASE WHEN MAX(TG.END_TIME) &lt;=&gt; NULL THEN #{END_TIME} ELSE MAX(TG.END_TIME) END AS END_TIME          -->
+<!-- 		         , G.GROUP_ID -->
+<!-- 		    FROM WT_GROUP G -->
+<!-- 		    LEFT JOIN WT_GERATOR T -->
+<!-- 		        ON T.GROUP_ID = G.GROUP_ID AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		    LEFT JOIN WT_GERATOR_GENERATION TG -->
+<!-- 		        ON TG.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        AND TG.START_TIME &gt;= #{START_TIME} -->
+<!-- 		        AND TG.END_TIME &lt;= #{END_TIME} -->
+<!-- 		    WHERE CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID) -->
+<!-- 		    GROUP BY G.GROUP_ID -->
+<!-- 		) TG -->
+<!-- 		    ON TG.GROUP_ID = G.GROUP_ID -->
+		
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN COUNT(TS.GERATOR_ID) &lt;=&gt; NULL THEN 0 ELSE COUNT(TS.GERATOR_ID) END AS SENSOR_ERR_CNT -->
+<!-- 		         , G.GROUP_ID -->
+<!-- 		    FROM WT_GROUP G -->
+<!-- 		    LEFT JOIN WT_GERATOR T -->
+<!-- 		        ON T.GROUP_ID = G.GROUP_ID AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		    LEFT JOIN ( -->
+<!-- 		        SELECT DISTINCT TS.GERATOR_ID   -->
+<!-- 		        FROM WT_GERATOR_SENSOR_ERR TS -->
+<!-- 		        LEFT JOIN WT_GERATOR T -->
+<!-- 		            ON TS.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        WHERE TS.OCCUR_START &gt;= #{START_TIME} -->
+<!-- 		        AND TS.OCCUR_END &lt;= #{END_TIME} -->
+<!-- 		    ) TS -->
+<!-- 		    ON TS.GERATOR_ID = T.GERATOR_ID         -->
+<!-- 		    WHERE CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID) -->
+<!-- 		    GROUP BY G.GROUP_ID -->
+<!-- 		) TS     -->
+<!-- 		    ON TS.GROUP_ID = G.GROUP_ID -->
+		    
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN SUM(OH.GR_QTY) &lt;=&gt; NULL THEN 0 ELSE ROUND(SUM(OH.GR_QTY), 2) END AS SUM_GR_QTY_THIS_YEAR -->
+<!-- 		         , G.GROUP_ID -->
+<!-- 		    FROM WT_GROUP G -->
+<!-- 		    LEFT JOIN WT_GERATOR T -->
+<!-- 		        ON T.GROUP_ID = G.GROUP_ID AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		    LEFT JOIN WT_GERATOR_OPRT_HIS OH -->
+<!-- 		        ON OH.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        AND START_TIME &gt;= #{START_TIME_THIS_YEAR} -->
+<!-- 		        AND END_TIME &lt;= #{END_TIME_THIS_YEAR} -->
+<!-- 		    WHERE CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID) -->
+<!-- 		    GROUP BY G.GROUP_ID -->
+<!-- 		) OH -->
+<!-- 		    ON OH.GROUP_ID = G.GROUP_ID -->
+		    
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN SUM(OH.GR_QTY) &lt;=&gt; NULL THEN 0 ELSE ROUND(SUM(OH.GR_QTY), 2) END AS SUM_GR_QTY_LAST_YEAR -->
+<!-- 		         , G.GROUP_ID -->
+<!-- 		    FROM WT_GROUP G -->
+<!-- 		    LEFT JOIN WT_GERATOR T -->
+<!-- 		        ON T.GROUP_ID = G.GROUP_ID AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		    LEFT JOIN WT_GERATOR_OPRT_HIS OH -->
+<!-- 		        ON OH.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        AND START_TIME &gt;= #{START_TIME_LAST_YEAR} -->
+<!-- 		        AND END_TIME &lt;= #{END_TIME_LAST_YEAR} -->
+<!-- 		    WHERE CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID) -->
+<!-- 		    GROUP BY G.GROUP_ID -->
+<!-- 		) OH2 -->
+<!-- 		    ON OH2.GROUP_ID = G.GROUP_ID -->
+		    
+<!-- 		 LEFT JOIN WT_COMPANY CO -->
+<!--     		ON CO.COMPANY_ID = T.OPERATOR_ID -->
+    		
+<!--     	LEFT JOIN TCCO_FILE TF -->
+<!--     		ON TF.ATCH_FLE_SEQ = CO.LOGO -->
+		    
+<!-- 		WHERE G.FARM_ID = #{FARM_ID} -->
+<!-- 		    AND CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID) -->
+<!-- 		GROUP BY G.GROUP_ID, G.GROUP_NM -->
+<!-- 	</select> -->
+	 
+	 <!-- GROUP의 TURBINE 조회 -->
+<!-- 	<select id="getTurbineByGroup" parameterType="map" resultType="HashMap"> -->
+<!-- 		SELECT T.GERATOR_ID -->
+<!-- 		     , T.GERATOR_NM -->
+<!-- 		     , T.GERATOR_EN_NM -->
+<!-- 		     , T.POWER -->
+<!-- 		     , T.GROUP_ID -->
+<!-- 		     , T.LOC_ID -->
+<!-- 		     , T.LATITUDE -->
+<!-- 		     , T.LONGTUD -->
+		     
+<!-- 		     ,(SELECT COUNT(*) -->
+<!-- 		       FROM   WT_EVNT_MGMT E -->
+<!-- 		       WHERE  E.STATUS = '1' -->
+<!-- 		         AND  E.GERATOR_ID = T.GERATOR_ID) AS ERROR -->
+<!-- 		     ,(SELECT COUNT(*) -->
+<!-- 		       FROM   WT_EVNT_MGMT E -->
+<!-- 		       WHERE  E.STATUS IN ('2', '3') -->
+<!-- 		         AND  E.GERATOR_ID = T.GERATOR_ID) AS INSPECTION -->
+		     
+<!-- 		     , TG.SUM_GR_QTY -->
+<!-- 		     , TG.SUM_GR_TIME -->
+<!-- 		     , TG.SUM_GR_0_TIME -->
+<!-- 		     , TG.START_TIME -->
+<!-- 		     , TG.END_TIME     -->
+		     
+<!-- 		     , TS.SENSOR_ERR_CNT -->
+		     
+<!-- 		     , OH.SUM_GR_QTY_THIS_YEAR -->
+<!-- 		     , OH2.SUM_GR_QTY_LAST_YEAR -->
+		     
+<!-- 		     , CM.COMPANY_NM AS MANUFACTURER_NM -->
+<!--      		 , TF.NEW_FLE_NM AS MANUFACTURER_LOGO -->
+		         
+<!-- 		FROM   WT_GERATOR T -->
+		
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN SUM(TG.GR_QTY) &lt;=&gt; NULL THEN 0 ELSE ROUND(SUM(TG.GR_QTY), 2) END AS SUM_GR_QTY -->
+<!-- 		         , CASE WHEN SUM(TG.GR_TIME) &lt;=&gt; NULL THEN 0 ELSE SUM(TG.GR_TIME) - SUM(TG.GR_0_TIME) END AS SUM_GR_TIME -->
+<!-- 		         , CASE WHEN SUM(TG.GR_0_TIME) &lt;=&gt; NULL THEN 0 ELSE SUM(TG.GR_0_TIME) END AS SUM_GR_0_TIME -->
+<!-- 		         , CASE WHEN MIN(TG.START_TIME) &lt;=&gt; NULL THEN #{START_TIME} ELSE MIN(TG.START_TIME) END AS START_TIME -->
+<!-- 		         , CASE WHEN MAX(TG.END_TIME) &lt;=&gt; NULL THEN #{END_TIME} ELSE MAX(TG.END_TIME) END AS END_TIME          -->
+<!-- 		         , T.GERATOR_ID -->
+<!-- 		    FROM WT_GERATOR T -->
+<!-- 		    LEFT JOIN WT_GERATOR_GENERATION TG -->
+<!-- 		        ON TG.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        AND TG.START_TIME &gt;= #{START_TIME} -->
+<!-- 		        AND TG.END_TIME &lt;= #{END_TIME} -->
+<!-- 		    WHERE CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		    GROUP BY T.GERATOR_ID -->
+<!-- 		) TG -->
+<!-- 		    ON TG.GERATOR_ID = T.GERATOR_ID -->
+		    
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN COUNT(TS.GERATOR_ID) &lt;=&gt; NULL THEN 0 ELSE COUNT(TS.GERATOR_ID) END AS SENSOR_ERR_CNT -->
+<!-- 		         , T.GERATOR_ID -->
+<!-- 		    FROM WT_GERATOR T -->
+<!-- 		    LEFT JOIN ( -->
+<!-- 		        SELECT TS.GERATOR_ID   -->
+<!-- 		        FROM WT_GERATOR_SENSOR_ERR TS -->
+<!-- 		        LEFT JOIN WT_GERATOR T -->
+<!-- 		            ON TS.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        WHERE TS.OCCUR_START &gt;= #{START_TIME} -->
+<!-- 		        AND TS.OCCUR_END &lt;= #{END_TIME} -->
+<!-- 		    ) TS -->
+<!-- 		    ON TS.GERATOR_ID = T.GERATOR_ID         -->
+<!-- 		    WHERE CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		    GROUP BY T.GERATOR_ID -->
+<!-- 		) TS     -->
+<!-- 		    ON TS.GERATOR_ID = T.GERATOR_ID -->
+		    
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN SUM(OH.GR_QTY) &lt;=&gt; NULL THEN 0 ELSE ROUND(SUM(OH.GR_QTY), 2) END AS SUM_GR_QTY_THIS_YEAR -->
+<!-- 		         , T.GERATOR_ID -->
+<!-- 		    FROM WT_GERATOR T -->
+<!-- 		    LEFT JOIN WT_GERATOR_OPRT_HIS OH -->
+<!-- 		        ON OH.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        AND START_TIME &gt;= #{START_TIME_THIS_YEAR} -->
+<!-- 		        AND END_TIME &lt;= #{END_TIME_THIS_YEAR} -->
+<!-- 		    WHERE CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		    GROUP BY T.GERATOR_ID -->
+<!-- 		) OH -->
+<!-- 		    ON OH.GERATOR_ID = T.GERATOR_ID -->
+		    
+<!-- 		LEFT JOIN ( -->
+<!-- 		    SELECT CASE WHEN SUM(OH.GR_QTY) &lt;=&gt; NULL THEN 0 ELSE ROUND(SUM(OH.GR_QTY), 2) END AS SUM_GR_QTY_LAST_YEAR -->
+<!-- 		         , T.GERATOR_ID -->
+<!-- 		    FROM WT_GERATOR T -->
+<!-- 		    LEFT JOIN WT_GERATOR_OPRT_HIS OH -->
+<!-- 		        ON OH.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		        AND START_TIME &gt;= #{START_TIME_LAST_YEAR} -->
+<!-- 		        AND END_TIME &lt;= #{END_TIME_LAST_YEAR} -->
+<!-- 		    WHERE CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		    GROUP BY T.GERATOR_ID -->
+<!-- 		) OH2 -->
+<!-- 		    ON OH2.GERATOR_ID = T.GERATOR_ID -->
+		    
+<!-- 		LEFT JOIN WT_COMPANY CM -->
+<!-- 		    ON CM.COMPANY_ID = T.MANUFACTURER_ID -->
+		    
+<!-- 		LEFT JOIN TCCO_FILE TF -->
+<!-- 		    ON TF.ATCH_FLE_SEQ = CM.LOGO -->
+		    
+<!-- 		WHERE T.GROUP_ID = #{GROUP_ID} -->
+<!-- 		    AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 	</select> -->
+	
+	
+	<select id="getFarmByRole" parameterType="map" resultType="HashMap">
+		SELECT F.FARM_ID 
+		     , F.FARM_NM
+		     , F.LONGTUD
+		     , F.LATITUDE
+		     , COUNT(T.GERATOR_ID) CNT_WT
+		     , CASE WHEN SUM(T.POWER) &lt;=&gt; NULL THEN 0 ELSE SUM(T.POWER) END AS SUM_CAPACITY
+		     , TS.SENSOR_ERR_CNT
+		FROM   WT_FARM F
+		LEFT JOIN WT_GROUP G
+		    ON F.FARM_ID = G.FARM_ID
+		    AND CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID) 
+		LEFT JOIN WT_GERATOR T
+		    ON G.GROUP_ID = T.GROUP_ID
+		    AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID)
+		LEFT JOIN (
+		    SELECT CASE WHEN COUNT(TS.GERATOR_ID) &lt;=&gt; NULL THEN 0 ELSE COUNT(TS.GERATOR_ID) END AS SENSOR_ERR_CNT
+		         , F.FARM_ID
+		    FROM WT_FARM F
+		    LEFT JOIN WT_GROUP G
+		        ON F.FARM_ID = G.FARM_ID 
+		        AND CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID)
+		    LEFT JOIN WT_GERATOR T
+		        ON T.GROUP_ID = G.GROUP_ID
+		        AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) 
+		    LEFT JOIN (
+		        SELECT DISTINCT TS.GERATOR_ID  
+		        FROM WT_GERATOR_SENSOR_ERR TS
+		        LEFT JOIN WT_GERATOR G
+		            ON TS.GERATOR_ID = G.GERATOR_ID
+		        WHERE TS.OCCUR_START &gt;= #{START_TIME}
+		        AND TS.OCCUR_END &lt;= NOW()
+		        <!-- AND TS.OCCUR_END &lt;= #{END_TIME} -->
+		    ) TS
+		    ON TS.GERATOR_ID = T.GERATOR_ID
+		    <!-- WHERE CHECK_PERMISSION_FARM(@USER_UID, F.FARM_ID) -->        
+		    GROUP BY F.FARM_ID
+		) TS
+		    ON TS.FARM_ID = F.FARM_ID
+		WHERE CHECK_PERMISSION_FARM(#{USER_UID}, F.FARM_ID)
+		GROUP BY F.FARM_ID, F.FARM_NM
+	</select>
+	
+	
+	<select id="getGroupByFarm" parameterType="map" resultType="HashMap">
+		SELECT G.GROUP_ID
+		     , G.GROUP_NM
+		     , COUNT(T.GERATOR_ID) CNT_WT
+		     , CASE WHEN SUM(T.POWER) &lt;=&gt; NULL THEN 0 ELSE SUM(T.POWER) END AS SUM_CAPACITY
+		     , TS.SENSOR_ERR_CNT
+		FROM WT_GROUP G
+		LEFT JOIN WT_GERATOR T
+		    ON G.GROUP_ID = T.GROUP_ID 
+		    AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID)
+		LEFT JOIN (
+		    SELECT CASE WHEN COUNT(TS.GERATOR_ID) &lt;=&gt; NULL THEN 0 ELSE COUNT(TS.GERATOR_ID) END AS SENSOR_ERR_CNT
+		         , G.GROUP_ID
+		    FROM WT_GROUP G
+		    LEFT JOIN WT_GERATOR T
+		        ON T.GROUP_ID = G.GROUP_ID AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID)
+		    LEFT JOIN (
+		        SELECT DISTINCT TS.GERATOR_ID  
+		        FROM WT_GERATOR_SENSOR_ERR TS
+		        LEFT JOIN WT_GERATOR T
+		            ON TS.GERATOR_ID = T.GERATOR_ID
+		        WHERE TS.OCCUR_START &gt;= #{START_TIME}
+		        AND TS.OCCUR_END &lt;= NOW()
+<!-- 		        AND TS.OCCUR_END &lt;= #{END_TIME} -->
+		    ) TS
+		    ON TS.GERATOR_ID = T.GERATOR_ID        
+<!-- 		    WHERE CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID) -->
+		    GROUP BY G.GROUP_ID
+		) TS    
+		    ON TS.GROUP_ID = G.GROUP_ID
+		WHERE G.FARM_ID = #{FARM_ID}
+		    AND CHECK_PERMISSION_GROUP(#{USER_UID}, G.GROUP_ID)
+		GROUP BY G.GROUP_ID, G.GROUP_NM
+	</select>
+	
+	<select id="getTurbineByGroup" parameterType="map" resultType="HashMap">
+<!-- 		SELECT T.GERATOR_ID -->
+<!-- 		     , T.GERATOR_NM -->
+<!-- 		     , T.GERATOR_EN_NM -->
+<!-- 		     , T.POWER -->
+<!-- 		     , T.GROUP_ID -->
+<!-- 		     , T.LOC_ID -->
+<!-- 		     , T.LATITUDE -->
+<!-- 		     , T.LONGTUD -->
+<!-- 		     , COUNT(*) AS SENSOR_ERR_CNT -->
+<!-- 		FROM WT_GERATOR T -->
+<!-- 		LEFT JOIN WT_GERATOR_SENSOR_ERR TS -->
+<!-- 		    ON TS.GERATOR_ID = T.GERATOR_ID -->
+<!-- 		    AND TS.OCCUR_START &gt;= #{START_TIME} -->
+<!-- 		    AND TS.OCCUR_START &lt;= NOW() -->
+<!-- 		WHERE T.GROUP_ID = #{GROUP_ID} -->
+<!-- 		    AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID) -->
+<!-- 		GROUP BY T.GERATOR_ID -->
+
+
+			SELECT T.GERATOR_ID
+			     , T.GERATOR_NM
+			     , T.GERATOR_EN_NM
+			     , T.POWER
+			     , T.GROUP_ID
+			     , T.LOC_ID
+			     , T.LATITUDE
+			     , T.LONGTUD
+				 , TS.SENSOR_ERR_CNT
+			FROM WT_GERATOR T
+			LEFT JOIN (
+			    SELECT CASE WHEN COUNT(TS.GERATOR_ID) &lt;=&gt; NULL THEN 0 ELSE COUNT(TS.GERATOR_ID) END AS SENSOR_ERR_CNT
+			         , T.GERATOR_ID
+			    FROM WT_GERATOR T
+			    LEFT JOIN (
+			        SELECT TS.GERATOR_ID
+			        FROM WT_GERATOR_SENSOR_ERR TS
+			        LEFT JOIN WT_GERATOR T
+			            ON TS.GERATOR_ID = T.GERATOR_ID
+			        WHERE TS.OCCUR_START &gt;= #{START_TIME}
+			        AND TS.OCCUR_START &lt;= NOW()
+			    ) TS
+			    ON TS.GERATOR_ID = T.GERATOR_ID
+			    WHERE CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID)
+			    GROUP BY T.GERATOR_ID
+			) TS
+			    ON TS.GERATOR_ID = T.GERATOR_ID
+			WHERE T.GROUP_ID = #{GROUP_ID}
+    		AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID)
+	</select>
+	
+	
+	<select id="getAlarmList" parameterType="map" resultType="HashMap">
+		SELECT E.EVENT_ID
+		     , E.WT_ALARM_ID
+		     , E.INS_DT
+		     , E.STATUS
+		     , DATE_FORMAT(CONVERT_TZ(E.INS_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T') AS DATETIME
+		     , F.FARM_ID
+		     , F.FARM_NM
+		     , G.GROUP_ID
+		     , G.GROUP_NM
+		     , T.GERATOR_ID
+		     , T.GERATOR_NM
+		     , CONCAT(AG.ALARM_TP, AG.MANUFAR, AG.CAPACITY, A.ALARM_SUB_CD) AS ALARM_CODE
+		     , A.ALARM_TXT
+		     , A.SUGGEST
+		     , A.DESCRPT
+		     , CONCAT(F.FARM_NM, ' > ', G.GROUP_NM, ' > ', T.GERATOR_NM) AS POSITION
+		FROM WT_EVNT_MGMT E
+		LEFT JOIN WT_GERATOR T
+		    ON T.GERATOR_ID = E.GERATOR_ID
+		LEFT JOIN WT_GROUP G
+    		ON G.GROUP_ID = T.GROUP_ID
+		LEFT JOIN WT_FARM F
+    		ON F.FARM_ID = G.FARM_ID
+		LEFT JOIN WT_ALARM_CD A
+		    ON A.WT_ALARM_ID = E.WT_ALARM_ID
+		LEFT JOIN WT_ALARM_GR_CD AG
+		    ON AG.WT_ALARM_GR_ID = A.WT_ALARM_GR_ID
+		WHERE (
+		    E.INS_DT &gt;= #{FROM_ALARM}
+		    AND E.INS_DT &lt;= #{TO}
+		) 
+		<if test="FARM_LIST.size() > 0">
+<!-- 			<trim prefix="AND"> -->
+<!-- 				pi.FARM_ID = #{FARM_ID} -->
+<!-- 			</trim> -->
+			AND (
+			<foreach collection="FARM_LIST" item="item" separator=" OR " open="" close="">
+				F.FARM_ID = #{item.ID}	
+			</foreach>
+			)
+		</if>
+		<if test="FARM_ID != null and FARM_ID != ''">
+			AND F.FARM_ID = "${FARM_ID}"
+		</if>
+		<if test="GROUP_ID != null and GROUP_ID != ''">
+			AND G.GROUP_ID = "${GROUP_ID}"
+		</if>
+		<if test="TURBINE_ID != null and TURBINE_ID != ''">
+			AND T.GERATOR_ID = "${TURBINE_ID}"
+		</if>
+		AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID)
+		ORDER BY E.INS_DT DESC
+	</select>
+	
+	<select id="getSensorErrorList" parameterType="map" resultType="HashMap">
+		SELECT SE.CHECK_ID
+		     , SE.GERATOR_ID
+		     , F.FARM_ID
+		     , F.FARM_NM
+		     , G.GROUP_ID
+		     , G.GROUP_NM
+		     , T.GERATOR_ID
+		     , T.GERATOR_NM
+		     , SE.SENSOR_ID
+		     , SE.SENSOR_NM
+		     , SE.MAX_VALUE
+		     , SE.MIN_VALUE
+		     , SE.ERR_VALUE
+		     , SE.ERR_POINT_CNT
+		     , SE.ERR_STATE
+		     , DATE_FORMAT(CONVERT_TZ(SE.OCCUR_START, @@session.time_zone, #{TIMEZONE_OFFSET}), '%Y-%m-%d %T') AS OCCUR_START
+     		 , DATE_FORMAT(CONVERT_TZ(SE.OCCUR_END, @@session.time_zone, #{TIMEZONE_OFFSET}), '%Y-%m-%d %T') AS OCCUR_END
+		     , SE.UNIT
+		     , SE.KEYWORD
+		FROM WT_GERATOR_SENSOR_ERR SE
+		LEFT JOIN WT_GERATOR T
+		    ON T.GERATOR_ID = SE.GERATOR_ID
+		LEFT JOIN WT_GROUP G
+		    ON G.GROUP_ID = T.GROUP_ID
+		LEFT JOIN WT_FARM F
+		    ON F.FARM_ID = G.FARM_ID
+		WHERE (
+		    SE.OCCUR_START &gt;= #{FROM_SENSOR_ERROR}
+		    AND SE.OCCUR_START &lt;= #{TO}
+		)
+		<if test="FARM_LIST.size() > 0">
+			AND (
+			<foreach collection="FARM_LIST" item="item" separator=" OR " open="" close="">
+				F.FARM_ID = #{item.ID}	
+			</foreach>
+			)
+		</if>
+		<if test="FARM_ID != null and FARM_ID != ''">
+			AND F.FARM_ID = "${FARM_ID}"
+		</if>
+		<if test="GROUP_ID != null and GROUP_ID != ''">
+			AND G.GROUP_ID = "${GROUP_ID}"
+		</if>
+		<if test="TURBINE_ID != null and TURBINE_ID != ''">
+			AND T.GERATOR_ID = "${TURBINE_ID}"
+		</if>
+		AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID)
+		ORDER BY CHECK_TIME DESC
+	</select>
+	
+	
+	<select id="getStockList" parameterType="map" resultType="HashMap">
+		SELECT PI.PART_ID
+		     , PI.PART_CD
+		     , CONCAT(F.FARM_NM, ' > ', G.GROUP_NM, ' > ', T.GERATOR_NM) AS POSITION
+		     
+		     , CONCAT(PCD.CODE, ' ', PCD.CATEGORY) AS CATEGORY
+		     , PCD.PART_NM AS DETAIL_NM
+		     , PCD.TYPE
+		     , PCD.CODE
+		     
+		     , IFNULL(ST.STOCK_QTY, 0) AS STOCK_QTY
+		     , PI.MIN_NO   AS REQUIRE_QTY
+		     , ST.DETAIL_PDT_NM
+		     , ST.INS_DT
+		FROM WT_PART_INFO PI
+		LEFT JOIN WT_FARM F
+		    ON F.FARM_ID = PI.FARM_ID
+		LEFT JOIN WT_GROUP G
+		    ON G.GROUP_ID = PI.GROUP_ID
+		LEFT JOIN WT_GERATOR T
+		    ON T.GERATOR_ID = PI.GERATOR_ID
+		
+		<!-- PART 분류 --> 
+		LEFT JOIN (
+		    SELECT LEV2.PART_CD
+		         , IFNULL(LEV1.PREFIX_NM, LEV2.PREFIX_NM) AS CODE
+		         , IF(ISNULL(LEV1.PART_NM), LEV2.PART_NM, LEV1.PART_NM) AS CATEGORY
+		         , LEV2.PART_NM
+		         , IFNULL(LEV1.TYPE, LEV2.TYPE) AS TYPE
+		    FROM WT_PART_CD LEV2
+		    LEFT JOIN (
+		        SELECT PART_CD
+		             , PREFIX_NM
+		             , PART_NM
+		             , TYPE
+		        FROM WT_PART_CD
+		        WHERE LEV=1
+		    ) LEV1
+		    ON LEV1.PART_CD = LEV2.UP_CD
+		) PCD
+		    ON PCD.PART_CD = PI.PART_CD
+		
+		<!-- ITEM 수량 체크 -->
+		LEFT JOIN (
+		    SELECT COUNT(*) AS STOCK_QTY
+		         , PART_ID
+		         , GROUP_CONCAT(PDT_NM SEPARATOR '_') AS DETAIL_PDT_NM
+		         , MAX(INS_DT) AS INS_DT
+		    FROM WT_PART_ITEM
+		    WHERE (
+		        STATE = 'U'
+		        OR STATE = 'P'
+		    )
+		    GROUP BY PART_ID
+		) ST    
+		ON ST.PART_ID = PI.PART_ID
+		WHERE PI.SET_MIN_YN = 'Y'                           
+		AND PI.MIN_NO - IFNULL(ST.STOCK_QTY, 0) > 0   
+		
+		<if test="FARM_LIST.size() > 0">
+			AND (
+			<foreach collection="FARM_LIST" item="item" separator=" OR " open="" close="">
+				F.FARM_ID = #{item.ID}	
+			</foreach>
+			)
+		</if>
+		<if test="FARM_ID != null and FARM_ID != ''">
+			AND F.FARM_ID = "${FARM_ID}"
+		</if>
+		<if test="GROUP_ID != null and GROUP_ID != ''">
+			AND G.GROUP_ID = "${GROUP_ID}"
+		</if>
+		<if test="TURBINE_ID != null and TURBINE_ID != ''">
+			AND T.GERATOR_ID = "${TURBINE_ID}"
+		</if>      
+		AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID)
+		ORDER BY ST.INS_DT DESC, PI.PART_ID DESC
+	</select>
+	
+	
+	<select id="getScheduleList" parameterType="map" resultType="HashMap">
+		SELECT PN.PLAN_ID
+			 , EV.EVENT_ID
+    		 , EV.WT_ALARM_ID
+		     , T.GERATOR_ID
+		     , T.GERATOR_NM
+		     , PN.PRJ_NM
+		     , PN.PLAN_NM_EN
+		     , SM_WORK.WORK_NM
+		     , SM_WORK.WORK_DETAIL
+		     , SM_WORK.WORK_WORKER
+		     , SM_WORK.WORK_FROM
+		     , SM_WORK.WORK_TO
+		     , SM_WORK.WORK_COST
+		     , SM_PART.PART_NM
+		     , SM_PART.PART_FROM
+		     , SM_PART.PART_TO
+		     , SM_TOOL.TOOL_NM
+		     , SM_TOOL.TOOL_FROM
+		     , SM_TOOL.TOOL_TO
+		     , SM_PPE.PPE_NM
+		     , SM_PPE.PPE_FROM
+		     , SM_PPE.PPE_TO
+		
+		FROM WT_PLN_MGMT PN
+		LEFT JOIN WT_EVNT_MGMT EV
+   			ON EV.EVENT_ID = PN.EVENT_ID
+		LEFT JOIN WT_GERATOR T
+		    ON T.GERATOR_ID = PN.GERATOR_ID
+		LEFT JOIN WT_GROUP G
+		    ON G.GROUP_ID = T.GROUP_ID
+		LEFT JOIN WT_FARM F
+		    ON F.FARM_ID = G.FARM_ID
+		LEFT JOIN (
+		    SELECT A.PLAN_ID
+		         <!-- , JSON_ARRAYAGG(A.ITEM_NM) AS WORK_NM
+		         , JSON_ARRAYAGG(A.WRK_CNT) AS WORK_DETAIL
+		         , JSON_ARRAYAGG(B.WORKER) AS WORK_WORKER
+		         , JSON_ARRAYAGG(DATE_FORMAT(CONVERT_TZ(A.START_PER_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T')) AS WORK_FROM
+		         , JSON_ARRAYAGG(DATE_FORMAT(CONVERT_TZ(A.END_PER_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T')) AS WORK_TO
+		         , JSON_ARRAYAGG(A.COST) AS WORK_COST -->
+		         , GROUP_CONCAT(A.ITEM_NM SEPARATOR ' | ') AS WORK_NM
+		         , GROUP_CONCAT(A.WRK_CNT SEPARATOR ' | ') AS WORK_DETAIL
+		         , GROUP_CONCAT(B.WORKER SEPARATOR ' | ') AS WORK_WORKER
+		         , GROUP_CONCAT(DATE_FORMAT(CONVERT_TZ(A.START_PER_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T')  SEPARATOR ' | ') AS WORK_FROM
+		         , GROUP_CONCAT(DATE_FORMAT(CONVERT_TZ(A.END_PER_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T')  SEPARATOR ' | ') AS WORK_TO
+		         , GROUP_CONCAT(A.COST SEPARATOR ' | ') AS WORK_COST
+		    FROM WT_SCHED_MGMT A
+		    LEFT JOIN (
+		        SELECT A.SCHED_ID
+		             <!-- , GROUP_CONCAT(UI.USER_NM SEPARATOR ',') AS WORKER -->
+		             , GROUP_CONCAT(UI.USER_NM SEPARATOR ' || ') AS WORKER
+		        FROM WT_SCHED_WORKER A
+		        LEFT JOIN TSST_USER U
+		            ON U.USER_UID = A.USER_UID
+		        LEFT JOIN TSST_USER_INFO UI
+		            ON UI.USER_ID = U.USER_ID
+		        GROUP BY A.SCHED_ID
+		    ) B
+		        ON B.SCHED_ID = A.SCHED_ID
+		    WHERE A.SCHED_TP = 'WORK'
+		    AND (
+		          DATE_FORMAT(A.START_PER_DT, '%Y-%m-%d')
+		          = DATE_FORMAT(NOW(), '%Y-%m-%d')
+		        OR
+		          DATE_FORMAT(A.END_PER_DT, '%Y-%m-%d')
+		          = DATE_FORMAT(NOW(), '%Y-%m-%d')
+		    )
+		    GROUP BY A.PLAN_ID
+		) SM_WORK
+		ON SM_WORK.PLAN_ID = PN.PLAN_ID
+		
+		LEFT JOIN (
+		    SELECT PLAN_ID
+		    	 
+		    	 <!-- , JSON_ARRAYAGG(ITEM_NM) AS PART_NM
+		         , JSON_ARRAYAGG(DATE_FORMAT(CONVERT_TZ(START_PER_DT, @@session.time_zone, #{TIMEZONE_OFFSET}), '%Y-%m-%d %T')) AS PART_FROM
+		         , JSON_ARRAYAGG(DATE_FORMAT(CONVERT_TZ(END_PER_DT, @@session.time_zone, #{TIMEZONE_OFFSET}), '%Y-%m-%d %T')) AS PART_TO -->
+		         
+		         , GROUP_CONCAT(ITEM_NM SEPARATOR ' | ') AS PART_NM
+		         , GROUP_CONCAT(DATE_FORMAT(CONVERT_TZ(START_PER_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T') SEPARATOR ' | ') AS PART_FROM
+		         , GROUP_CONCAT(DATE_FORMAT(CONVERT_TZ(END_PER_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T') SEPARATOR ' | ') AS PART_TO
+		    FROM WT_SCHED_MGMT
+		    WHERE SCHED_TP = 'PART'
+		    GROUP BY PLAN_ID
+		) SM_PART
+		ON SM_PART.PLAN_ID = PN.PLAN_ID
+		
+		LEFT JOIN (
+		    SELECT PLAN_ID
+		    	 <!-- , JSON_ARRAYAGG(ITEM_NM) AS TOOL_NM
+		         , JSON_ARRAYAGG(DATE_FORMAT(CONVERT_TZ(START_PER_DT, @@session.time_zone, #{TIMEZONE_OFFSET}), '%Y-%m-%d %T')) AS TOOL_FROM
+		         , JSON_ARRAYAGG(DATE_FORMAT(CONVERT_TZ(END_PER_DT, @@session.time_zone, #{TIMEZONE_OFFSET}), '%Y-%m-%d %T')) AS TOOL_TO -->
+		         , GROUP_CONCAT(ITEM_NM SEPARATOR ' | ') AS TOOL_NM
+		         , GROUP_CONCAT(DATE_FORMAT(CONVERT_TZ(START_PER_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T') SEPARATOR ' | ') AS TOOL_FROM
+		         , GROUP_CONCAT(DATE_FORMAT(CONVERT_TZ(END_PER_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T') SEPARATOR ' | ') AS TOOL_TO
+		    FROM WT_SCHED_MGMT
+		    WHERE SCHED_TP = 'TOOL'
+		    GROUP BY PLAN_ID
+		) SM_TOOL
+		ON SM_TOOL.PLAN_ID = PN.PLAN_ID
+		
+		LEFT JOIN (
+		    SELECT PLAN_ID
+		    	 <!-- , JSON_ARRAYAGG(ITEM_NM) AS PPE_NM
+		         , JSON_ARRAYAGG(DATE_FORMAT(CONVERT_TZ(START_PER_DT, @@session.time_zone, #{TIMEZONE_OFFSET}), '%Y-%m-%d %T')) AS PPE_FROM
+		         , JSON_ARRAYAGG(DATE_FORMAT(CONVERT_TZ(END_PER_DT, @@session.time_zone, #{TIMEZONE_OFFSET}), '%Y-%m-%d %T')) AS PPE_TO -->
+		         , GROUP_CONCAT(ITEM_NM SEPARATOR ' | ') AS PPE_NM
+		         , GROUP_CONCAT(DATE_FORMAT(CONVERT_TZ(START_PER_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T') SEPARATOR ' | ') AS PPE_FROM
+		         , GROUP_CONCAT(DATE_FORMAT(CONVERT_TZ(END_PER_DT, @@session.time_zone,  #{TIMEZONE_OFFSET}), '%Y-%m-%d %T') SEPARATOR ' | ') AS PPE_TO
+		    FROM WT_SCHED_MGMT
+		    WHERE SCHED_TP = 'PPE'
+		    GROUP BY PLAN_ID
+		) SM_PPE
+		ON SM_PPE.PLAN_ID = PN.PLAN_ID
+		WHERE (
+		    PN.START_DOWNTIME &lt;= NOW()
+		    AND PN.END_DOWNTIME &gt;= NOW()
+		)
+		AND PN.APL_YN = 'Y'
+		<if test="FARM_LIST.size() > 0">
+			AND (
+			<foreach collection="FARM_LIST" item="item" separator=" OR " open="" close="">
+				F.FARM_ID = #{item.ID}	
+			</foreach>
+			)
+		</if>
+		<if test="FARM_ID != null and FARM_ID != ''">
+			AND F.FARM_ID = "${FARM_ID}"
+		</if>
+		<if test="GROUP_ID != null and GROUP_ID != ''">
+			AND G.GROUP_ID = "${GROUP_ID}"
+		</if>
+		<if test="TURBINE_ID != null and TURBINE_ID != ''">
+			AND T.GERATOR_ID = "${TURBINE_ID}"
+		</if>
+	</select>
+	
+	<select id="getProduction" parameterType="map" resultType="HashMap">
+		SELECT SUM(TD.TD_GR_QTY) AS TD_GR_QTY
+		     , SUM(LY.LY_GR_QTY) AS LY_GR_QTY
+		     , SUM(TY.TY_GR_QTY) AS TY_GR_QTY
+		FROM WT_GERATOR T
+		LEFT JOIN WT_GROUP G
+		    ON G.GROUP_ID = T.GROUP_ID
+		LEFT JOIN WT_FARM F
+		    ON F.FARM_ID = G.FARM_ID
+		LEFT JOIN (
+		    SELECT GERATOR_ID
+		         , SUM(GR_QTY) AS TD_GR_QTY
+		    FROM WT_GERATOR_GENERATION
+		    WHERE START_TIME &gt;= #{FROM_TD}
+		    AND END_TIME &lt;= NOW()
+		    GROUP BY GERATOR_ID
+		) TD
+		    ON TD.GERATOR_ID = T.GERATOR_ID
+		LEFT JOIN (
+		    SELECT SUM(GR_QTY) AS LY_GR_QTY
+		         , GERATOR_ID
+		    FROM WT_GERATOR_OPRT_HIS
+		    WHERE (
+		        START_TIME &gt;= #{FROM_LY}
+		        AND START_TIME &lt;= #{TO_LY}
+		    )
+		    GROUP BY GERATOR_ID
+		) LY
+		    ON LY.GERATOR_ID = T.GERATOR_ID
+		LEFT JOIN (
+		    SELECT SUM(GR_QTY) AS TY_GR_QTY
+		         , GERATOR_ID
+		    FROM WT_GERATOR_OPRT_HIS
+		    WHERE (
+		        START_TIME &gt;= #{FROM_TY}
+		        AND START_TIME &lt;= #{TO_TY}
+		    )
+		    GROUP BY GERATOR_ID
+		) TY
+		    ON TY.GERATOR_ID = T.GERATOR_ID
+		<where>
+			<if test="FARM_LIST.size() > 0">
+				AND (
+				<foreach collection="FARM_LIST" item="item" separator=" OR " open="" close="">
+					F.FARM_ID = #{item.ID}	
+				</foreach>
+				)
+			</if>
+			<if test="FARM_ID != null and FARM_ID != ''">
+				AND F.FARM_ID = "${FARM_ID}"
+			</if>
+			<if test="GROUP_ID != null and GROUP_ID != ''">
+				AND G.GROUP_ID = "${GROUP_ID}"
+			</if>
+			<if test="TURBINE_ID != null and TURBINE_ID != ''">
+				AND T.GERATOR_ID = "${TURBINE_ID}"
+			</if>
+		</where>
+		AND CHECK_PERMISSION_GERATOR(#{USER_UID}, T.GERATOR_ID)
+	</select>
+</mapper>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+    <div id="container" style="width: 100%; height: 800px;"></div>
+    <input type="text" placeholder="Name" id="name">
+    <input type="text" placeholder="Max" id="max">
+    <input type="text" placeholder="Min" id="min">
+    <button id="add">add</button>
+</body>
+
+<script src="../js/moment.min.js"></script>
+<script src="../js/moment-timezone.min.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js_custom/util.js"></script>
+
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/drag-panes.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/export-data.js"></script> 
+
+
+
+
+<script>
+    
+    var series_config = [
+        {
+            type: 'spline',
+            name: 'test1',
+            max: 10,
+            min: 5,
+            yAxis: 0,
+            decimal: 2,
+        },
+        {
+            type: 'spline',
+            name: 'test2', 
+            max: 15,
+            min: 10,
+            yAxis: 1,
+            decimal: 2,
+        },
+    ];
+    
+    $(document).ready(function() {
+        
+        
+        var arr = createDateArray('2020-05-01', '2020-05-25', 'Asia/Seoul', 'day', 1);
+    
+        var series = createInitData.multiple_trend_chart(arr, series_config);
+        
+        console.log(series);
+        
+        var options = chart_option.multiple_trend_chart(series);
+
+        
+        //chart = $('#container').highcharts('StockChart', options); 
+        //chart = $('#container').highcharts('chart', options); 
+        chart = Highcharts.chart('container', options);
+        //chart = Highcharts.stockChart('container', options);
+        drawChartAfter();
+        
+            
+        $('#add').click(function(){
+            var chart = Highcharts.charts[0];
+            
+            var name = $('#name').val();
+            var max = $('#max').val();
+            var min = $('#min').val();
+            
+            console.log(chart.options);
+            
+            var series_config = [{
+                type: 'spline',
+                name: name, 
+                max: parseInt(max),
+                min: parseInt(min),
+                yAxis: chart.options.series.length,
+                decimal: 2,
+            }];
+                
+            console.log(series_config);
+                
+            
+            
+            var arr = createDateArray('2020-05-01', '2020-05-25', 'Asia/Seoul', 'day', 1);
+            var series = createInitData.multiple_trend_chart(arr, series_config); 
+            
+            var newSeries = chart.options.series.concat(series);
+            
+            
+            var yAxis = chart.options.yAxis;
+            console.log(yAxis);
+            
+            
+            var newYAxis = newSeries.map(function(x, i) {
+           
+                var height = parseInt(100 / newSeries.length);
+                var top = i * height;
+
+
+                var yAxis = {
+                    opposite: false,            // 축 위치, true일 경우 오른쪽 
+                    labels: {
+                        align: 'right',
+                        //x: -3
+                    },
+                    title: {
+                        text: x.name
+                    },
+                    offset: 0,
+                    resize: {
+                        enabled: true
+                    },
+                    top: top + '%',                 //top에서 떨어트리는 간격 
+                    height: height + '%',
+
+                }
+                return yAxis;
+            });
+            
+            //Highcharts.charts[0].addSeries(newSeries);
+            
+            
+            //chart.addAxis(newYAxis[2]);
+            //chart.addSesries(newSeries[2]);
+            
+            //chart.yAxis = newYAxis;
+            //chart.series = [];
+            
+            chart.update({ yAxis: newYAxis });
+            chart.update({ series: newSeries });
+//            chart.options.yAxis.push();
+//            chart.options.series.update();
+            
+//            chart.options.yAxis.update(newYAxis);
+//            chart.options.series.update(newSeries);
+            
+//            chart.yAxis.setExtreams({yAxis: newYAxis});
+//            chart.options.setExtreams({series: newSeries});
+            
+//            chart.options.update({yAxis: newYAxis});
+//            chart.options.update({series: newSeries});
+            
+            
+            
+            console.log(Highcharts.charts[0]);
+            
+            
+        });
+        
+        
+    });
+    
+
+    
+</script>
+
+
+
+
+
+</html>
