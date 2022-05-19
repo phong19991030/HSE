@@ -176,11 +176,10 @@ public class Hea_0001Controller extends BaseController{
 		return mav;
 	}
 	
-	@RequestMapping("/popupData/{TYPE}.ajax")
-	public ModelAndView getPopupData(ModelAndView mav, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("TYPE") String TYPE) throws Exception {
+	@RequestMapping("/popupData/COMPANY.ajax")
+	public ModelAndView getPopupData(ModelAndView mav, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> parameter = ParameterUtil.getParameterMap(request);
-		
+		String TYPE = "COMPANY";
 		List data = new ArrayList<Map>();
 		switch(TYPE) {
 			case "COMPANY":
